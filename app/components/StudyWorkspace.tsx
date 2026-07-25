@@ -17,11 +17,20 @@ import {
 } from "@/app/data/catalog";
 
 type SubjectQuestion = StudyQuestion & { subject: SubjectId };
-type PracticeProgress = { completed: string[]; bookmarks: string[] };
-type TypeFilter = "all" | "choice" | "answer";
+type AttemptRecord = {
+  selectedOption: string | null;
+  correct: boolean | null;
+  answeredAt: string;
+};
+type PracticeProgress = {
+  completed: string[];
+  bookmarks: string[];
+  attempts: Record<string, AttemptRecord>;
+};
+type TypeFilter = "all" | "choice" | "answer" | "wrong";
 
 const STORAGE_KEY = "yanshua-408-progress-v1";
-const EMPTY_PROGRESS: PracticeProgress = { completed: [], bookmarks: [] };
+const EMPTY_PROGRESS: PracticeProgress = { completed: [], bookmarks: [], attempts: {} };
 const PAGE_SIZE = 8;
 const osQuestions: SubjectQuestion[] = questionSeeds.map((question) => ({ ...question, subject: "os" }));
 const allQuestions: SubjectQuestion[] = [
@@ -103,11 +112,12 @@ function HomePage({ progress }: { progress: PracticeProgress }) {
 function SubjectQuestionCard({ question, progress }: { question: SubjectQuestion; progress: PracticeProgress }) {
   const done = progress.completed.includes(question.id);
   const saved = progress.bookmarks.includes(question.id);
+  const attempt = progress.attempts[question.id];
   return (
     <Link href={`/question/${question.id}`} className="subject-question-card">
       <div className="card-meta">
         <span>{question.year || "专项"} · {questionTypeLabel(question)}</span>
-        <span>{saved ? "◆" : done ? "✓" : ""}</span>
+        <span>{saved ? "◆ " : ""}{attempt ? (attempt.correct === false ? "答错" : attempt.correct === true ? "答对" : "已作答") : done ? "✓" : ""}</span>
       </div>
       <h3>{question.prompt}</h3>
       <div className="card-bottom"><span>{question.tags.slice(0, 2).join(" · ") || question.section}</span><b>作答 →</b></div>
@@ -124,11 +134,11 @@ function SubjectPage({ subjectId, progress }: { subjectId: SubjectId; progress: 
   const filteredQuestions = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     return subjectQuestions.filter((question) => {
-      const typeMatch = typeFilter === "all" || question.questionType === typeFilter;
+      const typeMatch = typeFilter === "all" || (typeFilter === "wrong" ? progress.attempts[question.id]?.correct === false : question.questionType === typeFilter);
       const queryMatch = !normalized || (question.prompt + question.title + question.tags.join(" ") + question.year).toLowerCase().includes(normalized);
       return typeMatch && queryMatch;
     });
-  }, [query, subjectQuestions, typeFilter]);
+  }, [progress.attempts, query, subjectQuestions, typeFilter]);
   const totalPages = Math.max(1, Math.ceil(filteredQuestions.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
   const pageQuestions = filteredQuestions.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
@@ -162,6 +172,7 @@ function SubjectPage({ subjectId, progress }: { subjectId: SubjectId; progress: 
                 <button className={typeFilter === "all" ? "active" : ""} onClick={() => setFilter("all")}>全部</button>
                 <button className={typeFilter === "choice" ? "active" : ""} onClick={() => setFilter("choice")}>选择题</button>
                 <button className={typeFilter === "answer" ? "active" : ""} onClick={() => setFilter("answer")}>解答题</button>
+                <button className={typeFilter === "wrong" ? "active" : ""} onClick={() => setFilter("wrong")}>错题</button>
               </div>
               <label className="compact-search"><span>⌕</span><input value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); }} placeholder="搜索题目" /></label>
             </div>
@@ -218,9 +229,29 @@ function QuestionPage({
   const correctOption = question.answer.match(/[A-D]/)?.[0] || null;
   const completed = progress.completed.includes(question.id);
   const bookmarked = progress.bookmarks.includes(question.id);
+  const savedAttempt = progress.attempts[question.id];
   const save = (value: PracticeProgress) => updateProgress(value);
   const toggleCompleted = () => save({ ...progress, completed: completed ? progress.completed.filter((id) => id !== question.id) : [...progress.completed, question.id] });
   const toggleBookmark = () => save({ ...progress, bookmarks: bookmarked ? progress.bookmarks.filter((id) => id !== question.id) : [...progress.bookmarks, question.id] });
+
+  useEffect(() => {
+    setSelectedOption(savedAttempt?.selectedOption ?? null);
+    setRevealed(Boolean(savedAttempt));
+  }, [question.id, savedAttempt?.answeredAt, savedAttempt?.selectedOption]);
+
+  const submitAnswer = () => {
+    const correct = correctOption && selectedOption ? correctOption === selectedOption : null;
+    const completedIds = progress.completed.includes(question.id) ? progress.completed : [...progress.completed, question.id];
+    save({
+      ...progress,
+      completed: completedIds,
+      attempts: {
+        ...progress.attempts,
+        [question.id]: { selectedOption, correct, answeredAt: new Date().toISOString() },
+      },
+    });
+    setRevealed(true);
+  };
 
   return (
     <div className="viewport-app question-viewport">
@@ -258,11 +289,11 @@ function QuestionPage({
               <div className="answer-placeholder">
                 <span>完成作答后查看解析</span>
                 <strong>{question.options.length ? "选择一个答案" : "先在纸上完成解答"}</strong>
-                <button disabled={Boolean(question.options.length) && !selectedOption} onClick={() => setRevealed(true)}>{question.options.length ? "提交并查看解析" : "查看参考解析"}</button>
+                <button disabled={Boolean(question.options.length) && !selectedOption} onClick={submitAnswer}>{question.options.length ? "提交并查看解析" : "查看参考解析"}</button>
               </div>
             ) : (
               <div className="answer-reveal-panel">
-                <div className="answer-reveal-head"><span>参考答案</span><strong>{question.answer || "解题思路"}</strong></div>
+                <div className="answer-reveal-head"><span>参考答案{savedAttempt ? ` · ${new Date(savedAttempt.answeredAt).toLocaleString("zh-CN", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })}` : ""}</span><strong>{question.answer || "解题思路"}</strong></div>
                 <div className="answer-scroll"><p>{question.solution || "这道题暂未录入解析，请结合知识点自行复盘。"}</p><KnowledgeLinks question={question} /></div>
               </div>
             )}
@@ -280,7 +311,9 @@ export function StudyWorkspace({ initialQuestionId, initialSubjectId }: { initia
   useEffect(() => {
     try {
       const saved = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || "null") as PracticeProgress | null;
-      if (saved && Array.isArray(saved.completed) && Array.isArray(saved.bookmarks)) setProgress(saved);
+      if (saved && Array.isArray(saved.completed) && Array.isArray(saved.bookmarks)) {
+        setProgress({ ...saved, attempts: saved.attempts && typeof saved.attempts === "object" ? saved.attempts : {} });
+      }
     } catch { window.localStorage.removeItem(STORAGE_KEY); }
   }, []);
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "408 交互知识可视化"
+  short_description: "把 408 知识页改造成保留源码的交互式 HTML 可视化"
+  default_prompt: "使用 $build-408-interactive-knowledge-visuals 审计并改造本地 408 知识页：保留 Markdown 与 LaTeX 源码，用克制、美观、可访问的 HTML/React 交互解释关键机制，并完成本地验收。"

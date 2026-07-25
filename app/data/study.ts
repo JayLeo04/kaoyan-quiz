@@ -22,6 +22,7 @@ export type StudyQuestion = {
   number: string;
   title: string;
   prompt: string;
+  promptHtml?: string;
   status: "真题" | "自录题";
   tags: string[];
   knowledgeIds: string[];
@@ -29,9 +30,10 @@ export type StudyQuestion = {
   questionNumber: number | null;
   questionType: "choice" | "answer" | "custom";
   section: string;
-  options: { label: string; text: string }[];
+  options: { label: string; text: string; html?: string }[];
   answer: string;
   solution: string;
+  solutionHtml?: string;
   sourceUrl: string;
   sourceNote: string;
   images: string[];

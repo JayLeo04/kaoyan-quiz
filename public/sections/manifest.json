@@ -1,0 +1,636 @@
+{
+  "source_pages": 570,
+  "overlap_pages": 1,
+  "sections": [
+    {
+      "id": "os-1-1",
+      "title": "1.1　简约不简单：从Hello World说起",
+      "core_start": 28,
+      "core_end": 28,
+      "slice_start": 27,
+      "slice_end": 29,
+      "file": "os-1-1-p027-029.pdf"
+    },
+    {
+      "id": "os-1-2",
+      "title": "1.2　什么是操作系统",
+      "core_start": 29,
+      "core_end": 30,
+      "slice_start": 28,
+      "slice_end": 31,
+      "file": "os-1-2-p028-031.pdf"
+    },
+    {
+      "id": "os-1-3",
+      "title": "1.3　操作系统简史",
+      "core_start": 31,
+      "core_end": 35,
+      "slice_start": 30,
+      "slice_end": 36,
+      "file": "os-1-3-p030-036.pdf"
+    },
+    {
+      "id": "os-1-4",
+      "title": "1.4　操作系统接口",
+      "core_start": 36,
+      "core_end": 37,
+      "slice_start": 35,
+      "slice_end": 38,
+      "file": "os-1-4-p035-038.pdf"
+    },
+    {
+      "id": "os-2-1",
+      "title": "2.1　操作系统的机制与策略",
+      "core_start": 40,
+      "core_end": 40,
+      "slice_start": 39,
+      "slice_end": 41,
+      "file": "os-2-1-p039-041.pdf"
+    },
+    {
+      "id": "os-2-2",
+      "title": "2.2　操作系统复杂性的管理方法",
+      "core_start": 41,
+      "core_end": 42,
+      "slice_start": 40,
+      "slice_end": 43,
+      "file": "os-2-2-p040-043.pdf"
+    },
+    {
+      "id": "os-2-3",
+      "title": "2.3　操作系统内核架构",
+      "core_start": 43,
+      "core_end": 51,
+      "slice_start": 42,
+      "slice_end": 52,
+      "file": "os-2-3-p042-052.pdf"
+    },
+    {
+      "id": "os-2-4",
+      "title": "2.4　操作系统框架结构",
+      "core_start": 52,
+      "core_end": 54,
+      "slice_start": 51,
+      "slice_end": 55,
+      "file": "os-2-4-p051-055.pdf"
+    },
+    {
+      "id": "os-2-5",
+      "title": "2.5　操作系统设计：Worse is better？",
+      "core_start": 55,
+      "core_end": 56,
+      "slice_start": 54,
+      "slice_end": 57,
+      "file": "os-2-5-p054-057.pdf"
+    },
+    {
+      "id": "os-2-6",
+      "title": "2.6　ChCore：教学科研型微内核操作系统",
+      "core_start": 57,
+      "core_end": 57,
+      "slice_start": 56,
+      "slice_end": 58,
+      "file": "os-2-6-p056-058.pdf"
+    },
+    {
+      "id": "os-3-1",
+      "title": "3.1　应用程序的硬件运行环境",
+      "core_start": 61,
+      "core_end": 79,
+      "slice_start": 60,
+      "slice_end": 80,
+      "file": "os-3-1-p060-080.pdf"
+    },
+    {
+      "id": "os-3-2",
+      "title": "3.2　操作系统的硬件运行环境",
+      "core_start": 80,
+      "core_end": 92,
+      "slice_start": 79,
+      "slice_end": 93,
+      "file": "os-3-2-p079-093.pdf"
+    },
+    {
+      "id": "os-3-3",
+      "title": "3.3　操作系统提供的基本抽象与接口",
+      "core_start": 93,
+      "core_end": 105,
+      "slice_start": 92,
+      "slice_end": 106,
+      "file": "os-3-3-p092-106.pdf"
+    },
+    {
+      "id": "os-4-1",
+      "title": "4.1　CPU的职责：内存地址翻译",
+      "core_start": 110,
+      "core_end": 121,
+      "slice_start": 109,
+      "slice_end": 122,
+      "file": "os-4-1-p109-122.pdf"
+    },
+    {
+      "id": "os-4-2",
+      "title": "4.2　操作系统的职责：管理页表映射",
+      "core_start": 122,
+      "core_end": 137,
+      "slice_start": 121,
+      "slice_end": 138,
+      "file": "os-4-2-p121-138.pdf"
+    },
+    {
+      "id": "os-4-3",
+      "title": "4.3　案例分析：ChCore虚拟内存管理",
+      "core_start": 138,
+      "core_end": 143,
+      "slice_start": 137,
+      "slice_end": 144,
+      "file": "os-4-3-p137-144.pdf"
+    },
+    {
+      "id": "os-5-1",
+      "title": "5.1　操作系统的职责：管理物理内存资源",
+      "core_start": 148,
+      "core_end": 159,
+      "slice_start": 147,
+      "slice_end": 160,
+      "file": "os-5-1-p147-160.pdf"
+    },
+    {
+      "id": "os-5-2",
+      "title": "5.2　操作系统如何获得更多物理内存资源",
+      "core_start": 160,
+      "core_end": 168,
+      "slice_start": 159,
+      "slice_end": 169,
+      "file": "os-5-2-p159-169.pdf"
+    },
+    {
+      "id": "os-5-3",
+      "title": "5.3　性能导向的内存分配扩展机制",
+      "core_start": 169,
+      "core_end": 176,
+      "slice_start": 168,
+      "slice_end": 177,
+      "file": "os-5-3-p168-177.pdf"
+    },
+    {
+      "id": "os-6-1",
+      "title": "6.1　进程的内部表示与管理接口",
+      "core_start": 180,
+      "core_end": 194,
+      "slice_start": 179,
+      "slice_end": 195,
+      "file": "os-6-1-p179-195.pdf"
+    },
+    {
+      "id": "os-6-2",
+      "title": "6.2　案例分析：ChCore微内核的进程管理",
+      "core_start": 195,
+      "core_end": 197,
+      "slice_start": 194,
+      "slice_end": 198,
+      "file": "os-6-2-p194-198.pdf"
+    },
+    {
+      "id": "os-6-3",
+      "title": "6.3　案例分析：Linux的进程创建",
+      "core_start": 198,
+      "core_end": 204,
+      "slice_start": 197,
+      "slice_end": 205,
+      "file": "os-6-3-p197-205.pdf"
+    },
+    {
+      "id": "os-6-4",
+      "title": "6.4　进程切换",
+      "core_start": 205,
+      "core_end": 216,
+      "slice_start": 204,
+      "slice_end": 217,
+      "file": "os-6-4-p204-217.pdf"
+    },
+    {
+      "id": "os-6-5",
+      "title": "6.5　线程及其实现",
+      "core_start": 217,
+      "core_end": 227,
+      "slice_start": 216,
+      "slice_end": 228,
+      "file": "os-6-5-p216-228.pdf"
+    },
+    {
+      "id": "os-6-6",
+      "title": "6.6　纤程",
+      "core_start": 228,
+      "core_end": 234,
+      "slice_start": 227,
+      "slice_end": 235,
+      "file": "os-6-6-p227-235.pdf"
+    },
+    {
+      "id": "os-7-1",
+      "title": "7.1　处理器调度机制",
+      "core_start": 236,
+      "core_end": 239,
+      "slice_start": 235,
+      "slice_end": 240,
+      "file": "os-7-1-p235-240.pdf"
+    },
+    {
+      "id": "os-7-2",
+      "title": "7.2　处理器调度指标",
+      "core_start": 240,
+      "core_end": 241,
+      "slice_start": 239,
+      "slice_end": 242,
+      "file": "os-7-2-p239-242.pdf"
+    },
+    {
+      "id": "os-7-3",
+      "title": "7.3　经典调度策略",
+      "core_start": 242,
+      "core_end": 247,
+      "slice_start": 241,
+      "slice_end": 248,
+      "file": "os-7-3-p241-248.pdf"
+    },
+    {
+      "id": "os-7-4",
+      "title": "7.4　优先级调度策略",
+      "core_start": 248,
+      "core_end": 254,
+      "slice_start": 247,
+      "slice_end": 255,
+      "file": "os-7-4-p247-255.pdf"
+    },
+    {
+      "id": "os-7-5",
+      "title": "7.5　公平共享调度策略",
+      "core_start": 255,
+      "core_end": 261,
+      "slice_start": 254,
+      "slice_end": 262,
+      "file": "os-7-5-p254-262.pdf"
+    },
+    {
+      "id": "os-7-6",
+      "title": "7.6　多核处理器调度机制",
+      "core_start": 262,
+      "core_end": 264,
+      "slice_start": 261,
+      "slice_end": 265,
+      "file": "os-7-6-p261-265.pdf"
+    },
+    {
+      "id": "os-7-7",
+      "title": "7.7　案例分析：Linux调度器",
+      "core_start": 265,
+      "core_end": 271,
+      "slice_start": 264,
+      "slice_end": 272,
+      "file": "os-7-7-p264-272.pdf"
+    },
+    {
+      "id": "os-8-1",
+      "title": "8.1　进程间通信基础",
+      "core_start": 276,
+      "core_end": 289,
+      "slice_start": 275,
+      "slice_end": 290,
+      "file": "os-8-1-p275-290.pdf"
+    },
+    {
+      "id": "os-8-2",
+      "title": "8.2　文件接口IPC：管道",
+      "core_start": 290,
+      "core_end": 295,
+      "slice_start": 289,
+      "slice_end": 296,
+      "file": "os-8-2-p289-296.pdf"
+    },
+    {
+      "id": "os-8-3",
+      "title": "8.3　内存接口IPC：共享内存",
+      "core_start": 296,
+      "core_end": 298,
+      "slice_start": 295,
+      "slice_end": 299,
+      "file": "os-8-3-p295-299.pdf"
+    },
+    {
+      "id": "os-8-4",
+      "title": "8.4　消息接口IPC：消息队列",
+      "core_start": 299,
+      "core_end": 300,
+      "slice_start": 298,
+      "slice_end": 301,
+      "file": "os-8-4-p298-301.pdf"
+    },
+    {
+      "id": "os-8-5",
+      "title": "8.5　案例分析：L4微内核的IPC优化",
+      "core_start": 301,
+      "core_end": 305,
+      "slice_start": 300,
+      "slice_end": 306,
+      "file": "os-8-5-p300-306.pdf"
+    },
+    {
+      "id": "os-8-6",
+      "title": "8.6　案例分析：LRPC的迁移线程模型",
+      "core_start": 306,
+      "core_end": 308,
+      "slice_start": 305,
+      "slice_end": 309,
+      "file": "os-8-6-p305-309.pdf"
+    },
+    {
+      "id": "os-8-7",
+      "title": "8.7　案例分析：ChCore进程间通信机制",
+      "core_start": 309,
+      "core_end": 310,
+      "slice_start": 308,
+      "slice_end": 311,
+      "file": "os-8-7-p308-311.pdf"
+    },
+    {
+      "id": "os-8-8",
+      "title": "8.8　案例分析：Binder IPC",
+      "core_start": 311,
+      "core_end": 316,
+      "slice_start": 310,
+      "slice_end": 317,
+      "file": "os-8-8-p310-317.pdf"
+    },
+    {
+      "id": "os-9-1",
+      "title": "9.1　同步场景",
+      "core_start": 321,
+      "core_end": 324,
+      "slice_start": 320,
+      "slice_end": 325,
+      "file": "os-9-1-p320-325.pdf"
+    },
+    {
+      "id": "os-9-2",
+      "title": "9.2　同步原语",
+      "core_start": 325,
+      "core_end": 343,
+      "slice_start": 324,
+      "slice_end": 344,
+      "file": "os-9-2-p324-344.pdf"
+    },
+    {
+      "id": "os-9-3",
+      "title": "9.3　死锁",
+      "core_start": 344,
+      "core_end": 351,
+      "slice_start": 343,
+      "slice_end": 352,
+      "file": "os-9-3-p343-352.pdf"
+    },
+    {
+      "id": "os-9-4",
+      "title": "9.4　活锁",
+      "core_start": 352,
+      "core_end": 352,
+      "slice_start": 351,
+      "slice_end": 353,
+      "file": "os-9-4-p351-353.pdf"
+    },
+    {
+      "id": "os-10-1",
+      "title": "10.1　互斥锁的实现",
+      "core_start": 362,
+      "core_end": 377,
+      "slice_start": 361,
+      "slice_end": 378,
+      "file": "os-10-1-p361-378.pdf"
+    },
+    {
+      "id": "os-10-4",
+      "title": "10.4　读写锁的实现",
+      "core_start": 378,
+      "core_end": 381,
+      "slice_start": 377,
+      "slice_end": 382,
+      "file": "os-10-4-p377-382.pdf"
+    },
+    {
+      "id": "os-10-5",
+      "title": "10.5　案例分析：Linux中的futex",
+      "core_start": 382,
+      "core_end": 385,
+      "slice_start": 381,
+      "slice_end": 386,
+      "file": "os-10-5-p381-386.pdf"
+    },
+    {
+      "id": "os-10-6",
+      "title": "10.6　案例分析：微内核中的同步原语",
+      "core_start": 386,
+      "core_end": 386,
+      "slice_start": 385,
+      "slice_end": 387,
+      "file": "os-10-6-p385-387.pdf"
+    },
+    {
+      "id": "os-11-1",
+      "title": "11.1　基于inode的文件系统",
+      "core_start": 393,
+      "core_end": 407,
+      "slice_start": 392,
+      "slice_end": 408,
+      "file": "os-11-1-p392-408.pdf"
+    },
+    {
+      "id": "os-11-2",
+      "title": "11.2　基于表的文件系统",
+      "core_start": 408,
+      "core_end": 417,
+      "slice_start": 407,
+      "slice_end": 418,
+      "file": "os-11-2-p407-418.pdf"
+    },
+    {
+      "id": "os-11-3",
+      "title": "11.3　虚拟文件系统",
+      "core_start": 418,
+      "core_end": 427,
+      "slice_start": 417,
+      "slice_end": 428,
+      "file": "os-11-3-p417-428.pdf"
+    },
+    {
+      "id": "os-11-4",
+      "title": "11.4　VFS与缓存",
+      "core_start": 428,
+      "core_end": 430,
+      "slice_start": 427,
+      "slice_end": 431,
+      "file": "os-11-4-p427-431.pdf"
+    },
+    {
+      "id": "os-11-5",
+      "title": "11.5　用户态文件系统",
+      "core_start": 431,
+      "core_end": 435,
+      "slice_start": 430,
+      "slice_end": 436,
+      "file": "os-11-5-p430-436.pdf"
+    },
+    {
+      "id": "os-12-1",
+      "title": "12.1　崩溃一致性",
+      "core_start": 441,
+      "core_end": 442,
+      "slice_start": 440,
+      "slice_end": 443,
+      "file": "os-12-1-p440-443.pdf"
+    },
+    {
+      "id": "os-12-2",
+      "title": "12.2　同步写入与文件系统一致性检查",
+      "core_start": 443,
+      "core_end": 446,
+      "slice_start": 442,
+      "slice_end": 447,
+      "file": "os-12-2-p442-447.pdf"
+    },
+    {
+      "id": "os-12-3",
+      "title": "12.3　原子更新技术：日志",
+      "core_start": 447,
+      "core_end": 452,
+      "slice_start": 446,
+      "slice_end": 453,
+      "file": "os-12-3-p446-453.pdf"
+    },
+    {
+      "id": "os-12-4",
+      "title": "12.4　原子更新技术：写时拷贝",
+      "core_start": 453,
+      "core_end": 456,
+      "slice_start": 452,
+      "slice_end": 457,
+      "file": "os-12-4-p452-457.pdf"
+    },
+    {
+      "id": "os-12-5",
+      "title": "12.5　Soft updates",
+      "core_start": 457,
+      "core_end": 463,
+      "slice_start": 456,
+      "slice_end": 464,
+      "file": "os-12-5-p456-464.pdf"
+    },
+    {
+      "id": "os-12-6",
+      "title": "12.6　案例分析：日志结构文件系统",
+      "core_start": 464,
+      "core_end": 471,
+      "slice_start": 463,
+      "slice_end": 472,
+      "file": "os-12-6-p463-472.pdf"
+    },
+    {
+      "id": "os-13-1",
+      "title": "13.1　硬件设备基础",
+      "core_start": 476,
+      "core_end": 482,
+      "slice_start": 475,
+      "slice_end": 483,
+      "file": "os-13-1-p475-483.pdf"
+    },
+    {
+      "id": "os-13-2",
+      "title": "13.2　设备发现与交互",
+      "core_start": 483,
+      "core_end": 500,
+      "slice_start": 482,
+      "slice_end": 501,
+      "file": "os-13-2-p482-501.pdf"
+    },
+    {
+      "id": "os-13-3",
+      "title": "13.3　设备管理的共性功能",
+      "core_start": 501,
+      "core_end": 509,
+      "slice_start": 500,
+      "slice_end": 510,
+      "file": "os-13-3-p500-510.pdf"
+    },
+    {
+      "id": "os-13-4",
+      "title": "13.4　应用I/O框架",
+      "core_start": 510,
+      "core_end": 513,
+      "slice_start": 509,
+      "slice_end": 514,
+      "file": "os-13-4-p509-514.pdf"
+    },
+    {
+      "id": "os-13-5",
+      "title": "13.5　案例分析：Android操作系统的硬件抽象层",
+      "core_start": 514,
+      "core_end": 515,
+      "slice_start": 513,
+      "slice_end": 516,
+      "file": "os-13-5-p513-516.pdf"
+    },
+    {
+      "id": "os-14-1",
+      "title": "14.1　系统虚拟化技术概述",
+      "core_start": 520,
+      "core_end": 521,
+      "slice_start": 519,
+      "slice_end": 522,
+      "file": "os-14-1-p519-522.pdf"
+    },
+    {
+      "id": "os-14-2",
+      "title": "14.2　“下陷-模拟”方法",
+      "core_start": 522,
+      "core_end": 538,
+      "slice_start": 521,
+      "slice_end": 539,
+      "file": "os-14-2-p521-539.pdf"
+    },
+    {
+      "id": "os-14-4",
+      "title": "14.4　内存虚拟化",
+      "core_start": 539,
+      "core_end": 548,
+      "slice_start": 538,
+      "slice_end": 549,
+      "file": "os-14-4-p538-549.pdf"
+    },
+    {
+      "id": "os-14-5",
+      "title": "14.5　I/O虚拟化",
+      "core_start": 549,
+      "core_end": 557,
+      "slice_start": 548,
+      "slice_end": 558,
+      "file": "os-14-5-p548-558.pdf"
+    },
+    {
+      "id": "os-14-6",
+      "title": "14.6　中断虚拟化",
+      "core_start": 558,
+      "core_end": 559,
+      "slice_start": 557,
+      "slice_end": 560,
+      "file": "os-14-6-p557-560.pdf"
+    },
+    {
+      "id": "os-14-7",
+      "title": "14.7　案例分析：QEMU/KVM",
+      "core_start": 560,
+      "core_end": 564,
+      "slice_start": 559,
+      "slice_end": 565,
+      "file": "os-14-7-p559-565.pdf"
+    }
+  ]
+}

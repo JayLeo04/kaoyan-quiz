@@ -29,12 +29,19 @@ test("renders the 408 practice workspace", async () => {
   assert.match(html, /408/);
   assert.match(html, /四科题库/);
   assert.match(html, /选择科目，进入题库/);
+  assert.match(html, /登录 \/ 注册/);
   assert.match(html, /数据结构/);
   assert.match(html, /计算机组成原理/);
   assert.match(html, /216/);
   assert.match(html, /计算机网络/);
   assert.doesNotMatch(html, /刷到会/);
   assert.doesNotMatch(html, /Your site is taking shape|Building your site|react-loading-skeleton/);
+});
+
+test("protects account progress for signed-out visitors", async () => {
+  const response = await render("/api/progress");
+  assert.equal(response.status, 401);
+  assert.deepEqual(await response.json(), { error: "请先登录" });
 });
 
 test("renders a paginated subject library", async () => {

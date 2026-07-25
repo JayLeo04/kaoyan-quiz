@@ -28,6 +28,12 @@ type PracticeProgress = {
   attempts: Record<string, AttemptRecord>;
 };
 type TypeFilter = "all" | "choice" | "answer" | "wrong";
+type SignedInUser = { displayName: string; email: string };
+type AuthView = {
+  user: SignedInUser | null;
+  signInPath: string;
+  signOutPath: string;
+};
 
 const STORAGE_KEY = "yanshua-408-progress-v1";
 const EMPTY_PROGRESS: PracticeProgress = { completed: [], bookmarks: [], attempts: {} };
@@ -50,7 +56,28 @@ function pointsFor(question: StudyQuestion) {
     .filter((point): point is NonNullable<typeof point> => Boolean(point));
 }
 
-function AppHeader({ progress }: { progress: PracticeProgress }) {
+function mergeProgress(local: PracticeProgress, remote: PracticeProgress): PracticeProgress {
+  const attempts = { ...local.attempts };
+  for (const [id, remoteAttempt] of Object.entries(remote.attempts)) {
+    const localAttempt = attempts[id];
+    if (!localAttempt || remoteAttempt.answeredAt > localAttempt.answeredAt) attempts[id] = remoteAttempt;
+  }
+  return {
+    completed: Array.from(new Set([...local.completed, ...remote.completed])),
+    bookmarks: Array.from(new Set([...local.bookmarks, ...remote.bookmarks])),
+    attempts,
+  };
+}
+
+function normalizeProgress(value: Partial<PracticeProgress> | null | undefined): PracticeProgress {
+  return {
+    completed: Array.isArray(value?.completed) ? value.completed.filter((item): item is string => typeof item === "string") : [],
+    bookmarks: Array.isArray(value?.bookmarks) ? value.bookmarks.filter((item): item is string => typeof item === "string") : [],
+    attempts: value?.attempts && typeof value.attempts === "object" ? value.attempts : {},
+  };
+}
+
+function AppHeader({ progress, auth }: { progress: PracticeProgress; auth: AuthView }) {
   return (
     <header className="app-header">
       <div className="app-header-inner">
@@ -61,17 +88,20 @@ function AppHeader({ progress }: { progress: PracticeProgress }) {
         <nav aria-label="科目导航">
           {subjectCatalog.map((subject) => <Link key={subject.id} href={`/subject/${subject.id}`}>{subject.shortName}</Link>)}
         </nav>
-        <div className="header-progress"><span>已完成</span><b>{progress.completed.length}</b><span>题</span></div>
+        <div className="header-account">
+          <div className="header-progress"><span>已完成</span><b>{progress.completed.length}</b><span>题</span></div>
+          {auth.user ? <div className="signed-in-user"><span>{auth.user.displayName}</span><a href={auth.signOutPath}>退出</a></div> : <a className="sign-in-link" href={auth.signInPath}>登录 / 注册</a>}
+        </div>
       </div>
     </header>
   );
 }
 
-function HomePage({ progress }: { progress: PracticeProgress }) {
+function HomePage({ progress, auth }: { progress: PracticeProgress; auth: AuthView }) {
   const completedSet = new Set(progress.completed);
   return (
     <div className="viewport-app">
-      <AppHeader progress={progress} />
+      <AppHeader progress={progress} auth={auth} />
       <main className="home-main shell-width">
         <section className="home-intro">
           <div>
@@ -125,7 +155,7 @@ function SubjectQuestionCard({ question, progress }: { question: SubjectQuestion
   );
 }
 
-function SubjectPage({ subjectId, progress }: { subjectId: SubjectId; progress: PracticeProgress }) {
+function SubjectPage({ subjectId, progress, auth }: { subjectId: SubjectId; progress: PracticeProgress; auth: AuthView }) {
   const [query, setQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
   const [page, setPage] = useState(1);
@@ -147,7 +177,7 @@ function SubjectPage({ subjectId, progress }: { subjectId: SubjectId; progress: 
 
   return (
     <div className="viewport-app">
-      <AppHeader progress={progress} />
+      <AppHeader progress={progress} auth={auth} />
       <main className={`subject-main shell-width accent-${subject.accent}`}>
         <aside className="subject-summary">
           <Link href="/" className="back-link">← 408 四科</Link>
@@ -215,10 +245,12 @@ function QuestionPage({
   question,
   progress,
   updateProgress,
+  auth,
 }: {
   question: SubjectQuestion;
   progress: PracticeProgress;
   updateProgress: (value: PracticeProgress) => void;
+  auth: AuthView;
 }) {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -255,7 +287,7 @@ function QuestionPage({
 
   return (
     <div className="viewport-app question-viewport">
-      <AppHeader progress={progress} />
+      <AppHeader progress={progress} auth={auth} />
       <main className={`question-main shell-width accent-${subject.accent}`}>
         <div className="question-toolbar">
           <Link href={`/subject/${question.subject}`}>← {subject.name}题库</Link>
@@ -305,28 +337,55 @@ function QuestionPage({
   );
 }
 
-export function StudyWorkspace({ initialQuestionId, initialSubjectId }: { initialQuestionId?: string; initialSubjectId?: string }) {
+export function StudyWorkspace({
+  initialQuestionId,
+  initialSubjectId,
+  initialUser = null,
+  signInPath = "/signin-with-chatgpt?return_to=%2F",
+  signOutPath = "/signout-with-chatgpt?return_to=%2F",
+}: {
+  initialQuestionId?: string;
+  initialSubjectId?: string;
+  initialUser?: SignedInUser | null;
+  signInPath?: string;
+  signOutPath?: string;
+}) {
   const [progress, setProgress] = useState<PracticeProgress>(EMPTY_PROGRESS);
+  const auth: AuthView = { user: initialUser, signInPath, signOutPath };
 
   useEffect(() => {
     try {
-      const saved = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || "null") as PracticeProgress | null;
-      if (saved && Array.isArray(saved.completed) && Array.isArray(saved.bookmarks)) {
-        setProgress({ ...saved, attempts: saved.attempts && typeof saved.attempts === "object" ? saved.attempts : {} });
+      const local = normalizeProgress(JSON.parse(window.localStorage.getItem(STORAGE_KEY) || "null") as PracticeProgress | null);
+      setProgress(local);
+      if (initialUser) {
+        fetch("/api/progress", { headers: { accept: "application/json" } })
+          .then(async (response) => response.ok ? normalizeProgress(await response.json() as PracticeProgress) : local)
+          .then((remote) => {
+            const merged = mergeProgress(local, remote);
+            setProgress(merged);
+            window.localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+            if (JSON.stringify(merged) !== JSON.stringify(remote)) {
+              void fetch("/api/progress", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(merged) });
+            }
+          })
+          .catch(() => undefined);
       }
     } catch { window.localStorage.removeItem(STORAGE_KEY); }
-  }, []);
+  }, [initialUser]);
 
   const updateProgress = (value: PracticeProgress) => {
     setProgress(value);
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
+    if (initialUser) {
+      void fetch("/api/progress", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(value), keepalive: true }).catch(() => undefined);
+    }
   };
 
   if (initialQuestionId) {
     const question = allQuestions.find((item) => item.id === initialQuestionId);
-    if (question) return <QuestionPage question={question} progress={progress} updateProgress={updateProgress} />;
+    if (question) return <QuestionPage question={question} progress={progress} updateProgress={updateProgress} auth={auth} />;
   }
-  if (initialSubjectId && subjectById.has(initialSubjectId as SubjectId)) return <SubjectPage subjectId={initialSubjectId as SubjectId} progress={progress} />;
-  if (initialQuestionId || initialSubjectId) return <div className="viewport-app"><AppHeader progress={progress} /><main className="missing-page"><span>404</span><h1>这个页面暂时不存在。</h1><Link href="/">返回 408 四科题库</Link></main></div>;
-  return <HomePage progress={progress} />;
+  if (initialSubjectId && subjectById.has(initialSubjectId as SubjectId)) return <SubjectPage subjectId={initialSubjectId as SubjectId} progress={progress} auth={auth} />;
+  if (initialQuestionId || initialSubjectId) return <div className="viewport-app"><AppHeader progress={progress} auth={auth} /><main className="missing-page"><span>404</span><h1>这个页面暂时不存在。</h1><Link href="/">返回 408 四科题库</Link></main></div>;
+  return <HomePage progress={progress} auth={auth} />;
 }

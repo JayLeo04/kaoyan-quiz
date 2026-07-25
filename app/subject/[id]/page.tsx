@@ -1,9 +1,11 @@
-"use client";
-
-import { useParams } from "next/navigation";
 import { StudyWorkspace } from "@/app/components/StudyWorkspace";
+import { chatGPTSignInPath, chatGPTSignOutPath, getChatGPTUser } from "@/app/chatgpt-auth";
 
-export default function SubjectPage() {
-  const params = useParams<{ id: string }>();
-  return <StudyWorkspace initialSubjectId={params.id} />;
+export const dynamic = "force-dynamic";
+
+export default async function SubjectPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const user = await getChatGPTUser();
+  const returnTo = `/subject/${encodeURIComponent(id)}`;
+  return <StudyWorkspace initialSubjectId={id} initialUser={user} signInPath={chatGPTSignInPath(returnTo)} signOutPath={chatGPTSignOutPath(returnTo)} />;
 }

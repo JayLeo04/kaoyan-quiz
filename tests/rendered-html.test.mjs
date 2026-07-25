@@ -26,14 +26,25 @@ test("renders the 408 practice workspace", async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /研刷 408/);
-  assert.match(html, /今天，/);
-  assert.match(html, /刷到会/);
+  assert.match(html, /408/);
+  assert.match(html, /四科题库/);
+  assert.match(html, /选择科目，进入题库/);
   assert.match(html, /数据结构/);
   assert.match(html, /计算机组成原理/);
-  assert.match(html, /216 道真题/);
+  assert.match(html, /216/);
   assert.match(html, /计算机网络/);
-  assert.match(html, /共 (?:<!-- -->)?222(?:<!-- -->)? 道/);
+  assert.doesNotMatch(html, /刷到会/);
   assert.doesNotMatch(html, /Your site is taking shape|Building your site|react-loading-skeleton/);
+});
+
+test("renders a paginated subject library", async () => {
+  const response = await render("/subject/os");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /操作系统/);
+  assert.match(html, /216/);
+  assert.match(html, /第 (?:<!-- -->)?1(?:<!-- -->)? \/ (?:<!-- -->)?27(?:<!-- -->)? 页/);
+  assert.match(html, /下一页/);
 });
 
 test("renders a single-question route", async () => {
@@ -43,7 +54,7 @@ test("renders a single-question route", async () => {
   assert.match(html, /2026 年 408 操作系统 · 第 23 题/);
   assert.match(html, /下列操作中，在内核模式执行的是/);
   assert.match(html, /请选择答案/);
-  assert.match(html, /核对答案/);
+  assert.match(html, /提交并查看解析/);
   assert.doesNotMatch(html, /答案与解析/);
-  assert.match(html, /关联知识点/);
+  assert.doesNotMatch(html, /关联知识点/);
 });

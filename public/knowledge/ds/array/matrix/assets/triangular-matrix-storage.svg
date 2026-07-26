@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="350" viewBox="0 0 880 350" role="img" aria-labelledby="title desc">
+  <title id="title">上三角矩阵的压缩存储</title>
+  <desc id="desc">四阶上三角矩阵按行优先依次存入一维数组，最后一个单元存放下三角区域的公共常数。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#6d5bd0"/>
+    </marker>
+  </defs>
+  <rect width="880" height="350" rx="22" fill="#f8f7ff"/>
+  <text x="44" y="42" font-family="system-ui, sans-serif" font-size="22" font-weight="700" fill="#27233a">上三角区域按行优先展开</text>
+  <g font-family="ui-monospace, monospace" font-size="17" text-anchor="middle">
+    <g transform="translate(72 78)">
+      <path d="M0 0h216v216H0z" fill="#fff" stroke="#8f84c7" stroke-width="2"/>
+      <path d="M0 54h216M0 108h216M0 162h216M54 0v216M108 0v216M162 0v216" stroke="#c9c3e8"/>
+      <path d="M0 54h54v54h54v54h54v54H0z" fill="#ece9f8"/>
+      <g fill="#433d64">
+        <text x="27" y="34">a11</text><text x="81" y="34">a12</text><text x="135" y="34">a13</text><text x="189" y="34">a14</text>
+        <text x="27" y="88">c</text><text x="81" y="88">a22</text><text x="135" y="88">a23</text><text x="189" y="88">a24</text>
+        <text x="27" y="142">c</text><text x="81" y="142">c</text><text x="135" y="142">a33</text><text x="189" y="142">a34</text>
+        <text x="27" y="196">c</text><text x="81" y="196">c</text><text x="135" y="196">c</text><text x="189" y="196">a44</text>
+      </g>
+    </g>
+    <path d="M330 186h92" stroke="#6d5bd0" stroke-width="3" marker-end="url(#arrow)"/>
+    <g transform="translate(454 145)">
+      <g fill="#fff" stroke="#8f84c7">
+        <rect x="0" y="0" width="36" height="54"/><rect x="36" y="0" width="36" height="54"/><rect x="72" y="0" width="36" height="54"/><rect x="108" y="0" width="36" height="54"/><rect x="144" y="0" width="36" height="54"/><rect x="180" y="0" width="36" height="54"/><rect x="216" y="0" width="36" height="54"/><rect x="252" y="0" width="36" height="54"/><rect x="288" y="0" width="36" height="54"/><rect x="324" y="0" width="36" height="54"/>
+        <rect x="360" y="0" width="36" height="54" fill="#ece9f8"/>
+      </g>
+      <g fill="#433d64" font-size="13">
+        <text x="18" y="32">a11</text><text x="54" y="32">a12</text><text x="90" y="32">a13</text><text x="126" y="32">a14</text>
+        <text x="162" y="32">a22</text><text x="198" y="32">a23</text><text x="234" y="32">a24</text><text x="270" y="32">a33</text>
+        <text x="306" y="32">a34</text><text x="342" y="32">a44</text><text x="378" y="32">c</text>
+      </g>
+      <text x="180" y="86" font-family="system-ui, sans-serif" font-size="16" fill="#5d567a">n(n+1)/2 个上三角元素</text>
+      <text x="378" y="112" font-family="system-ui, sans-serif" font-size="15" fill="#5d567a">公共常数</text>
+    </g>
+  </g>
+</svg>

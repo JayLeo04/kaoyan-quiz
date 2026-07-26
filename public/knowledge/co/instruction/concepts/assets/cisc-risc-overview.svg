@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" role="img" aria-labelledby="title desc">
+  <title id="title">CISC 与 RISC 典型设计取舍</title>
+  <desc id="desc">左右两栏对比复杂指令集与精简指令集的指令复杂度、编码长度、寻址方式、控制方式以及完成一次访存运算所需指令数。</desc>
+  <style>
+    text{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;fill:#172033}.h{font-size:30px;font-weight:700}.t{font-size:19px;font-weight:650}.b{font-size:16px}.box{rx:18;stroke-width:2}.arrow{stroke:#52647a;stroke-width:3;fill:none;marker-end:url(#m)}
+  </style>
+  <defs><marker id="m" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#52647a"/></marker></defs>
+  <text x="480" y="42" text-anchor="middle" class="h">CISC 与 RISC：典型设计取舍</text>
+  <rect x="35" y="75" width="410" height="310" class="box" fill="#fff4e6" stroke="#f08c46"/>
+  <rect x="515" y="75" width="410" height="310" class="box" fill="#eaf5ff" stroke="#4d96d7"/>
+  <text x="240" y="115" text-anchor="middle" class="h">CISC</text><text x="720" y="115" text-anchor="middle" class="h">RISC</text>
+  <text x="70" y="160" class="t">指令</text><text x="180" y="160" class="b">数量多、单条功能复杂</text>
+  <text x="550" y="160" class="t">指令</text><text x="660" y="160" class="b">数量少、单条功能简单</text>
+  <text x="70" y="205" class="t">编码</text><text x="180" y="205" class="b">常为变长，代码密度高</text>
+  <text x="550" y="205" class="t">编码</text><text x="660" y="205" class="b">常为定长，译码规则</text>
+  <text x="70" y="250" class="t">寻址</text><text x="180" y="250" class="b">方式较多，可直接访存运算</text>
+  <text x="550" y="250" class="t">寻址</text><text x="660" y="250" class="b">方式较少，常用 Load/Store</text>
+  <text x="70" y="295" class="t">控制</text><text x="180" y="295" class="b">常见微程序控制</text>
+  <text x="550" y="295" class="t">控制</text><text x="660" y="295" class="b">常见硬布线控制</text>
+  <text x="70" y="340" class="t">示例</text><text x="180" y="340" class="b">一条指令：访存并运算</text>
+  <text x="550" y="340" class="t">示例</text><text x="660" y="340" class="b">加载 → 运算 → 存储</text>
+  <path d="M445 230 H505" class="arrow"/><text x="480" y="215" text-anchor="middle" class="b">取舍</text>
+  <text x="480" y="414" text-anchor="middle" class="b">这些是典型倾向；现代 ISA 与微体系结构可以混合采用两类思想。</text>
+</svg>

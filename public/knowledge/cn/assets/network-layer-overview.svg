@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="430" viewBox="0 0 960 430" role="img" aria-labelledby="title desc">
+  <title id="title">计算机网络五层体系协作总览</title>
+  <desc id="desc">两台端系统通过交换机和路由器通信，并标出应用层、传输层、网络层、数据链路层和物理层的作用范围。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#eef2ff"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="960" height="430" rx="24" fill="url(#bg)"/>
+  <text x="480" y="38" text-anchor="middle" font-family="system-ui,sans-serif" font-size="24" font-weight="700" fill="#0f172a">端到端通信与五层职责</text>
+
+  <g font-family="system-ui,sans-serif" font-size="16" text-anchor="middle">
+    <rect x="46" y="78" width="230" height="286" rx="18" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
+    <text x="161" y="104" font-weight="700" fill="#0f172a">发送端主机</text>
+    <rect x="72" y="122" width="178" height="38" rx="8" fill="#ddd6fe"/><text x="161" y="147" fill="#4c1d95">应用层：生成报文</text>
+    <rect x="72" y="168" width="178" height="38" rx="8" fill="#bfdbfe"/><text x="161" y="193" fill="#1e3a8a">传输层：端口与可靠性</text>
+    <rect x="72" y="214" width="178" height="38" rx="8" fill="#bbf7d0"/><text x="161" y="239" fill="#14532d">网络层：IP 与路由</text>
+    <rect x="72" y="260" width="178" height="38" rx="8" fill="#fde68a"/><text x="161" y="285" fill="#713f12">链路层：帧与 MAC</text>
+    <rect x="72" y="306" width="178" height="38" rx="8" fill="#fecaca"/><text x="161" y="331" fill="#7f1d1d">物理层：比特与信号</text>
+
+    <rect x="684" y="78" width="230" height="286" rx="18" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
+    <text x="799" y="104" font-weight="700" fill="#0f172a">接收端主机</text>
+    <rect x="710" y="122" width="178" height="38" rx="8" fill="#ddd6fe"/><text x="799" y="147" fill="#4c1d95">应用层：使用报文</text>
+    <rect x="710" y="168" width="178" height="38" rx="8" fill="#bfdbfe"/><text x="799" y="193" fill="#1e3a8a">传输层：分用与重组</text>
+    <rect x="710" y="214" width="178" height="38" rx="8" fill="#bbf7d0"/><text x="799" y="239" fill="#14532d">网络层：交付 IP 分组</text>
+    <rect x="710" y="260" width="178" height="38" rx="8" fill="#fde68a"/><text x="799" y="285" fill="#713f12">链路层：校验并拆帧</text>
+    <rect x="710" y="306" width="178" height="38" rx="8" fill="#fecaca"/><text x="799" y="331" fill="#7f1d1d">物理层：恢复比特</text>
+
+    <rect x="330" y="244" width="110" height="68" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="385" y="273" font-weight="700" fill="#92400e">交换机</text><text x="385" y="296" font-size="13" fill="#92400e">链路内转发帧</text>
+    <rect x="510" y="198" width="110" height="114" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="565" y="238" font-weight="700" fill="#166534">路由器</text><text x="565" y="264" font-size="13" fill="#166534">跨网络转发</text><text x="565" y="285" font-size="13" fill="#166534">IP 分组</text>
+  </g>
+
+  <g fill="none" stroke="#475569" stroke-width="3" marker-end="url(#arrow)">
+    <path d="M276 326 H330"/>
+    <path d="M440 278 H510"/>
+    <path d="M620 278 H684"/>
+  </g>
+  <path d="M250 141 C390 60,570 60,710 141" fill="none" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+  <text x="480" y="92" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#6d28d9">应用进程看到的是端到端的逻辑通信</text>
+  <text x="480" y="397" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#475569">逐层封装 → 按链路传输与转发 → 逐层解封装</text>
+</svg>

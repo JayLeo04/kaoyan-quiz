@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" role="img" aria-labelledby="title desc">
+  <title id="title">四位二进制按位逻辑运算</title>
+  <desc id="desc">以 A 等于 1010、B 等于 1100 为例，对比 AND、OR、XOR 和 NOT A 的逐位结果。</desc>
+  <style>text{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;fill:#172033}.h{font-family:system-ui,sans-serif;font-size:28px;font-weight:700}.t{font-size:22px;font-weight:700}.b{font-size:20px}.cell{rx:10;stroke:#60748c;stroke-width:2}</style>
+  <text x="470" y="40" text-anchor="middle" class="h">AND / OR / XOR / NOT：逐位运算</text>
+  <text x="80" y="95" class="t">A = 1010</text><text x="300" y="95" class="t">B = 1100</text>
+  <rect x="45" y="130" width="200" height="105" class="cell" fill="#e9f4ff"/><text x="145" y="165" text-anchor="middle" class="t">AND</text><text x="145" y="205" text-anchor="middle" class="b">1010 ∧ 1100 = 1000</text>
+  <rect x="265" y="130" width="200" height="105" class="cell" fill="#eaf8ef"/><text x="365" y="165" text-anchor="middle" class="t">OR</text><text x="365" y="205" text-anchor="middle" class="b">1010 ∨ 1100 = 1110</text>
+  <rect x="485" y="130" width="200" height="105" class="cell" fill="#fff5e6"/><text x="585" y="165" text-anchor="middle" class="t">XOR</text><text x="585" y="205" text-anchor="middle" class="b">1010 ⊕ 1100 = 0110</text>
+  <rect x="705" y="130" width="190" height="105" class="cell" fill="#f7edff"/><text x="800" y="165" text-anchor="middle" class="t">NOT A</text><text x="800" y="205" text-anchor="middle" class="b">¬1010 = 0101</text>
+  <text x="470" y="285" text-anchor="middle" class="h">每一列独立计算</text>
+  <text x="470" y="325" text-anchor="middle" class="b">AND：同为 1 才得 1　 OR：有 1 即得 1</text>
+  <text x="470" y="365" text-anchor="middle" class="b">XOR：两位不同得 1　 NOT：0 与 1 逐位翻转</text>
+  <text x="470" y="408" text-anchor="middle" class="b">位运算处理位模式；结果按有符号或无符号解释由类型决定。</text>
+</svg>

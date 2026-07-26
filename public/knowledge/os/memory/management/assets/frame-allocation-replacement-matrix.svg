@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="500" viewBox="0 0 960 500" role="img" aria-labelledby="title desc">
+  <title id="title">页框分配与页面置换策略组合矩阵</title>
+  <desc id="desc">固定分配只能结合局部置换；可变分配可以结合局部置换或全局置换；固定分配与全局置换的组合不成立。</desc>
+  <rect width="960" height="500" rx="28" fill="#f8fafc"/>
+  <text x="480" y="54" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#172033">页框分配 × 页面置换范围</text>
+  <text x="80" y="142" font-family="system-ui, sans-serif" font-size="22" font-weight="700" fill="#475569">分配策略</text>
+  <text x="390" y="142" text-anchor="middle" font-family="system-ui, sans-serif" font-size="22" font-weight="700" fill="#475569">局部置换</text>
+  <text x="735" y="142" text-anchor="middle" font-family="system-ui, sans-serif" font-size="22" font-weight="700" fill="#475569">全局置换</text>
+  <rect x="60" y="170" width="210" height="112" rx="18" fill="#e0e7ff" stroke="#818cf8" stroke-width="2"/>
+  <text x="165" y="216" text-anchor="middle" font-family="system-ui, sans-serif" font-size="25" font-weight="700" fill="#3730a3">固定分配</text>
+  <text x="165" y="250" text-anchor="middle" font-family="system-ui, sans-serif" font-size="17" fill="#4338ca">页框配额不变</text>
+  <rect x="290" y="170" width="200" height="112" rx="18" fill="#dcfce7" stroke="#4ade80" stroke-width="2"/>
+  <text x="390" y="216" text-anchor="middle" font-family="system-ui, sans-serif" font-size="30" font-weight="800" fill="#166534">✓ 合法</text>
+  <text x="390" y="250" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#15803d">只换出本进程页面</text>
+  <rect x="590" y="170" width="290" height="112" rx="18" fill="#fee2e2" stroke="#f87171" stroke-width="2"/>
+  <text x="735" y="216" text-anchor="middle" font-family="system-ui, sans-serif" font-size="30" font-weight="800" fill="#991b1b">✕ 不成立</text>
+  <text x="735" y="250" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#b91c1c">侵占他人页框会改变固定配额</text>
+  <rect x="60" y="312" width="210" height="112" rx="18" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/>
+  <text x="165" y="358" text-anchor="middle" font-family="system-ui, sans-serif" font-size="25" font-weight="700" fill="#1e40af">可变分配</text>
+  <text x="165" y="392" text-anchor="middle" font-family="system-ui, sans-serif" font-size="17" fill="#1d4ed8">页框配额可调整</text>
+  <rect x="290" y="312" width="200" height="112" rx="18" fill="#dcfce7" stroke="#4ade80" stroke-width="2"/>
+  <text x="390" y="358" text-anchor="middle" font-family="system-ui, sans-serif" font-size="30" font-weight="800" fill="#166534">✓ 合法</text>
+  <text x="390" y="392" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#15803d">按本进程缺页率调整</text>
+  <rect x="590" y="312" width="290" height="112" rx="18" fill="#dcfce7" stroke="#4ade80" stroke-width="2"/>
+  <text x="735" y="358" text-anchor="middle" font-family="system-ui, sans-serif" font-size="30" font-weight="800" fill="#166534">✓ 合法</text>
+  <text x="735" y="392" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#15803d">从系统范围选择受害页</text>
+  <text x="480" y="468" text-anchor="middle" font-family="system-ui, sans-serif" font-size="17" fill="#64748b">“固定/可变”描述进程页框配额是否变化，不描述页框本身的大小。</text>
+</svg>

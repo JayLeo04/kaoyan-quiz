@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" role="img" aria-labelledby="title desc">
+  <title id="title">USB Type-A 接口</title>
+  <desc id="desc">矩形金属外壳内有塑料舌片和四个 USB 2.0 基本触点。</desc>
+  <rect width="960" height="300" rx="28" fill="#f8fafc"/>
+  <text x="480" y="48" text-anchor="middle" font-family="system-ui,sans-serif" font-size="26" font-weight="700" fill="#0f172a">USB Type-A：通用外设接口</text>
+  <rect x="246" y="84" width="468" height="142" rx="12" fill="#cbd5e1" stroke="#334155" stroke-width="6"/>
+  <rect x="276" y="110" width="408" height="90" rx="6" fill="#0f172a"/>
+  <rect x="276" y="160" width="408" height="40" fill="#2563eb"/>
+  <g fill="#fbbf24">
+    <rect x="354" y="137" width="38" height="50" rx="4"/><rect x="425" y="137" width="38" height="50" rx="4"/>
+    <rect x="496" y="137" width="38" height="50" rx="4"/><rect x="567" y="137" width="38" height="50" rx="4"/>
+  </g>
+  <text x="480" y="260" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" fill="#475569">矩形外壳 · 塑料舌片 · 电源与数据信号触点</text>
+</svg>

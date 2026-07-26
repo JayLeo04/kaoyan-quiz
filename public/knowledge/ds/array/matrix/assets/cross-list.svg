@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420" role="img" aria-labelledby="title desc">
+  <title id="title">稀疏矩阵十字链表</title>
+  <desc id="desc">行头指针通过 right 指针连接同一行的非零结点，列头指针通过 down 指针连接同一列的非零结点。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0v6l8-3z" fill="#6d5bd0"/></marker>
+    <style>
+      .label{font:600 16px system-ui,sans-serif;fill:#302a4a}.small{font:14px system-ui,sans-serif;fill:#5f587a}.node{fill:#fff;stroke:#7568bb;stroke-width:2}.row{stroke:#6d5bd0;stroke-width:2.5;fill:none;marker-end:url(#arrow)}.col{stroke:#2f8f83;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="880" height="420" rx="22" fill="#f8f7ff"/>
+  <text x="34" y="38" class="label" font-size="22">十字链表：同一结点同时属于一条行链和一条列链</text>
+  <g>
+    <rect x="38" y="102" width="92" height="44" rx="9" fill="#ece9f8" stroke="#8e83c7"/><text x="84" y="130" text-anchor="middle" class="label">rhead[1]</text>
+    <rect x="38" y="222" width="92" height="44" rx="9" fill="#ece9f8" stroke="#8e83c7"/><text x="84" y="250" text-anchor="middle" class="label">rhead[2]</text>
+    <rect x="254" y="54" width="92" height="44" rx="9" fill="#e4f5f1" stroke="#50a99d"/><text x="300" y="82" text-anchor="middle" class="label">chead[1]</text>
+    <rect x="514" y="54" width="92" height="44" rx="9" fill="#e4f5f1" stroke="#50a99d"/><text x="560" y="82" text-anchor="middle" class="label">chead[3]</text>
+    <g class="node">
+      <rect x="246" y="108" width="108" height="64" rx="10"/><rect x="506" y="108" width="108" height="64" rx="10"/>
+      <rect x="246" y="228" width="108" height="64" rx="10"/><rect x="506" y="228" width="108" height="64" rx="10"/>
+    </g>
+    <g text-anchor="middle">
+      <text x="300" y="137" class="label">(1,1,3)</text><text x="300" y="158" class="small">right · down</text>
+      <text x="560" y="137" class="label">(1,3,8)</text><text x="560" y="158" class="small">right · down</text>
+      <text x="300" y="257" class="label">(2,1,5)</text><text x="300" y="278" class="small">right · down</text>
+      <text x="560" y="257" class="label">(2,3,2)</text><text x="560" y="278" class="small">right · down</text>
+    </g>
+    <path d="M130 124h108" class="row"/><path d="M354 140h144" class="row"/>
+    <path d="M130 244h108" class="row"/><path d="M354 260h144" class="row"/>
+    <path d="M300 98v4" class="col"/><path d="M300 172v48" class="col"/>
+    <path d="M560 98v4" class="col"/><path d="M560 172v48" class="col"/>
+    <path d="M684 120h44" class="row"/><text x="744" y="126" class="small">right：同一行</text>
+    <path d="M684 166v38" class="col"/><text x="744" y="191" class="small">down：同一列</text>
+    <text x="38" y="378" class="small">每个非零结点记录 (row, col, value)，并保存 right 与 down 两个方向的指针。</text>
+  </g>
+</svg>

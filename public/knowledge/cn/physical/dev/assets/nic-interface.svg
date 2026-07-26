@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="250" viewBox="0 0 760 250" role="img" aria-labelledby="title desc">
+  <title id="title">网络适配器连接主机与传输介质</title>
+  <desc id="desc">主机内存中的数据经总线送到网卡，网卡进行帧处理和信号转换后连接双绞线、光纤或无线介质。</desc>
+  <rect width="760" height="250" rx="20" fill="#f8fafc"/>
+  <g font-family="system-ui,sans-serif" text-anchor="middle">
+    <rect x="45" y="68" width="175" height="120" rx="16" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+    <text x="132" y="111" font-size="21" font-weight="700" fill="#4c1d95">主机</text><text x="132" y="142" font-size="15" fill="#6d28d9">CPU · 内存 · 总线</text>
+    <rect x="290" y="48" width="205" height="160" rx="16" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+    <text x="392" y="86" font-size="21" font-weight="700" fill="#1e3a8a">网络适配器 NIC</text>
+    <text x="392" y="119" font-size="15" fill="#1e40af">MAC 地址与帧处理</text><text x="392" y="147" font-size="15" fill="#1e40af">并/串转换与编码</text><text x="392" y="175" font-size="15" fill="#1e40af">数字数据 ↔ 物理信号</text>
+    <rect x="565" y="68" width="150" height="120" rx="16" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+    <text x="640" y="107" font-size="20" font-weight="700" fill="#166534">传输介质</text><text x="640" y="138" font-size="15" fill="#15803d">铜缆 · 光纤</text><text x="640" y="163" font-size="15" fill="#15803d">无线电波</text>
+  </g>
+  <path d="M220 128 H285 M500 128 H560" stroke="#475569" stroke-width="4"/>
+</svg>

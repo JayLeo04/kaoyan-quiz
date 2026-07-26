@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="250" viewBox="0 0 760 250" role="img" aria-labelledby="title desc">
+  <title id="title">光纤结构与全反射</title>
+  <desc id="desc">光纤横向结构包含高折射率纤芯、低折射率包层与外部保护层，光线在纤芯和包层边界发生全反射。</desc>
+  <rect width="760" height="250" rx="20" fill="#f8fafc"/>
+  <text x="380" y="36" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#0f172a">光纤：纤芯、包层与全反射</text>
+  <rect x="55" y="75" width="650" height="120" rx="60" fill="#334155"/>
+  <rect x="75" y="92" width="610" height="86" rx="43" fill="#bae6fd"/>
+  <rect x="95" y="109" width="570" height="52" rx="26" fill="#fef3c7"/>
+  <path d="M115 135 L185 113 L255 157 L325 113 L395 157 L465 113 L535 157 L625 128" fill="none" stroke="#ef4444" stroke-width="4"/>
+  <g font-family="system-ui,sans-serif" font-size="14" fill="#0f172a">
+    <text x="600" y="87">保护层</text><text x="595" y="105">包层（低折射率）</text><text x="575" y="148">纤芯（高折射率）</text>
+  </g>
+  <text x="380" y="222" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#475569">满足临界角条件时，光在纤芯—包层界面全反射传播</text>
+</svg>

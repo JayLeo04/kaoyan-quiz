@@ -6,7 +6,12 @@ export type KnowledgeVisualType =
   | "state-machine"
   | "timeline"
   | "comparison"
-  | "address-fields";
+  | "address-fields"
+  | "banker-simulator"
+  | "resource-allocation-graph"
+  | "semaphore-lab"
+  | "scheduler-queue"
+  | "concurrency-lab";
 
 export type KnowledgeVisualizationSpec = {
   id: string;
@@ -18,4 +23,3 @@ export type KnowledgeVisualizationSpec = {
   formulaHtml: Record<string, string>;
   config: Record<string, unknown>;
 };
-

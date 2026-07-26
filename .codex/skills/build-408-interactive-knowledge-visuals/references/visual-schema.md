@@ -88,6 +88,34 @@ ID 必须全站唯一。一个 spec 只能属于一个 route，同一标记在�
 
 步骤由用户点击或键盘控制；不默认自动播放。
 
+当过程同时改变输入、工作区、队列、输出文件或多个归并段时，使用多泳道轨迹。`lanes` 定义每条泳道，`steps[].state` 必须为每条泳道保留完整数组状态；原始表的每一行都要对应一个 step，不能跳过中间状态：
+
+```json
+{
+  "items": [51, 94, 37, 92, 14],
+  "lanes": [
+    {"id": "output", "shortLabel": "FO", "label": "输出文件"},
+    {"id": "workspace", "shortLabel": "WA", "label": "工作区"},
+    {"id": "input", "shortLabel": "FI", "label": "输入文件"}
+  ],
+  "steps": [
+    {
+      "label": "装入工作区",
+      "note": "读入前四个记录。",
+      "state": {"output": [], "workspace": [51, 94, 37, 92], "input": [14]}
+    },
+    {
+      "label": "输出 37，读入 14",
+      "note": "14 小于当前 MAXV，冻结到下一归并段。",
+      "frozen": [14],
+      "state": {"output": [37], "workspace": [51, 94, 14, 92], "input": []}
+    }
+  ]
+}
+```
+
+地址转换、装入等需要同步观察“逻辑程序—转换者—物理内存”的过程，可使用 `layout: "loading-trace"`。三个以上步骤都必须保留完整的每泳道状态，并用 `activeLanes` 表明本步参与地址转换的对象；不要把静态重定位和运行时重定位混成同一个过程。
+
 ### `memory-scale`
 
 用于辅助空间、栈深、Cache/主存层次、页大小和缓冲区规模。
@@ -125,6 +153,10 @@ ID 必须全站唯一。一个 spec 只能属于一个 route，同一标记在�
 
 有明确通信双方或数据传递方向时，为 step 增加 `from`、`to`、`message`；渲染层应显示方向，而不是把同一段 detail 重复两次。
 
+需要解释用户态陷入、内核态服务以及可能发生的进程切换时，可使用 `layout: "privilege-switch"`。配置必须同时给出 `actors`、至少四个 CPU `registers`、至少两个内存 `pcbs`，并让每个 step 明确 `mode`、寄存器值、PCB 状态、当前参与方。必须标出“模式切换不等于进程切换”：只有调度改换执行流时，才会从一个 PCB 恢复另一个 PCB 的现场。
+
+需要清楚展示 `fork()` 返回值、父子进程独立执行、`wait()` 回收、僵尸与孤儿这类分支时，可使用 `layout: "process-family"`。配置包含恰好两个 `members`（`parent`、`child`）和多个可直接选择的 `steps`；每一步必须给出父、子状态、两边返回值、结论和说明。场景可以并列，不得伪装成一条必然依次发生的生命周期。
+
 ### `state-machine`
 
 用于进程状态、TCP 状态和 Cache 一致性等状态转换。`states` 包含 `id`、`label`、`note`，`transitions` 包含 `from`、`to`、`event`。只有用户选择事件后才改变高亮状态。
@@ -133,13 +165,39 @@ ID 必须全站唯一。一个 spec 只能属于一个 route，同一标记在�
 
 用于调度、流水线、报文交换和年度考点变化。配置包含 `lanes` 与 `events`；每个事件有 `start`、`duration`、`label` 和 `note`。坐标单位必须在界面中说明。
 
+### scheduler-queue
+
+用于轮转调度和多级反馈队列这类“CPU 片段结束后，队列如何改变”的过程。配置的 mode 只能是 round-robin 或 mlfq，并包含 modeLabel、rule、unit、queues、jobs 与 steps。任务有唯一 id、label、arrival 和 service；每个队列有唯一 id、label 和说明。
+
+每一步必须写出实际运行的 cpu、duration、label、note，以及**该片结束后每个队列的完整顺序**（queues）。可额外写 arrivals、completed、event 和 action。不要把队列变化只画成甘特条：读者必须能逐步看到队头、队尾、到达、完成和每个任务的剩余服务时间；所有步骤由读者前进、后退或直接选择。
+
+### concurrency-lab
+
+用于互斥、条件变量、原子指令与 P/V 操作等需要同时观察多个线程、共享变量、等待队列和代码行的过程。config.scenarios 至少包含一个可选场景；每个场景都有唯一 id、label、summary、两个以上 actors、一个以上 shared、可选 queues、可审计的 code 面板和至少两个 steps。
+
+每个步骤必须指定当前 actor，完整给出所有参与方的 actors 状态、所有共享项的 shared 值，以及存在队列时每个队列的完整成员列表。activeCode 只引用本场景已定义面板的合法行号；步骤还应有 label、note，可选 outcome。交互图不得只显示“正确结果”：无互斥的丢失更新、阻塞/唤醒与算法失败路径也要逐步展示，并和当前高亮代码行一致。
+
 ### `comparison`
 
-用于容易混淆的多个概念。配置包含 `columns`、`rows`，每行必须有明确比较维度，不能重复正文已有的无交互表格。
+用于容易混淆的多个概念。默认配置包含 `columns`、`rows`，每行必须有明确比较维度，不能重复正文已有的无交互表格。
+
+需要按层说明两个以上部署方案时，可使用 `layout: "layered-stacks"`：`columns` 与 `stacks` 必须一一对应，每个 stack 至少两层 `layers`，并提供 `summary`。层从上到下写入，适用于宏/微/混合内核的服务位置，以及 Type 1 / Type 2 虚拟机的 VMM 部署位置；实例和判断关键词写入 stack 的 `examples`、`path`，正文仍保留完整定义与边界。
 
 ### `address-fields`
 
 用于 Cache、分页、分段和网络地址拆分。配置包含 `totalBits`、`fields`；每个 field 有 `label`、`bits`、`tone` 和 `note`，各字段位数之和必须等于 `totalBits`。
+
+### `banker-simulator`
+
+用于银行家算法的可编辑安全性检查。配置包含 `resources`、`processes`、`available`、`max` 和 `allocation`；资源向量与每个矩阵行长度必须一致，所有数值为非负整数，且每个 `Allocation[i][j]` 不得大于 `Max[i][j]`。渲染层自动计算 `Need`，用户修改初值后才开始逐步安全性检查。
+
+### `resource-allocation-graph`
+
+用于资源分配图与“环”的判定边界。配置包含至少两个 `cases`；每个 case 有 `id`、`label`、`conclusion`、`nodes` 和 `edges`。节点 `kind` 只能是 `process` 或 `resource`；边 `kind` 只能是 `request`（P→R）或 `allocation`（R→P）。多实例资源可额外给出 `instances` 和 `available`，用于说明有环不必然死锁。
+
+### `semaphore-lab`
+
+用于信号量的用户驱动步骤与代码行联动。`mode` 为 `bounded-buffer` 或 `dining-philosophers`；`code` 存放可审计的代码面板与行数组，所有 step 的 `activeCode` 只引用已有面板和合法行号。前者还需要 `capacity`、信号量 `counters`、每步 `buffer` 与计数状态；后者需要等长的 `philosophers`、`forks`、每步 `forkOwners` 和 `states`。
 
 ## 可访问与视觉约束
 

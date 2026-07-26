@@ -18,6 +18,11 @@ const subjects = [
   { code: "os", dir: "operating_system" },
   { code: "cn", dir: "computer_network" },
 ];
+const selectedSubject = valueAfter("--subject");
+if (selectedSubject && !subjects.some((subject) => subject.code === selectedSubject)) {
+  throw new Error("--subject 仅支持 ds、co、os、cn 之一");
+}
+const subjectsToAudit = selectedSubject ? subjects.filter((subject) => subject.code === selectedSubject) : subjects;
 
 const supportedTypes = new Set([
   "growth-curves",
@@ -28,6 +33,11 @@ const supportedTypes = new Set([
   "timeline",
   "comparison",
   "address-fields",
+  "banker-simulator",
+  "resource-allocation-graph",
+  "semaphore-lab",
+  "scheduler-queue",
+  "concurrency-lab",
 ]);
 
 const forbiddenKeys = /^(html|script|style|src|url|href|onclick|onchange|oninput)$/i;
@@ -102,12 +112,23 @@ function validateTypeConfig(spec, file) {
   if (spec.type === "algorithm-trace") {
     const items = list("items");
     const steps = list("steps");
-    if (!items.length || !steps.length) fail("items 与 steps 不能为空");
-    for (const step of steps) {
-      const active = Array.isArray(step?.active) ? step.active : [];
-      const range = Array.isArray(step?.range) ? step.range : [];
-      if (active.some((index) => !Number.isInteger(index) || index < 0 || index >= items.length)) fail("active 含越界下标");
-      if (range.length !== 2 || range.some((index) => !Number.isInteger(index) || index < 0 || index >= items.length) || range[0] > range[1]) fail("range 必须是合法闭区间");
+    const lanes = list("lanes");
+    if (!steps.length || (!lanes.length && !items.length)) fail("普通轨迹需要 items 与 steps，多泳道轨迹至少需要 steps");
+    if (config.layout !== undefined && config.layout !== "loading-trace") fail("layout 配置无效");
+    if (lanes.length) {
+      const laneIds = new Set(lanes.map((lane) => lane?.id).filter(Boolean));
+      if (laneIds.size < 2 || laneIds.size !== lanes.length) fail("lanes 至少需要两个不重复 id");
+      for (const step of steps) {
+        if (!step?.state || typeof step.state !== "object" || [...laneIds].some((id) => !Array.isArray(step.state[id]))) fail("多泳道步骤必须为每个 lane 提供数组状态");
+      }
+      if (config.layout === "loading-trace" && (lanes.some((lane) => !lane?.label) || steps.some((step) => !step?.label || !step?.note || !Array.isArray(step?.activeLanes) || step.activeLanes.some((id) => !laneIds.has(id))))) fail("装入轨迹的泳道或步骤配置无效");
+    } else {
+      for (const step of steps) {
+        const active = Array.isArray(step?.active) ? step.active : [];
+        const range = Array.isArray(step?.range) ? step.range : [];
+        if (active.some((index) => !Number.isInteger(index) || index < 0 || index >= items.length)) fail("active 含越界下标");
+        if (range.length !== 2 || range.some((index) => !Number.isInteger(index) || index < 0 || index >= items.length) || range[0] > range[1]) fail("range 必须是合法闭区间");
+      }
     }
   }
 
@@ -129,6 +150,29 @@ function validateTypeConfig(spec, file) {
       if (!Array.isArray(connection) || connection.length !== 2 || !ids.has(connection[0]) || !ids.has(connection[1])) {
         fail(`连线 ${JSON.stringify(connection)} 的端点不存在`);
       }
+    }
+    if (config.layout !== undefined && !["computer-timeline", "privilege-switch", "process-family"].includes(config.layout)) fail("layout 配置无效");
+    if (config.layout === "computer-timeline") {
+      const components = list("components");
+      const componentIds = new Set(components.map((component) => component?.id).filter(Boolean));
+      if (componentIds.size < 4 || componentIds.size !== components.length || components.some((component) => !component?.label)) fail("计算机示意组件配置无效");
+      if (steps.some((step) => !step?.label || !step?.time || !step?.detail || !Array.isArray(step?.components) || !step.components.length || step.components.some((componentId) => !componentIds.has(componentId)))) fail("计算机引导步骤配置无效");
+    }
+    if (config.layout === "privilege-switch") {
+      const actors = list("actors");
+      const registers = list("registers");
+      const pcbs = list("pcbs");
+      const actorIds = new Set(actors.map((actor) => actor?.id).filter(Boolean));
+      const registerIds = new Set(registers.map((item) => item?.id).filter(Boolean));
+      const pcbIds = new Set(pcbs.map((pcb) => pcb?.id).filter(Boolean));
+      if (!config.caveat || actorIds.size < 3 || actorIds.size !== actors.length || registerIds.size < 4 || registerIds.size !== registers.length || pcbIds.size < 2 || pcbIds.size !== pcbs.length || actors.some((actor) => !actor?.label) || registers.some((item) => !item?.label) || pcbs.some((pcb) => !pcb?.label)) fail("特权切换的参与方、寄存器或 PCB 配置无效");
+      if (steps.some((step) => !step?.label || !step?.note || !["user", "kernel"].includes(step?.mode) || !step?.cpu || typeof step.cpu !== "object" || [...registerIds].some((id) => !(id in step.cpu)) || !step?.pcbs || typeof step.pcbs !== "object" || [...pcbIds].some((id) => !step.pcbs[id] || typeof step.pcbs[id] !== "object") || !Array.isArray(step?.activeActors) || step.activeActors.some((id) => !actorIds.has(id)) || !Array.isArray(step?.activePcbs) || step.activePcbs.some((id) => !pcbIds.has(id)))) fail("特权切换步骤必须完整描述 CPU、PCB 与参与方状态");
+    }
+    if (config.layout === "process-family") {
+      const members = list("members");
+      const memberIds = new Set(members.map((member) => member?.id).filter(Boolean));
+      if (!config.intro || memberIds.size !== 2 || !memberIds.has("parent") || !memberIds.has("child") || members.some((member) => !member?.label)) fail("父子进程图需要父、子两个参与方及 intro");
+      if (steps.some((step) => !step?.label || !step?.note || !step?.rule || !step?.parent || typeof step.parent !== "object" || !step?.child || typeof step.child !== "object" || !step.parent.state || !step.child.state || !step?.returns || typeof step.returns !== "object" || !("parent" in step.returns) || !("child" in step.returns))) fail("父子进程图的每个场景必须完整描述父、子状态与返回值");
     }
   }
 
@@ -159,7 +203,14 @@ function validateTypeConfig(spec, file) {
   }
 
   if (spec.type === "comparison") {
-    if (list("columns").length < 2 || !list("rows").length) fail("columns 至少两列且 rows 不能为空");
+    if (config.layout !== undefined && config.layout !== "layered-stacks") fail("layout 配置无效");
+    if (config.layout === "layered-stacks") {
+      const columns = list("columns");
+      const stacks = list("stacks");
+      const columnIds = new Set(columns.map((column) => column?.id).filter(Boolean));
+      const stackIds = new Set(stacks.map((stack) => stack?.id).filter(Boolean));
+      if (columnIds.size < 2 || columnIds.size !== columns.length || stackIds.size !== columns.length || [...columnIds].some((id) => !stackIds.has(id)) || columns.some((column) => !column?.label) || stacks.some((stack) => !stack?.summary || !Array.isArray(stack?.layers) || stack.layers.length < 2 || stack.layers.some((layer) => !layer?.label))) fail("分层图需要与列一一对应、带说明的两层以上 stack");
+    } else if (list("columns").length < 2 || !list("rows").length) fail("columns 至少两列且 rows 不能为空");
   }
 
   if (spec.type === "address-fields") {
@@ -170,6 +221,86 @@ function validateTypeConfig(spec, file) {
       fail("每个 field 都需要 label 和正整数 bits");
     }
     if (Number.isInteger(config.totalBits) && total !== config.totalBits) fail(`字段位数之和 ${total} 不等于 totalBits ${config.totalBits}`);
+  }
+
+  if (spec.type === "banker-simulator") {
+    const resources = list("resources");
+    const processes = list("processes");
+    const maximum = list("max");
+    const allocation = list("allocation");
+    const validVector = (vector, length) => Array.isArray(vector) && vector.length === length && vector.every((item) => Number.isInteger(item) && item >= 0);
+    const valid = resources.length > 0 && processes.length > 1 && resources.every((item) => typeof item === "string") && processes.every((item) => typeof item === "string") && validVector(config.available, resources.length) && maximum.length === processes.length && allocation.length === processes.length && maximum.every((row) => validVector(row, resources.length)) && allocation.every((row) => validVector(row, resources.length));
+    if (!valid) fail("resources、processes、available、max、allocation 必须构成合法的非负整数矩阵");
+    if (valid && maximum.some((row, rowIndex) => row.some((value, columnIndex) => value < allocation[rowIndex][columnIndex]))) fail("Allocation 不能大于对应的 Max");
+  }
+
+  if (spec.type === "resource-allocation-graph") {
+    const cases = list("cases");
+    if (cases.length < 2) fail("至少需要两个对照例子");
+    for (const item of cases) {
+      const nodes = Array.isArray(item?.nodes) ? item.nodes : [];
+      const edges = Array.isArray(item?.edges) ? item.edges : [];
+      const ids = new Set(nodes.map((node) => node?.id).filter(Boolean));
+      if (!item?.id || !item?.label || !item?.conclusion || ids.size < 4 || ids.size !== nodes.length || nodes.some((node) => !node?.label || !["process", "resource"].includes(node?.kind))) fail("每个例子需要带类型的唯一节点及 conclusion");
+      if (!edges.length || edges.some((edge) => !ids.has(edge?.from) || !ids.has(edge?.to) || !["request", "allocation"].includes(edge?.kind))) fail("边必须连接已有节点且标记 request 或 allocation");
+    }
+  }
+
+  if (spec.type === "semaphore-lab") {
+    const mode = config.mode;
+    const code = list("code");
+    const steps = list("steps");
+    const codeById = new Map(code.map((pane) => [pane?.id, pane]));
+    const validCode = code.length > 0 && code.every((pane) => pane?.id && pane?.label && Array.isArray(pane?.lines) && pane.lines.length && pane.lines.every((line) => typeof line === "string"));
+    const validActiveCode = (activeCode) => Array.isArray(activeCode) && activeCode.every((entry) => {
+      const pane = codeById.get(entry?.pane);
+      return pane && Array.isArray(pane.lines) && Array.isArray(entry.lines) && entry.lines.every((line) => Number.isInteger(line) && line >= 0 && line < pane.lines.length);
+    });
+    if (!["bounded-buffer", "dining-philosophers"].includes(mode) || !validCode || !steps.length || steps.some((step) => !step?.label || !step?.note || !validActiveCode(step?.activeCode))) fail("mode、code 与 steps 配置无效");
+    if (mode === "bounded-buffer") {
+      const counters = list("counters");
+      const ids = new Set(counters.map((counter) => counter?.id).filter(Boolean));
+      if (!Number.isInteger(config.capacity) || config.capacity < 1 || ids.size < 2 || ids.size !== counters.length || counters.some((counter) => !counter?.label) || steps.some((step) => !Array.isArray(step.buffer) || step.buffer.length !== config.capacity || !step.counters || [...ids].some((id) => !Number.isInteger(step.counters[id]) || step.counters[id] < 0))) fail("有界缓冲区需要完整的槽位和信号量状态");
+    }
+    if (mode === "dining-philosophers") {
+      const philosophers = list("philosophers");
+      const forks = list("forks");
+      const ids = new Set(philosophers);
+      if (philosophers.length < 3 || forks.length !== philosophers.length || ids.size !== philosophers.length || philosophers.some((item) => typeof item !== "string") || forks.some((item) => typeof item !== "string") || steps.some((step) => !Array.isArray(step.forkOwners) || step.forkOwners.length !== forks.length || !Array.isArray(step.states) || step.states.length !== philosophers.length || step.forkOwners.some((owner) => owner && !ids.has(owner)))) fail("哲学家示例需要等长的叉子归属与状态数组");
+    }
+  }
+
+  if (spec.type === "scheduler-queue") {
+    const queues = list("queues");
+    const jobs = list("jobs");
+    const steps = list("steps");
+    const queueIds = new Set(queues.map((queue) => queue?.id).filter(Boolean));
+    const jobIds = new Set(jobs.map((job) => job?.id).filter(Boolean));
+    const queueStateIsValid = (state) => state && typeof state === "object" && [...queueIds].every((id) => Array.isArray(state[id]) && state[id].every((jobId) => jobIds.has(jobId)));
+    if (!["round-robin", "mlfq"].includes(config.mode) || queueIds.size < 1 || queueIds.size !== queues.length || jobIds.size < 2 || jobIds.size !== jobs.length || queues.some((queue) => !queue?.label) || jobs.some((job) => !job?.label || !Number.isFinite(job?.arrival) || !Number.isFinite(job?.service) || job.service <= 0) || steps.length < 4 || steps.some((step) => !step?.label || !step?.note || !jobIds.has(step?.cpu) || !Number.isFinite(step?.duration) || step.duration <= 0 || !queueStateIsValid(step?.queues) || (step?.arrivals && (!Array.isArray(step.arrivals) || step.arrivals.some((jobId) => !jobIds.has(jobId))) || (step?.completed && (!Array.isArray(step.completed) || step.completed.some((jobId) => !jobIds.has(jobId))))))) fail("队列、任务或逐步调度状态无效");
+  }
+
+  if (spec.type === "concurrency-lab") {
+    const scenarios = list("scenarios");
+    const scenarioIds = new Set(scenarios.map((scenario) => scenario?.id).filter(Boolean));
+    const codeIsValid = (code) => Array.isArray(code) && code.length && code.every((pane) => pane?.id && pane?.label && Array.isArray(pane.lines) && pane.lines.length && pane.lines.every((line) => typeof line === "string"));
+    if (!scenarios.length || scenarioIds.size !== scenarios.length) fail("需要至少一个 id 唯一的并发场景");
+    for (const scenario of scenarios) {
+      const actors = Array.isArray(scenario?.actors) ? scenario.actors : [];
+      const shared = Array.isArray(scenario?.shared) ? scenario.shared : [];
+      const queues = Array.isArray(scenario?.queues) ? scenario.queues : [];
+      const steps = Array.isArray(scenario?.steps) ? scenario.steps : [];
+      const actorIds = new Set(actors.map((actor) => actor?.id).filter(Boolean));
+      const sharedIds = new Set(shared.map((item) => item?.id).filter(Boolean));
+      const queueIds = new Set(queues.map((queue) => queue?.id).filter(Boolean));
+      const panes = new Map((Array.isArray(scenario?.code) ? scenario.code : []).map((pane) => [pane?.id, pane]));
+      const activeCodeIsValid = (activeCode) => Array.isArray(activeCode) && activeCode.every((entry) => {
+        const pane = panes.get(entry?.pane);
+        return pane && Array.isArray(entry?.lines) && entry.lines.every((line) => Number.isInteger(line) && line >= 0 && line < pane.lines.length);
+      });
+      const completeState = (step) => step?.actors && typeof step.actors === "object" && [...actorIds].every((id) => id in step.actors) && step?.shared && typeof step.shared === "object" && [...sharedIds].every((id) => id in step.shared) && (!queueIds.size || (step?.queues && typeof step.queues === "object" && [...queueIds].every((id) => Array.isArray(step.queues[id]) && step.queues[id].every((actorId) => actorIds.has(actorId)))));
+      if (!scenario?.id || !scenario?.label || !scenario?.summary || actorIds.size < 2 || actorIds.size !== actors.length || sharedIds.size < 1 || sharedIds.size !== shared.length || queueIds.size !== queues.length || actors.some((actor) => !actor?.label) || shared.some((item) => !item?.label) || queues.some((queue) => !queue?.label) || !codeIsValid(scenario?.code) || steps.length < 2 || steps.some((step) => !step?.label || !step?.note || !actorIds.has(step?.actor) || !completeState(step) || !activeCodeIsValid(step?.activeCode))) fail(`场景 ${scenario?.id || "?"} 的参与方、共享状态、代码或步骤无效`);
+    }
   }
 }
 
@@ -183,7 +314,7 @@ function collectDelimitedLatex(markdown) {
   return values;
 }
 
-for (const subject of subjects) {
+for (const subject of subjectsToAudit) {
   const subjectRoot = path.join(sourceRoot, subject.dir);
   const markdownFiles = walkMarkdown(subjectRoot);
   pageCount += markdownFiles.length;
@@ -283,7 +414,7 @@ for (const [id, files] of markersById.entries()) {
 }
 
 console.log(`408 visual audit: ${issues.length} issue(s)`);
-console.log(`manifests=${manifestCount}, specs=${specsById.size}, markers=${markersById.size}, pages=${pageCount}`);
+console.log(`manifests=${manifestCount}, specs=${specsById.size}, markers=${markersById.size}, pages=${pageCount}${selectedSubject ? ` (subject: ${selectedSubject})` : ""}`);
 warnings.forEach((warning) => console.log(`WARN ${warning}`));
 issues.forEach((entry) => console.error(`ERROR ${entry}`));
 process.exitCode = issues.length ? 1 : 0;

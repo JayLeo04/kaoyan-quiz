@@ -116,6 +116,11 @@ test("renders schedule local knowledge pages", async () => {
   assert.match(html, /做相关真题 · (?:<!-- -->)?6(?:<!-- -->)? 道/);
   assert.match(html, /\/subject\/ds\?view=questions(?:&|&amp;)knowledge=linearlist%2Fsequential/);
   assert.match(html, /\/knowledge\/ds\/linearlist\/sequential\/assets\/inline-svg-01\.svg/);
+  const osRootResponse = await render("/knowledge/os");
+  assert.equal(osRootResponse.status, 200);
+  const osRootHtml = await osRootResponse.text();
+  assert.match(osRootHtml, /href="\/knowledge\/os\/concepts"/);
+  assert.match(osRootHtml, /href="\/knowledge\/co\/storage"/);
 });
 
 test("mounts structured knowledge visuals at their semantic markers", async () => {
@@ -123,25 +128,64 @@ test("mounts structured knowledge visuals at their semantic markers", async () =
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /data-visual-id="ds-algorithm-growth"/);
-  assert.match(html, /输入规模如何拉开复杂度差距/);
-  assert.match(html, /data-visual-id="ds-algorithm-space"/);
+  assert.match(html, /输入规模如何放大基本操作次数/);
   assert.match(html, /data-tex-source="O\(\\log n\)"/);
   assert.match(html, /aria-live="polite"/);
   assert.doesNotMatch(html, /<!--\s*knowledge-visual:/);
+  const bootResponse = await render("/knowledge/os/concepts/concept");
+  assert.equal(bootResponse.status, 200);
+  const bootHtml = await bootResponse.text();
+  assert.match(bootHtml, /data-visual-id="os-boot-computer-timeline"/);
+  assert.match(bootHtml, /BOOT SEQUENCE/);
+  assert.match(bootHtml, /BIOS \/ UEFI/);
+  assert.match(bootHtml, /启动系统服务和守护进程/);
+  const environmentResponse = await render("/knowledge/os/concepts/environment");
+  assert.equal(environmentResponse.status, 200);
+  const environmentHtml = await environmentResponse.text();
+  assert.match(environmentHtml, /data-visual-id="os-privilege-switch-timeline"/);
+  assert.match(environmentHtml, /CPU 当前特权集/);
+  assert.match(environmentHtml, /PCB：保存 \/ 恢复现场/);
+  assert.match(environmentHtml, /data-visual-id="os-dynamic-runtime-loading-trace"/);
+  const structureResponse = await render("/knowledge/os/concepts/structure");
+  assert.equal(structureResponse.status, 200);
+  const structureHtml = await structureResponse.text();
+  assert.match(structureHtml, /data-visual-id="os-kernel-architecture-stacks"/);
+  assert.match(structureHtml, /macOS \/ iOS 的 XNU、Windows NT 家族/);
+  assert.match(structureHtml, /data-visual-id="os-hypervisor-type-stacks"/);
+  assert.match(structureHtml, /Type 2 Hypervisor \/ VMM/);
+  const processThreadResponse = await render("/knowledge/os/process/process_thread");
+  assert.equal(processThreadResponse.status, 200);
+  const processThreadHtml = await processThreadResponse.text();
+  assert.match(processThreadHtml, /data-visual-id="os-parent-child-process-family"/);
+  assert.match(processThreadHtml, /父子进程与回收场景/);
+  assert.match(processThreadHtml, /僵尸：子已退出，父尚未回收/);
+  assert.match(processThreadHtml, /data-visual-id="os-ipc-methods-comparison"/);
+  assert.match(processThreadHtml, /IPC 方式怎么选/);
+  assert.match(processThreadHtml, /href="\/knowledge\/co\/cpu\/multicore"/);
 });
 
 test("keeps visualization specs and LaTeX sources auditable in generated data", () => {
   const knowledge = JSON.parse(fs.readFileSync(new URL("../app/data/knowledge.json", import.meta.url), "utf8"));
   const pages = Object.values(knowledge.subjects).flatMap((subject) => subject.pages);
   const visuals = pages.flatMap((page) => page.visualizations);
-  assert.equal(visuals.length, 15);
+  const expectedVisualCount = ["data_structure", "constitution_principle", "operating_system", "computer_network"]
+    .map((directory) => JSON.parse(fs.readFileSync(new URL(`../../local/kaoyanzahuopu/${directory}/_visualizations.json`, import.meta.url), "utf8")))
+    .reduce((count, manifest) => count + manifest.visualizations.length, 0);
+  assert.equal(visuals.length, expectedVisualCount);
   const supportedTypes = new Set([
     "growth-curves", "algorithm-trace", "memory-scale", "process-flow",
     "state-machine", "timeline", "comparison", "address-fields",
+    "banker-simulator", "resource-allocation-graph", "semaphore-lab",
+    "scheduler-queue", "concurrency-lab",
   ]);
   assert.ok(visuals.every((visual) => supportedTypes.has(visual.type)));
   for (const page of pages) {
     assert.ok(Array.isArray(page.sourceLatex));
+    assert.doesNotMatch(
+      page.html,
+      /href="https?:\/\/(?:www\.)?csgraduates\.com\/(?:data_structure|constitution_principle|operating_system|computer_network)(?:\/|")/i,
+      "local knowledge page still points at the external mirror",
+    );
     const markerIds = [...page.html.matchAll(/<!--\s*knowledge-visual:([a-z0-9-]+)\s*-->/g)].map((match) => match[1]);
     assert.deepEqual(markerIds, page.visualizations.map((visual) => visual.id));
     for (const visual of page.visualizations) {
@@ -152,6 +196,67 @@ test("keeps visualization specs and LaTeX sources auditable in generated data", 
         assert.match(visual.formulaHtml[latex], /katex/);
       }
     }
+  }
+});
+
+test("orders local knowledge children by the parent outline and keeps OS structure renderable", () => {
+  const knowledge = JSON.parse(fs.readFileSync(new URL("../app/data/knowledge.json", import.meta.url), "utf8"));
+  const pages = knowledge.subjects.os.pages;
+  const position = (slug) => pages.findIndex((page) => page.slug === slug);
+  assert.ok(position("concepts/concept") < position("concepts/environment"));
+  assert.ok(position("concepts/environment") < position("concepts/structure"));
+  assert.ok(position("process/process_thread") < position("process/scheduling"));
+  assert.ok(position("process/scheduling") < position("process/sync"));
+  assert.ok(position("process/sync") < position("process/problem"));
+  assert.ok(position("process/problem") < position("process/deadlock"));
+  const environment = pages.find((page) => page.slug === "concepts/environment");
+  const structure = pages.find((page) => page.slug === "concepts/structure");
+  const concept = pages.find((page) => page.slug === "concepts/concept");
+  const deadlock = pages.find((page) => page.slug === "process/deadlock");
+  const problem = pages.find((page) => page.slug === "process/problem");
+  const processThread = pages.find((page) => page.slug === "process/process_thread");
+  const scheduling = pages.find((page) => page.slug === "process/scheduling");
+  const sync = pages.find((page) => page.slug === "process/sync");
+  const root = pages.find((page) => !page.slug);
+  assert.match(environment.html, /<table>/);
+  assert.equal(environment.visualizations.find((visual) => visual.id === "os-privilege-switch-timeline")?.config.layout, "privilege-switch");
+  assert.equal(environment.visualizations.find((visual) => visual.id === "os-relocatable-loading-trace")?.config.layout, "loading-trace");
+  assert.equal(environment.visualizations.find((visual) => visual.id === "os-dynamic-runtime-loading-trace")?.config.layout, "loading-trace");
+  assert.equal(structure.visualizations.find((visual) => visual.id === "os-kernel-architecture-stacks")?.config.layout, "layered-stacks");
+  assert.equal(structure.visualizations.find((visual) => visual.id === "os-hypervisor-type-stacks")?.config.layout, "layered-stacks");
+  assert.match(concept.html, /<!--\s*knowledge-visual:os-boot-computer-timeline\s*-->/);
+  assert.equal(concept.visualizations.find((visual) => visual.id === "os-boot-computer-timeline")?.type, "process-flow");
+  assert.match(deadlock.html, /<details class="knowledge-code-details">/);
+  assert.match(deadlock.html, /<!--\s*knowledge-visual:os-banker-safety-simulator\s*-->/);
+  assert.match(deadlock.html, /<!--\s*knowledge-visual:os-resource-allocation-graph\s*-->/);
+  assert.match(problem.html, /<!--\s*knowledge-visual:os-producer-consumer-semaphore-lab\s*-->/);
+  assert.match(problem.html, /<!--\s*knowledge-visual:os-dining-asymmetric-semaphore-lab\s*-->/);
+  assert.doesNotMatch(problem.html, /inline-svg-06\.svg/);
+  assert.equal(processThread.visualizations.find((visual) => visual.id === "os-parent-child-process-family")?.config.layout, "process-family");
+  assert.equal(processThread.visualizations.find((visual) => visual.id === "os-ipc-methods-comparison")?.type, "comparison");
+  assert.match(processThread.html, /<!--\s*knowledge-visual:os-parent-child-process-family\s*-->/);
+  assert.match(processThread.html, /<!--\s*knowledge-visual:os-ipc-methods-comparison\s*-->/);
+  assert.match(processThread.html, /href="\/knowledge\/co\/cpu\/multicore"/);
+  assert.match(processThread.html, /href="\/knowledge\/os\/memory\/concepts"/);
+  assert.equal(scheduling.visualizations.find((visual) => visual.id === "os-scheduling-rr-timeline")?.type, "scheduler-queue");
+  assert.equal(scheduling.visualizations.find((visual) => visual.id === "os-scheduling-mlfq-queue")?.type, "scheduler-queue");
+  assert.equal(sync.visualizations.find((visual) => visual.id === "os-sync-lost-update-lab")?.type, "concurrency-lab");
+  assert.equal(sync.visualizations.find((visual) => visual.id === "os-sync-semaphore-applications-lab")?.type, "concurrency-lab");
+  assert.match(scheduling.html, /id="调度的实现"/);
+  assert.match(sync.html, /id="为何需要互斥"/);
+  assert.match(root.html, /href="\/knowledge\/os\/concepts"/);
+  assert.match(root.html, /href="\/knowledge\/os\/process"/);
+  assert.match(root.html, /href="\/knowledge\/co\/storage"/);
+  assert.match(root.html, /href="\/knowledge\/co\/bus"/);
+  for (const page of pages) {
+    assert.doesNotMatch(page.html, /<a href="(?:\.\/|\.\.\/)/, `${page.slug || "root"} still has a relative knowledge link`);
+  }
+  for (const page of pages) {
+    assert.doesNotMatch(
+      page.html,
+      /href="https?:\/\/(?:www\.)?csgraduates\.com\/(?:data_structure|constitution_principle|operating_system|computer_network)(?:\/|")/i,
+      "local knowledge page still points at the external mirror",
+    );
   }
 });
 

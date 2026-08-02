@@ -1,8 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Local study material generated from the user's PDF.
-/public/sections/
-/public/questions/
+# Published study material and generated knowledge assets are versioned because
+# the hosted build needs the same source content as the local site.
 
 # dependencies
 /node_modules
@@ -40,6 +39,7 @@ yarn-error.log*
 
 # typescript
 next-env.d.ts
+*.tsbuildinfo
 /dist/
 /.wrangler/
 /outputs/

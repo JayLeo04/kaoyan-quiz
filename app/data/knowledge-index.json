@@ -1,0 +1,2710 @@
+{
+  "generatedAt": "2026-08-02T07:40:50.748Z",
+  "subjects": {
+    "ds": {
+      "pageCount": 30,
+      "mappedTagCount": 57,
+      "tagRoutes": {
+        "复杂度分析": {
+          "href": "/knowledge/ds/basic/algorithm",
+          "title": "算法基本概念"
+        },
+        "顺序表": {
+          "href": "/knowledge/ds/linearlist/sequential",
+          "title": "顺序表示"
+        },
+        "链表": {
+          "href": "/knowledge/ds/linearlist/linked",
+          "title": "链式表示"
+        },
+        "栈": {
+          "href": "/knowledge/ds/array/stack",
+          "title": "栈"
+        },
+        "队列": {
+          "href": "/knowledge/ds/array/queue",
+          "title": "队列"
+        },
+        "入栈出栈序列": {
+          "href": "/knowledge/ds/array/application",
+          "title": "栈和队列的应用"
+        },
+        "中缀转后缀": {
+          "href": "/knowledge/ds/array/application",
+          "title": "栈和队列的应用"
+        },
+        "后序表达式求值": {
+          "href": "/knowledge/ds/array/application",
+          "title": "栈和队列的应用"
+        },
+        "特殊矩阵": {
+          "href": "/knowledge/ds/array/matrix",
+          "title": "数组和特殊矩阵"
+        },
+        "二维数组": {
+          "href": "/knowledge/ds/array/matrix",
+          "title": "数组和特殊矩阵"
+        },
+        "三对角矩阵": {
+          "href": "/knowledge/ds/array/matrix",
+          "title": "数组和特殊矩阵"
+        },
+        "三元组表": {
+          "href": "/knowledge/ds/array/matrix",
+          "title": "数组和特殊矩阵"
+        },
+        "KMP算法": {
+          "href": "/knowledge/ds/strings/match",
+          "title": "模式匹配"
+        },
+        "树的概念": {
+          "href": "/knowledge/ds/tree/tree",
+          "title": "树"
+        },
+        "二叉树和森林的转换": {
+          "href": "/knowledge/ds/tree/tree",
+          "title": "树"
+        },
+        "森林的概念": {
+          "href": "/knowledge/ds/tree/tree",
+          "title": "树"
+        },
+        "树和二叉树的转换": {
+          "href": "/knowledge/ds/tree/tree",
+          "title": "树"
+        },
+        "二叉树的遍历": {
+          "href": "/knowledge/ds/tree/btree",
+          "title": "二叉树"
+        },
+        "二叉树遍历": {
+          "href": "/knowledge/ds/tree/btree",
+          "title": "二叉树"
+        },
+        "完全二叉树": {
+          "href": "/knowledge/ds/tree/btree",
+          "title": "二叉树"
+        },
+        "二叉树构建": {
+          "href": "/knowledge/ds/tree/btree",
+          "title": "二叉树"
+        },
+        "线索二叉树": {
+          "href": "/knowledge/ds/tree/btree",
+          "title": "二叉树"
+        },
+        "二叉树存储": {
+          "href": "/knowledge/ds/tree/btree",
+          "title": "二叉树"
+        },
+        "满二叉树": {
+          "href": "/knowledge/ds/tree/btree",
+          "title": "二叉树"
+        },
+        "哈夫曼树": {
+          "href": "/knowledge/ds/tree/app",
+          "title": "树的应用"
+        },
+        "带权路径长度": {
+          "href": "/knowledge/ds/tree/app",
+          "title": "树的应用"
+        },
+        "前缀编码": {
+          "href": "/knowledge/ds/tree/app",
+          "title": "树的应用"
+        },
+        "哈夫曼编码": {
+          "href": "/knowledge/ds/tree/app",
+          "title": "树的应用"
+        },
+        "卡特兰数": {
+          "href": "/knowledge/ds/tree/app",
+          "title": "树的应用"
+        },
+        "邻接矩阵": {
+          "href": "/knowledge/ds/graph/defs",
+          "title": "定义"
+        },
+        "图的概念": {
+          "href": "/knowledge/ds/graph/defs",
+          "title": "定义"
+        },
+        "邻接表": {
+          "href": "/knowledge/ds/graph/defs",
+          "title": "定义"
+        },
+        "邻接多重表": {
+          "href": "/knowledge/ds/graph/defs",
+          "title": "定义"
+        },
+        "拓扑排序": {
+          "href": "/knowledge/ds/graph/operation",
+          "title": "算法和应用"
+        },
+        "关键路径": {
+          "href": "/knowledge/ds/graph/operation",
+          "title": "算法和应用"
+        },
+        "最小生成树": {
+          "href": "/knowledge/ds/graph/operation",
+          "title": "算法和应用"
+        },
+        "图的遍历": {
+          "href": "/knowledge/ds/graph/operation",
+          "title": "算法和应用"
+        },
+        "最短路径": {
+          "href": "/knowledge/ds/graph/operation",
+          "title": "算法和应用"
+        },
+        "DFS": {
+          "href": "/knowledge/ds/graph/operation",
+          "title": "算法和应用"
+        },
+        "图表示树": {
+          "href": "/knowledge/ds/graph/operation",
+          "title": "算法和应用"
+        },
+        "数组查找": {
+          "href": "/knowledge/ds/search/array",
+          "title": "数组查找"
+        },
+        "分块查找": {
+          "href": "/knowledge/ds/search/array",
+          "title": "数组查找"
+        },
+        "B树": {
+          "href": "/knowledge/ds/search/tree",
+          "title": "树形查找"
+        },
+        "二叉排序树": {
+          "href": "/knowledge/ds/search/tree",
+          "title": "树形查找"
+        },
+        "平衡二叉树": {
+          "href": "/knowledge/ds/search/tree",
+          "title": "树形查找"
+        },
+        "B+树": {
+          "href": "/knowledge/ds/search/tree",
+          "title": "树形查找"
+        },
+        "散列表": {
+          "href": "/knowledge/ds/search/hash",
+          "title": "散列表查找"
+        },
+        "平均查找长度": {
+          "href": "/knowledge/ds/search/hash",
+          "title": "散列表查找"
+        },
+        "排序算法": {
+          "href": "/knowledge/ds/sort/internal",
+          "title": "内部排序"
+        },
+        "堆的概念": {
+          "href": "/knowledge/ds/sort/internal",
+          "title": "内部排序"
+        },
+        "归并排序": {
+          "href": "/knowledge/ds/sort/internal",
+          "title": "内部排序"
+        },
+        "插入排序": {
+          "href": "/knowledge/ds/sort/internal",
+          "title": "内部排序"
+        },
+        "快速排序": {
+          "href": "/knowledge/ds/sort/internal",
+          "title": "内部排序"
+        },
+        "希尔排序": {
+          "href": "/knowledge/ds/sort/internal",
+          "title": "内部排序"
+        },
+        "基数排序": {
+          "href": "/knowledge/ds/sort/internal",
+          "title": "内部排序"
+        },
+        "外部排序": {
+          "href": "/knowledge/ds/sort/external",
+          "title": "外部排序"
+        },
+        "败者树": {
+          "href": "/knowledge/ds/sort/external",
+          "title": "外部排序"
+        }
+      },
+      "pages": [
+        {
+          "slug": "",
+          "route": "/knowledge/ds",
+          "title": "数据结构",
+          "questionIds": []
+        },
+        {
+          "slug": "basic",
+          "route": "/knowledge/ds/basic",
+          "title": "绪论",
+          "questionIds": []
+        },
+        {
+          "slug": "basic/ds",
+          "route": "/knowledge/ds/basic/ds",
+          "title": "数据结构基本概念",
+          "questionIds": []
+        },
+        {
+          "slug": "basic/algorithm",
+          "route": "/knowledge/ds/basic/algorithm",
+          "title": "算法基本概念",
+          "questionIds": [
+            "real-2013-1",
+            "real-2014-1",
+            "real-2022-1",
+            "real-2025-1",
+            "real-2012-1",
+            "real-2017-1",
+            "real-2019-1",
+            "real-2011-1",
+            "real-2016-7"
+          ]
+        },
+        {
+          "slug": "linearlist",
+          "route": "/knowledge/ds/linearlist",
+          "title": "线性表",
+          "questionIds": []
+        },
+        {
+          "slug": "linearlist/def",
+          "route": "/knowledge/ds/linearlist/def",
+          "title": "定义和基本操作",
+          "questionIds": []
+        },
+        {
+          "slug": "linearlist/sequential",
+          "route": "/knowledge/ds/linearlist/sequential",
+          "title": "顺序表示",
+          "questionIds": [
+            "real-2013-41",
+            "real-2025-41",
+            "real-2023-1",
+            "real-2010-42",
+            "real-2020-41",
+            "real-2018-41"
+          ]
+        },
+        {
+          "slug": "linearlist/linked",
+          "route": "/knowledge/ds/linearlist/linked",
+          "title": "链式表示",
+          "questionIds": [
+            "real-2024-1",
+            "real-2023-2",
+            "real-2015-41",
+            "real-2012-42",
+            "real-2009-42",
+            "real-2019-41",
+            "real-2021-1",
+            "real-2016-1",
+            "real-2016-2"
+          ]
+        },
+        {
+          "slug": "array",
+          "route": "/knowledge/ds/array",
+          "title": "线性数据结构",
+          "questionIds": []
+        },
+        {
+          "slug": "array/stack",
+          "route": "/knowledge/ds/array/stack",
+          "title": "栈",
+          "questionIds": [
+            "real-2025-2",
+            "real-2015-1",
+            "real-2017-2"
+          ]
+        },
+        {
+          "slug": "array/queue",
+          "route": "/knowledge/ds/array/queue",
+          "title": "队列",
+          "questionIds": [
+            "real-2014-3",
+            "real-2010-2",
+            "real-2019-42",
+            "real-2021-2",
+            "real-2011-3",
+            "real-2016-3"
+          ]
+        },
+        {
+          "slug": "array/application",
+          "route": "/knowledge/ds/array/application",
+          "title": "栈和队列的应用",
+          "questionIds": [
+            "real-2013-2",
+            "real-2022-2",
+            "real-2015-2",
+            "real-2009-2",
+            "real-2017-2",
+            "real-2010-1",
+            "real-2020-2",
+            "real-2018-2",
+            "real-2011-2",
+            "real-2014-2",
+            "real-2024-2",
+            "real-2012-2",
+            "real-2018-1"
+          ]
+        },
+        {
+          "slug": "array/matrix",
+          "route": "/knowledge/ds/array/matrix",
+          "title": "数组和特殊矩阵",
+          "questionIds": [
+            "real-2023-3",
+            "real-2017-3",
+            "real-2020-1",
+            "real-2018-3",
+            "real-2016-4",
+            "real-2021-3"
+          ]
+        },
+        {
+          "slug": "strings",
+          "route": "/knowledge/ds/strings",
+          "title": "字符串",
+          "questionIds": []
+        },
+        {
+          "slug": "strings/def",
+          "route": "/knowledge/ds/strings/def",
+          "title": "定义和实现",
+          "questionIds": []
+        },
+        {
+          "slug": "strings/match",
+          "route": "/knowledge/ds/strings/match",
+          "title": "模式匹配",
+          "questionIds": [
+            "real-2024-6",
+            "real-2015-8",
+            "real-2019-9"
+          ]
+        },
+        {
+          "slug": "tree",
+          "route": "/knowledge/ds/tree",
+          "title": "树与二叉树",
+          "questionIds": []
+        },
+        {
+          "slug": "tree/tree",
+          "route": "/knowledge/ds/tree/tree",
+          "title": "树",
+          "questionIds": [
+            "real-2013-4",
+            "real-2022-4",
+            "real-2010-5",
+            "real-2021-9",
+            "real-2011-6",
+            "real-2016-42",
+            "real-2014-5",
+            "real-2025-4",
+            "real-2009-6",
+            "real-2021-4",
+            "real-2016-5",
+            "real-2019-2"
+          ]
+        },
+        {
+          "slug": "tree/btree",
+          "route": "/knowledge/ds/tree/btree",
+          "title": "二叉树",
+          "questionIds": [
+            "real-2024-3",
+            "real-2012-3",
+            "real-2009-3",
+            "real-2017-4",
+            "real-2017-5",
+            "real-2020-4",
+            "real-2011-5",
+            "real-2014-41",
+            "real-2022-3",
+            "real-2023-5",
+            "real-2017-41",
+            "real-2025-3",
+            "real-2009-5",
+            "real-2011-4",
+            "real-2021-4",
+            "real-2013-5",
+            "real-2014-4",
+            "real-2020-3",
+            "real-2018-4"
+          ]
+        },
+        {
+          "slug": "tree/app",
+          "route": "/knowledge/ds/tree/app",
+          "title": "树的应用",
+          "questionIds": [
+            "real-2022-5",
+            "real-2025-5",
+            "real-2023-4",
+            "real-2015-3",
+            "real-2012-41",
+            "real-2010-6",
+            "real-2019-3",
+            "real-2021-5",
+            "real-2018-5",
+            "real-2013-4",
+            "real-2014-41",
+            "real-2014-6",
+            "real-2020-42",
+            "real-2017-6",
+            "real-2015-2"
+          ]
+        },
+        {
+          "slug": "graph",
+          "route": "/knowledge/ds/graph",
+          "title": "图",
+          "questionIds": []
+        },
+        {
+          "slug": "graph/defs",
+          "route": "/knowledge/ds/graph/defs",
+          "title": "定义",
+          "questionIds": [
+            "real-2013-7",
+            "real-2024-41",
+            "real-2023-41",
+            "real-2015-42",
+            "real-2021-41",
+            "real-2011-41",
+            "real-2022-6",
+            "real-2025-6",
+            "real-2009-7",
+            "real-2017-7",
+            "real-2010-7",
+            "real-2011-8",
+            "real-2018-42",
+            "real-2016-7",
+            "real-2024-4"
+          ]
+        },
+        {
+          "slug": "graph/operation",
+          "route": "/knowledge/ds/graph/operation",
+          "title": "算法和应用",
+          "questionIds": [
+            "real-2014-7",
+            "real-2024-41",
+            "real-2012-6",
+            "real-2010-8",
+            "real-2021-7",
+            "real-2018-7",
+            "real-2016-7",
+            "real-2013-9",
+            "real-2022-7",
+            "real-2025-42",
+            "real-2019-5",
+            "real-2020-8",
+            "real-2011-41",
+            "real-2023-6",
+            "real-2015-6",
+            "real-2012-8",
+            "real-2017-42",
+            "real-2020-7",
+            "real-2018-42",
+            "real-2013-8",
+            "real-2015-5",
+            "real-2012-5",
+            "real-2020-6",
+            "real-2016-6",
+            "real-2014-42",
+            "real-2012-7",
+            "real-2009-41",
+            "real-2021-8",
+            "real-2016-8",
+            "real-2019-6"
+          ]
+        },
+        {
+          "slug": "search",
+          "route": "/knowledge/ds/search",
+          "title": "查找",
+          "questionIds": []
+        },
+        {
+          "slug": "search/array",
+          "route": "/knowledge/ds/search/array",
+          "title": "数组查找",
+          "questionIds": [
+            "real-2025-7",
+            "real-2024-5",
+            "real-2023-8",
+            "real-2015-7",
+            "real-2010-9",
+            "real-2016-9"
+          ]
+        },
+        {
+          "slug": "search/tree",
+          "route": "/knowledge/ds/search/tree",
+          "title": "树形查找",
+          "questionIds": [
+            "real-2013-10",
+            "real-2014-9",
+            "real-2022-8",
+            "real-2025-8",
+            "real-2023-7",
+            "real-2012-9",
+            "real-2009-8",
+            "real-2020-10",
+            "real-2018-8",
+            "real-2016-10",
+            "real-2013-6",
+            "real-2022-41",
+            "real-2024-7",
+            "real-2020-5",
+            "real-2018-6",
+            "real-2011-7",
+            "real-2013-3",
+            "real-2015-4",
+            "real-2012-4",
+            "real-2010-4",
+            "real-2019-4",
+            "real-2021-6",
+            "real-2017-9"
+          ]
+        },
+        {
+          "slug": "search/hash",
+          "route": "/knowledge/ds/search/hash",
+          "title": "散列表查找",
+          "questionIds": [
+            "real-2014-8",
+            "real-2022-9",
+            "real-2025-9",
+            "real-2024-42",
+            "real-2023-9",
+            "real-2010-41",
+            "real-2019-8",
+            "real-2018-9",
+            "real-2011-9",
+            "real-2013-42"
+          ]
+        },
+        {
+          "slug": "sort",
+          "route": "/knowledge/ds/sort",
+          "title": "排序",
+          "questionIds": []
+        },
+        {
+          "slug": "sort/internal",
+          "route": "/knowledge/ds/sort/internal",
+          "title": "内部排序",
+          "questionIds": [
+            "real-2013-11",
+            "real-2014-10",
+            "real-2014-11",
+            "real-2022-11",
+            "real-2025-10",
+            "real-2025-11",
+            "real-2023-10",
+            "real-2023-11",
+            "real-2015-9",
+            "real-2015-11",
+            "real-2012-10",
+            "real-2012-11",
+            "real-2009-10",
+            "real-2017-10",
+            "real-2017-11",
+            "real-2010-10",
+            "real-2010-11",
+            "real-2019-7",
+            "real-2019-10",
+            "real-2021-10",
+            "real-2021-42",
+            "real-2020-11",
+            "real-2018-10",
+            "real-2011-10",
+            "real-2022-42",
+            "real-2024-9",
+            "real-2015-10",
+            "real-2009-9",
+            "real-2021-11",
+            "real-2020-9",
+            "real-2018-11",
+            "real-2011-11",
+            "real-2022-10",
+            "real-2024-10",
+            "real-2012-41",
+            "real-2011-42",
+            "real-2024-8",
+            "real-2016-43"
+          ]
+        },
+        {
+          "slug": "sort/external",
+          "route": "/knowledge/ds/sort/external",
+          "title": "外部排序",
+          "questionIds": [
+            "real-2023-42",
+            "real-2019-11",
+            "real-2016-11",
+            "real-2024-11"
+          ]
+        }
+      ]
+    },
+    "co": {
+      "pageCount": 30,
+      "mappedTagCount": 63,
+      "tagRoutes": {
+        "计算机体系结构": {
+          "href": "/knowledge/co/overview/structure",
+          "title": "计算机系统层次结构"
+        },
+        "计算机结构": {
+          "href": "/knowledge/co/overview/structure",
+          "title": "计算机系统层次结构"
+        },
+        "计算机性能指标": {
+          "href": "/knowledge/co/overview/performance",
+          "title": "计算机性能指标"
+        },
+        "指令执行指标": {
+          "href": "/knowledge/co/overview/performance",
+          "title": "计算机性能指标"
+        },
+        "海明码": {
+          "href": "/knowledge/co/representation",
+          "title": "数据表示和计算"
+        },
+        "补码": {
+          "href": "/knowledge/co/representation/integer",
+          "title": "整数的表示"
+        },
+        "逻辑移位": {
+          "href": "/knowledge/co/representation/integer",
+          "title": "整数的表示"
+        },
+        "无符号数": {
+          "href": "/knowledge/co/representation/integer",
+          "title": "整数的表示"
+        },
+        "IEEE浮点数表示": {
+          "href": "/knowledge/co/representation/floats",
+          "title": "浮点数表示"
+        },
+        "浮点数加减": {
+          "href": "/knowledge/co/representation/floats",
+          "title": "浮点数表示"
+        },
+        "运算电路": {
+          "href": "/knowledge/co/representation/circuit",
+          "title": "运算电路"
+        },
+        "类型转换": {
+          "href": "/knowledge/co/representation/conversion",
+          "title": "类型转换"
+        },
+        "存储器概念": {
+          "href": "/knowledge/co/storage/defs",
+          "title": "存储系统"
+        },
+        "主存容量的扩展": {
+          "href": "/knowledge/co/storage/memory",
+          "title": "内存"
+        },
+        "磁盘性能指标": {
+          "href": "/knowledge/co/storage/storage",
+          "title": "外存"
+        },
+        "RAID": {
+          "href": "/knowledge/co/storage/storage",
+          "title": "外存"
+        },
+        "cache概念": {
+          "href": "/knowledge/co/storage/cache",
+          "title": "Cache"
+        },
+        "cache映射方式": {
+          "href": "/knowledge/co/storage/cache",
+          "title": "Cache"
+        },
+        "cache写策略": {
+          "href": "/knowledge/co/storage/cache",
+          "title": "Cache"
+        },
+        "TLB": {
+          "href": "/knowledge/co/storage/virtual",
+          "title": "虚拟存储器"
+        },
+        "访存过程": {
+          "href": "/knowledge/co/storage/virtual",
+          "title": "虚拟存储器"
+        },
+        "存储器地址": {
+          "href": "/knowledge/co/storage/virtual",
+          "title": "虚拟存储器"
+        },
+        "虚拟页式存储": {
+          "href": "/knowledge/co/storage/virtual",
+          "title": "虚拟存储器"
+        },
+        "指令寻址方式": {
+          "href": "/knowledge/co/instruction/format",
+          "title": "格式和寻址方式"
+        },
+        "指令格式": {
+          "href": "/knowledge/co/instruction/format",
+          "title": "格式和寻址方式"
+        },
+        "指令操作码": {
+          "href": "/knowledge/co/instruction/format",
+          "title": "格式和寻址方式"
+        },
+        "指令种类": {
+          "href": "/knowledge/co/instruction/format",
+          "title": "格式和寻址方式"
+        },
+        "操作码扩展编码": {
+          "href": "/knowledge/co/instruction/format",
+          "title": "格式和寻址方式"
+        },
+        "大小端": {
+          "href": "/knowledge/co/instruction/alignment",
+          "title": "数据对齐方式"
+        },
+        "数据对齐": {
+          "href": "/knowledge/co/instruction/alignment",
+          "title": "数据对齐方式"
+        },
+        "复杂和精简指令集": {
+          "href": "/knowledge/co/instruction/concepts",
+          "title": "指令集种类"
+        },
+        "指令体系结构": {
+          "href": "/knowledge/co/instruction/concepts",
+          "title": "指令集种类"
+        },
+        "汇编代码": {
+          "href": "/knowledge/co/instruction/high_low_language",
+          "title": "高级语言和机器码"
+        },
+        "编译过程": {
+          "href": "/knowledge/co/instruction/high_low_language",
+          "title": "高级语言和机器码"
+        },
+        "寄存器类型": {
+          "href": "/knowledge/co/cpu/structure",
+          "title": "功能和结构"
+        },
+        "标志寄存器": {
+          "href": "/knowledge/co/cpu/structure",
+          "title": "功能和结构"
+        },
+        "数据通路": {
+          "href": "/knowledge/co/cpu/structure",
+          "title": "功能和结构"
+        },
+        "控制器种类": {
+          "href": "/knowledge/co/cpu/controller",
+          "title": "控制器"
+        },
+        "控制器": {
+          "href": "/knowledge/co/cpu/controller",
+          "title": "控制器"
+        },
+        "微程序控制器": {
+          "href": "/knowledge/co/cpu/controller",
+          "title": "控制器"
+        },
+        "寄存器传送语言": {
+          "href": "/knowledge/co/cpu/controller",
+          "title": "控制器"
+        },
+        "异常和中断": {
+          "href": "/knowledge/co/cpu/interrupt",
+          "title": "异常与中断"
+        },
+        "中断屏蔽": {
+          "href": "/knowledge/co/cpu/interrupt",
+          "title": "异常与中断"
+        },
+        "多重中断": {
+          "href": "/knowledge/co/cpu/interrupt",
+          "title": "异常与中断"
+        },
+        "陷阱指令": {
+          "href": "/knowledge/co/cpu/interrupt",
+          "title": "异常与中断"
+        },
+        "多级中断": {
+          "href": "/knowledge/co/cpu/interrupt",
+          "title": "异常与中断"
+        },
+        "流水线概念": {
+          "href": "/knowledge/co/cpu/pipeline",
+          "title": "指令流水线"
+        },
+        "流水线冒险": {
+          "href": "/knowledge/co/cpu/pipeline",
+          "title": "指令流水线"
+        },
+        "超流水线": {
+          "href": "/knowledge/co/cpu/pipeline",
+          "title": "指令流水线"
+        },
+        "单周期处理器": {
+          "href": "/knowledge/co/cpu/pipeline",
+          "title": "指令流水线"
+        },
+        "单周期CPU": {
+          "href": "/knowledge/co/cpu/pipeline",
+          "title": "指令流水线"
+        },
+        "多处理机": {
+          "href": "/knowledge/co/cpu/multicore",
+          "title": "多处理器"
+        },
+        "总线指标": {
+          "href": "/knowledge/co/bus/bus",
+          "title": "总线"
+        },
+        "总线事务": {
+          "href": "/knowledge/co/bus/bus",
+          "title": "总线"
+        },
+        "总线类型": {
+          "href": "/knowledge/co/bus/bus",
+          "title": "总线"
+        },
+        "总线概念": {
+          "href": "/knowledge/co/bus/bus",
+          "title": "总线"
+        },
+        "总线架构": {
+          "href": "/knowledge/co/bus/bus",
+          "title": "总线"
+        },
+        "总线定时": {
+          "href": "/knowledge/co/bus/bus",
+          "title": "总线"
+        },
+        "中断IO": {
+          "href": "/knowledge/co/bus/io",
+          "title": "I/O 系统"
+        },
+        "DMA": {
+          "href": "/knowledge/co/bus/io",
+          "title": "I/O 系统"
+        },
+        "IO接口": {
+          "href": "/knowledge/co/bus/io",
+          "title": "I/O 系统"
+        },
+        "IO方式": {
+          "href": "/knowledge/co/bus/io",
+          "title": "I/O 系统"
+        },
+        "程序查询IO方式": {
+          "href": "/knowledge/co/bus/io",
+          "title": "I/O 系统"
+        }
+      },
+      "pages": [
+        {
+          "slug": "",
+          "route": "/knowledge/co",
+          "title": "组成原理",
+          "questionIds": []
+        },
+        {
+          "slug": "overview",
+          "route": "/knowledge/co/overview",
+          "title": "概述",
+          "questionIds": []
+        },
+        {
+          "slug": "overview/structure",
+          "route": "/knowledge/co/overview/structure",
+          "title": "计算机系统层次结构",
+          "questionIds": [
+            "real-2015-12",
+            "real-2012-12",
+            "real-2019-12",
+            "real-2018-12",
+            "real-2016-12",
+            "real-2009-11",
+            "real-2010-12"
+          ]
+        },
+        {
+          "slug": "overview/performance",
+          "route": "/knowledge/co/overview/performance",
+          "title": "计算机性能指标",
+          "questionIds": [
+            "real-2013-43",
+            "real-2014-12",
+            "real-2022-12",
+            "real-2025-18",
+            "real-2023-12",
+            "real-2012-43",
+            "real-2009-43",
+            "real-2019-16",
+            "real-2021-12",
+            "real-2020-12",
+            "real-2018-43",
+            "real-2011-19",
+            "real-2016-44",
+            "real-2013-12",
+            "real-2011-12"
+          ]
+        },
+        {
+          "slug": "representation",
+          "route": "/knowledge/co/representation",
+          "title": "数据表示和计算",
+          "questionIds": [
+            "real-2013-15"
+          ]
+        },
+        {
+          "slug": "representation/integer",
+          "route": "/knowledge/co/representation/integer",
+          "title": "整数的表示",
+          "questionIds": [
+            "real-2013-14",
+            "real-2014-13",
+            "real-2022-13",
+            "real-2025-14",
+            "real-2024-12",
+            "real-2024-14",
+            "real-2023-13",
+            "real-2009-12",
+            "real-2017-43",
+            "real-2010-13",
+            "real-2019-13",
+            "real-2021-13",
+            "real-2020-13",
+            "real-2018-13",
+            "real-2011-43",
+            "real-2018-16",
+            "real-2012-13"
+          ]
+        },
+        {
+          "slug": "representation/floats",
+          "route": "/knowledge/co/representation/floats",
+          "title": "浮点数表示",
+          "questionIds": [
+            "real-2013-13",
+            "real-2014-14",
+            "real-2022-14",
+            "real-2025-13",
+            "real-2024-14",
+            "real-2023-14",
+            "real-2012-14",
+            "real-2017-43",
+            "real-2021-14",
+            "real-2020-13",
+            "real-2018-14",
+            "real-2011-13",
+            "real-2015-14",
+            "real-2009-13"
+          ]
+        },
+        {
+          "slug": "representation/circuit",
+          "route": "/knowledge/co/representation/circuit",
+          "title": "运算电路",
+          "questionIds": [
+            "real-2025-44",
+            "real-2024-15",
+            "real-2020-43"
+          ]
+        },
+        {
+          "slug": "representation/conversion",
+          "route": "/knowledge/co/representation/conversion",
+          "title": "类型转换",
+          "questionIds": [
+            "real-2025-12",
+            "real-2024-12",
+            "real-2012-13",
+            "real-2009-12",
+            "real-2010-14",
+            "real-2019-13",
+            "real-2018-13",
+            "real-2011-43",
+            "real-2016-13"
+          ]
+        },
+        {
+          "slug": "storage",
+          "route": "/knowledge/co/storage",
+          "title": "存储系统",
+          "questionIds": []
+        },
+        {
+          "slug": "storage/defs",
+          "route": "/knowledge/co/storage/defs",
+          "title": "存储系统",
+          "questionIds": [
+            "real-2015-17",
+            "real-2010-16",
+            "real-2010-22",
+            "real-2011-14",
+            "real-2011-15"
+          ]
+        },
+        {
+          "slug": "storage/memory",
+          "route": "/knowledge/co/storage/memory",
+          "title": "内存",
+          "questionIds": [
+            "real-2014-15",
+            "real-2015-18",
+            "real-2012-43",
+            "real-2009-15",
+            "real-2017-13",
+            "real-2010-15",
+            "real-2021-15",
+            "real-2018-17"
+          ]
+        },
+        {
+          "slug": "storage/storage",
+          "route": "/knowledge/co/storage/storage",
+          "title": "外存",
+          "questionIds": [
+            "real-2013-21",
+            "real-2015-20",
+            "real-2013-20"
+          ]
+        },
+        {
+          "slug": "storage/cache",
+          "route": "/knowledge/co/storage/cache",
+          "title": "Cache",
+          "questionIds": [
+            "real-2013-43",
+            "real-2014-16",
+            "real-2014-45",
+            "real-2023-43",
+            "real-2012-43",
+            "real-2009-21",
+            "real-2017-14",
+            "real-2010-44",
+            "real-2020-15",
+            "real-2011-44",
+            "real-2016-15",
+            "real-2016-45",
+            "real-2022-16",
+            "real-2025-43",
+            "real-2015-15",
+            "real-2012-17",
+            "real-2009-14",
+            "real-2019-46",
+            "real-2021-16",
+            "real-2018-44",
+            "real-2015-16"
+          ]
+        },
+        {
+          "slug": "storage/virtual",
+          "route": "/knowledge/co/storage/virtual",
+          "title": "虚拟存储器",
+          "questionIds": [
+            "real-2024-17",
+            "real-2015-16",
+            "real-2021-44",
+            "real-2020-15",
+            "real-2018-44",
+            "real-2011-44",
+            "real-2016-45",
+            "real-2014-28",
+            "real-2009-46",
+            "real-2010-17",
+            "real-2020-44",
+            "real-2020-28",
+            "real-2023-15",
+            "real-2019-46"
+          ]
+        },
+        {
+          "slug": "instruction",
+          "route": "/knowledge/co/instruction",
+          "title": "指令系统",
+          "questionIds": []
+        },
+        {
+          "slug": "instruction/format",
+          "route": "/knowledge/co/instruction/format",
+          "title": "格式和寻址方式",
+          "questionIds": [
+            "real-2013-17",
+            "real-2014-17",
+            "real-2014-44",
+            "real-2023-17",
+            "real-2023-44",
+            "real-2009-16",
+            "real-2017-15",
+            "real-2010-43",
+            "real-2019-17",
+            "real-2019-45",
+            "real-2020-16",
+            "real-2018-18",
+            "real-2011-16",
+            "real-2016-17",
+            "real-2013-44",
+            "real-2015-44",
+            "real-2021-43",
+            "real-2017-44",
+            "real-2022-19",
+            "real-2020-43",
+            "real-2017-16"
+          ]
+        },
+        {
+          "slug": "instruction/alignment",
+          "route": "/knowledge/co/instruction/alignment",
+          "title": "数据对齐方式",
+          "questionIds": [
+            "real-2025-15",
+            "real-2024-44",
+            "real-2023-44",
+            "real-2019-15",
+            "real-2020-14",
+            "real-2018-15",
+            "real-2016-14",
+            "real-2012-15"
+          ]
+        },
+        {
+          "slug": "instruction/concepts",
+          "route": "/knowledge/co/instruction/concepts",
+          "title": "指令集种类",
+          "questionIds": [
+            "real-2025-17",
+            "real-2009-17",
+            "real-2017-44",
+            "real-2022-18",
+            "real-2025-16",
+            "real-2017-12"
+          ]
+        },
+        {
+          "slug": "instruction/high_low_language",
+          "route": "/knowledge/co/instruction/high_low_language",
+          "title": "高级语言和机器码",
+          "questionIds": [
+            "real-2014-44",
+            "real-2024-44",
+            "real-2010-44",
+            "real-2019-45",
+            "real-2022-20"
+          ]
+        },
+        {
+          "slug": "instruction/instruction_ops",
+          "route": "/knowledge/co/instruction/instruction_ops",
+          "title": "指令操作码",
+          "questionIds": []
+        },
+        {
+          "slug": "cpu",
+          "route": "/knowledge/co/cpu",
+          "title": "中央处理器",
+          "questionIds": []
+        },
+        {
+          "slug": "cpu/structure",
+          "route": "/knowledge/co/cpu/structure",
+          "title": "功能和结构",
+          "questionIds": [
+            "real-2014-17",
+            "real-2022-43",
+            "real-2015-43",
+            "real-2017-18",
+            "real-2010-18",
+            "real-2019-17",
+            "real-2021-17",
+            "real-2020-12",
+            "real-2016-18",
+            "real-2024-25",
+            "real-2015-23",
+            "real-2012-24",
+            "real-2013-44",
+            "real-2023-16",
+            "real-2017-44",
+            "real-2019-45",
+            "real-2018-19",
+            "real-2011-17",
+            "real-2025-19",
+            "real-2023-18",
+            "real-2017-19",
+            "real-2021-18"
+          ]
+        },
+        {
+          "slug": "cpu/controller",
+          "route": "/knowledge/co/cpu/controller",
+          "title": "控制器",
+          "questionIds": [
+            "real-2012-18",
+            "real-2009-17",
+            "real-2009-19",
+            "real-2022-43",
+            "real-2025-19",
+            "real-2014-18",
+            "real-2024-13",
+            "real-2009-44"
+          ]
+        },
+        {
+          "slug": "cpu/interrupt",
+          "route": "/knowledge/co/cpu/interrupt",
+          "title": "异常与中断",
+          "questionIds": [
+            "real-2025-22",
+            "real-2023-21",
+            "real-2015-22",
+            "real-2012-22",
+            "real-2009-22",
+            "real-2021-21",
+            "real-2020-20",
+            "real-2020-21",
+            "real-2016-22",
+            "real-2024-23",
+            "real-2011-19",
+            "real-2011-21",
+            "real-2017-22",
+            "real-2021-22",
+            "real-2020-18",
+            "real-2014-25"
+          ]
+        },
+        {
+          "slug": "cpu/pipeline",
+          "route": "/knowledge/co/cpu/pipeline",
+          "title": "指令流水线",
+          "questionIds": [
+            "real-2013-18",
+            "real-2012-44",
+            "real-2009-18",
+            "real-2017-19",
+            "real-2020-17",
+            "real-2018-20",
+            "real-2011-18",
+            "real-2014-44",
+            "real-2024-19",
+            "real-2023-19",
+            "real-2010-19",
+            "real-2019-18",
+            "real-2016-19",
+            "real-2017-17",
+            "real-2016-20"
+          ]
+        },
+        {
+          "slug": "cpu/multicore",
+          "route": "/knowledge/co/cpu/multicore",
+          "title": "多处理器",
+          "questionIds": [
+            "real-2022-22"
+          ]
+        },
+        {
+          "slug": "bus",
+          "route": "/knowledge/co/bus",
+          "title": "总线和输入输出系统",
+          "questionIds": []
+        },
+        {
+          "slug": "bus/bus",
+          "route": "/knowledge/co/bus/bus",
+          "title": "总线",
+          "questionIds": [
+            "real-2014-19",
+            "real-2025-20",
+            "real-2024-20",
+            "real-2023-20",
+            "real-2009-20",
+            "real-2019-19",
+            "real-2020-19",
+            "real-2018-21",
+            "real-2013-43",
+            "real-2014-20",
+            "real-2012-19",
+            "real-2018-22",
+            "real-2016-21",
+            "real-2013-19",
+            "real-2012-20",
+            "real-2017-20",
+            "real-2010-20",
+            "real-2012-21",
+            "real-2021-19",
+            "real-2011-20",
+            "real-2016-20",
+            "real-2015-19"
+          ]
+        },
+        {
+          "slug": "bus/io",
+          "route": "/knowledge/co/bus/io",
+          "title": "I/O 系统",
+          "questionIds": [
+            "real-2013-22",
+            "real-2014-22",
+            "real-2022-21",
+            "real-2024-21",
+            "real-2015-21",
+            "real-2012-22",
+            "real-2009-43",
+            "real-2010-21",
+            "real-2019-21",
+            "real-2020-20",
+            "real-2018-22",
+            "real-2016-44",
+            "real-2022-24",
+            "real-2024-31",
+            "real-2023-24",
+            "real-2023-46",
+            "real-2015-23",
+            "real-2017-45",
+            "real-2010-32",
+            "real-2020-25",
+            "real-2018-29",
+            "real-2022-44",
+            "real-2025-21",
+            "real-2024-22",
+            "real-2012-43",
+            "real-2019-22",
+            "real-2020-22",
+            "real-2017-32",
+            "real-2014-21",
+            "real-2017-21",
+            "real-2021-20",
+            "real-2023-22",
+            "real-2018-43",
+            "real-2011-22"
+          ]
+        }
+      ]
+    },
+    "os": {
+      "pageCount": 22,
+      "mappedTagCount": 67,
+      "tagRoutes": {
+        "操作系统概念": {
+          "href": "/knowledge/os/concepts/concept",
+          "title": "操作系统概念"
+        },
+        "系统引导流程": {
+          "href": "/knowledge/os/concepts/concept",
+          "title": "操作系统概念"
+        },
+        "用户态和内核态": {
+          "href": "/knowledge/os/concepts/environment",
+          "title": "程序运行环境"
+        },
+        "系统调用": {
+          "href": "/knowledge/os/concepts/environment",
+          "title": "程序运行环境"
+        },
+        "程序的链接": {
+          "href": "/knowledge/os/concepts/environment",
+          "title": "程序运行环境"
+        },
+        "程序的装入": {
+          "href": "/knowledge/os/concepts/environment",
+          "title": "程序运行环境"
+        },
+        "进程状态": {
+          "href": "/knowledge/os/process/process_thread",
+          "title": "进程和线程"
+        },
+        "进程和线程": {
+          "href": "/knowledge/os/process/process_thread",
+          "title": "进程和线程"
+        },
+        "进程概念": {
+          "href": "/knowledge/os/process/process_thread",
+          "title": "进程和线程"
+        },
+        "进程间通信": {
+          "href": "/knowledge/os/process/process_thread",
+          "title": "进程和线程"
+        },
+        "进程控制块": {
+          "href": "/knowledge/os/process/process_thread",
+          "title": "进程和线程"
+        },
+        "进程内存空间": {
+          "href": "/knowledge/os/process/process_thread",
+          "title": "进程和线程"
+        },
+        "用户级和内核级线程": {
+          "href": "/knowledge/os/process/process_thread",
+          "title": "进程和线程"
+        },
+        "处理机调度算法": {
+          "href": "/knowledge/os/process/scheduling",
+          "title": "处理机调度"
+        },
+        "时间片轮转": {
+          "href": "/knowledge/os/process/scheduling",
+          "title": "处理机调度"
+        },
+        "处理机调度概念": {
+          "href": "/knowledge/os/process/scheduling",
+          "title": "处理机调度"
+        },
+        "调度指标": {
+          "href": "/knowledge/os/process/scheduling",
+          "title": "处理机调度"
+        },
+        "信号量": {
+          "href": "/knowledge/os/process/sync",
+          "title": "同步和互斥"
+        },
+        "管程": {
+          "href": "/knowledge/os/process/sync",
+          "title": "同步和互斥"
+        },
+        "软件互斥算法": {
+          "href": "/knowledge/os/process/sync",
+          "title": "同步和互斥"
+        },
+        "硬件互斥指令": {
+          "href": "/knowledge/os/process/sync",
+          "title": "同步和互斥"
+        },
+        "进程的互斥": {
+          "href": "/knowledge/os/process/sync",
+          "title": "同步和互斥"
+        },
+        "临界资源": {
+          "href": "/knowledge/os/process/sync",
+          "title": "同步和互斥"
+        },
+        "条件变量": {
+          "href": "/knowledge/os/process/sync",
+          "title": "同步和互斥"
+        },
+        "同步原则": {
+          "href": "/knowledge/os/process/sync",
+          "title": "同步和互斥"
+        },
+        "同步问题设计": {
+          "href": "/knowledge/os/process/problem",
+          "title": "经典同步问题"
+        },
+        "银行家算法": {
+          "href": "/knowledge/os/process/deadlock",
+          "title": "死锁"
+        },
+        "死锁产生的必要条件": {
+          "href": "/knowledge/os/process/deadlock",
+          "title": "死锁"
+        },
+        "死锁的处理方法": {
+          "href": "/knowledge/os/process/deadlock",
+          "title": "死锁"
+        },
+        "死锁概念": {
+          "href": "/knowledge/os/process/deadlock",
+          "title": "死锁"
+        },
+        "死锁预防": {
+          "href": "/knowledge/os/process/deadlock",
+          "title": "死锁"
+        },
+        "动态内存管理": {
+          "href": "/knowledge/os/memory/concepts",
+          "title": "内存管理概念"
+        },
+        "段式内存管理": {
+          "href": "/knowledge/os/memory/concepts",
+          "title": "内存管理概念"
+        },
+        "分段内存管理": {
+          "href": "/knowledge/os/memory/concepts",
+          "title": "内存管理概念"
+        },
+        "内存管理方式": {
+          "href": "/knowledge/os/memory/concepts",
+          "title": "内存管理概念"
+        },
+        "虚拟页式管理": {
+          "href": "/knowledge/os/memory/management",
+          "title": "虚拟内存管理"
+        },
+        "地址翻译": {
+          "href": "/knowledge/os/memory/management",
+          "title": "虚拟内存管理"
+        },
+        "页表": {
+          "href": "/knowledge/os/memory/management",
+          "title": "虚拟内存管理"
+        },
+        "缺页异常": {
+          "href": "/knowledge/os/memory/management",
+          "title": "虚拟内存管理"
+        },
+        "页面置换算法": {
+          "href": "/knowledge/os/memory/management",
+          "title": "虚拟内存管理"
+        },
+        "clock算法": {
+          "href": "/knowledge/os/memory/management",
+          "title": "虚拟内存管理"
+        },
+        "页框分配和置换策略": {
+          "href": "/knowledge/os/memory/management",
+          "title": "虚拟内存管理"
+        },
+        "驻留集": {
+          "href": "/knowledge/os/memory/management",
+          "title": "虚拟内存管理"
+        },
+        "LRU": {
+          "href": "/knowledge/os/memory/management",
+          "title": "虚拟内存管理"
+        },
+        "抖动": {
+          "href": "/knowledge/os/memory/management",
+          "title": "虚拟内存管理"
+        },
+        "内存映射文件": {
+          "href": "/knowledge/os/memory/management",
+          "title": "虚拟内存管理"
+        },
+        "Belady异常": {
+          "href": "/knowledge/os/memory/management",
+          "title": "虚拟内存管理"
+        },
+        "文件物理结构": {
+          "href": "/knowledge/os/files/file",
+          "title": "文件"
+        },
+        "inode": {
+          "href": "/knowledge/os/files/file",
+          "title": "文件"
+        },
+        "进程文件管理": {
+          "href": "/knowledge/os/files/file",
+          "title": "文件"
+        },
+        "文件概念": {
+          "href": "/knowledge/os/files/file",
+          "title": "文件"
+        },
+        "文件分配表": {
+          "href": "/knowledge/os/files/file",
+          "title": "文件"
+        },
+        "目录": {
+          "href": "/knowledge/os/files/dir",
+          "title": "目录"
+        },
+        "文件链接": {
+          "href": "/knowledge/os/files/dir",
+          "title": "目录"
+        },
+        "外存空间管理": {
+          "href": "/knowledge/os/files/file_system",
+          "title": "文件系统"
+        },
+        "位图法": {
+          "href": "/knowledge/os/files/file_system",
+          "title": "文件系统"
+        },
+        "文件系统": {
+          "href": "/knowledge/os/files/file_system",
+          "title": "文件系统"
+        },
+        "虚拟文件系统": {
+          "href": "/knowledge/os/files/file_system",
+          "title": "文件系统"
+        },
+        "IO软件层次": {
+          "href": "/knowledge/os/io_device/devices",
+          "title": "I/O 设备"
+        },
+        "缓冲区": {
+          "href": "/knowledge/os/io_device/management",
+          "title": "设备管理"
+        },
+        "设备分配和回收": {
+          "href": "/knowledge/os/io_device/management",
+          "title": "设备管理"
+        },
+        "SPOOLing": {
+          "href": "/knowledge/os/io_device/management",
+          "title": "设备管理"
+        },
+        "磁盘调度算法": {
+          "href": "/knowledge/os/io_device/disks",
+          "title": "磁盘"
+        },
+        "磁盘概念": {
+          "href": "/knowledge/os/io_device/disks",
+          "title": "磁盘"
+        },
+        "CHS地址": {
+          "href": "/knowledge/os/io_device/disks",
+          "title": "磁盘"
+        },
+        "磁盘格式化": {
+          "href": "/knowledge/os/io_device/disks",
+          "title": "磁盘"
+        },
+        "机械硬盘": {
+          "href": "/knowledge/os/io_device/disks",
+          "title": "磁盘"
+        }
+      },
+      "pages": [
+        {
+          "slug": "",
+          "route": "/knowledge/os",
+          "title": "操作系统",
+          "questionIds": []
+        },
+        {
+          "slug": "concepts",
+          "route": "/knowledge/os/concepts",
+          "title": "计算机系统概述",
+          "questionIds": []
+        },
+        {
+          "slug": "concepts/concept",
+          "route": "/knowledge/os/concepts/concept",
+          "title": "操作系统概念",
+          "questionIds": [
+            "real-2022-23",
+            "real-2025-24",
+            "real-2023-23",
+            "real-2009-23",
+            "real-2017-28",
+            "real-2010-23",
+            "real-2018-23",
+            "real-2016-23",
+            "real-2013-29",
+            "real-2021-46"
+          ]
+        },
+        {
+          "slug": "concepts/environment",
+          "route": "/knowledge/os/concepts/environment",
+          "title": "程序运行环境",
+          "questionIds": [
+            "real-2013-28",
+            "real-2014-25",
+            "real-2022-27",
+            "real-2023-26",
+            "real-2023-46",
+            "real-2015-24",
+            "real-2012-23",
+            "real-2019-25",
+            "real-2021-23",
+            "real-2011-24",
+            "real-2022-31",
+            "real-2024-29",
+            "real-2012-28",
+            "real-2017-24",
+            "real-2021-32",
+            "real-2011-30"
+          ]
+        },
+        {
+          "slug": "concepts/structure",
+          "route": "/knowledge/os/concepts/structure",
+          "title": "操作系统结构",
+          "questionIds": []
+        },
+        {
+          "slug": "process",
+          "route": "/knowledge/os/process",
+          "title": "进程管理",
+          "questionIds": []
+        },
+        {
+          "slug": "process/process_thread",
+          "route": "/knowledge/os/process/process_thread",
+          "title": "进程和线程",
+          "questionIds": [
+            "real-2014-26",
+            "real-2022-28",
+            "real-2023-27",
+            "real-2015-25",
+            "real-2012-30",
+            "real-2019-24",
+            "real-2021-24",
+            "real-2021-27",
+            "real-2018-27",
+            "real-2024-28",
+            "real-2012-31",
+            "real-2018-25",
+            "real-2011-25",
+            "real-2011-32",
+            "real-2024-24",
+            "real-2024-46",
+            "real-2010-24",
+            "real-2020-29",
+            "real-2014-31",
+            "real-2025-46",
+            "real-2019-23"
+          ]
+        },
+        {
+          "slug": "process/scheduling",
+          "route": "/knowledge/os/process/scheduling",
+          "title": "处理机调度",
+          "questionIds": [
+            "real-2014-23",
+            "real-2022-25",
+            "real-2025-25",
+            "real-2024-30",
+            "real-2023-29",
+            "real-2012-29",
+            "real-2009-24",
+            "real-2017-23",
+            "real-2017-27",
+            "real-2010-26",
+            "real-2019-27",
+            "real-2021-25",
+            "real-2020-26",
+            "real-2018-24",
+            "real-2011-23",
+            "real-2016-46",
+            "real-2013-31",
+            "real-2016-24"
+          ]
+        },
+        {
+          "slug": "process/sync",
+          "route": "/knowledge/os/process/sync",
+          "title": "同步和互斥",
+          "questionIds": [
+            "real-2024-46",
+            "real-2017-46",
+            "real-2010-25",
+            "real-2018-32",
+            "real-2018-28",
+            "real-2016-32",
+            "real-2023-45",
+            "real-2010-27",
+            "real-2016-27",
+            "real-2016-30",
+            "real-2016-25",
+            "real-2020-32"
+          ]
+        },
+        {
+          "slug": "process/problem",
+          "route": "/knowledge/os/process/problem",
+          "title": "经典同步问题",
+          "questionIds": [
+            "real-2013-45",
+            "real-2014-47",
+            "real-2022-46",
+            "real-2025-45",
+            "real-2015-45",
+            "real-2009-45",
+            "real-2019-43",
+            "real-2021-45",
+            "real-2020-45",
+            "real-2011-45"
+          ]
+        },
+        {
+          "slug": "process/deadlock",
+          "route": "/knowledge/os/process/deadlock",
+          "title": "死锁",
+          "questionIds": [
+            "real-2013-32",
+            "real-2022-26",
+            "real-2012-27",
+            "real-2020-27",
+            "real-2018-26",
+            "real-2011-27",
+            "real-2014-24",
+            "real-2019-30",
+            "real-2021-31",
+            "real-2015-26",
+            "real-2009-25",
+            "real-2016-25"
+          ]
+        },
+        {
+          "slug": "memory",
+          "route": "/knowledge/os/memory",
+          "title": "内存管理",
+          "questionIds": []
+        },
+        {
+          "slug": "memory/concepts",
+          "route": "/knowledge/os/memory/concepts",
+          "title": "内存管理概念",
+          "questionIds": [
+            "real-2024-27",
+            "real-2017-25",
+            "real-2010-28",
+            "real-2019-32",
+            "real-2009-27",
+            "real-2019-28",
+            "real-2016-28",
+            "real-2009-26"
+          ]
+        },
+        {
+          "slug": "memory/management",
+          "route": "/knowledge/os/memory/management",
+          "title": "虚拟内存管理",
+          "questionIds": [
+            "real-2014-45",
+            "real-2025-43",
+            "real-2024-16",
+            "real-2024-18",
+            "real-2024-44",
+            "real-2023-43",
+            "real-2018-44",
+            "real-2011-44",
+            "real-2016-45",
+            "real-2013-46",
+            "real-2025-23",
+            "real-2025-27",
+            "real-2024-25",
+            "real-2024-45",
+            "real-2023-28",
+            "real-2023-30",
+            "real-2015-46",
+            "real-2012-25",
+            "real-2009-46",
+            "real-2020-46",
+            "real-2013-16",
+            "real-2019-46",
+            "real-2021-44",
+            "real-2014-28",
+            "real-2017-45",
+            "real-2010-46",
+            "real-2019-31",
+            "real-2018-45",
+            "real-2016-28",
+            "real-2022-15",
+            "real-2014-32",
+            "real-2010-29",
+            "real-2021-29",
+            "real-2023-44",
+            "real-2019-14",
+            "real-2013-30",
+            "real-2022-29",
+            "real-2012-28",
+            "real-2011-28",
+            "real-2022-30",
+            "real-2025-26",
+            "real-2015-27",
+            "real-2021-28",
+            "real-2016-26",
+            "real-2015-30",
+            "real-2012-45",
+            "real-2016-29",
+            "real-2011-29",
+            "real-2025-30",
+            "real-2014-30"
+          ]
+        },
+        {
+          "slug": "files",
+          "route": "/knowledge/os/files",
+          "title": "文件管理",
+          "questionIds": []
+        },
+        {
+          "slug": "files/file",
+          "route": "/knowledge/os/files/file",
+          "title": "文件",
+          "questionIds": [
+            "real-2013-24",
+            "real-2014-46",
+            "real-2022-45",
+            "real-2015-29",
+            "real-2012-46",
+            "real-2009-28",
+            "real-2010-30",
+            "real-2020-24",
+            "real-2018-46",
+            "real-2011-46",
+            "real-2013-26",
+            "real-2014-29",
+            "real-2023-31",
+            "real-2009-30",
+            "real-2017-30",
+            "real-2017-31",
+            "real-2020-31",
+            "real-2025-29",
+            "real-2024-29",
+            "real-2020-23",
+            "real-2013-23",
+            "real-2016-47"
+          ]
+        },
+        {
+          "slug": "files/dir",
+          "route": "/knowledge/os/files/dir",
+          "title": "目录",
+          "questionIds": [
+            "real-2022-45",
+            "real-2010-31",
+            "real-2020-31",
+            "real-2016-47",
+            "real-2009-31",
+            "real-2017-31",
+            "real-2021-30"
+          ]
+        },
+        {
+          "slug": "files/file_system",
+          "route": "/knowledge/os/files/file_system",
+          "title": "文件系统",
+          "questionIds": [
+            "real-2014-27",
+            "real-2025-31",
+            "real-2024-26",
+            "real-2017-26",
+            "real-2010-45",
+            "real-2019-26",
+            "real-2023-25",
+            "real-2015-31",
+            "real-2018-46",
+            "real-2025-28"
+          ]
+        },
+        {
+          "slug": "io_device",
+          "route": "/knowledge/os/io_device",
+          "title": "I/O 管理",
+          "questionIds": []
+        },
+        {
+          "slug": "io_device/devices",
+          "route": "/knowledge/os/io_device/devices",
+          "title": "I/O 设备",
+          "questionIds": [
+            "real-2013-25",
+            "real-2022-32",
+            "real-2023-46",
+            "real-2012-26",
+            "real-2019-44",
+            "real-2011-26"
+          ]
+        },
+        {
+          "slug": "io_device/management",
+          "route": "/knowledge/os/io_device/management",
+          "title": "设备管理",
+          "questionIds": [
+            "real-2009-1",
+            "real-2013-27",
+            "real-2022-30",
+            "real-2015-28",
+            "real-2018-31",
+            "real-2011-31",
+            "real-2023-32",
+            "real-2009-32",
+            "real-2020-30",
+            "real-2016-31"
+          ]
+        },
+        {
+          "slug": "io_device/disks",
+          "route": "/knowledge/os/io_device/disks",
+          "title": "磁盘",
+          "questionIds": [
+            "real-2024-32",
+            "real-2015-32",
+            "real-2009-29",
+            "real-2010-45",
+            "real-2021-26",
+            "real-2018-30",
+            "real-2019-20",
+            "real-2025-32",
+            "real-2012-32",
+            "real-2022-44",
+            "real-2013-25",
+            "real-2019-44",
+            "real-2017-29",
+            "real-2021-46"
+          ]
+        }
+      ]
+    },
+    "cn": {
+      "pageCount": 34,
+      "mappedTagCount": 60,
+      "tagRoutes": {
+        "OSI模型": {
+          "href": "/knowledge/cn/overall/iso",
+          "title": "分层结构"
+        },
+        "协议数据单元": {
+          "href": "/knowledge/cn/overall/iso",
+          "title": "分层结构"
+        },
+        "TCP-IP模型": {
+          "href": "/knowledge/cn/overall/iso",
+          "title": "分层结构"
+        },
+        "网络体系结构": {
+          "href": "/knowledge/cn/overall/iso",
+          "title": "分层结构"
+        },
+        "网络设备": {
+          "href": "/knowledge/cn/overall/dev",
+          "title": "网络设备总结"
+        },
+        "网络协议": {
+          "href": "/knowledge/cn/overall/protocol",
+          "title": "各层协议总结"
+        },
+        "网络协议要素": {
+          "href": "/knowledge/cn/overall/protocol",
+          "title": "各层协议总结"
+        },
+        "传输介质": {
+          "href": "/knowledge/cn/physical/concept",
+          "title": "通信概念"
+        },
+        "奈奎斯特定理": {
+          "href": "/knowledge/cn/physical/concept",
+          "title": "通信概念"
+        },
+        "通信指标": {
+          "href": "/knowledge/cn/physical/concept",
+          "title": "通信概念"
+        },
+        "物理层接口特性": {
+          "href": "/knowledge/cn/physical/concept",
+          "title": "通信概念"
+        },
+        "香农定理": {
+          "href": "/knowledge/cn/physical/concept",
+          "title": "通信概念"
+        },
+        "调制方法": {
+          "href": "/knowledge/cn/physical/encoding",
+          "title": "编码和调制"
+        },
+        "编码方法": {
+          "href": "/knowledge/cn/physical/encoding",
+          "title": "编码和调制"
+        },
+        "交换方式": {
+          "href": "/knowledge/cn/physical/switching",
+          "title": "交换方式"
+        },
+        "数据报和虚电路": {
+          "href": "/knowledge/cn/physical/switching",
+          "title": "交换方式"
+        },
+        "差错控制": {
+          "href": "/knowledge/cn/datalink/error",
+          "title": "差错控制"
+        },
+        "海明距离": {
+          "href": "/knowledge/cn/datalink/error",
+          "title": "差错控制"
+        },
+        "循环冗余码": {
+          "href": "/knowledge/cn/datalink/error",
+          "title": "差错控制"
+        },
+        "ARQ协议": {
+          "href": "/knowledge/cn/datalink/flow_control",
+          "title": "流量控制"
+        },
+        "信道利用率": {
+          "href": "/knowledge/cn/datalink/flow_control",
+          "title": "流量控制"
+        },
+        "窗口大小限制": {
+          "href": "/knowledge/cn/datalink/flow_control",
+          "title": "流量控制"
+        },
+        "CSMA-CA": {
+          "href": "/knowledge/cn/datalink/mac",
+          "title": "介质访问控制"
+        },
+        "CSMA-CD": {
+          "href": "/knowledge/cn/datalink/mac",
+          "title": "介质访问控制"
+        },
+        "CSMA-CD限制条件": {
+          "href": "/knowledge/cn/datalink/mac",
+          "title": "介质访问控制"
+        },
+        "介质访问控制": {
+          "href": "/knowledge/cn/datalink/mac",
+          "title": "介质访问控制"
+        },
+        "CDMA": {
+          "href": "/knowledge/cn/datalink/mac",
+          "title": "介质访问控制"
+        },
+        "以太网": {
+          "href": "/knowledge/cn/datalink/lan",
+          "title": "局域网和广域网"
+        },
+        "HDLC": {
+          "href": "/knowledge/cn/datalink/lan",
+          "title": "局域网和广域网"
+        },
+        "MAC地址": {
+          "href": "/knowledge/cn/datalink/lan",
+          "title": "局域网和广域网"
+        },
+        "VLAN": {
+          "href": "/knowledge/cn/datalink/lan",
+          "title": "局域网和广域网"
+        },
+        "交换机": {
+          "href": "/knowledge/cn/datalink/dev",
+          "title": "数据链路层设备"
+        },
+        "子网划分": {
+          "href": "/knowledge/cn/network/ip",
+          "title": "IP"
+        },
+        "网络号和主机号": {
+          "href": "/knowledge/cn/network/ip",
+          "title": "IP"
+        },
+        "子网聚合": {
+          "href": "/knowledge/cn/network/ip",
+          "title": "IP"
+        },
+        "最长前缀匹配": {
+          "href": "/knowledge/cn/network/ip",
+          "title": "IP"
+        },
+        "IP数据报分片": {
+          "href": "/knowledge/cn/network/ip",
+          "title": "IP"
+        },
+        "路由聚合": {
+          "href": "/knowledge/cn/network/ip",
+          "title": "IP"
+        },
+        "IPv6": {
+          "href": "/knowledge/cn/network/ip",
+          "title": "IP"
+        },
+        "ICMP": {
+          "href": "/knowledge/cn/network/icmp",
+          "title": "ICMP"
+        },
+        "DHCP": {
+          "href": "/knowledge/cn/network/dhcp",
+          "title": "DHCP"
+        },
+        "ARP": {
+          "href": "/knowledge/cn/network/arp",
+          "title": "ARP"
+        },
+        "路由协议": {
+          "href": "/knowledge/cn/network/route",
+          "title": "路由算法"
+        },
+        "路由表": {
+          "href": "/knowledge/cn/network/route",
+          "title": "路由算法"
+        },
+        "距离向量算法": {
+          "href": "/knowledge/cn/network/route",
+          "title": "路由算法"
+        },
+        "路由算法": {
+          "href": "/knowledge/cn/network/route",
+          "title": "路由算法"
+        },
+        "软件定义网络": {
+          "href": "/knowledge/cn/network/sdn",
+          "title": "SDN"
+        },
+        "路由器": {
+          "href": "/knowledge/cn/network/dev",
+          "title": "网络层设备"
+        },
+        "NAT": {
+          "href": "/knowledge/cn/network/dev",
+          "title": "网络层设备"
+        },
+        "TCP拥塞控制": {
+          "href": "/knowledge/cn/transport/tcp",
+          "title": "TCP"
+        },
+        "TCP滑动窗口": {
+          "href": "/knowledge/cn/transport/tcp",
+          "title": "TCP"
+        },
+        "TCP三次握手": {
+          "href": "/knowledge/cn/transport/tcp",
+          "title": "TCP"
+        },
+        "TCP四次挥手": {
+          "href": "/knowledge/cn/transport/tcp",
+          "title": "TCP"
+        },
+        "TCP首部": {
+          "href": "/knowledge/cn/transport/tcp",
+          "title": "TCP"
+        },
+        "UDP": {
+          "href": "/knowledge/cn/transport/udp",
+          "title": "UDP"
+        },
+        "网络应用模型": {
+          "href": "/knowledge/cn/application/model",
+          "title": "网络应用模型"
+        },
+        "DNS": {
+          "href": "/knowledge/cn/application/dns",
+          "title": "DNS"
+        },
+        "FTP": {
+          "href": "/knowledge/cn/application/ftp",
+          "title": "FTP"
+        },
+        "电子邮件": {
+          "href": "/knowledge/cn/application/mail",
+          "title": "电子邮件"
+        },
+        "HTTP": {
+          "href": "/knowledge/cn/application/www",
+          "title": "万维网"
+        }
+      },
+      "pages": [
+        {
+          "slug": "",
+          "route": "/knowledge/cn",
+          "title": "计算机网络",
+          "questionIds": []
+        },
+        {
+          "slug": "overall",
+          "route": "/knowledge/cn/overall",
+          "title": "计算机网络体系结构",
+          "questionIds": []
+        },
+        {
+          "slug": "overall/iso",
+          "route": "/knowledge/cn/overall/iso",
+          "title": "分层结构",
+          "questionIds": [
+            "real-2013-33",
+            "real-2014-33",
+            "real-2022-33",
+            "real-2009-33",
+            "real-2017-33",
+            "real-2019-33",
+            "real-2021-33",
+            "real-2016-33",
+            "real-2012-47",
+            "real-2009-36",
+            "real-2021-47",
+            "real-2012-33",
+            "real-2011-33",
+            "real-2010-33"
+          ]
+        },
+        {
+          "slug": "overall/dev",
+          "route": "/knowledge/cn/overall/dev",
+          "title": "网络设备总结",
+          "questionIds": [
+            "real-2010-38",
+            "real-2020-35",
+            "real-2016-33",
+            "real-2016-35"
+          ]
+        },
+        {
+          "slug": "overall/protocol",
+          "route": "/knowledge/cn/overall/protocol",
+          "title": "各层协议总结",
+          "questionIds": [
+            "real-2018-33",
+            "real-2020-33"
+          ]
+        },
+        {
+          "slug": "physical",
+          "route": "/knowledge/cn/physical",
+          "title": "物理层",
+          "questionIds": []
+        },
+        {
+          "slug": "physical/concept",
+          "route": "/knowledge/cn/physical/concept",
+          "title": "通信概念",
+          "questionIds": [
+            "real-2013-34",
+            "real-2022-47",
+            "real-2025-35",
+            "real-2023-36",
+            "real-2019-34",
+            "real-2022-34",
+            "real-2023-34",
+            "real-2017-34",
+            "real-2014-35",
+            "real-2023-33",
+            "real-2012-34",
+            "real-2018-34",
+            "real-2016-34"
+          ]
+        },
+        {
+          "slug": "physical/encoding",
+          "route": "/knowledge/cn/physical/encoding",
+          "title": "编码和调制",
+          "questionIds": [
+            "real-2024-34",
+            "real-2009-34",
+            "real-2011-34",
+            "real-2015-34",
+            "real-2021-34"
+          ]
+        },
+        {
+          "slug": "physical/switching",
+          "route": "/knowledge/cn/physical/switching",
+          "title": "交换方式",
+          "questionIds": [
+            "real-2013-35",
+            "real-2013-38",
+            "real-2025-33",
+            "real-2024-33",
+            "real-2010-34",
+            "real-2020-34"
+          ]
+        },
+        {
+          "slug": "physical/dev",
+          "route": "/knowledge/cn/physical/dev",
+          "title": "物理层设备",
+          "questionIds": []
+        },
+        {
+          "slug": "datalink",
+          "route": "/knowledge/cn/datalink",
+          "title": "数据链路层",
+          "questionIds": []
+        },
+        {
+          "slug": "datalink/framing",
+          "route": "/knowledge/cn/datalink/framing",
+          "title": "组帧",
+          "questionIds": []
+        },
+        {
+          "slug": "datalink/error",
+          "route": "/knowledge/cn/datalink/error",
+          "title": "差错控制",
+          "questionIds": [
+            "real-2013-15",
+            "real-2025-34",
+            "real-2023-37"
+          ]
+        },
+        {
+          "slug": "datalink/flow_control",
+          "route": "/knowledge/cn/datalink/flow_control",
+          "title": "流量控制",
+          "questionIds": [
+            "real-2014-36",
+            "real-2025-47",
+            "real-2024-37",
+            "real-2023-35",
+            "real-2012-36",
+            "real-2009-35",
+            "real-2017-47",
+            "real-2019-35",
+            "real-2020-36",
+            "real-2018-36",
+            "real-2011-35",
+            "real-2015-35"
+          ]
+        },
+        {
+          "slug": "datalink/mac",
+          "route": "/knowledge/cn/datalink/mac",
+          "title": "介质访问控制",
+          "questionIds": [
+            "real-2024-36",
+            "real-2017-35",
+            "real-2020-37",
+            "real-2018-35",
+            "real-2025-35",
+            "real-2023-36",
+            "real-2015-36",
+            "real-2009-37",
+            "real-2022-47",
+            "real-2010-47",
+            "real-2019-36",
+            "real-2016-36",
+            "real-2013-36",
+            "real-2011-36",
+            "real-2014-37"
+          ]
+        },
+        {
+          "slug": "datalink/lan",
+          "route": "/knowledge/cn/datalink/lan",
+          "title": "局域网和广域网",
+          "questionIds": [
+            "real-2012-35",
+            "real-2013-37",
+            "real-2018-37",
+            "real-2024-35"
+          ]
+        },
+        {
+          "slug": "datalink/dev",
+          "route": "/knowledge/cn/datalink/dev",
+          "title": "数据链路层设备",
+          "questionIds": [
+            "real-2014-34",
+            "real-2024-35",
+            "real-2015-37",
+            "real-2009-36",
+            "real-2019-47",
+            "real-2021-47"
+          ]
+        },
+        {
+          "slug": "network",
+          "route": "/knowledge/cn/network",
+          "title": "网络层",
+          "questionIds": []
+        },
+        {
+          "slug": "network/ip",
+          "route": "/knowledge/cn/network/ip",
+          "title": "IP",
+          "questionIds": [
+            "real-2025-47",
+            "real-2009-47",
+            "real-2010-37",
+            "real-2019-37",
+            "real-2021-35",
+            "real-2018-47",
+            "real-2011-38",
+            "real-2016-39",
+            "real-2022-35",
+            "real-2023-39",
+            "real-2012-39",
+            "real-2017-36",
+            "real-2017-38",
+            "real-2016-38",
+            "real-2018-38",
+            "real-2011-37",
+            "real-2014-43",
+            "real-2015-38",
+            "real-2021-36",
+            "real-2013-47",
+            "real-2023-40"
+          ]
+        },
+        {
+          "slug": "network/icmp",
+          "route": "/knowledge/cn/network/icmp",
+          "title": "ICMP",
+          "questionIds": [
+            "real-2012-33",
+            "real-2010-36"
+          ]
+        },
+        {
+          "slug": "network/dhcp",
+          "route": "/knowledge/cn/network/dhcp",
+          "title": "DHCP",
+          "questionIds": [
+            "real-2022-47",
+            "real-2025-36",
+            "real-2015-47"
+          ]
+        },
+        {
+          "slug": "network/arp",
+          "route": "/knowledge/cn/network/arp",
+          "title": "ARP",
+          "questionIds": [
+            "real-2024-35",
+            "real-2015-47",
+            "real-2012-38",
+            "real-2011-47"
+          ]
+        },
+        {
+          "slug": "network/route",
+          "route": "/knowledge/cn/network/route",
+          "title": "路由算法",
+          "questionIds": [
+            "real-2014-42",
+            "real-2013-47",
+            "real-2024-47",
+            "real-2017-37",
+            "real-2010-35",
+            "real-2022-36",
+            "real-2015-47",
+            "real-2021-37",
+            "real-2016-37"
+          ]
+        },
+        {
+          "slug": "network/sdn",
+          "route": "/knowledge/cn/network/sdn",
+          "title": "SDN",
+          "questionIds": [
+            "real-2022-37"
+          ]
+        },
+        {
+          "slug": "network/dev",
+          "route": "/knowledge/cn/network/dev",
+          "title": "网络层设备",
+          "questionIds": [
+            "real-2014-42",
+            "real-2018-42",
+            "real-2013-47",
+            "real-2014-43",
+            "real-2015-38",
+            "real-2012-37",
+            "real-2009-47",
+            "real-2019-47",
+            "real-2020-47",
+            "real-2025-37",
+            "real-2023-38"
+          ]
+        },
+        {
+          "slug": "transport",
+          "route": "/knowledge/cn/transport",
+          "title": "传输层",
+          "questionIds": []
+        },
+        {
+          "slug": "transport/tcp",
+          "route": "/knowledge/cn/transport/tcp",
+          "title": "TCP",
+          "questionIds": [
+            "real-2014-38",
+            "real-2022-38",
+            "real-2015-39",
+            "real-2009-39",
+            "real-2017-39",
+            "real-2010-39",
+            "real-2019-38",
+            "real-2020-38",
+            "real-2013-39",
+            "real-2025-38",
+            "real-2023-47",
+            "real-2009-38",
+            "real-2021-40",
+            "real-2011-40",
+            "real-2016-41",
+            "real-2024-38",
+            "real-2019-39",
+            "real-2020-39",
+            "real-2011-39",
+            "real-2022-39",
+            "real-2021-38",
+            "real-2012-47",
+            "real-2021-39"
+          ]
+        },
+        {
+          "slug": "transport/udp",
+          "route": "/knowledge/cn/transport/udp",
+          "title": "UDP",
+          "questionIds": [
+            "real-2014-39",
+            "real-2024-39",
+            "real-2021-39",
+            "real-2018-39"
+          ]
+        },
+        {
+          "slug": "application",
+          "route": "/knowledge/cn/application",
+          "title": "应用层",
+          "questionIds": []
+        },
+        {
+          "slug": "application/model",
+          "route": "/knowledge/cn/application/model",
+          "title": "网络应用模型",
+          "questionIds": [
+            "real-2025-39",
+            "real-2019-40"
+          ]
+        },
+        {
+          "slug": "application/dns",
+          "route": "/knowledge/cn/application/dns",
+          "title": "DNS",
+          "questionIds": [
+            "real-2010-40",
+            "real-2020-40",
+            "real-2016-40"
+          ]
+        },
+        {
+          "slug": "application/ftp",
+          "route": "/knowledge/cn/application/ftp",
+          "title": "FTP",
+          "questionIds": [
+            "real-2023-47",
+            "real-2009-40",
+            "real-2017-40"
+          ]
+        },
+        {
+          "slug": "application/mail",
+          "route": "/knowledge/cn/application/mail",
+          "title": "电子邮件",
+          "questionIds": [
+            "real-2013-40",
+            "real-2025-40",
+            "real-2015-33",
+            "real-2012-40",
+            "real-2018-40"
+          ]
+        },
+        {
+          "slug": "application/www",
+          "route": "/knowledge/cn/application/www",
+          "title": "万维网",
+          "questionIds": [
+            "real-2014-40",
+            "real-2022-40",
+            "real-2024-40",
+            "real-2015-40",
+            "real-2011-47"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="270" viewBox="0 0 760 270" role="img" aria-labelledby="title desc">
+  <title id="title">同轴电缆分层结构</title>
+  <desc id="desc">同轴电缆从内到外包含中心铜导体、绝缘介质、金属屏蔽层与外护套，各层共享同一中心轴线。</desc>
+  <rect width="760" height="270" rx="20" fill="#f8fafc"/>
+  <text x="380" y="36" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#0f172a">同轴电缆：四层同心结构</text>
+  <g transform="translate(210 145)">
+    <circle r="94" fill="#1f2937"/><circle r="72" fill="#94a3b8"/><circle r="52" fill="#f8fafc"/><circle r="20" fill="#d97706"/>
+  </g>
+  <g font-family="system-ui,sans-serif" font-size="16" fill="#0f172a">
+    <path d="M230 145 H420" stroke="#d97706" stroke-width="3"/><text x="435" y="151">中心铜导体：传输信号</text>
+    <path d="M252 112 H420" stroke="#64748b" stroke-width="3"/><text x="435" y="118">绝缘介质：保持同轴间距</text>
+    <path d="M266 88 H420" stroke="#94a3b8" stroke-width="3"/><text x="435" y="94">金属屏蔽层：抑制外界干扰与泄漏</text>
+    <path d="M270 70 H420" stroke="#1f2937" stroke-width="3"/><text x="435" y="76">外护套：机械与环境保护</text>
+  </g>
+  <text x="380" y="252" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#475569">“同轴”指各圆柱层共用一条中心轴线</text>
+</svg>

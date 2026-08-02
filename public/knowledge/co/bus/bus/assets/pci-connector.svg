@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" role="img" aria-labelledby="title desc">
+  <title id="title">传统 PCI 并行扩展插槽</title>
+  <desc id="desc">长条插槽包含两排并行触点和用于防止反插的键位缺口。</desc>
+  <rect width="960" height="300" rx="28" fill="#f8fafc"/>
+  <text x="480" y="48" text-anchor="middle" font-family="system-ui,sans-serif" font-size="26" font-weight="700" fill="#0f172a">PCI：传统并行扩展总线接口</text>
+  <rect x="90" y="104" width="780" height="92" rx="16" fill="#e2e8f0" stroke="#334155" stroke-width="4"/>
+  <rect x="590" y="100" width="26" height="100" fill="#f8fafc" stroke="#334155" stroke-width="4"/>
+  <g fill="#d97706">
+    <path d="M120 126h430v18H120zM650 126h190v18H650zM120 158h430v18H120zM650 158h190v18H650z"/>
+  </g>
+  <g stroke="#f8fafc" stroke-width="3">
+    <path d="M142 124v54m28-54v54m28-54v54m28-54v54m28-54v54m28-54v54m28-54v54m28-54v54m28-54v54m28-54v54m28-54v54m28-54v54m28-54v54m28-54v54m28-54v54m132-54v54m28-54v54m28-54v54m28-54v54m28-54v54m28-54v54m28-54v54"/>
+  </g>
+  <path d="M602 214v32" stroke="#475569" stroke-width="3"/>
+  <text x="602" y="272" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" fill="#475569">键位缺口</text>
+  <text x="250" y="230" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" fill="#475569">多条并行地址、数据和控制触点</text>
+</svg>

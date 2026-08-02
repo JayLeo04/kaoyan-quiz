@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="230" viewBox="0 0 760 230" role="img" aria-labelledby="title desc">
+  <title id="title">数字中继器再生信号</title>
+  <desc id="desc">左侧衰减失真的数字波形进入中继器，经过重新整形与定时后在右侧恢复为标准数字波形。</desc>
+  <rect width="760" height="230" rx="20" fill="#f8fafc"/>
+  <text x="380" y="34" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#0f172a">中继器：重新整形、定时与再生</text>
+  <path d="M45 145 L85 142 L85 82 L125 88 L125 151 L165 148 L165 95 L205 102 L205 153 L245 150" fill="none" stroke="#ef4444" stroke-width="5"/>
+  <text x="145" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#991b1b">衰减、失真的输入信号</text>
+  <rect x="285" y="70" width="190" height="105" rx="15" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="380" y="115" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" font-weight="700" fill="#1e3a8a">数字中继器</text>
+  <text x="380" y="145" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#1e40af">判决电平 · 恢复时钟</text>
+  <path d="M515 150 H555 V75 H605 V150 H655 V75 H705 V150" fill="none" stroke="#16a34a" stroke-width="5"/>
+  <text x="610" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#166534">再生后的标准数字信号</text>
+  <path d="M245 122 H280 M480 122 H510" stroke="#475569" stroke-width="3"/>
+</svg>

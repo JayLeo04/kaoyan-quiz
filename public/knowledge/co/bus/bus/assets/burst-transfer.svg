@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-labelledby="title desc">
+  <title id="title">突发总线传输时序</title>
+  <desc id="desc">一次地址阶段之后连续传输 D0 到 D3 四个数据单元，减少重复寻址开销。</desc>
+  <rect width="960" height="360" rx="28" fill="#f8fafc"/>
+  <text x="480" y="46" text-anchor="middle" font-family="system-ui,sans-serif" font-size="26" font-weight="700" fill="#0f172a">突发传输：一次寻址，连续多个数据拍</text>
+  <g font-family="system-ui,sans-serif" font-size="20" fill="#334155">
+    <text x="52" y="122">地址</text><text x="52" y="218">数据</text><text x="52" y="304">时钟</text>
+  </g>
+  <rect x="150" y="78" width="150" height="68" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="225" y="120" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" fill="#1e3a8a">起始地址 A</text>
+  <path d="M300 112h560" stroke="#94a3b8" stroke-width="3" stroke-dasharray="10 8"/>
+  <g font-family="system-ui,sans-serif" font-size="22" text-anchor="middle">
+    <rect x="300" y="174" width="140" height="68" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/><text x="370" y="216" fill="#14532d">D0</text>
+    <rect x="440" y="174" width="140" height="68" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/><text x="510" y="216" fill="#14532d">D1</text>
+    <rect x="580" y="174" width="140" height="68" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/><text x="650" y="216" fill="#14532d">D2</text>
+    <rect x="720" y="174" width="140" height="68" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/><text x="790" y="216" fill="#14532d">D3</text>
+  </g>
+  <path d="M150 308h70v-38h70v38h70v-38h70v38h70v-38h70v38h70v-38h70v38h70v-38h70" fill="none" stroke="#7c3aed" stroke-width="4"/>
+  <path d="M150 258v64m150-64v64m140-64v64m140-64v64m140-64v64m140-64v64" stroke="#cbd5e1" stroke-width="2"/>
+</svg>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "408 页面优化"
+  short_description: "系统化审校、修复并验收本地考研 408 知识页面、交互与学习顺序"
+  default_prompt: "使用 $optimize408 审校、修复并验收指定的本地 408 知识页。"

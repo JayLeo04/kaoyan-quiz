@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="230" viewBox="0 0 760 230" role="img" aria-labelledby="title desc">
+  <title id="title">双绞线结构</title>
+  <desc id="desc">两根带绝缘层的铜导线周期性交叉绞合，外界干扰在相邻绞距中产生近似相反的影响。</desc>
+  <rect width="760" height="230" rx="20" fill="#f8fafc"/>
+  <text x="380" y="38" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#0f172a">双绞线：用周期绞合减小电磁干扰</text>
+  <path d="M55 115 C95 45 135 45 175 115 S255 185 295 115 S375 45 415 115 S495 185 535 115 S615 45 655 115 S705 175 725 120" fill="none" stroke="#2563eb" stroke-width="18" stroke-linecap="round"/>
+  <path d="M55 115 C95 185 135 185 175 115 S255 45 295 115 S375 185 415 115 S495 45 535 115 S615 185 655 115 S705 55 725 110" fill="none" stroke="#f97316" stroke-width="18" stroke-linecap="round"/>
+  <path d="M55 115 C95 45 135 45 175 115 S255 185 295 115 S375 45 415 115 S495 185 535 115 S615 45 655 115 S705 175 725 120" fill="none" stroke="#bfdbfe" stroke-width="8"/>
+  <path d="M55 115 C95 185 135 185 175 115 S255 45 295 115 S375 185 415 115 S495 45 535 115 S615 185 655 115 S705 55 725 110" fill="none" stroke="#fed7aa" stroke-width="8"/>
+  <text x="380" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#475569">铜芯外包绝缘层；平衡传输与绞合共同抑制共模干扰</text>
+</svg>

@@ -1377,8 +1377,29 @@ button.knowledge-comparison-row:hover, button.knowledge-comparison-row.is-select
   .local-knowledge-bottom-nav { grid-template-columns: 1fr; }
 }
 
-/* Data Structures textbook reading and practice. */
+/* Textbook library, reading, and practice. */
 .textbook-viewport { min-height: 100svh; background: #f4f2ec; }
+.textbook-shelf-main { min-height: calc(100svh - 66px); padding-block: clamp(38px, 7vw, 86px); }
+.textbook-shelf-hero { max-width: 690px; display: grid; gap: 10px; margin-bottom: 34px; }
+.textbook-shelf-hero .back-link { margin-bottom: 12px; }
+.textbook-shelf-hero > p, .textbook-shelf-card > p { margin: 0; color: #4e6786; font-size: 8px; font-weight: 800; letter-spacing: .13em; }
+.textbook-shelf-hero h1 { margin: 0; font-size: clamp(40px, 6vw, 72px); font-weight: 660; letter-spacing: -.075em; line-height: .95; }
+.textbook-shelf-hero > span { max-width: 500px; color: #696b64; font-size: 12px; line-height: 1.7; }
+.textbook-shelf-notice { margin: -12px 0 24px; padding: 11px 13px; border: 1px solid #d8c89d; background: #fff9ed; color: #765b35; font-size: 10px; }
+.textbook-shelf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(275px, 390px)); gap: 14px; }
+.textbook-shelf-card { min-height: 318px; display: flex; flex-direction: column; gap: 11px; padding: 22px; border: 1px solid #cfd7de; background: linear-gradient(140deg, #e8f0f9, #fffefa 68%); }
+.textbook-shelf-card-top { display: flex; align-items: center; justify-content: space-between; color: #6b88a4; font-size: 9px; font-weight: 800; }
+.textbook-shelf-card-top b { padding: 4px 6px; border: 1px solid #a7c6ae; background: #f1fbf3; color: #42704d; font-size: 7px; }
+.textbook-shelf-card h2 { margin: 2px 0 0; color: var(--ink); font-size: 28px; font-weight: 650; letter-spacing: -.055em; line-height: 1.05; }
+.textbook-shelf-card > strong { color: #4d5050; font-size: 10px; }
+.textbook-shelf-card > small { max-width: 310px; color: #696b64; font-size: 10px; line-height: 1.65; }
+.textbook-shelf-stats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.textbook-shelf-stats span { padding: 5px 6px; background: rgba(255,255,255,.62); color: #5c7188; font-size: 8px; font-weight: 750; }
+.textbook-shelf-card footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 10px; border-top: 1px solid rgba(23,24,21,.13); }
+.textbook-shelf-card footer a { color: #385f86; font-size: 9px; font-weight: 800; }
+.textbook-shelf-card footer a:first-child { display: flex; align-items: center; gap: 8px; }
+.textbook-shelf-card footer a:first-child b { font-size: 13px; }
+.textbook-shelf-footnote { max-width: 620px; margin: 28px 0 0; color: #777972; font-size: 9px; line-height: 1.6; }
 .textbook-main { height: calc(100svh - 66px); min-height: 0; display: grid; grid-template-columns: 286px minmax(0, 1fr); padding-block: 18px 22px; }
 .textbook-sidebar { min-width: 0; min-height: 0; display: grid; grid-template-rows: auto auto auto minmax(0, 1fr); padding: 24px; overflow: hidden; border: 1px solid var(--line); border-right: 0; background: linear-gradient(150deg, #e4eefc 0%, #f0eee8 66%); }
 .textbook-sidebar-intro { display: grid; gap: 7px; }
@@ -1595,6 +1616,11 @@ button.knowledge-comparison-row:hover, button.knowledge-comparison-row.is-select
 
 @media (max-width: 760px) {
   .textbook-viewport { min-height: 100svh; }
+  .textbook-shelf-main { padding-block: 34px 42px; }
+  .textbook-shelf-hero { margin-bottom: 26px; }
+  .textbook-shelf-hero h1 { font-size: 44px; }
+  .textbook-shelf-grid { grid-template-columns: 1fr; }
+  .textbook-shelf-card { min-height: 285px; padding: 19px; }
   .textbook-main, .textbook-question-main { height: auto; min-height: calc(100svh - 66px); display: block; padding-block: 14px 32px; }
   .textbook-main { display: grid; grid-template-columns: 1fr; }
   .textbook-sidebar { min-height: 0; display: block; overflow: visible; padding: 22px; border-right: 1px solid var(--line); }
@@ -1644,6 +1670,7 @@ button.knowledge-comparison-row:hover, button.knowledge-comparison-row.is-select
 }
 
 @media (max-width: 440px) {
+  .textbook-shelf-hero h1 { font-size: 40px; }
   .textbook-sidebar-intro h1 { font-size: 31px; }
   .textbook-page-pagination { grid-template-columns: 1fr; }
   .textbook-page-pagination a:last-child { text-align: left; }

@@ -3,8 +3,14 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { AppHeader } from "@/app/components/AppHeader";
-import textbookData from "@/app/data/textbook-data-structures.json";
-import type { DataStructuresTextbookDataset, TextbookQuestion } from "@/app/data/textbook-types";
+import { textbookHref, textbookPracticeHref, textbookQuestionHref } from "@/app/data/textbook-registry";
+import type {
+  TextbookChapterSummary,
+  TextbookPracticeLibraryPayload,
+  TextbookQuestion,
+  TextbookQuestionPayload,
+  TextbookQuestionSummary,
+} from "@/app/data/textbook-types";
 import {
   EMPTY_TEXTBOOK_PROGRESS,
   readTextbookProgress,
@@ -14,8 +20,6 @@ import {
   type TextbookProgress,
 } from "@/app/lib/textbook-progress";
 
-const dataset = textbookData as DataStructuresTextbookDataset;
-const exerciseQuestions = dataset.questions.filter((question) => question.isExercise);
 const typeLabels: Record<string, string> = {
   algorithm: "算法题",
   calculation: "计算题",
@@ -33,7 +37,7 @@ function questionTypeLabel(type: string) {
   return typeLabels[type] || "习题";
 }
 
-function answerLabel(question: TextbookQuestion) {
+function answerLabel(question: { answer: { status: TextbookQuestion["answer"]["status"] } }) {
   if (question.answer.status === "provided") return "原书答案";
   if (question.answer.status === "hint-only") return "原书提示";
   if (question.answer.status === "pending-review") return "答案待复核";
@@ -45,16 +49,16 @@ function pagesLabel(pages?: number[]) {
   return pages.length === 1 ? `书内页 ${pages[0]}` : `书内页 ${pages[0]}–${pages.at(-1)}`;
 }
 
-function ProgressMark({ question, progress }: { question: TextbookQuestion; progress: TextbookProgress }) {
+function ProgressMark({ question, progress }: { question: Pick<TextbookQuestion, "id">; progress: TextbookProgress }) {
   if (progress.mastered.includes(question.id)) return <span className="textbook-status mastered">已掌握</span>;
   if (progress.review.includes(question.id)) return <span className="textbook-status review">需复习</span>;
   if (progress.bookmarks.includes(question.id)) return <span className="textbook-status saved">已收藏</span>;
   return <span className="textbook-status">未标记</span>;
 }
 
-function PracticeLibraryCard({ question, progress }: { question: TextbookQuestion; progress: TextbookProgress }) {
-  const chapter = dataset.chapters.find((item) => item.id === question.chapterId);
-  const cardHref = `/textbook/data-structures/practice/${question.id}`;
+function PracticeLibraryCard({ question, progress, bookSlug, chapters }: { question: TextbookQuestionSummary; progress: TextbookProgress; bookSlug: string; chapters: TextbookChapterSummary[] }) {
+  const chapter = chapters.find((item) => item.id === question.chapterId);
+  const cardHref = textbookQuestionHref(bookSlug, question.id);
   return (
     <Link href={cardHref} className="textbook-question-card">
       <div className="textbook-question-card-meta">
@@ -70,7 +74,10 @@ function PracticeLibraryCard({ question, progress }: { question: TextbookQuestio
   );
 }
 
-export function TextbookPracticeWorkspace({ initialChapterId }: { initialChapterId?: string }) {
+export function TextbookPracticeWorkspace({ initialChapterId, library }: { initialChapterId?: string; library: TextbookPracticeLibraryPayload }) {
+  const textbook = { slug: library.bookSlug };
+  const dataset = { book: library.book, stats: library.stats, chapters: library.chapters };
+  const exerciseQuestions = library.exerciseQuestions;
   const validInitialChapter = dataset.chapters.some((chapter) => chapter.id === initialChapterId) ? initialChapterId! : "all";
   const [chapterId, setChapterId] = useState(validInitialChapter);
   const [type, setType] = useState("all");
@@ -83,8 +90,8 @@ export function TextbookPracticeWorkspace({ initialChapterId }: { initialChapter
   useEffect(() => {
     // Browser-only state is intentionally kept separate from the real-question progress record.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setProgress(readTextbookProgress());
-  }, []);
+    setProgress(readTextbookProgress(textbook.slug));
+  }, [textbook.slug]);
 
   const filteredQuestions = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase();
@@ -99,7 +106,7 @@ export function TextbookPracticeWorkspace({ initialChapterId }: { initialChapter
       const queryMatch = !normalized || `${question.number} ${question.prompt.plain} ${question.section.title} ${question.knowledgePoints.map((point) => point.title).join(" ")}`.toLocaleLowerCase().includes(normalized);
       return chapterMatch && typeMatch && answerMatch && learningMatch && queryMatch;
     });
-  }, [answer, chapterId, learning, progress.mastered, progress.review, query, type]);
+  }, [answer, chapterId, exerciseQuestions, learning, progress.mastered, progress.review, query, type]);
 
   const pageSize = 12;
   const pageCount = Math.max(1, Math.ceil(filteredQuestions.length / pageSize));
@@ -123,8 +130,8 @@ export function TextbookPracticeWorkspace({ initialChapterId }: { initialChapter
       <main className="textbook-practice-main shell-width">
         <section className="textbook-practice-hero">
           <div>
-            <Link href="/textbook/data-structures" className="back-link">← 返回教材阅读</Link>
-            <p>TEXTBOOK PRACTICE / DATA STRUCTURES</p>
+            <Link href={textbookHref(textbook)} className="back-link">← 返回教材阅读</Link>
+            <p>TEXTBOOK PRACTICE / {dataset.book.title}</p>
             <h1>按章节，做完这本书的题</h1>
             <span>{dataset.stats.exerciseQuestions} 道可练习题 · {dataset.stats.answersProvided} 道含原书答案 · {dataset.stats.answersHintOnly} 道仅提供提示</span>
           </div>
@@ -132,7 +139,7 @@ export function TextbookPracticeWorkspace({ initialChapterId }: { initialChapter
             <strong>{progress.mastered.length}</strong><span>已掌握</span>
             <i style={{ width: `${dataset.stats.exerciseQuestions ? progress.mastered.length / dataset.stats.exerciseQuestions * 100 : 0}%` }} />
             <small>{progress.review.length} 道待复习 · {progress.bookmarks.length} 道已收藏</small>
-            {continueQuestion ? <Link href={`/textbook/data-structures/practice/${continueQuestion.id}`}>继续下一题 →</Link> : <span className="complete">全部已标记掌握</span>}
+            {continueQuestion ? <Link href={textbookQuestionHref(textbook, continueQuestion.id)}>继续下一题 →</Link> : <span className="complete">全部已标记掌握</span>}
           </div>
         </section>
 
@@ -183,7 +190,7 @@ export function TextbookPracticeWorkspace({ initialChapterId }: { initialChapter
             <small>每题保留对应章节、图片、答案状态与来源页码。</small>
           </div>
           <div className="textbook-question-grid">
-            {visibleQuestions.map((question) => <PracticeLibraryCard key={question.id} question={question} progress={progress} />)}
+            {visibleQuestions.map((question) => <PracticeLibraryCard key={question.id} question={question} progress={progress} bookSlug={library.bookSlug} chapters={library.chapters} />)}
             {!visibleQuestions.length ? <div className="textbook-library-empty"><strong>没有匹配的题目</strong><span>试试放宽章节、答案或学习状态筛选。</span></div> : null}
           </div>
           <nav className="textbook-library-pagination" aria-label="习题分页">
@@ -196,49 +203,52 @@ export function TextbookPracticeWorkspace({ initialChapterId }: { initialChapter
   );
 }
 
-export function TextbookQuestionWorkspace({ questionId }: { questionId: string }) {
-  const question = exerciseQuestions.find((item) => item.id === questionId);
+export function TextbookQuestionWorkspace({ questionData }: { questionData: TextbookQuestionPayload }) {
+  const textbook = { slug: questionData.bookSlug };
+  const dataset = { chapters: questionData.chapters };
+  const question = questionData.question;
+  const questionId = question?.id || "";
   const [progress, setProgress] = useState<TextbookProgress>(EMPTY_TEXTBOOK_PROGRESS);
   const [answerVisible, setAnswerVisible] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setProgress(readTextbookProgress());
-  }, []);
+    setProgress(readTextbookProgress(textbook.slug));
+  }, [textbook.slug]);
 
   useEffect(() => {
     // Every newly opened question starts with its answer concealed, including questions with no source answer.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setAnswerVisible(false);
-  }, [questionId]);
+  }, [questionId, textbook.slug]);
 
   const saveProgress = (next: TextbookProgress) => {
     setProgress(next);
-    writeTextbookProgress(next);
+    writeTextbookProgress(textbook.slug, next);
   };
 
   if (!question) {
     return (
       <div className="textbook-viewport">
         <AppHeader completedCount={progress.mastered.length} />
-        <main className="textbook-missing shell-width"><span>404</span><h1>没有找到这道教材习题。</h1><Link href="/textbook/data-structures/practice">回到题库</Link></main>
+        <main className="textbook-missing shell-width"><span>404</span><h1>没有找到这道教材习题。</h1><Link href={textbookPracticeHref(textbook)}>回到题库</Link></main>
       </div>
     );
   }
 
   const chapter = dataset.chapters.find((item) => item.id === question.chapterId);
-  const chapterQuestions = exerciseQuestions.filter((item) => item.chapterId === question.chapterId);
-  const index = chapterQuestions.findIndex((item) => item.id === question.id);
-  const previousQuestion = index > 0 ? chapterQuestions[index - 1] : null;
-  const nextQuestion = index >= 0 && index < chapterQuestions.length - 1 ? chapterQuestions[index + 1] : null;
+  const chapterQuestions = questionData.chapterExerciseQuestionIds[question.chapterId] || [];
+  const index = chapterQuestions.findIndex((item) => item === question.id);
+  const previousQuestion = index > 0 ? { id: chapterQuestions[index - 1] } : null;
+  const nextQuestion = index >= 0 && index < chapterQuestions.length - 1 ? { id: chapterQuestions[index + 1] } : null;
   const sourceQuestion = question.source.question;
   const sourceAnswer = question.source.answer;
   const mastered = progress.mastered.includes(question.id);
   const review = progress.review.includes(question.id);
   const bookmarked = progress.bookmarks.includes(question.id);
   const openFlags = question.review.flags.filter((flag) => flag.status === "open");
-  const chapterPracticeHref = `/textbook/data-structures/practice?chapter=${encodeURIComponent(question.chapterId)}`;
-  const chapterKnowledgeHref = chapter?.route || "/textbook/data-structures";
+  const chapterPracticeHref = textbookPracticeHref(textbook, question.chapterId);
+  const chapterKnowledgeHref = textbookHref(textbook, chapter?.id);
 
   return (
     <div className="textbook-viewport textbook-question-viewport">
@@ -248,8 +258,8 @@ export function TextbookQuestionWorkspace({ questionId }: { questionId: string }
           <Link href={chapterPracticeHref}>← {chapter?.title || "返回本章题目"}</Link>
           <span>{index + 1} / {chapterQuestions.length}</span>
           <nav>
-            {previousQuestion ? <Link href={`/textbook/data-structures/practice/${previousQuestion.id}`}>← 上一题</Link> : <span />}
-            {nextQuestion ? <Link href={`/textbook/data-structures/practice/${nextQuestion.id}`}>下一题 →</Link> : <span />}
+            {previousQuestion ? <Link href={textbookQuestionHref(textbook, previousQuestion.id)}>← 上一题</Link> : <span />}
+            {nextQuestion ? <Link href={textbookQuestionHref(textbook, nextQuestion.id)}>下一题 →</Link> : <span />}
           </nav>
         </header>
 

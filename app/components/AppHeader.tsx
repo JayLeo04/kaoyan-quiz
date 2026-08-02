@@ -11,7 +11,7 @@ export function AppHeader({ completedCount }: { completedCount: number }) {
         </Link>
         <nav aria-label="科目导航">
           {subjectCatalog.map((subject) => <Link key={subject.id} href={`/subject/${subject.id}`}><span>{subject.index}</span>{subject.shortName}</Link>)}
-          <Link href="/textbook/data-structures"><span>教</span>教材</Link>
+          <Link href="/textbook"><span>教</span>教材</Link>
         </nav>
         <div className="header-account">
           <div className="header-progress"><span>已完成</span><b>{completedCount}</b><span>题</span></div>

@@ -96,11 +96,11 @@ export type TextbookQuestion = {
   isExercise: boolean;
 };
 
-export type DataStructuresTextbookDataset = {
-  version: 1;
+export type TextbookDataset = {
+  version: number;
   generatedAt: string;
   book: {
-    id: "data-structures-yan-weimin";
+    id: string;
     title: string;
     author: string;
     sourcePdf: string;
@@ -129,3 +129,70 @@ export type DataStructuresTextbookDataset = {
     questionIds: string[];
   }>;
 };
+
+export type TextbookPresentation = {
+  eyebrow: string;
+  displayName: string;
+  edition: string;
+  description: string;
+};
+
+export type TextbookChapterSummary = Pick<TextbookChapter, "id" | "title" | "questionCount">;
+
+export type TextbookPageSummary = Pick<TextbookPage, "id" | "slug" | "chapterId" | "title" | "summary" | "depth" | "headings">;
+
+export type TextbookPageContent = Pick<TextbookPage, "id" | "slug" | "chapterId" | "title" | "headings" | "sourceLatex" | "source" | "html">;
+
+export type TextbookQuestionSummary = Pick<TextbookQuestion, "id" | "number" | "type" | "chapterId" | "section" | "knowledgePoints"> & {
+  prompt: Pick<TextbookQuestion["prompt"], "plain">;
+  answer: Pick<TextbookQuestion["answer"], "status">;
+};
+
+export type TextbookQuestionContent = Pick<TextbookQuestion, "id" | "number" | "type" | "chapterId"> & {
+  section: Pick<TextbookQuestion["section"], "id" | "title">;
+  prompt: Pick<TextbookQuestion["prompt"], "html">;
+  options: Array<Pick<TextbookQuestionOption, "label" | "html">>;
+  answer: Pick<TextbookQuestion["answer"], "status" | "html">;
+  knowledgePoints: Array<Pick<TextbookQuestion["knowledgePoints"][number], "id" | "title">>;
+  source: {
+    question?: Pick<NonNullable<TextbookQuestion["source"]["question"]>, "pdfPages" | "bookPages">;
+    answer?: Pick<NonNullable<TextbookQuestion["source"]["answer"]>, "pdfPages" | "bookPages">;
+  };
+  review: {
+    flags: Array<Pick<TextbookQuestion["review"]["flags"][number], "code" | "message" | "status">>;
+  };
+};
+
+export type TextbookReaderPayload = {
+  bookSlug: string;
+  currentSlug: string;
+  presentation: TextbookPresentation;
+  book: Pick<TextbookDataset["book"], "id" | "title" | "author">;
+  stats: Pick<TextbookDataset["stats"], "exerciseQuestions">;
+  chapters: TextbookChapterSummary[];
+  pages: TextbookPageSummary[];
+  currentPage: TextbookPageContent | null;
+};
+
+export type TextbookPracticeLibraryPayload = {
+  bookSlug: string;
+  presentation: TextbookPresentation;
+  book: Pick<TextbookDataset["book"], "id" | "title" | "author">;
+  stats: Pick<TextbookDataset["stats"], "exerciseQuestions" | "answersProvided" | "answersHintOnly">;
+  chapters: TextbookChapterSummary[];
+  exerciseQuestions: TextbookQuestionSummary[];
+};
+
+export type TextbookQuestionPayload = {
+  bookSlug: string;
+  presentation: TextbookPresentation;
+  book: Pick<TextbookDataset["book"], "id" | "title" | "author">;
+  chapters: TextbookChapterSummary[];
+  exerciseQuestionIds: string[];
+  chapterExerciseQuestionIds: Record<string, string[]>;
+  question: TextbookQuestionContent | null;
+};
+
+// Kept as an alias while the first imported textbook is data structures.
+// New textbook datasets should use TextbookDataset directly.
+export type DataStructuresTextbookDataset = TextbookDataset;

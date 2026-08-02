@@ -4,8 +4,17 @@ export type TextbookProgress = {
   bookmarks: string[];
 };
 
-export const TEXTBOOK_PROGRESS_STORAGE_KEY = "yanshua-data-structures-textbook-progress-v1";
+const LEGACY_DATA_STRUCTURES_PROGRESS_KEY = "yanshua-data-structures-textbook-progress-v1";
 export const EMPTY_TEXTBOOK_PROGRESS: TextbookProgress = { mastered: [], review: [], bookmarks: [] };
+
+function safeBookStorageId(bookSlug: string) {
+  const normalized = bookSlug.toLocaleLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, "");
+  return normalized || "unknown";
+}
+
+export function textbookProgressStorageKey(bookSlug: string) {
+  return `yanshua-textbook-${safeBookStorageId(bookSlug)}-progress-v1`;
+}
 
 function uniqueIds(value: unknown) {
   if (!Array.isArray(value)) return [];
@@ -26,19 +35,34 @@ export function normalizeTextbookProgress(value: unknown): TextbookProgress {
   };
 }
 
-export function readTextbookProgress(): TextbookProgress {
+export function readTextbookProgress(bookSlug: string): TextbookProgress {
   if (typeof window === "undefined") return EMPTY_TEXTBOOK_PROGRESS;
   try {
-    return normalizeTextbookProgress(JSON.parse(window.localStorage.getItem(TEXTBOOK_PROGRESS_STORAGE_KEY) || "null"));
+    const primaryKey = textbookProgressStorageKey(bookSlug);
+    const stored = window.localStorage.getItem(primaryKey);
+    if (stored) return normalizeTextbookProgress(JSON.parse(stored));
+
+    // The first book shipped before book-scoped progress existed. Copy its local
+    // state forward once, without deleting the legacy key or affecting other books.
+    if (bookSlug === "data-structures") {
+      const legacy = window.localStorage.getItem(LEGACY_DATA_STRUCTURES_PROGRESS_KEY);
+      if (legacy) {
+        const migrated = normalizeTextbookProgress(JSON.parse(legacy));
+        window.localStorage.setItem(primaryKey, JSON.stringify(migrated));
+        return migrated;
+      }
+    }
+    return EMPTY_TEXTBOOK_PROGRESS;
   } catch {
     return EMPTY_TEXTBOOK_PROGRESS;
   }
 }
 
-export function writeTextbookProgress(value: TextbookProgress) {
+export function writeTextbookProgress(bookSlug: string, value: TextbookProgress) {
   const normalized = normalizeTextbookProgress(value);
+  if (typeof window === "undefined") return false;
   try {
-    window.localStorage.setItem(TEXTBOOK_PROGRESS_STORAGE_KEY, JSON.stringify(normalized));
+    window.localStorage.setItem(textbookProgressStorageKey(bookSlug), JSON.stringify(normalized));
     return true;
   } catch {
     return false;

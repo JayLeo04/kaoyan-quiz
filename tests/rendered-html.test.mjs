@@ -147,6 +147,21 @@ test("renders the data structures textbook reading experience", async () => {
   assert.match(html, /本章练习/);
 });
 
+test("renders the textbook catalog and keeps unknown books inside the shared shelf", async () => {
+  const catalogResponse = await render("/textbook");
+  assert.equal(catalogResponse.status, 200);
+  const catalogHtml = await catalogResponse.text();
+  assert.match(catalogHtml, /TEXTBOOK LIBRARY/);
+  assert.match(catalogHtml, /href="\/textbook\/data-structures"/);
+  assert.match(catalogHtml, /href="\/textbook\/data-structures\/practice"/);
+
+  const missingBookResponse = await render("/textbook/not-yet-registered");
+  assert.equal(missingBookResponse.status, 200);
+  const missingBookHtml = await missingBookResponse.text();
+  assert.match(missingBookHtml, /TEXTBOOK LIBRARY/);
+  assert.match(missingBookHtml, /href="\/textbook\/data-structures"/);
+});
+
 test("renders textbook practice and preserves answer provenance", async () => {
   const libraryResponse = await render("/textbook/data-structures/practice?chapter=02-linear-list");
   assert.equal(libraryResponse.status, 200);
@@ -164,6 +179,7 @@ test("renders textbook practice and preserves answer provenance", async () => {
   assert.match(questionHtml, /对应知识点/);
   assert.match(questionHtml, /题目与答案来源/);
   assert.doesNotMatch(questionHtml, /fig-02-04-linked-list/);
+  assert.ok(questionHtml.length < 250_000, "a single textbook question must not serialize the complete textbook dataset");
 
   const illustratedQuestionResponse = await render("/textbook/data-structures/practice/book-ds-yan-02-04");
   assert.equal(illustratedQuestionResponse.status, 200);

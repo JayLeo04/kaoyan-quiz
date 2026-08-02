@@ -3,44 +3,50 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { AppHeader } from "@/app/components/AppHeader";
-import textbookData from "@/app/data/textbook-data-structures.json";
-import type { DataStructuresTextbookDataset, TextbookPage } from "@/app/data/textbook-types";
+import { textbookHref, textbookPracticeHref } from "@/app/data/textbook-registry";
+import type { TextbookPageContent, TextbookPageSummary, TextbookReaderPayload } from "@/app/data/textbook-types";
 import { readTextbookProgress } from "@/app/lib/textbook-progress";
 
-const dataset = textbookData as DataStructuresTextbookDataset;
-
-function sourceLabel(page: TextbookPage) {
+function sourceLabel(page: TextbookPageContent) {
   const parts = [];
   if (page.source.attributes.book_pages) parts.push(`书内页 ${page.source.attributes.book_pages}`);
   if (page.source.attributes.pdf_pages) parts.push(`PDF ${page.source.attributes.pdf_pages}`);
   return parts.join(" · ") || "保留 OCR 来源标记";
 }
 
-function matchesPage(page: TextbookPage, query: string) {
+function matchesPage(page: TextbookPageSummary, query: string) {
   const value = query.trim().toLocaleLowerCase();
   if (!value) return true;
   return `${page.title} ${page.summary} ${page.headings.join(" ")}`.toLocaleLowerCase().includes(value);
 }
 
-export function TextbookKnowledgeWorkspace({ currentSlug }: { currentSlug: string }) {
+export function TextbookKnowledgeWorkspace({ reader }: { reader: TextbookReaderPayload }) {
+  const textbook = { slug: reader.bookSlug, presentation: reader.presentation };
+  const { currentSlug, pages } = reader;
+  const dataset = {
+    book: reader.book,
+    stats: reader.stats,
+    chapters: reader.chapters,
+    pages,
+  };
   const [query, setQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [completedCount, setCompletedCount] = useState(0);
   const currentIndex = dataset.pages.findIndex((page) => page.slug === currentSlug);
-  const currentPage = currentIndex >= 0 ? dataset.pages[currentIndex] : null;
+  const currentPage = reader.currentPage;
   const previousPage = currentIndex > 0 ? dataset.pages[currentIndex - 1] : null;
   const nextPage = currentIndex >= 0 && currentIndex < dataset.pages.length - 1 ? dataset.pages[currentIndex + 1] : null;
 
   useEffect(() => {
-    const progress = readTextbookProgress();
+    const progress = readTextbookProgress(textbook.slug);
     // Browser-only progress belongs to this textbook, not the 408 real-question bank.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setCompletedCount(progress.mastered.length);
-  }, []);
+  }, [textbook.slug]);
 
-  const visiblePages = useMemo(() => dataset.pages.filter((page) => matchesPage(page, query)), [query]);
+  const visiblePages = useMemo(() => pages.filter((page) => matchesPage(page, query)), [pages, query]);
   const visibleIds = useMemo(() => new Set(visiblePages.map((page) => page.id)), [visiblePages]);
-  const knowledgeChapters = dataset.chapters.filter((chapter) => chapter.route);
+  const knowledgeChapters = dataset.chapters.filter((chapter) => dataset.pages.some((page) => page.slug === chapter.id));
 
   if (!currentPage) {
     return (
@@ -49,15 +55,15 @@ export function TextbookKnowledgeWorkspace({ currentSlug }: { currentSlug: strin
         <main className="textbook-missing shell-width">
           <span>404</span>
           <h1>没有找到这篇教材内容。</h1>
-          <Link href="/textbook/data-structures">回到教材目录</Link>
+          <Link href={textbookHref(textbook)}>回到教材目录</Link>
         </main>
       </div>
     );
   }
 
   const chapter = dataset.chapters.find((item) => item.id === currentPage.chapterId);
-  const chapterOverview = currentPage.chapterId ? dataset.pages.find((page) => page.slug === currentPage.chapterId) : null;
-  const practiceHref = chapter ? `/textbook/data-structures/practice?chapter=${encodeURIComponent(chapter.id)}` : "/textbook/data-structures/practice";
+  const chapterOverview = currentPage;
+  const practiceHref = textbookPracticeHref(textbook, chapter?.id);
 
   return (
     <div className="textbook-viewport">
@@ -66,10 +72,10 @@ export function TextbookKnowledgeWorkspace({ currentSlug }: { currentSlug: strin
         <aside className="textbook-sidebar">
           <div className="textbook-sidebar-intro">
             <Link href="/" className="back-link">← 408 首页</Link>
-            <p>TEXTBOOK / DATA STRUCTURES</p>
-            <h1>数据结构<br />教材</h1>
-            <span>严蔚敏 · C 语言版</span>
-            <Link className="textbook-practice-link" href="/textbook/data-structures/practice">
+            <p>{textbook.presentation.eyebrow}</p>
+            <h1>{textbook.presentation.displayName}</h1>
+            <span>{textbook.presentation.edition}</span>
+            <Link className="textbook-practice-link" href={textbookPracticeHref(textbook)}>
               <span>刷本书习题</span><b>{dataset.stats.exerciseQuestions}</b>
             </Link>
           </div>
@@ -81,8 +87,8 @@ export function TextbookKnowledgeWorkspace({ currentSlug }: { currentSlug: strin
           <button className="textbook-nav-toggle" type="button" onClick={() => setMobileMenuOpen((open) => !open)}>
             <span>教材目录 · {visiblePages.length} 篇</span><b>{mobileMenuOpen ? "收起" : "展开"}</b>
           </button>
-          <nav className={`textbook-nav ${mobileMenuOpen ? "mobile-open" : ""}`} aria-label="数据结构教材目录">
-            <Link className={currentPage.slug === "" ? "active root" : "root"} href="/textbook/data-structures" onClick={() => setMobileMenuOpen(false)}>
+          <nav className={`textbook-nav ${mobileMenuOpen ? "mobile-open" : ""}`} aria-label={`${textbook.presentation.displayName}目录`}>
+            <Link className={currentPage.slug === "" ? "active root" : "root"} href={textbookHref(textbook)} onClick={() => setMobileMenuOpen(false)}>
               <span>全书目录</span><small>00</small>
             </Link>
             {knowledgeChapters.map((item, index) => {
@@ -91,14 +97,14 @@ export function TextbookKnowledgeWorkspace({ currentSlug }: { currentSlug: strin
               if (!visible) return null;
               return (
                 <section className="textbook-nav-chapter" key={item.id}>
-                  <Link className={currentPage.slug === item.id ? "chapter-link active" : "chapter-link"} href={item.route!} onClick={() => setMobileMenuOpen(false)}>
+                  <Link className={currentPage.slug === item.id ? "chapter-link active" : "chapter-link"} href={textbookHref(textbook, item.id)} onClick={() => setMobileMenuOpen(false)}>
                     <small>{String(index + 1).padStart(2, "0")}</small><span>{item.title}</span>
                   </Link>
                   {pages.filter((page) => page.slug !== item.id && visibleIds.has(page.id)).map((page) => (
                     <Link
                       key={page.id}
                       className={`section-link depth-${Math.min(page.depth, 3)} ${page.id === currentPage.id ? "active" : ""}`}
-                      href={page.route}
+                      href={textbookHref(textbook, page.slug)}
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <span>{page.title}</span>
@@ -113,8 +119,8 @@ export function TextbookKnowledgeWorkspace({ currentSlug }: { currentSlug: strin
         <section className="textbook-reading-pane">
           <article className="textbook-article">
             <div className="textbook-breadcrumb">
-              <Link href="/textbook/data-structures">数据结构（C语言版）</Link>
-              {chapter ? <><span>/</span><Link href={chapter.route || "/textbook/data-structures"}>{chapter.title}</Link></> : null}
+              <Link href={textbookHref(textbook)}>{dataset.book.title}</Link>
+              {chapter ? <><span>/</span><Link href={textbookHref(textbook, chapter.id)}>{chapter.title}</Link></> : null}
             </div>
             <header className="textbook-article-head">
               <div>
@@ -126,8 +132,8 @@ export function TextbookKnowledgeWorkspace({ currentSlug }: { currentSlug: strin
             </header>
             <div className="textbook-article-html" dangerouslySetInnerHTML={{ __html: currentPage.html }} />
             <nav className="textbook-page-pagination" aria-label="教材上下篇">
-              {previousPage ? <Link href={previousPage.route}><span>上一篇</span><strong>← {previousPage.title}</strong></Link> : <span />}
-              {nextPage ? <Link href={nextPage.route}><span>下一篇</span><strong>{nextPage.title} →</strong></Link> : <span />}
+              {previousPage ? <Link href={textbookHref(textbook, previousPage.slug)}><span>上一篇</span><strong>← {previousPage.title}</strong></Link> : <span />}
+              {nextPage ? <Link href={textbookHref(textbook, nextPage.slug)}><span>下一篇</span><strong>{nextPage.title} →</strong></Link> : <span />}
             </nav>
           </article>
 

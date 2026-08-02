@@ -121,6 +121,15 @@ def resolve_inside(root: Path, relative: str) -> Path | None:
     return candidate
 
 
+def resolve_asset(root: Path, relative: str, base_dir: Path | None = None) -> Path | None:
+    """Resolve a local asset as Markdown-relative first, then book-root-relative."""
+    if base_dir is not None:
+        candidate = resolve_inside(base_dir, relative)
+        if candidate is not None and candidate.is_file():
+            return candidate
+    return resolve_inside(root, relative)
+
+
 def check_markdown_file(relative: Any, path: str, root: Path, errors: list[dict[str, Any]], warnings: list[dict[str, Any]]) -> str | None:
     if not isinstance(relative, str):
         return None
@@ -148,7 +157,7 @@ def check_markdown_file(relative: Any, path: str, root: Path, errors: list[dict[
         if image_path.startswith(("http://", "https://", "data:")) or image_path.startswith("page-"):
             issue(errors, f"{path}.image[{index}]", "external, page-raster, or data URLs are not allowed", code="image-source")
         if image_path.startswith("assets/py/"):
-            image_file = resolve_inside(root, image_path)
+            image_file = resolve_asset(root, image_path, file_path.parent)
             if image_file is None or not image_file.is_file():
                 issue(errors, f"{path}.image[{index}]", f"image file does not exist: {image_path}", code="missing-image")
     if "luna:review" in content:
@@ -186,7 +195,7 @@ def svg_viewbox(path: Path) -> tuple[float, float] | None:
     return float(match.group(1)), float(match.group(2))
 
 
-def validate_image(value: Any, path: str, root: Path, errors: list[dict[str, Any]]) -> str | None:
+def validate_image(value: Any, path: str, root: Path, errors: list[dict[str, Any]], base_dir: Path | None = None) -> str | None:
     if not expect_type(value, dict, path, errors):
         return None
     required(value, ("id", "path", "alt", "role", "sourcePdfPages", "quality"), path, errors)
@@ -201,7 +210,7 @@ def validate_image(value: Any, path: str, root: Path, errors: list[dict[str, Any
     image_path = image_path.replace("\\", "/")
     if not image_path.startswith("assets/py/") or image_path.lower().endswith((".jpg", ".jpeg")) or "page-" in image_path.lower() or "screenshot" in image_path.lower() or "base64" in image_path.lower():
         issue(errors, f"{path}.path", "images must be local Python-rendered SVG/PNG assets, not screenshots or external files", code="image-path")
-    file_path = resolve_inside(root, image_path)
+    file_path = resolve_asset(root, image_path, base_dir)
     if file_path is None or not file_path.is_file():
         issue(errors, f"{path}.path", f"image file does not exist: {image_path}", code="missing-image")
         return image_path
@@ -320,9 +329,15 @@ def validate_question(value: Any, path: str, root: Path, expected_chapter: str, 
                 issue(errors, point_path, "pending-review knowledge point cannot be in a passed record", code="review-gate")
     images = value.get("images")
     image_paths: set[str] = set()
+    source_for_asset = value.get("source", {}).get("question") if isinstance(value.get("source"), dict) else None
+    asset_base = None
+    if isinstance(source_for_asset, dict) and isinstance(source_for_asset.get("markdown"), str):
+        source_file = resolve_inside(root, source_for_asset["markdown"])
+        if source_file is not None:
+            asset_base = source_file.parent
     if expect_type(images, list, f"{path}.images", errors):
         for index, image in enumerate(images):
-            image_path = validate_image(image, f"{path}.images[{index}]", root, errors)
+            image_path = validate_image(image, f"{path}.images[{index}]", root, errors, asset_base)
             if image_path:
                 if image_path in image_paths:
                     issue(errors, f"{path}.images[{index}].path", "image paths must be unique per question", code="duplicate-image")

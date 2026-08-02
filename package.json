@@ -16,7 +16,8 @@
     "study:os": "node scripts/build_real_questions.mjs",
     "import:408": "node scripts/import-408-questions.mjs && node scripts/build-408-analytics.mjs && node scripts/import-408-knowledge.mjs",
     "analytics:408": "node scripts/build-408-analytics.mjs",
-    "knowledge:408": "node scripts/import-408-knowledge.mjs"
+    "knowledge:408": "node scripts/import-408-knowledge.mjs",
+    "textbook:ds": "node scripts/import-data-structures-textbook.mjs"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",

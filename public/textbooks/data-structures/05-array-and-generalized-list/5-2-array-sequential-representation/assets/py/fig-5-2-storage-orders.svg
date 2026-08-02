@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="760" viewBox="0 0 1180 760">
+<style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#151515}.box{fill:#fff;stroke:#222;stroke-width:1.5}.brace{fill:none;stroke:#222;stroke-width:1.7}.t{font-size:18px}.s{font-size:16px}.h{font-size:20px;font-weight:600}</style>
+<rect class="box" x="260" y="66" width="110" height="46"/>
+<text x="315.0" y="95" class="s" text-anchor="middle">a₀₀</text>
+<rect class="box" x="260" y="112" width="110" height="46"/>
+<text x="315.0" y="141" class="s" text-anchor="middle">a₁₀</text>
+<rect class="box" x="260" y="158" width="110" height="46"/>
+<text x="315.0" y="187" class="s" text-anchor="middle">…</text>
+<rect class="box" x="260" y="204" width="110" height="46"/>
+<text x="315.0" y="233" class="s" text-anchor="middle">aₘ₋₁,₀</text>
+<rect class="box" x="260" y="250" width="110" height="46"/>
+<text x="315.0" y="279" class="s" text-anchor="middle">a₀₁</text>
+<rect class="box" x="260" y="296" width="110" height="46"/>
+<text x="315.0" y="325" class="s" text-anchor="middle">a₁₁</text>
+<rect class="box" x="260" y="342" width="110" height="46"/>
+<text x="315.0" y="371" class="s" text-anchor="middle">…</text>
+<rect class="box" x="260" y="388" width="110" height="46"/>
+<text x="315.0" y="417" class="s" text-anchor="middle">aₘ₋₁,₁</text>
+<rect class="box" x="260" y="434" width="110" height="46"/>
+<text x="315.0" y="463" class="s" text-anchor="middle">a₀,ₙ₋₁</text>
+<rect class="box" x="260" y="480" width="110" height="46"/>
+<text x="315.0" y="509" class="s" text-anchor="middle">a₁,ₙ₋₁</text>
+<rect class="box" x="260" y="526" width="110" height="46"/>
+<text x="315.0" y="555" class="s" text-anchor="middle">…</text>
+<rect class="box" x="260" y="572" width="110" height="46"/>
+<text x="315.0" y="601" class="s" text-anchor="middle">aₘ₋₁,ₙ₋₁</text>
+<path class="brace" d="M 386 66 q 13 11 0 23 v 138 q 13 11 0 23"/>
+<text x="421" y="163.0" class="t" text-anchor="start">Ā₀⁽¹⁾</text>
+<path class="brace" d="M 386 250 q 13 11 0 23 v 138 q 13 11 0 23"/>
+<text x="421" y="347.0" class="t" text-anchor="start">Ā₁⁽¹⁾</text>
+<path class="brace" d="M 386 434 q 13 11 0 23 v 138 q 13 11 0 23"/>
+<text x="421" y="531.0" class="t" text-anchor="start">Āₙ₋₁⁽¹⁾</text>
+<text x="234" y="96" class="s" text-anchor="end">LOC(A₀⁽¹⁾)=LOC(a₀₀)</text>
+<text x="234" y="280" class="s" text-anchor="end">LOC(A₁⁽¹⁾)=LOC(a₀₁)</text>
+<text x="234" y="464" class="s" text-anchor="end">LOC(Aₙ₋₁⁽¹⁾)=LOC(a₀,ₙ₋₁)</text>
+<rect class="box" x="805" y="66" width="110" height="46"/>
+<text x="860.0" y="95" class="s" text-anchor="middle">a₀₀</text>
+<rect class="box" x="805" y="112" width="110" height="46"/>
+<text x="860.0" y="141" class="s" text-anchor="middle">a₀₁</text>
+<rect class="box" x="805" y="158" width="110" height="46"/>
+<text x="860.0" y="187" class="s" text-anchor="middle">…</text>
+<rect class="box" x="805" y="204" width="110" height="46"/>
+<text x="860.0" y="233" class="s" text-anchor="middle">a₀,ₙ₋₁</text>
+<rect class="box" x="805" y="250" width="110" height="46"/>
+<text x="860.0" y="279" class="s" text-anchor="middle">a₁₀</text>
+<rect class="box" x="805" y="296" width="110" height="46"/>
+<text x="860.0" y="325" class="s" text-anchor="middle">a₁₁</text>
+<rect class="box" x="805" y="342" width="110" height="46"/>
+<text x="860.0" y="371" class="s" text-anchor="middle">…</text>
+<rect class="box" x="805" y="388" width="110" height="46"/>
+<text x="860.0" y="417" class="s" text-anchor="middle">a₁,ₙ₋₁</text>
+<rect class="box" x="805" y="434" width="110" height="46"/>
+<text x="860.0" y="463" class="s" text-anchor="middle">aₘ₋₁,₀</text>
+<rect class="box" x="805" y="480" width="110" height="46"/>
+<text x="860.0" y="509" class="s" text-anchor="middle">aₘ₋₁,₁</text>
+<rect class="box" x="805" y="526" width="110" height="46"/>
+<text x="860.0" y="555" class="s" text-anchor="middle">…</text>
+<rect class="box" x="805" y="572" width="110" height="46"/>
+<text x="860.0" y="601" class="s" text-anchor="middle">aₘ₋₁,ₙ₋₁</text>
+<path class="brace" d="M 931 66 q 13 11 0 23 v 138 q 13 11 0 23"/>
+<text x="966" y="163.0" class="t" text-anchor="start">A₀⁽¹⁾</text>
+<path class="brace" d="M 931 250 q 13 11 0 23 v 138 q 13 11 0 23"/>
+<text x="966" y="347.0" class="t" text-anchor="start">A₁⁽¹⁾</text>
+<path class="brace" d="M 931 434 q 13 11 0 23 v 138 q 13 11 0 23"/>
+<text x="966" y="531.0" class="t" text-anchor="start">Aₘ₋₁⁽¹⁾</text>
+<text x="779" y="96" class="s" text-anchor="end">LOC(A₀⁽¹⁾)=LOC(a₀₀)</text>
+<text x="779" y="280" class="s" text-anchor="end">LOC(A₁⁽¹⁾)=LOC(a₁₀)</text>
+<text x="779" y="464" class="s" text-anchor="end">LOC(Aₘ₋₁⁽¹⁾)=LOC(aₘ₋₁,₀)</text>
+<text x="350" y="650" class="t" text-anchor="middle">A⁽²⁾ = (Ā₀⁽¹⁾, Ā₁⁽¹⁾, …, Āₙ₋₁⁽¹⁾)</text>
+<text x="895" y="650" class="t" text-anchor="middle">A⁽²⁾ = (A₀⁽¹⁾, A₁⁽¹⁾, …, Aₘ₋₁⁽¹⁾)</text>
+<text x="350" y="683" class="t" text-anchor="middle">Āⱼ⁽¹⁾ = (a₀ⱼ, a₁ⱼ, …, aₘ₋₁,ⱼ)</text>
+<text x="895" y="683" class="t" text-anchor="middle">Aᵢ⁽¹⁾ = (aᵢ₀, aᵢ₁, …, aᵢ,ₙ₋₁)</text>
+<text x="350" y="716" class="h" text-anchor="middle">(a)</text>
+<text x="895" y="716" class="h" text-anchor="middle">(b)</text>
+<text x="590" y="748" class="h" text-anchor="middle">图 5.2　二位数组的两种存储方式</text>
+</svg>

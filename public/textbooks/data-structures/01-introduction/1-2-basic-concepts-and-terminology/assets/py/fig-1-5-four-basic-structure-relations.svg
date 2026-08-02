@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 760" width="720" height="760" role="img" aria-label="教材图示重绘"><rect width="100%" height="100%" fill="#fff"/>
+<text x="56" y="100" font-family="Noto Sans CJK SC, Microsoft YaHei, SimSun, sans-serif" font-size="28" font-weight="bold" text-anchor="start" fill="#111">集合</text>
+<circle cx="350" cy="52" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="276" cy="81" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="422" cy="85" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="316" cy="102" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="382" cy="110" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="462" cy="121" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="289" cy="144" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="354" cy="151" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="420" cy="160" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="492" cy="175" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="56" y="245" font-family="Noto Sans CJK SC, Microsoft YaHei, SimSun, sans-serif" font-size="28" font-weight="bold" text-anchor="start" fill="#111">线性</text>
+<line x1="235" y1="236" x2="625" y2="236" stroke="#111" stroke-width="2"/>
+<circle cx="235" cy="236" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="300" cy="236" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="365" cy="236" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="430" cy="236" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="495" cy="236" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="560" cy="236" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="625" cy="236" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="56" y="420" font-family="Noto Sans CJK SC, Microsoft YaHei, SimSun, sans-serif" font-size="28" font-weight="bold" text-anchor="start" fill="#111">树</text>
+<line x1="435" y1="326" x2="245" y2="390" stroke="#111" stroke-width="2"/>
+<line x1="435" y1="326" x2="365" y2="389" stroke="#111" stroke-width="2"/>
+<line x1="435" y1="326" x2="465" y2="391" stroke="#111" stroke-width="2"/>
+<line x1="435" y1="326" x2="565" y2="392" stroke="#111" stroke-width="2"/>
+<line x1="245" y1="390" x2="245" y2="438" stroke="#111" stroke-width="2"/>
+<line x1="365" y1="389" x2="330" y2="438" stroke="#111" stroke-width="2"/>
+<line x1="365" y1="389" x2="365" y2="438" stroke="#111" stroke-width="2"/>
+<line x1="365" y1="389" x2="395" y2="438" stroke="#111" stroke-width="2"/>
+<line x1="365" y1="438" x2="365" y2="486" stroke="#111" stroke-width="2"/>
+<line x1="465" y1="391" x2="465" y2="440" stroke="#111" stroke-width="2"/>
+<line x1="565" y1="392" x2="530" y2="440" stroke="#111" stroke-width="2"/>
+<line x1="565" y1="392" x2="600" y2="440" stroke="#111" stroke-width="2"/>
+<line x1="530" y1="440" x2="505" y2="486" stroke="#111" stroke-width="2"/>
+<line x1="530" y1="440" x2="548" y2="486" stroke="#111" stroke-width="2"/>
+<line x1="600" y1="440" x2="623" y2="486" stroke="#111" stroke-width="2"/>
+<circle cx="395" cy="438" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="330" cy="438" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="245" cy="390" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="505" cy="486" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="245" cy="438" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="365" cy="438" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="530" cy="440" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="565" cy="392" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="365" cy="486" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="623" cy="486" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="548" cy="486" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="600" cy="440" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="365" cy="389" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="465" cy="440" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="465" cy="391" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="435" cy="326" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="56" y="620" font-family="Noto Sans CJK SC, Microsoft YaHei, SimSun, sans-serif" font-size="28" font-weight="bold" text-anchor="start" fill="#111">图</text>
+<line x1="250" y1="560" x2="292" y2="643" stroke="#111" stroke-width="2"/>
+<line x1="250" y1="560" x2="420" y2="590" stroke="#111" stroke-width="2"/>
+<line x1="292" y1="643" x2="420" y2="590" stroke="#111" stroke-width="2"/>
+<line x1="292" y1="643" x2="402" y2="700" stroke="#111" stroke-width="2"/>
+<line x1="420" y1="590" x2="402" y2="700" stroke="#111" stroke-width="2"/>
+<line x1="420" y1="590" x2="548" y2="650" stroke="#111" stroke-width="2"/>
+<line x1="420" y1="590" x2="610" y2="548" stroke="#111" stroke-width="2"/>
+<line x1="420" y1="590" x2="585" y2="700" stroke="#111" stroke-width="2"/>
+<line x1="402" y1="700" x2="585" y2="700" stroke="#111" stroke-width="2"/>
+<line x1="548" y1="650" x2="610" y2="548" stroke="#111" stroke-width="2"/>
+<line x1="548" y1="650" x2="585" y2="700" stroke="#111" stroke-width="2"/>
+<line x1="610" y1="548" x2="585" y2="700" stroke="#111" stroke-width="2"/>
+<circle cx="250" cy="560" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="292" cy="643" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="420" cy="590" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="402" cy="700" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="548" cy="650" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="610" cy="548" r="8" fill="#fff" stroke="#111" stroke-width="2"/>
+<circle cx="585" cy="700" r="8" fill="#fff" stroke="#111" stroke-width="2"/></svg>

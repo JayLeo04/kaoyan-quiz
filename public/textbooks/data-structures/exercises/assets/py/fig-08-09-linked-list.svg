@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1300" viewBox="0 0 1800 1300" role="img" aria-labelledby="title desc">
+  <title id="title">题 8.9（1）的带计数器广义表存储结构</title>
+  <desc id="desc">显示 L、L1、L2、L3、L4 的表头计数、元素结点和子表指针关系；Htag 指向根表 L。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="9" refX="10" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,4.5 L0,9 z" fill="#27364b"/>
+    </marker>
+    <marker id="arrow-muted" markerWidth="12" markerHeight="9" refX="10" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,4.5 L0,9 z" fill="#7b8798"/>
+    </marker>
+    <style>
+      .title { font: 700 30px 'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif; fill:#172033; }
+      .subtitle { font: 400 22px 'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif; fill:#4b5563; }
+      .label { font: 600 22px 'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif; fill:#172033; }
+      .small { font: 400 19px 'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif; fill:#4b5563; }
+      .cell { fill:#ffffff; stroke:#172033; stroke-width:3; }
+      .header-cell { fill:#e9e6ff; stroke:#172033; stroke-width:3; }
+      .node-text { font: 500 21px 'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif; fill:#172033; }
+      .mono { font: 500 21px 'Consolas','Courier New',monospace; fill:#172033; }
+      .wire { fill:none; stroke:#27364b; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; marker-end:url(#arrow); }
+      .wire-muted { fill:none; stroke:#7b8798; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; marker-end:url(#arrow-muted); }
+      .dashed { fill:none; stroke:#7b8798; stroke-width:3; stroke-dasharray:10 8; stroke-linecap:round; marker-end:url(#arrow-muted); }
+      .separator { fill:none; stroke:#172033; stroke-width:2; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="900.0" y="58" class="title" text-anchor="middle">题 8.9（1）的带计数器广义表存储结构</text>
+<text x="900.0" y="100" class="subtitle" text-anchor="middle">表头结点首域为访问计数；tag=1 的元素结点指向相应子表表头</text>
+<text x="105" y="206" class="label" text-anchor="start">L</text>
+<rect x="175" y="176" width="78" height="58" class="cell" rx="4"/>
+<circle cx="214" cy="205" r="7" fill="#172033"/>
+<path d="M 253 205 L 295 205" class="wire"/>
+<rect x="300" y="160" width="150" height="72" class="header-cell" rx="3"/>
+<path d="M 342 160 L 342 232" class="separator"/>
+<path d="M 390 160 L 390 232" class="separator"/>
+<text x="321" y="207" class="node-text" text-anchor="middle">1</text>
+<text x="366" y="207" class="node-text" text-anchor="middle">•</text>
+<text x="420" y="207" class="node-text" text-anchor="middle">•</text>
+<path d="M 450 196 L 485 196" class="wire"/>
+<rect x="490" y="160" width="150" height="72" class="cell" rx="3"/>
+<path d="M 532 160 L 532 232" class="separator"/>
+<path d="M 580 160 L 580 232" class="separator"/>
+<text x="511" y="207" class="node-text" text-anchor="middle">1</text>
+<text x="556" y="207" class="node-text" text-anchor="middle">L₁</text>
+<text x="610" y="207" class="node-text" text-anchor="middle">•</text>
+<path d="M 640 196 L 675 196" class="wire"/>
+<rect x="680" y="160" width="150" height="72" class="cell" rx="3"/>
+<path d="M 722 160 L 722 232" class="separator"/>
+<path d="M 770 160 L 770 232" class="separator"/>
+<text x="701" y="207" class="node-text" text-anchor="middle">1</text>
+<text x="746" y="207" class="node-text" text-anchor="middle">L₃</text>
+<text x="800" y="207" class="node-text" text-anchor="middle">Λ</text>
+<text x="105" y="406" class="label" text-anchor="start">L₁</text>
+<rect x="175" y="376" width="78" height="58" class="cell" rx="4"/>
+<circle cx="214" cy="405" r="7" fill="#172033"/>
+<path d="M 253 405 L 295 405" class="wire"/>
+<rect x="300" y="360" width="150" height="72" class="header-cell" rx="3"/>
+<path d="M 342 360 L 342 432" class="separator"/>
+<path d="M 390 360 L 390 432" class="separator"/>
+<text x="321" y="407" class="node-text" text-anchor="middle">2</text>
+<text x="366" y="407" class="node-text" text-anchor="middle">•</text>
+<text x="420" y="407" class="node-text" text-anchor="middle">•</text>
+<path d="M 450 396 L 485 396" class="wire"/>
+<rect x="490" y="360" width="150" height="72" class="cell" rx="3"/>
+<path d="M 532 360 L 532 432" class="separator"/>
+<path d="M 580 360 L 580 432" class="separator"/>
+<text x="511" y="407" class="node-text" text-anchor="middle">1</text>
+<text x="556" y="407" class="node-text" text-anchor="middle">L₂</text>
+<text x="610" y="407" class="node-text" text-anchor="middle">•</text>
+<path d="M 640 396 L 675 396" class="wire"/>
+<rect x="680" y="360" width="150" height="72" class="cell" rx="3"/>
+<path d="M 722 360 L 722 432" class="separator"/>
+<path d="M 770 360 L 770 432" class="separator"/>
+<text x="701" y="407" class="node-text" text-anchor="middle">1</text>
+<text x="746" y="407" class="node-text" text-anchor="middle">L₃</text>
+<text x="800" y="407" class="node-text" text-anchor="middle">•</text>
+<path d="M 830 396 L 865 396" class="wire"/>
+<rect x="870" y="360" width="150" height="72" class="cell" rx="3"/>
+<path d="M 912 360 L 912 432" class="separator"/>
+<path d="M 960 360 L 960 432" class="separator"/>
+<text x="891" y="407" class="node-text" text-anchor="middle">1</text>
+<text x="936" y="407" class="node-text" text-anchor="middle">L₄</text>
+<text x="990" y="407" class="node-text" text-anchor="middle">Λ</text>
+<text x="105" y="606" class="label" text-anchor="start">L₂</text>
+<rect x="175" y="576" width="78" height="58" class="cell" rx="4"/>
+<circle cx="214" cy="605" r="7" fill="#172033"/>
+<path d="M 253 605 L 295 605" class="wire"/>
+<rect x="300" y="560" width="150" height="72" class="header-cell" rx="3"/>
+<path d="M 342 560 L 342 632" class="separator"/>
+<path d="M 390 560 L 390 632" class="separator"/>
+<text x="321" y="607" class="node-text" text-anchor="middle">3</text>
+<text x="366" y="607" class="node-text" text-anchor="middle">•</text>
+<text x="420" y="607" class="node-text" text-anchor="middle">•</text>
+<path d="M 450 596 L 485 596" class="wire"/>
+<rect x="490" y="560" width="150" height="72" class="cell" rx="3"/>
+<path d="M 532 560 L 532 632" class="separator"/>
+<path d="M 580 560 L 580 632" class="separator"/>
+<text x="511" y="607" class="node-text" text-anchor="middle">1</text>
+<text x="556" y="607" class="node-text" text-anchor="middle">L₃</text>
+<text x="610" y="607" class="node-text" text-anchor="middle">Λ</text>
+<text x="105" y="806" class="label" text-anchor="start">L₃</text>
+<rect x="175" y="776" width="78" height="58" class="cell" rx="4"/>
+<circle cx="214" cy="805" r="7" fill="#172033"/>
+<path d="M 253 805 L 295 805" class="wire"/>
+<rect x="300" y="760" width="150" height="72" class="header-cell" rx="3"/>
+<path d="M 342 760 L 342 832" class="separator"/>
+<path d="M 390 760 L 390 832" class="separator"/>
+<text x="321" y="807" class="node-text" text-anchor="middle">4</text>
+<text x="366" y="807" class="node-text" text-anchor="middle">•</text>
+<text x="420" y="807" class="node-text" text-anchor="middle">Λ</text>
+<text x="105" y="1006" class="label" text-anchor="start">L₄</text>
+<rect x="175" y="976" width="78" height="58" class="cell" rx="4"/>
+<circle cx="214" cy="1005" r="7" fill="#172033"/>
+<path d="M 253 1005 L 295 1005" class="wire"/>
+<rect x="300" y="960" width="150" height="72" class="header-cell" rx="3"/>
+<path d="M 342 960 L 342 1032" class="separator"/>
+<path d="M 390 960 L 390 1032" class="separator"/>
+<text x="321" y="1007" class="node-text" text-anchor="middle">2</text>
+<text x="366" y="1007" class="node-text" text-anchor="middle">•</text>
+<text x="420" y="1007" class="node-text" text-anchor="middle">•</text>
+<path d="M 450 996 L 485 996" class="wire"/>
+<rect x="490" y="960" width="150" height="72" class="cell" rx="3"/>
+<path d="M 532 960 L 532 1032" class="separator"/>
+<path d="M 580 960 L 580 1032" class="separator"/>
+<text x="511" y="1007" class="node-text" text-anchor="middle">1</text>
+<text x="556" y="1007" class="node-text" text-anchor="middle">L₂</text>
+<text x="610" y="1007" class="node-text" text-anchor="middle">Λ</text>
+<path d="M 556 164 C 556 135, 318 135, 318 364" class="wire-muted"/>
+<path d="M 746 164 C 746 175, 318 175, 318 764" class="wire-muted"/>
+<path d="M 556 364 C 556 222, 318 222, 318 564" class="wire-muted"/>
+<path d="M 746 364 C 746 182, 318 182, 318 764" class="wire-muted"/>
+<path d="M 936 364 C 936 262, 318 262, 318 964" class="wire-muted"/>
+<path d="M 556 564 C 556 189, 318 189, 318 764" class="wire-muted"/>
+<path d="M 556 964 C 556 243, 318 243, 318 564" class="wire-muted"/>
+<text x="105" y="1180" class="label" text-anchor="start">Htag</text>
+<rect x="175" y="1148" width="78" height="58" class="cell" rx="4"/>
+<circle cx="214" cy="1177" r="7" fill="#172033"/>
+<path d="M 253 1177 C 272 1177, 272 1120, 320 1120 C 320 1085, 320 234, 320 234" class="wire"/>
+<text x="1320" y="1180" class="small" text-anchor="start">表头结点：计数域 | 首元指针 | 后继指针</text>
+<text x="1320" y="1212" class="small" text-anchor="start">元素结点：tag=1 | 子表指针 | 后继指针</text>
+</svg>

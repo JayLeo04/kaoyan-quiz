@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="260" viewBox="0 0 960 260">
+<style>text{font-family:Arial,"Microsoft YaHei",sans-serif;font-size:17px} .t{font-weight:bold;font-size:21px}.n{fill:#fff;stroke:#111;stroke-width:2}.e{stroke:#111;stroke-width:2;fill:none}</style>
+<text class="t" x="28" y="34">图9.13 二叉排序树的平衡旋转图例</text>
+<rect class="n" x="25" y="75" rx="13" width="110" height="40"/>
+<text x="80" y="101" text-anchor="middle">LL: A,B,BL,BR,AR</text>
+<rect class="n" x="185" y="75" rx="13" width="110" height="40"/>
+<text x="240" y="101" text-anchor="middle">LR: A,B,C,BL,CL,CR,AR</text>
+<rect class="n" x="345" y="75" rx="13" width="110" height="40"/>
+<text x="400" y="101" text-anchor="middle">RR: A,B,AL,BL,BR</text>
+<rect class="n" x="505" y="75" rx="13" width="110" height="40"/>
+<text x="560" y="101" text-anchor="middle">RL: A,B,C,AL,CL,CR,BR</text>
+</svg>

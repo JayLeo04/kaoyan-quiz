@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="260" viewBox="0 0 960 260">
+<style>text{font-family:Arial,"Microsoft YaHei",sans-serif;font-size:17px} .t{font-weight:bold;font-size:21px}.n{fill:#fff;stroke:#111;stroke-width:2}.e{stroke:#111;stroke-width:2;fill:none}</style>
+<text class="t" x="28" y="34">图9.8 二叉排序树的构造过程</text>
+<path class="e" d="M80 113 L240 77"/>
+<path class="e" d="M240 113 L400 77"/>
+<path class="e" d="M400 113 L560 77"/>
+<path class="e" d="M560 113 L720 77"/>
+<path class="e" d="M720 113 L880 77"/>
+<rect class="n" x="25" y="75" rx="13" width="110" height="40"/>
+<text x="80" y="101" text-anchor="middle">(a) 空树</text>
+<rect class="n" x="185" y="75" rx="13" width="110" height="40"/>
+<text x="240" y="101" text-anchor="middle">(b) 45</text>
+<rect class="n" x="345" y="75" rx="13" width="110" height="40"/>
+<text x="400" y="101" text-anchor="middle">(c) 45,24</text>
+<rect class="n" x="505" y="75" rx="13" width="110" height="40"/>
+<text x="560" y="101" text-anchor="middle">(d) +53</text>
+<rect class="n" x="665" y="75" rx="13" width="110" height="40"/>
+<text x="720" y="101" text-anchor="middle">(e) +12</text>
+<rect class="n" x="825" y="75" rx="13" width="110" height="40"/>
+<text x="880" y="101" text-anchor="middle">(f) +90</text>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="320" viewBox="0 0 960 320">
+<style>text{font-family:Arial,"Microsoft YaHei",sans-serif;font-size:17px} .t{font-weight:bold;font-size:21px}.n{fill:#fff;stroke:#111;stroke-width:2}.e{stroke:#111;stroke-width:2;fill:none}</style>
+<text class="t" x="28" y="34">图9.21 表示(9-24)关键字集的Trie树</text>
+<path class="e" d="M80 113 L240 77"/>
+<path class="e" d="M240 113 L400 77"/>
+<path class="e" d="M240 113 L560 77"/>
+<path class="e" d="M80 113 L720 77"/>
+<path class="e" d="M720 113 L880 77"/>
+<path class="e" d="M720 113 L80 147"/>
+<path class="e" d="M720 113 L240 147"/>
+<path class="e" d="M80 113 L400 147"/>
+<path class="e" d="M80 113 L560 147"/>
+<path class="e" d="M80 113 L720 147"/>
+<path class="e" d="M80 113 L880 147"/>
+<path class="e" d="M80 113 L80 217"/>
+<path class="e" d="M80 113 L240 217"/>
+<rect class="n" x="25" y="75" rx="13" width="110" height="40"/>
+<text x="80" y="101" text-anchor="middle">α: $ A…Z</text>
+<rect class="n" x="185" y="75" rx="13" width="110" height="40"/>
+<text x="240" y="101" text-anchor="middle">β:A</text>
+<rect class="n" x="345" y="75" rx="13" width="110" height="40"/>
+<text x="400" y="101" text-anchor="middle">γ: I,O</text>
+<rect class="n" x="505" y="75" rx="13" width="110" height="40"/>
+<text x="560" y="101" text-anchor="middle">δ: A,E</text>
+<rect class="n" x="665" y="75" rx="13" width="110" height="40"/>
+<text x="720" y="101" text-anchor="middle">LAN</text>
+<rect class="n" x="825" y="75" rx="13" width="110" height="40"/>
+<text x="880" y="101" text-anchor="middle">LI</text>
+<rect class="n" x="25" y="145" rx="13" width="110" height="40"/>
+<text x="80" y="171" text-anchor="middle">LIU</text>
+<rect class="n" x="185" y="145" rx="13" width="110" height="40"/>
+<text x="240" y="171" text-anchor="middle">LONG</text>
+<rect class="n" x="345" y="145" rx="13" width="110" height="40"/>
+<text x="400" y="171" text-anchor="middle">WANG</text>
+<rect class="n" x="505" y="145" rx="13" width="110" height="40"/>
+<text x="560" y="171" text-anchor="middle">WEN</text>
+<rect class="n" x="665" y="145" rx="13" width="110" height="40"/>
+<text x="720" y="171" text-anchor="middle">WU</text>
+<rect class="n" x="825" y="145" rx="13" width="110" height="40"/>
+<text x="880" y="171" text-anchor="middle">YANG</text>
+<rect class="n" x="25" y="215" rx="13" width="110" height="40"/>
+<text x="80" y="241" text-anchor="middle">YUN</text>
+<rect class="n" x="185" y="215" rx="13" width="110" height="40"/>
+<text x="240" y="241" text-anchor="middle">ZHAO</text>
+</svg>

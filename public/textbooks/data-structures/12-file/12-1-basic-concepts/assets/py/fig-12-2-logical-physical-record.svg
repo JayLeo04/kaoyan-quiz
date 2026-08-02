@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="410" viewBox="0 0 900 410">
+<style>text{font-family:"Microsoft YaHei",sans-serif;fill:#111}.label{font-size:22px;font-weight:700}.small{font-size:18px}.line{stroke:#111;stroke-width:3;fill:none}</style>
+<rect width="900" height="410" fill="white"/>
+<g transform="translate(65 72)"><circle cx="55" cy="52" r="26" fill="#f5f5f5" stroke="#111" stroke-width="3"/><path class="line" d="M55 78v70M18 110l37-30 37 30M30 148l-15 72M80 148l15 72"/><text class="label" x="30" y="260">用户</text></g>
+<g transform="translate(250 35)"><rect class="line" x="0" y="0" width="155" height="285"/><path class="line" d="M0 57h155M0 114h155M0 171h155M0 228h155"/><text class="label" x="41" y="38">记录 B</text><text class="label" x="41" y="95">记录 E</text><text class="label" x="41" y="152">记录 D</text><text class="label" x="41" y="209">记录 Y</text><text class="label" x="41" y="266">记录 P</text><text class="label" x="5" y="337">记录的逻辑结构</text></g>
+<g transform="translate(570 36)"><circle class="line" cx="145" cy="140" r="123"/><circle class="line" cx="145" cy="140" r="82"/><circle class="line" cx="145" cy="140" r="31"/><path class="line" d="M145 17v92M268 140h-92M145 263v-92M22 140h92"/><path class="line" d="M87 75l116 130M203 75L87 205"/><text class="small" x="270" y="85">间隔</text><text class="small" x="258" y="162">记录</text><text class="label" x="55" y="337">记录的物理结构</text></g>
+</svg>

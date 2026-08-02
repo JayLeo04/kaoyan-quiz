@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="260" viewBox="0 0 960 260">
+<style>text{font-family:Arial,"Microsoft YaHei",sans-serif;font-size:17px} .t{font-weight:bold;font-size:21px}.n{fill:#fff;stroke:#111;stroke-width:2}.e{stroke:#111;stroke-width:2;fill:none}</style>
+<text class="t" x="28" y="34">图9.18 一棵3阶的B+树</text>
+<path class="e" d="M80 113 L240 77"/>
+<path class="e" d="M80 113 L400 77"/>
+<path class="e" d="M240 113 L560 77"/>
+<path class="e" d="M240 113 L720 77"/>
+<path class="e" d="M240 113 L880 77"/>
+<path class="e" d="M400 113 L80 147"/>
+<path class="e" d="M400 113 L240 147"/>
+<path class="e" d="M560 113 L720 77"/>
+<path class="e" d="M720 113 L880 77"/>
+<path class="e" d="M880 113 L80 147"/>
+<path class="e" d="M80 183 L240 147"/>
+<rect class="n" x="25" y="75" rx="13" width="110" height="40"/>
+<text x="80" y="101" text-anchor="middle">root: 59,97</text>
+<rect class="n" x="185" y="75" rx="13" width="110" height="40"/>
+<text x="240" y="101" text-anchor="middle">15,44,59</text>
+<rect class="n" x="345" y="75" rx="13" width="110" height="40"/>
+<text x="400" y="101" text-anchor="middle">72,97</text>
+<rect class="n" x="505" y="75" rx="13" width="110" height="40"/>
+<text x="560" y="101" text-anchor="middle">10,15</text>
+<rect class="n" x="665" y="75" rx="13" width="110" height="40"/>
+<text x="720" y="101" text-anchor="middle">21,37,44</text>
+<rect class="n" x="825" y="75" rx="13" width="110" height="40"/>
+<text x="880" y="101" text-anchor="middle">51,59</text>
+<rect class="n" x="25" y="145" rx="13" width="110" height="40"/>
+<text x="80" y="171" text-anchor="middle">63,72</text>
+<rect class="n" x="185" y="145" rx="13" width="110" height="40"/>
+<text x="240" y="171" text-anchor="middle">85,91,97</text>
+<rect class="n" x="345" y="145" rx="13" width="110" height="40"/>
+<text x="400" y="171" text-anchor="middle">seq 链</text>
+</svg>

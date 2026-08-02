@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" role="img">
+  <title>fig-practice-4-terminal-ui.svg</title>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#1f2937"/>
+    </marker>
+    <style>
+      .label { font-family: 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif; fill: #111827; font-size: 20px; }
+      .small { font-family: 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif; fill: #111827; font-size: 16px; }
+      .mono { font-family: Consolas, 'Courier New', monospace; fill: #111827; font-size: 18px; }
+      .node { fill: #ffffff; stroke: #334155; stroke-width: 1.5; rx: 8; }
+      .edge { stroke: #1f2937; stroke-width: 1.7; fill: none; marker-end: url(#arrow); }
+      .rule { stroke: #1f2937; stroke-width: 1.6; fill: none; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+
+  <g transform="translate(80 90) scale(1.05)">
+  <text class="label" x="560" y="28" text-anchor="middle">演示程序的文本方式用户界面</text>
+  <rect x="48" y="52" width="1024" height="480" fill="#fff" stroke="#111827" stroke-width="2"/>
+  <text class="mono" x="64" y="85">**********************************************************************</text>
+  <text class="mono" x="120" y="130">CreatGList--c</text>
+  <text class="mono" x="466" y="130">Decompose--d</text>
+  <text class="mono" x="841" y="130">Quit--q</text>
+  <text class="mono" x="64" y="165">**********************************************************************</text>
+  <text class="mono" x="150" y="257">Operation :-</text>
+  <rect class="node" x="355" y="205" width="215" height="62"/>
+  <text class="label" x="463" y="244" text-anchor="middle">键入操作命令符</text>
+  <rect class="node" x="760" y="205" width="205" height="62"/>
+  <text class="label" x="862" y="244" text-anchor="middle">操作命令清单</text>
+  <line class="edge" x1="760" y1="225" x2="635" y2="168"/>
+  <rect class="node" x="785" y="322" width="190" height="56"/>
+  <text class="label" x="880" y="357" text-anchor="middle">操作提示信息</text>
+  <line class="edge" x1="785" y1="348" x2="680" y2="416"/>
+  <text class="mono" x="64" y="438">**********************************************************************</text>
+  <text class="mono" x="94" y="478">Enter a operation code:c/C, d/D OR q/Q</text>
+  <text class="mono" x="64" y="515">**********************************************************************</text>
+  </g>
+
+</svg>

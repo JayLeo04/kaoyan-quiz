@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">题 8.13：casenum、边界与相邻块的位置</title>
+  <desc id="desc">casenum[0..1][0..1] 的四种邻接情况，以及 lowbound、lfooter、p、rheader、highbound 在存储区中的位置。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="9" refX="10" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,4.5 L0,9 z" fill="#27364b"/>
+    </marker>
+    <marker id="arrow-muted" markerWidth="12" markerHeight="9" refX="10" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,4.5 L0,9 z" fill="#7b8798"/>
+    </marker>
+    <style>
+      .title { font: 700 30px 'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif; fill:#172033; }
+      .subtitle { font: 400 22px 'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif; fill:#4b5563; }
+      .label { font: 600 22px 'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif; fill:#172033; }
+      .small { font: 400 19px 'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif; fill:#4b5563; }
+      .cell { fill:#ffffff; stroke:#172033; stroke-width:3; }
+      .header-cell { fill:#e9e6ff; stroke:#172033; stroke-width:3; }
+      .node-text { font: 500 21px 'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif; fill:#172033; }
+      .mono { font: 500 21px 'Consolas','Courier New',monospace; fill:#172033; }
+      .wire { fill:none; stroke:#27364b; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; marker-end:url(#arrow); }
+      .wire-muted { fill:none; stroke:#7b8798; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; marker-end:url(#arrow-muted); }
+      .dashed { fill:none; stroke:#7b8798; stroke-width:3; stroke-dasharray:10 8; stroke-linecap:round; marker-end:url(#arrow-muted); }
+      .separator { fill:none; stroke:#172033; stroke-width:2; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="800.0" y="60" class="title" text-anchor="middle">题 8.13：casenum、边界与相邻块的位置</text>
+<text x="800.0" y="102" class="subtitle" text-anchor="middle">l 表示左邻，r 表示右邻；0 表示相邻块为空闲，1 表示相邻块被占用或越界</text>
+<text x="710" y="136" class="label" text-anchor="middle">casenum[r][l]</text>
+<text x="635.0" y="172" class="small" text-anchor="middle">r=0</text>
+<text x="860" y="172" class="small" text-anchor="middle">r=1</text>
+<text x="504" y="240.0" class="small" text-anchor="middle">l=0</text>
+<text x="504" y="340.0" class="small" text-anchor="middle">l=1</text>
+<rect x="560" y="190" width="150" height="100" class="cell" rx="2"/>
+<text x="635.0" y="253" class="node-text" text-anchor="middle">1</text>
+<rect x="710" y="190" width="150" height="100" class="cell" rx="2"/>
+<text x="785.0" y="253" class="node-text" text-anchor="middle">2</text>
+<rect x="560" y="290" width="150" height="100" class="cell" rx="2"/>
+<text x="635.0" y="353" class="node-text" text-anchor="middle">3</text>
+<rect x="710" y="290" width="150" height="100" class="cell" rx="2"/>
+<text x="785.0" y="353" class="node-text" text-anchor="middle">4</text>
+<rect x="210" y="620" width="1180" height="100" class="cell" rx="4"/>
+<rect x="820" y="620" width="160" height="100" class="header-cell" rx="0"/>
+<text x="900.0" y="685" class="node-text" text-anchor="middle">1</text>
+<path d="M 280 720 L 280 812" class="separator"/>
+<text x="280" y="846" class="label" text-anchor="middle">lowbound</text>
+<path d="M 720 720 L 720 812" class="separator"/>
+<text x="720" y="846" class="label" text-anchor="middle">lfooter</text>
+<path d="M 900 720 L 900 812" class="separator"/>
+<text x="900" y="846" class="label" text-anchor="middle">p</text>
+<path d="M 1020 720 L 1020 812" class="separator"/>
+<text x="1020" y="846" class="label" text-anchor="middle">rheader</text>
+<path d="M 1320 720 L 1320 812" class="separator"/>
+<text x="1320" y="846" class="label" text-anchor="middle">highbound</text>
+<path d="M 710 406 C 710 500, 900.0 500, 900.0 620" class="wire"/>
+<text x="800.0" y="930" class="small" text-anchor="middle">lfooter = p - 1；rheader = p + [p].size；[p].size 包括头部和底部。</text>
+</svg>

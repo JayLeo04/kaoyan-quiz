@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="800" viewBox="0 0 1110 440" role="img">
+<title>数据结构题集（C语言版）实习题 2 重绘图示</title>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/></marker>
+  <style>
+    .label { font-family: 'Microsoft YaHei','Noto Sans CJK SC','PingFang SC',sans-serif; fill: #172033; }
+    .mono { font-family: 'Cascadia Mono','Consolas',monospace; }
+    .thin { stroke: #475569; stroke-width: 1.2; fill: none; }
+    .arrow { stroke: #334155; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+  </style>
+</defs>
+<rect width="100%" height="100%" fill="#fffdf7"/>
+<text x="480" y="31" font-size="21" text-anchor="middle" class="label" font-weight="700">图　迷宫程序的文本用户界面</text>
+<rect x="50" y="70" width="790" height="330" rx="4" fill="#172033" stroke="#334155" stroke-width="2"/>
+<text x="75" y="112" font-size="15" text-anchor="start" class="mono" fill="#e2e8f0">************************************************************************</text>
+<text x="75" y="142" font-size="15" text-anchor="start" class="mono" fill="#e2e8f0">*  CreatMaze-c       MazePath-m       PrintMaze-p       Quit-q       *</text>
+<text x="75" y="172" font-size="15" text-anchor="start" class="mono" fill="#e2e8f0">************************************************************************</text>
+<text x="75" y="202" font-size="15" text-anchor="start" class="mono" fill="#e2e8f0"></text>
+<text x="75" y="232" font-size="15" text-anchor="start" class="mono" fill="#e2e8f0">                         Operation : _</text>
+<text x="75" y="262" font-size="15" text-anchor="start" class="mono" fill="#e2e8f0"></text>
+<text x="75" y="292" font-size="15" text-anchor="start" class="mono" fill="#e2e8f0">************************************************************************</text>
+<text x="75" y="322" font-size="15" text-anchor="start" class="mono" fill="#e2e8f0">* Enter a operation code : c, m, p OR q                               *</text>
+<text x="75" y="352" font-size="15" text-anchor="start" class="mono" fill="#e2e8f0">************************************************************************</text>
+<path d="M 842 125 L 925 105" class="arrow"/>
+<text x="930" y="100" font-size="15" text-anchor="start" class="label" font-weight="600">操作命令清单</text>
+<path d="M 560 222 L 924 243" class="arrow"/>
+<text x="930" y="248" font-size="15" text-anchor="start" class="label" font-weight="600">键入操作命令符</text>
+<path d="M 842 322 L 924 350" class="arrow"/>
+<text x="930" y="356" font-size="15" text-anchor="start" class="label" font-weight="600">操作提示信息</text>
+</svg>

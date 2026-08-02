@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="520" viewBox="0 0 1180 520">
+<style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#161616}.cell{fill:#fff;stroke:#222;stroke-width:1.4}.bracket{fill:none;stroke:#222;stroke-width:2}.small{font-size:17px}.label{font-size:19px;font-weight:600}.formula{font-family:"Cambria Math",serif;font-size:18px}</style>
+<rect class="cell" x="58" y="95" width="70" height="49"/>
+<text x="93.0" y="125.5" class="small" text-anchor="middle">a₀₀</text>
+<rect class="cell" x="128" y="95" width="70" height="49"/>
+<text x="163.0" y="125.5" class="small" text-anchor="middle">a₀₁</text>
+<rect class="cell" x="198" y="95" width="70" height="49"/>
+<text x="233.0" y="125.5" class="small" text-anchor="middle">a₀₂</text>
+<rect class="cell" x="268" y="95" width="70" height="49"/>
+<text x="303.0" y="125.5" class="small" text-anchor="middle">…</text>
+<rect class="cell" x="338" y="95" width="70" height="49"/>
+<text x="373.0" y="125.5" class="small" text-anchor="middle">a₀,ₙ₋₁</text>
+<rect class="cell" x="58" y="144" width="70" height="49"/>
+<text x="93.0" y="174.5" class="small" text-anchor="middle">a₁₀</text>
+<rect class="cell" x="128" y="144" width="70" height="49"/>
+<text x="163.0" y="174.5" class="small" text-anchor="middle">a₁₁</text>
+<rect class="cell" x="198" y="144" width="70" height="49"/>
+<text x="233.0" y="174.5" class="small" text-anchor="middle">a₁₂</text>
+<rect class="cell" x="268" y="144" width="70" height="49"/>
+<text x="303.0" y="174.5" class="small" text-anchor="middle">…</text>
+<rect class="cell" x="338" y="144" width="70" height="49"/>
+<text x="373.0" y="174.5" class="small" text-anchor="middle">a₁,ₙ₋₁</text>
+<rect class="cell" x="58" y="193" width="70" height="49"/>
+<text x="93.0" y="223.5" class="small" text-anchor="middle">⋮</text>
+<rect class="cell" x="128" y="193" width="70" height="49"/>
+<text x="163.0" y="223.5" class="small" text-anchor="middle">⋮</text>
+<rect class="cell" x="198" y="193" width="70" height="49"/>
+<text x="233.0" y="223.5" class="small" text-anchor="middle">⋮</text>
+<rect class="cell" x="268" y="193" width="70" height="49"/>
+<text x="303.0" y="223.5" class="small" text-anchor="middle"></text>
+<rect class="cell" x="338" y="193" width="70" height="49"/>
+<text x="373.0" y="223.5" class="small" text-anchor="middle">⋮</text>
+<rect class="cell" x="58" y="242" width="70" height="49"/>
+<text x="93.0" y="272.5" class="small" text-anchor="middle">aₘ₋₁,₀</text>
+<rect class="cell" x="128" y="242" width="70" height="49"/>
+<text x="163.0" y="272.5" class="small" text-anchor="middle">aₘ₋₁,₁</text>
+<rect class="cell" x="198" y="242" width="70" height="49"/>
+<text x="233.0" y="272.5" class="small" text-anchor="middle">aₘ₋₁,₂</text>
+<rect class="cell" x="268" y="242" width="70" height="49"/>
+<text x="303.0" y="272.5" class="small" text-anchor="middle">…</text>
+<rect class="cell" x="338" y="242" width="70" height="49"/>
+<text x="373.0" y="272.5" class="small" text-anchor="middle">aₘ₋₁,ₙ₋₁</text>
+<text x="230" y="77" class="label" text-anchor="end">Aₘ×ₙ =</text>
+<text x="235" y="334" class="label" text-anchor="middle">(a)</text>
+<text x="600" y="77" class="label" text-anchor="end">Aₘ×ₙ =</text>
+<rect class="cell" x="620" y="95" width="70" height="49"/>
+<text x="655.0" y="125.5" class="small" text-anchor="middle">a₀,0</text>
+<rect class="cell" x="620" y="144" width="70" height="49"/>
+<text x="655.0" y="174.5" class="small" text-anchor="middle">a₁,0</text>
+<rect class="cell" x="620" y="193" width="70" height="49"/>
+<text x="655.0" y="223.5" class="small" text-anchor="middle">⋮</text>
+<rect class="cell" x="620" y="242" width="70" height="49"/>
+<text x="655.0" y="272.5" class="small" text-anchor="middle">aₘ₋₁,0</text>
+<text x="655" y="334" class="label" text-anchor="middle">a₀</text>
+<rect class="cell" x="732" y="95" width="70" height="49"/>
+<text x="767.0" y="125.5" class="small" text-anchor="middle">a₀,1</text>
+<rect class="cell" x="732" y="144" width="70" height="49"/>
+<text x="767.0" y="174.5" class="small" text-anchor="middle">a₁,1</text>
+<rect class="cell" x="732" y="193" width="70" height="49"/>
+<text x="767.0" y="223.5" class="small" text-anchor="middle">⋮</text>
+<rect class="cell" x="732" y="242" width="70" height="49"/>
+<text x="767.0" y="272.5" class="small" text-anchor="middle">aₘ₋₁,1</text>
+<text x="767" y="334" class="label" text-anchor="middle">a₁</text>
+<text x="879" y="195" class="label" text-anchor="middle">…</text>
+<rect class="cell" x="956" y="95" width="70" height="49"/>
+<text x="991.0" y="125.5" class="small" text-anchor="middle">a₀,ₙ₋₁</text>
+<rect class="cell" x="956" y="144" width="70" height="49"/>
+<text x="991.0" y="174.5" class="small" text-anchor="middle">a₁,ₙ₋₁</text>
+<rect class="cell" x="956" y="193" width="70" height="49"/>
+<text x="991.0" y="223.5" class="small" text-anchor="middle">⋮</text>
+<rect class="cell" x="956" y="242" width="70" height="49"/>
+<text x="991.0" y="272.5" class="small" text-anchor="middle">aₘ₋₁,ₙ₋₁</text>
+<text x="991" y="334" class="label" text-anchor="middle">aₙ₋₁</text>
+<text x="790" y="364" class="label" text-anchor="middle">(b)</text>
+<text x="82" y="417" class="formula" text-anchor="start">Aₘ×ₙ = ((a₀₀ a₀₁ … a₀,ₙ₋₁), (a₁₀ a₁₁ … a₁,ₙ₋₁), …, (aₘ₋₁,₀ aₘ₋₁,₁ … aₘ₋₁,ₙ₋₁))</text>
+<text x="590" y="452" class="label" text-anchor="middle">(c)</text>
+<text x="590" y="495" class="label" text-anchor="middle">图 5.1　二位数组图例</text>
+</svg>

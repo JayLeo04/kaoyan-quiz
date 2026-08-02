@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="410" viewBox="0 0 1120 410" role="img" aria-labelledby="title desc">
+  <title id="title">题 5.13（1）广义表的三域链表存储结构</title>
+  <desc id="desc">PDF 第 38 页题 5.13 的第一个广义表存储结构。三格结点包含标志、表头指针和表尾指针；标志为 0 的双格结点存放原子。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,4 L0,8 z" fill="#242424" />
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff" />
+  <g fill="none" stroke="#242424" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+<text x="600" y="34" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" fill="#202020" stroke="none">（1）</text>
+<text x="60" y="108" text-anchor="start" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="bold" fill="#202020" stroke="none">List</text>
+<rect x="145" y="80" width="126" height="48" fill="#ffffff" />
+<path d="M187,80 L187,128" />
+<path d="M229,80 L229,128" />
+<text x="166.0" y="111" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">1</text>
+<text x="208.0" y="111" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">●</text>
+<text x="250.0" y="111" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">●</text>
+<rect x="540" y="80" width="126" height="48" fill="#ffffff" />
+<path d="M582,80 L582,128" />
+<path d="M624,80 L624,128" />
+<text x="561.0" y="111" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">1</text>
+<text x="603.0" y="111" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">●</text>
+<text x="645.0" y="111" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">●</text>
+<rect x="925" y="80" width="126" height="48" fill="#ffffff" />
+<path d="M967,80 L967,128" />
+<path d="M1009,80 L1009,128" />
+<text x="946.0" y="111" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">1</text>
+<text x="988.0" y="111" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">Λ</text>
+<text x="1030.0" y="111" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">Λ</text>
+<path d="M65,104 L145,104" marker-end="url(#arrow)" />
+<path d="M271,104.0 L540,104" marker-end="url(#arrow)" />
+<path d="M666,104.0 L925,104" marker-end="url(#arrow)" />
+<rect x="185" y="205" width="126" height="48" fill="#ffffff" />
+<path d="M227,205 L227,253" />
+<path d="M269,205 L269,253" />
+<text x="206.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">1</text>
+<text x="248.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">●</text>
+<text x="290.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">●</text>
+<rect x="385" y="205" width="126" height="48" fill="#ffffff" />
+<path d="M427,205 L427,253" />
+<path d="M469,205 L469,253" />
+<text x="406.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">1</text>
+<text x="448.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">●</text>
+<text x="490.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">●</text>
+<rect x="565" y="205" width="126" height="48" fill="#ffffff" />
+<path d="M607,205 L607,253" />
+<path d="M649,205 L649,253" />
+<text x="586.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">1</text>
+<text x="628.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">Λ</text>
+<text x="670.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">Λ</text>
+<rect x="225" y="330" width="86" height="43" fill="#ffffff" />
+<path d="M268,330 L268,373" />
+<text x="246.5" y="359" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="normal" fill="#202020" stroke="none">0</text>
+<text x="289.5" y="359" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="normal" fill="#202020" stroke="none">a</text>
+<rect x="425" y="330" width="86" height="43" fill="#ffffff" />
+<path d="M468,330 L468,373" />
+<text x="446.5" y="359" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="normal" fill="#202020" stroke="none">0</text>
+<text x="489.5" y="359" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="normal" fill="#202020" stroke="none">b</text>
+<polyline points="208.0,128 208.0,180 248,180 248,205" fill="none" marker-end="url(#arrow)" />
+<path d="M311,229.0 L385,229" marker-end="url(#arrow)" />
+<path d="M511,229.0 L565,229" marker-end="url(#arrow)" />
+<path d="M248.0,253 L268.0,330" marker-end="url(#arrow)" />
+<path d="M448.0,253 L468.0,330" marker-end="url(#arrow)" />
+<rect x="720" y="205" width="126" height="48" fill="#ffffff" />
+<path d="M762,205 L762,253" />
+<path d="M804,205 L804,253" />
+<text x="741.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">1</text>
+<text x="783.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">●</text>
+<text x="825.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">●</text>
+<rect x="885" y="205" width="126" height="48" fill="#ffffff" />
+<path d="M927,205 L927,253" />
+<path d="M969,205 L969,253" />
+<text x="906.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">1</text>
+<text x="948.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">●</text>
+<text x="990.0" y="236" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" fill="#202020" stroke="none">Λ</text>
+<rect x="740" y="330" width="86" height="43" fill="#ffffff" />
+<path d="M783,330 L783,373" />
+<text x="761.5" y="359" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="normal" fill="#202020" stroke="none">0</text>
+<text x="804.5" y="359" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="normal" fill="#202020" stroke="none">a</text>
+<rect x="905" y="330" width="86" height="43" fill="#ffffff" />
+<path d="M948,330 L948,373" />
+<text x="926.5" y="359" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="normal" fill="#202020" stroke="none">0</text>
+<text x="969.5" y="359" text-anchor="middle" font-family="Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="normal" fill="#202020" stroke="none">b</text>
+<polyline points="603.0,128 603.0,180 783,180 783,205" fill="none" marker-end="url(#arrow)" />
+<path d="M846,229.0 L885,229" marker-end="url(#arrow)" />
+<path d="M783.0,253 L783.0,330" marker-end="url(#arrow)" />
+<path d="M948.0,253 L948.0,330" marker-end="url(#arrow)" />
+  </g>
+</svg>

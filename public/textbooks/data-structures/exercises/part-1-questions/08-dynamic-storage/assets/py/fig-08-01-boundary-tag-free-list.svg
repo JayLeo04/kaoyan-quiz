@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="410" viewBox="0 0 1200 410" role="img" aria-labelledby="title desc">
+<title id="title">题 8.1 的循环可利用空间表</title>
+<desc id="desc">由首地址为 802、213、462、604 的四个空闲块构成的循环双向链表，pav 指向首块。</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0 0, 8 3.5, 0 7" fill="#1f2937"/></marker></defs>
+<style>rect{fill:#fff;stroke:#1f2937;stroke-width:2}path{fill:none;stroke:#1f2937;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}circle{fill:#1f2937}text{fill:#111827}</style>
+<rect x="1" y="1" width="1198" height="408" fill="#fff" stroke="none"/>
+<text x="245" y="59" text-anchor="start" font-family="Arial, Microsoft YaHei, sans-serif" font-size="17" font-weight="bold">pav</text>
+<path d="M 280 65 L 238 138" marker-end="url(#arrow)"/>
+<path d="M 302 171 L 370 171" marker-end="url(#arrow)"/>
+<path d="M 552 171 L 620 171" marker-end="url(#arrow)"/>
+<path d="M 802 171 L 870 171" marker-end="url(#arrow)"/>
+<path d="M 870 185 L 802 185" marker-end="url(#arrow)"/>
+<path d="M 620 185 L 552 185" marker-end="url(#arrow)"/>
+<path d="M 370 185 L 302 185" marker-end="url(#arrow)"/>
+<path d="M 1052 171 L 1148 171 L 1148 92 L 98 92 L 98 171 L 120 171" marker-end="url(#arrow)"/>
+<path d="M 120 322 L 72 322 L 72 355 L 1122 355 L 1122 185 L 1052 185" marker-end="url(#arrow)"/>
+<text x="138" y="131" text-anchor="start" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="bold">802</text>
+<rect x="120" y="150" width="205" height="42" />
+<rect x="120" y="192" width="205" height="62" />
+<rect x="120" y="254" width="205" height="38" />
+<path d="M 162 150 L 162 192"/>
+<path d="M 204 150 L 204 192"/>
+<path d="M 279 150 L 279 192"/>
+<circle cx="141" cy="171" r="5"/>
+<text x="183" y="177" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="normal">0</text>
+<text x="241" y="177" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="normal">56</text>
+<circle cx="302" cy="171" r="5"/>
+<path d="M 162 254 L 162 292"/>
+<path d="M 204 254 L 204 292"/>
+<circle cx="141" cy="273" r="5"/>
+<text x="183" y="279" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="normal">0</text>
+<text x="388" y="131" text-anchor="start" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="bold">213</text>
+<rect x="370" y="150" width="205" height="42" />
+<rect x="370" y="192" width="205" height="62" />
+<rect x="370" y="254" width="205" height="38" />
+<path d="M 412 150 L 412 192"/>
+<path d="M 454 150 L 454 192"/>
+<path d="M 529 150 L 529 192"/>
+<circle cx="391" cy="171" r="5"/>
+<text x="433" y="177" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="normal">0</text>
+<text x="491" y="177" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="normal">117</text>
+<circle cx="552" cy="171" r="5"/>
+<path d="M 412 254 L 412 292"/>
+<path d="M 454 254 L 454 292"/>
+<circle cx="391" cy="273" r="5"/>
+<text x="433" y="279" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="normal">0</text>
+<text x="638" y="131" text-anchor="start" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="bold">462</text>
+<rect x="620" y="150" width="205" height="42" />
+<rect x="620" y="192" width="205" height="62" />
+<rect x="620" y="254" width="205" height="38" />
+<path d="M 662 150 L 662 192"/>
+<path d="M 704 150 L 704 192"/>
+<path d="M 779 150 L 779 192"/>
+<circle cx="641" cy="171" r="5"/>
+<text x="683" y="177" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="normal">0</text>
+<text x="741" y="177" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="normal">53</text>
+<circle cx="802" cy="171" r="5"/>
+<path d="M 662 254 L 662 292"/>
+<path d="M 704 254 L 704 292"/>
+<circle cx="641" cy="273" r="5"/>
+<text x="683" y="279" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="normal">0</text>
+<text x="888" y="131" text-anchor="start" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="bold">604</text>
+<rect x="870" y="150" width="205" height="42" />
+<rect x="870" y="192" width="205" height="62" />
+<rect x="870" y="254" width="205" height="38" />
+<path d="M 912 150 L 912 192"/>
+<path d="M 954 150 L 954 192"/>
+<path d="M 1029 150 L 1029 192"/>
+<circle cx="891" cy="171" r="5"/>
+<text x="933" y="177" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="normal">0</text>
+<text x="991" y="177" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="normal">122</text>
+<circle cx="1052" cy="171" r="5"/>
+<path d="M 912 254 L 912 292"/>
+<path d="M 954 254 L 954 292"/>
+<circle cx="891" cy="273" r="5"/>
+<text x="933" y="279" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="16" font-weight="normal">0</text>
+</svg>

@@ -128,6 +128,69 @@ test("renders schedule local knowledge pages", async () => {
   assert.match(osRootHtml, /href="\/knowledge\/co\/storage"/);
 });
 
+test("renders the data structures textbook reading experience", async () => {
+  const rootResponse = await render("/textbook/data-structures");
+  assert.equal(rootResponse.status, 200);
+  const rootHtml = await rootResponse.text();
+  assert.match(rootHtml, /数据结构（C语言版）/);
+  assert.match(rootHtml, /严蔚敏/);
+  assert.match(rootHtml, /刷本书习题/);
+  assert.match(rootHtml, /textbook\/data-structures\/02-linear-list/);
+
+  const response = await render("/textbook/data-structures/02-linear-list/2-2-sequential-representation-and-implementation");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /2\.2 线性表的顺序表示和实现/);
+  assert.match(html, /线性表的顺序存储结构示意图/);
+  assert.match(html, /textbooks\/data-structures\/02-linear-list\/2-2-sequential-representation-and-implementation\/assets\/py\/fig-2-2-sequential-layout\.svg/);
+  assert.match(html, /katex/);
+  assert.match(html, /本章练习/);
+});
+
+test("renders textbook practice and preserves answer provenance", async () => {
+  const libraryResponse = await render("/textbook/data-structures/practice?chapter=02-linear-list");
+  assert.equal(libraryResponse.status, 200);
+  const libraryHtml = await libraryResponse.text();
+  assert.match(libraryHtml, /按章节，做完这本书的题/);
+  assert.match(libraryHtml, /455(?:<!-- -->)? 道可练习题/);
+  assert.match(libraryHtml, /原书答案/);
+  assert.match(libraryHtml, /未收录独立答案/);
+
+  const questionResponse = await render("/textbook/data-structures/practice/book-ds-yan-02-01");
+  assert.equal(questionResponse.status, 200);
+  const questionHtml = await questionResponse.text();
+  assert.match(questionHtml, /头指针，头结点，首元结点/);
+  assert.match(questionHtml, /查看原书答案 \/ 提示/);
+  assert.match(questionHtml, /对应知识点/);
+  assert.match(questionHtml, /题目与答案来源/);
+  assert.doesNotMatch(questionHtml, /fig-02-04-linked-list/);
+
+  const illustratedQuestionResponse = await render("/textbook/data-structures/practice/book-ds-yan-02-04");
+  assert.equal(illustratedQuestionResponse.status, 200);
+  const illustratedQuestionHtml = await illustratedQuestionResponse.text();
+  assert.match(illustratedQuestionHtml, /fig-02-04-linked-list/);
+});
+
+test("keeps generated textbook data and local images publishable", () => {
+  const textbook = JSON.parse(fs.readFileSync(new URL("../app/data/textbook-data-structures.json", import.meta.url), "utf8"));
+  assert.equal(textbook.stats.knowledgePages, 85);
+  assert.equal(textbook.stats.exerciseRecords, 456);
+  assert.equal(textbook.stats.exerciseQuestions, 455);
+  assert.equal(textbook.pages.length, 85);
+  assert.equal(textbook.questions.length, 456);
+  assert.ok(textbook.pages.every((page) => page.markdown && page.html && Array.isArray(page.sourceLatex)));
+  assert.ok(textbook.pages.some((page) => page.html.includes("katex")));
+  assert.ok(textbook.questions.every((question) => question.prompt.html && question.answer.html !== undefined));
+  const assetReferences = [
+    ...textbook.pages.flatMap((page) => [...page.html.matchAll(/src="([^"]+)"/g)].map((match) => match[1])),
+    ...textbook.questions.flatMap((question) => [question.prompt.html, question.answer.html, ...question.options.map((option) => option.html)]
+      .flatMap((html) => [...html.matchAll(/src="([^"]+)"/g)].map((match) => match[1]))),
+    ...textbook.questions.flatMap((question) => question.images.map((image) => image.src)),
+  ].filter((value) => value.startsWith("/textbooks/"));
+  assert.ok(assetReferences.length >= 400);
+  assert.ok(assetReferences.every((asset) => fs.existsSync(path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public", asset.replace(/^\//, "")))));
+});
+
 test("mounts structured knowledge visuals at their semantic markers", async () => {
   const response = await render("/knowledge/ds/basic/algorithm");
   assert.equal(response.status, 200);

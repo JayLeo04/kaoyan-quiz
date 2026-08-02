@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="170" viewBox="0 0 780 170">
+<style>text{font-family:"Noto Serif CJK SC","Microsoft YaHei",serif;font-size:15px} .s{font-size:12px} .b{font-weight:bold} .box{fill:white;stroke:#111;stroke-width:1.6} .line{stroke:#111;stroke-width:1.7;fill:none;marker-end:url(#a)}</style>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8z"/></marker></defs><rect class="box" x="25" y="45" width="120" height="80"/><text class="s" x="85.0" y="90.0" text-anchor="middle">记录
+1</text><rect class="box" x="145" y="45" width="45" height="80"/><text class="s" x="167.5" y="90.0" text-anchor="middle">…</text><rect class="box" x="190" y="45" width="70" height="80"/><text class="s" x="225.0" y="90.0" text-anchor="middle">记录
+n</text><rect class="box" x="260" y="45" width="110" height="80"/><text class="s" x="315.0" y="90.0" text-anchor="middle">未利用的
+空闲空间</text><rect class="box" x="370" y="45" width="105" height="80"/><text class="s" x="422.5" y="90.0" text-anchor="middle">记录 n
+的控制信息</text><rect class="box" x="475" y="45" width="45" height="80"/><text class="s" x="497.5" y="90.0" text-anchor="middle">…</text><rect class="box" x="520" y="45" width="105" height="80"/><text class="s" x="572.5" y="90.0" text-anchor="middle">记录 1
+的控制信息</text><rect class="box" x="625" y="45" width="115" height="80"/><text class="s" x="682.5" y="90.0" text-anchor="middle">控制区间
+的控制信息</text></svg>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" role="img">
+  <title>fig-practice-4-function-calls.svg</title>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#1f2937"/>
+    </marker>
+    <style>
+      .label { font-family: 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif; fill: #111827; font-size: 20px; }
+      .small { font-family: 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif; fill: #111827; font-size: 16px; }
+      .mono { font-family: Consolas, 'Courier New', monospace; fill: #111827; font-size: 18px; }
+      .node { fill: #ffffff; stroke: #334155; stroke-width: 1.5; rx: 8; }
+      .edge { stroke: #1f2937; stroke-width: 1.7; fill: none; marker-end: url(#arrow); }
+      .rule { stroke: #1f2937; stroke-width: 1.6; fill: none; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+
+  <g transform="translate(80 40) scale(1.05)">
+  <text class="label" x="560" y="27" text-anchor="middle">函数的调用关系图</text>
+  <rect class="node" x="505" y="42" width="110" height="36"/>
+  <text class="mono" x="560" y="67" text-anchor="middle">main</text>
+
+  <path class="rule" d="M560 78 V96 H185 M560 96 H560 M560 96 H935"/>
+  <line class="edge" x1="185" y1="96" x2="185" y2="133"/>
+  <line class="edge" x1="560" y1="96" x2="560" y2="133"/>
+  <line class="edge" x1="935" y1="96" x2="935" y2="133"/>
+  <rect class="node" x="115" y="137" width="140" height="38"/><text class="small" x="185" y="162" text-anchor="middle">Initialization</text>
+  <rect class="node" x="480" y="137" width="160" height="38"/><text class="small" x="560" y="162" text-anchor="middle">ReadCommand</text>
+  <rect class="node" x="875" y="137" width="120" height="38"/><text class="small" x="935" y="162" text-anchor="middle">Interpret</text>
+
+  <line class="edge" x1="185" y1="175" x2="185" y2="216"/>
+  <rect class="node" x="125" y="220" width="120" height="36"/><text class="small" x="185" y="244" text-anchor="middle">InitGList</text>
+
+  <path class="rule" d="M935 175 V198 H395 M935 198 H1010"/>
+  <line class="edge" x1="395" y1="198" x2="395" y2="238"/>
+  <line class="edge" x1="575" y1="198" x2="575" y2="238"/>
+  <line class="edge" x1="760" y1="198" x2="760" y2="238"/>
+  <line class="edge" x1="1010" y1="198" x2="1010" y2="238"/>
+  <rect class="node" x="327" y="242" width="136" height="36"/><text class="small" x="395" y="266" text-anchor="middle">CreateGList</text>
+  <rect class="node" x="500" y="242" width="150" height="36"/><text class="small" x="575" y="266" text-anchor="middle">DestroyGList</text>
+  <rect class="node" x="699" y="242" width="122" height="36"/><text class="small" x="760" y="266" text-anchor="middle">Decompose</text>
+  <rect class="node" x="945" y="242" width="130" height="36"/><text class="small" x="1010" y="266" text-anchor="middle">GListEmpty</text>
+
+  <path class="rule" d="M395 278 V305 H305 M395 305 H475"/>
+  <line class="edge" x1="305" y1="305" x2="305" y2="345"/>
+  <line class="edge" x1="475" y1="305" x2="475" y2="345"/>
+  <rect class="node" x="245" y="349" width="120" height="36"/><text class="small" x="305" y="373" text-anchor="middle">crtLtBU</text>
+  <rect class="node" x="410" y="349" width="130" height="36"/><text class="small" x="475" y="373" text-anchor="middle">getAChar</text>
+
+  <line class="edge" x1="760" y1="278" x2="760" y2="327"/>
+  <rect class="node" x="696" y="331" width="128" height="36"/><text class="small" x="760" y="355" text-anchor="middle">Traverse_GL</text>
+  <path class="rule" d="M760 367 V394 H623 M760 394 H897"/>
+  <line class="edge" x1="623" y1="394" x2="623" y2="434"/>
+  <line class="edge" x1="760" y1="394" x2="760" y2="434"/>
+  <line class="edge" x1="897" y1="394" x2="897" y2="434"/>
+  <rect class="node" x="565" y="438" width="116" height="36"/><text class="small" x="623" y="462" text-anchor="middle">GetHead</text>
+  <rect class="node" x="705" y="438" width="110" height="36"/><text class="small" x="760" y="462" text-anchor="middle">GetTail</text>
+  <rect class="node" x="840" y="438" width="114" height="36"/><text class="small" x="897" y="462" text-anchor="middle">GL_Elem</text>
+
+  <text class="small" x="560" y="525" text-anchor="middle">main 调用初始化、读命令和解释命令；解释命令按操作调用相应的广义表函数。</text>
+  <text class="small" x="560" y="552" text-anchor="middle">CreateGList 继续调用 crtLtBU / getAChar；Decompose 通过 Traverse_GL 访问表头、表尾和原子。</text>
+  </g>
+
+</svg>

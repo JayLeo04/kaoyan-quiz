@@ -1,0 +1,4 @@
+interface:
+  display_name: "LUNA 多模态重写"
+  short_description: "直接阅读教材页面并重写结构化 Markdown 与 Python 图"
+  default_prompt: "使用 $luna-multimodal-rewrite 直接阅读指定数据结构教材页面，重写完整 Markdown 并用 Python 重绘示意图。"

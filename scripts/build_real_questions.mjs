@@ -7,8 +7,15 @@ import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const appRoot = path.resolve(here, "..");
-const archiveRoot = "/Users/minimax/schedule/local/kaoyanzahuopu/408_exams";
+const defaultArchiveRoot = path.join(appRoot, "..", "local", "kaoyanzahuopu", "408_exams");
+const archiveRoot = path.resolve(process.argv[2] || process.env.KAOYAN_QUESTIONS_SOURCE || defaultArchiveRoot);
 const studyPath = path.join(appRoot, "app/data/study.ts");
+
+if (!fs.existsSync(archiveRoot)) {
+  throw new Error(
+    `Question archive not found: ${archiveRoot}. Pass its path as the first argument or set KAOYAN_QUESTIONS_SOURCE.`,
+  );
+}
 
 const tagToKnowledge = {
   "操作系统概念": ["OS-KP-1-2"],

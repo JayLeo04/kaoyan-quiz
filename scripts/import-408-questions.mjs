@@ -2,8 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 
 const projectRoot = path.resolve(import.meta.dirname, "..");
+const defaultSourceRoot = path.join(projectRoot, "..", "local", "kaoyanzahuopu", "408_exams");
 const sourceRoot = path.resolve(
-  process.argv[2] || path.join(projectRoot, "..", "local", "kaoyanzahuopu", "408_exams"),
+  process.argv[2] || process.env.KAOYAN_QUESTIONS_SOURCE || defaultSourceRoot,
 );
 const outputFile = path.join(projectRoot, "app", "data", "questions.json");
 const publicRoot = path.join(projectRoot, "public", "questions");

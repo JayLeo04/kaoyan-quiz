@@ -44,3 +44,10 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+
+# Local-only working material. The README files in these directories document
+# their intended use; all other contents stay out of version control.
+/tmp/*
+!/tmp/README.md
+/source-materials/*
+!/source-materials/README.md

@@ -6,8 +6,6 @@ import { marked } from "marked";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const scheduleRoot = path.resolve(projectRoot, "..");
-const knowledgeRoot = path.join(scheduleRoot, "local", "kaoyanzahuopu");
-const mappingPath = path.join(scheduleRoot, "11408", "references", "tag_knowledge_map.json");
 const outputPath = path.join(projectRoot, "app", "data", "knowledge.json");
 const indexOutputPath = path.join(projectRoot, "app", "data", "knowledge-index.json");
 const publicRoot = path.join(projectRoot, "public", "knowledge");
@@ -27,6 +25,10 @@ if (subjectFlag >= 0 && (!selectedSubject || !Object.hasOwn(subjects, selectedSu
   throw new Error("--subject 仅支持 ds、co、os、cn 之一");
 }
 const subjectsToImport = selectedSubject ? { [selectedSubject]: subjects[selectedSubject] } : subjects;
+const defaultKnowledgeRoot = path.join(scheduleRoot, "local", "kaoyanzahuopu");
+const defaultMappingPath = path.join(scheduleRoot, "11408", "references", "tag_knowledge_map.json");
+const knowledgeRoot = path.resolve(process.env.KAOYAN_KNOWLEDGE_SOURCE || defaultKnowledgeRoot);
+const mappingPath = path.resolve(process.env.KAOYAN_TAG_MAPPING_PATH || defaultMappingPath);
 
 const visualTypes = new Set([
   "growth-curves",

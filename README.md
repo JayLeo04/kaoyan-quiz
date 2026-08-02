@@ -1,98 +1,47 @@
-# vinext-starter
+# 研刷 408
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+面向计算机考研 408 的本地优先学习站点，包含历年真题、科目分析、知识页和交互式可视化。
 
-## Prerequisites
-
-- Node.js `>=22.13.0`
-
-## Quick Start
+## 快速开始
 
 ```bash
-npm install
+npm ci
 npm run dev
+```
+
+需要生产构建时执行：
+
+```bash
 npm run build
 ```
 
-This starter does not use `wrangler.jsonc`.
+## 常用命令
 
-## Included Shape
+| 命令 | 用途 |
+| --- | --- |
+| `npm run dev` | 启动本地开发服务器。 |
+| `npm run build` | 生成生产构建。 |
+| `npm run lint` | 运行 ESLint。 |
+| `npm test` | 构建并运行渲染与数据完整性测试。 |
+| `npm run check` | 连续运行 lint 和 test。 |
+| `npm run import:408` | 导入题库、统计和知识页数据。 |
+| `npm run knowledge:408 -- --subject os` | 只导入一个科目的知识页。 |
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+## 本地资料与导入
 
-## Workspace Auth Headers
+原始教材和扫描件放在 `source-materials/`，该目录不会被提交或发布。题库与知识库的来源路径通过环境变量配置，例如在 PowerShell 中：
 
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
-
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
-
-Treat the full name as optional and fall back to email when it is absent:
-
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
+```powershell
+$env:KAOYAN_QUESTIONS_SOURCE = "C:\资料\408_exams"
+$env:KAOYAN_KNOWLEDGE_SOURCE = "C:\资料\kaoyanzahuopu"
+$env:KAOYAN_TAG_MAPPING_PATH = "C:\资料\tag_knowledge_map.json"
+npm run import:408
 ```
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+生成数据与运行时静态资源已经纳入版本控制，因此克隆项目后无需来源库也能运行、构建和执行默认测试。
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
+## 文档
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
-
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
-
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
-
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
-
-## Useful Commands
-
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
-
-## Learn More
-
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+- [开发与维护规范](docs/DEVELOPMENT.md)
+- [文件系统生命周期沙盘 PRD](docs/PRD-file-system-lifecycle-sandbox.md)
+- [ChatGPT 工作区认证说明](docs/PLATFORM_AUTH.md)

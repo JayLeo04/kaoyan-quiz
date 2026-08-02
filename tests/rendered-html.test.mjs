@@ -4,6 +4,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
+const knowledgeSourceRoot = process.env.KAOYAN_KNOWLEDGE_SOURCE
+  ? path.resolve(process.env.KAOYAN_KNOWLEDGE_SOURCE)
+  : null;
+
 async function render(path = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", process.pid + "-" + Date.now() + path);
@@ -169,10 +173,15 @@ test("keeps visualization specs and LaTeX sources auditable in generated data", 
   const knowledge = JSON.parse(fs.readFileSync(new URL("../app/data/knowledge.json", import.meta.url), "utf8"));
   const pages = Object.values(knowledge.subjects).flatMap((subject) => subject.pages);
   const visuals = pages.flatMap((page) => page.visualizations);
-  const expectedVisualCount = ["data_structure", "constitution_principle", "operating_system", "computer_network"]
-    .map((directory) => JSON.parse(fs.readFileSync(new URL(`../../local/kaoyanzahuopu/${directory}/_visualizations.json`, import.meta.url), "utf8")))
-    .reduce((count, manifest) => count + manifest.visualizations.length, 0);
-  assert.equal(visuals.length, expectedVisualCount);
+  if (knowledgeSourceRoot) {
+    assert.ok(fs.existsSync(knowledgeSourceRoot), `Knowledge source directory does not exist: ${knowledgeSourceRoot}`);
+    const expectedVisualCount = ["data_structure", "constitution_principle", "operating_system", "computer_network"]
+      .map((directory) => JSON.parse(fs.readFileSync(path.join(knowledgeSourceRoot, directory, "_visualizations.json"), "utf8")))
+      .reduce((count, manifest) => count + manifest.visualizations.length, 0);
+    assert.equal(visuals.length, expectedVisualCount);
+  } else {
+    assert.ok(visuals.length > 0, "generated knowledge data should include visualization specs");
+  }
   const supportedTypes = new Set([
     "growth-curves", "algorithm-trace", "memory-scale", "process-flow",
     "state-machine", "timeline", "comparison", "address-fields",

@@ -36,8 +36,13 @@ def audit_file(path: Path, root: Path, allow_review: bool) -> list[dict[str, str
 
     if not SOURCE_RE.search(text[:1200]):
         issue("missing-source", "no luna:source comment near the beginning")
-    if not re.search(r"^#\s+\S", text, re.MULTILINE):
-        issue("missing-title", "page has no level-1 heading")
+    # Chapter indexes conventionally use an H1.  Per-question source slices
+    # (question-*.md / answer-*.md) intentionally retain the original H3/H4
+    # heading so their source backlink is self-contained; requiring H1 there
+    # would create a false failure and tempt agents to rewrite the source title.
+    is_source_slice = path.name.startswith(("question-", "answer-"))
+    if not re.search(r"^#\s+\S", text, re.MULTILINE) and not (is_source_slice and HEADING_RE.search(text)):
+        issue("missing-title", "page has no heading suitable for a source page")
     if not allow_review and REVIEW_RE.search(text):
         issue("review-marker", "unresolved luna:review marker remains")
     for marker in SUSPICIOUS:
@@ -85,7 +90,10 @@ def audit_file(path: Path, root: Path, allow_review: bool) -> list[dict[str, str
         except ValueError:
             issue("image-escape", f"image resolves outside output root: {raw_target}")
             continue
-        if not relative.startswith("assets/py/"):
+        # Assets may live at the book root or beside a chapter/answer slice;
+        # both are canonical `assets/py` locations as long as the path stays
+        # inside the audited root.
+        if not (relative.startswith("assets/py/") or "/assets/py/" in relative):
             issue("not-python-redraw", f"image is outside assets/py/: {relative}")
         if not target.is_file():
             issue("missing-image", f"image file does not exist: {relative}")

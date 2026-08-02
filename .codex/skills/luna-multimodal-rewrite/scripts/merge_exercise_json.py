@@ -78,6 +78,7 @@ def main(argv: list[str] | None = None) -> int:
     questions: list[dict[str, Any]] = []
     knowledge: dict[str, dict[str, Any]] = {}
     book: dict[str, Any] | None = None
+    book_variants: list[dict[str, Any]] = []
     for file_path in files:
         file_errors: list[dict[str, Any]] = []
         file_warnings: list[dict[str, Any]] = []
@@ -91,10 +92,22 @@ def main(argv: list[str] | None = None) -> int:
         except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
             errors.append({"path": file_path.relative_to(root).as_posix(), "code": "json", "message": str(exc)})
             continue
+        chapter_file = file_path.relative_to(root).as_posix()
+        chapter_book = data.get("book")
         if book is None:
-            book = data.get("book")
-        elif data.get("book") != book:
-            errors.append({"path": file_path.relative_to(root).as_posix(), "code": "book-mismatch", "message": "chapter book metadata differs from the first chapter"})
+            book = chapter_book
+            book_variants.append({"book": chapter_book, "files": [chapter_file]})
+        elif chapter_book != book:
+            # Chapter agents may preserve slightly different edition punctuation or
+            # printing-year metadata. Keep the first metadata object as the catalog
+            # canonical value, but retain every variant instead of discarding source
+            # information or aborting the merge.
+            variant = next((item for item in book_variants if item.get("book") == chapter_book), None)
+            if variant is None:
+                book_variants.append({"book": chapter_book, "files": [chapter_file]})
+            else:
+                variant.setdefault("files", []).append(chapter_file)
+            warnings.append({"path": chapter_file, "code": "book-mismatch", "message": "chapter book metadata differs from the canonical catalog metadata; preserved in bookVariants"})
         chapter = data.get("chapter")
         if not isinstance(chapter, dict):
             continue
@@ -104,7 +117,7 @@ def main(argv: list[str] | None = None) -> int:
             "number": chapter.get("number"),
             "title": chapter.get("title"),
             "part": chapter.get("part"),
-            "file": file_path.relative_to(root).as_posix(),
+            "file": chapter_file,
             "questionMarkdown": chapter.get("questionMarkdown"),
             "answerMarkdown": chapter.get("answerMarkdown"),
             "pdfPages": chapter.get("pdfPages"),
@@ -124,18 +137,32 @@ def main(argv: list[str] | None = None) -> int:
                     current = knowledge.setdefault(point_id, {
                         "id": point_id,
                         "title": point.get("title", ""),
+                        "titles": [point.get("title", "")] if point.get("title") else [],
                         "relations": [],
                         "confidences": [],
                         "questionIds": [],
                     })
-                    if current["title"] and point.get("title") and current["title"] != point["title"]:
-                        errors.append({"path": point_id, "code": "knowledge-title-mismatch", "message": "same knowledge point ID has conflicting titles"})
+                    if point.get("title") and point.get("title") not in current["titles"]:
+                        current["titles"].append(point["title"])
+                        warnings.append({"path": point_id, "code": "knowledge-title-variant", "message": "same knowledge point ID has variant titles; all titles preserved in catalog"})
                     if point.get("relation") not in current["relations"]:
                         current["relations"].append(point.get("relation"))
                     if point.get("confidence") not in current["confidences"]:
                         current["confidences"].append(point.get("confidence"))
                     if question.get("id") not in current["questionIds"]:
                         current["questionIds"].append(question.get("id"))
+
+    # The same chapter-level Markdown warning can be encountered once per
+    # question because source backlinks share an index file. Keep the audit
+    # actionable by emitting each identical warning only once.
+    unique_warnings: list[dict[str, Any]] = []
+    seen_warnings: set[tuple[Any, ...]] = set()
+    for warning in warnings:
+        key = tuple(warning.get(field) for field in ("path", "code", "message", "file"))
+        if key not in seen_warnings:
+            seen_warnings.add(key)
+            unique_warnings.append(warning)
+    warnings = unique_warnings
 
     if errors:
         report = {
@@ -155,6 +182,7 @@ def main(argv: list[str] | None = None) -> int:
     chapter_order = {chapter["id"]: index for index, chapter in enumerate(chapters)}
     questions.sort(key=lambda question: question_key(question, chapter_order))
     for point in knowledge.values():
+        point["titles"] = sorted(set(point.get("titles", [])))
         point["relations"].sort()
         point["confidences"].sort()
         point["questionIds"].sort(key=lambda question_id: question_key(next((item for item in questions if item.get("id") == question_id), {"id": question_id}), chapter_order))
@@ -162,6 +190,7 @@ def main(argv: list[str] | None = None) -> int:
         "schemaVersion": "luna-exercise-question-catalog-1",
         "sourceOfTruth": "markdown",
         "book": book,
+        "bookVariants": book_variants,
         "chapters": chapters,
         "questions": questions,
         "knowledgePoints": sorted(knowledge.values(), key=lambda point: point["id"]),

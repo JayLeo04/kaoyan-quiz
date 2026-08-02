@@ -478,7 +478,13 @@ def collect_files(root: Path, input_path: str | None) -> list[Path]:
         return [target]
     if not target.is_dir():
         return []
-    return sorted(path for path in target.rglob("*.json") if path.is_file() and not path.name.startswith(("luna-audit", "review")))
+    return sorted(
+        path
+        for path in target.rglob("*.json")
+        if path.is_file()
+        and not path.name.startswith(("luna-audit", "review"))
+        and path.name not in {"index.json", "catalog.json"}
+    )
 
 
 def main(argv: list[str] | None = None) -> int:

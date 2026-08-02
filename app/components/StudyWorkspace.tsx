@@ -3,8 +3,10 @@
 /* eslint-disable @next/next/no-img-element -- Question-bank figures have source-provided dimensions. */
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import { AppHeader, type AuthView, type SignedInUser } from "@/app/components/AppHeader";
+import { marked, Renderer } from "marked";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AppHeader } from "@/app/components/AppHeader";
+import { MermaidCodeBlocks } from "@/app/components/MermaidCodeBlocks";
 import {
   knowledgeById,
   questionSeeds,
@@ -20,22 +22,21 @@ import {
   subjectCatalog,
   type SubjectId,
 } from "@/app/data/catalog";
+import {
+  EMPTY_PROGRESS,
+  MAX_QUESTION_NOTE_LENGTH,
+  PROGRESS_STORAGE_KEY,
+  QUESTION_NOTES_STORAGE_KEY,
+  readLocalStudySnapshot,
+  type PracticeProgress,
+  type QuestionNotes,
+} from "@/app/lib/local-study-data";
 
 type SubjectQuestion = StudyQuestion & { subject: SubjectId };
-type AttemptRecord = {
-  selectedOption: string | null;
-  correct: boolean | null;
-  answeredAt: string;
-};
-type PracticeProgress = {
-  completed: string[];
-  bookmarks: string[];
-  attempts: Record<string, AttemptRecord>;
-};
 type TypeFilter = "all" | "choice" | "answer" | "wrong";
 type AnalyticsView = "overview" | "knowledge" | "timeline" | "relations" | "questions";
 type KnowledgeSort = "frequency" | "recent" | "answer";
-type QuestionSideView = "answer" | "knowledge" | "similar";
+type QuestionSideView = "answer" | "notes" | "knowledge" | "similar";
 type AnalyticsArea = {
   id: string;
   name: string;
@@ -112,8 +113,6 @@ type KnowledgeIndexDataset = {
     pages: Array<{ slug: string; route: string; title: string; questionIds: string[] }>;
   }>;
 };
-const STORAGE_KEY = "yanshua-408-progress-v1";
-const EMPTY_PROGRESS: PracticeProgress = { completed: [], bookmarks: [], attempts: {} };
 const PAGE_SIZE = 8;
 const analytics = analyticsData as AnalyticsDataset;
 const localKnowledgeIndex = knowledgeIndexData as KnowledgeIndexDataset;
@@ -161,32 +160,44 @@ function pointsFor(question: StudyQuestion) {
     .filter((point): point is NonNullable<typeof point> => Boolean(point));
 }
 
-function mergeProgress(local: PracticeProgress, remote: PracticeProgress): PracticeProgress {
-  const attempts = { ...local.attempts };
-  for (const [id, remoteAttempt] of Object.entries(remote.attempts)) {
-    const localAttempt = attempts[id];
-    if (!localAttempt || remoteAttempt.answeredAt > localAttempt.answeredAt) attempts[id] = remoteAttempt;
+function escapeMarkdownHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function isSafeMarkdownHref(value: string) {
+  return /^(?:https?:|mailto:|\/(?!\/)|\.\.?\/|#|\?)/i.test(value.trim());
+}
+
+function renderQuestionNoteMarkdown(value: string) {
+  const renderer = new Renderer();
+  renderer.html = ({ text }) => escapeMarkdownHtml(text);
+  renderer.link = function link({ href, title, tokens }) {
+    const label = this.parser.parseInline(tokens);
+    if (!isSafeMarkdownHref(href)) return label;
+    const safeHref = escapeMarkdownHtml(href);
+    const safeTitle = title ? ` title="${escapeMarkdownHtml(title)}"` : "";
+    return `<a href="${safeHref}"${safeTitle} target="_blank" rel="noreferrer">${label}</a>`;
+  };
+  // Notes stay text-first: images are represented by their alt text and raw HTML is escaped.
+  renderer.image = ({ text }) => escapeMarkdownHtml(text);
+  try {
+    const html = marked.parse(value, { renderer, gfm: true, breaks: true });
+    return typeof html === "string" ? html : "";
+  } catch {
+    return "";
   }
-  return {
-    completed: Array.from(new Set([...local.completed, ...remote.completed])),
-    bookmarks: Array.from(new Set([...local.bookmarks, ...remote.bookmarks])),
-    attempts,
-  };
 }
 
-function normalizeProgress(value: Partial<PracticeProgress> | null | undefined): PracticeProgress {
-  return {
-    completed: Array.isArray(value?.completed) ? value.completed.filter((item): item is string => typeof item === "string") : [],
-    bookmarks: Array.isArray(value?.bookmarks) ? value.bookmarks.filter((item): item is string => typeof item === "string") : [],
-    attempts: value?.attempts && typeof value.attempts === "object" ? value.attempts : {},
-  };
-}
-
-function HomePage({ progress, auth }: { progress: PracticeProgress; auth: AuthView }) {
+function HomePage({ progress }: { progress: PracticeProgress }) {
   const completedSet = new Set(progress.completed);
   return (
     <div className="viewport-app">
-      <AppHeader completedCount={progress.completed.length} auth={auth} />
+      <AppHeader completedCount={progress.completed.length} />
       <main className="home-main shell-width">
         <section className="home-hero">
           <div className="home-hero-copy">
@@ -197,7 +208,7 @@ function HomePage({ progress, auth }: { progress: PracticeProgress; auth: AuthVi
               <span>{allQuestions.length} 道真题</span>
               <span>4 门科目</span>
             </div>
-            <p className="home-hero-description">按科目进入题库，每页只做一道题。<br />进度、错题与收藏会持续保留。</p>
+            <p className="home-hero-description">按科目进入题库，每页只做一道题。<br />进度、错题、收藏与笔记都会保存在本机。</p>
             <Link className="home-primary-action" href="/question/real-2026-1">从 2026 真题开始 <b>↗</b></Link>
           </div>
           <div className="home-visual">
@@ -560,7 +571,7 @@ function RelationsDashboard({ data }: { data: SubjectAnalytics }) {
   );
 }
 
-function SubjectPage({ subjectId, progress, auth, initialKnowledgeSlug }: { subjectId: SubjectId; progress: PracticeProgress; auth: AuthView; initialKnowledgeSlug?: string }) {
+function SubjectPage({ subjectId, progress, initialKnowledgeSlug }: { subjectId: SubjectId; progress: PracticeProgress; initialKnowledgeSlug?: string }) {
   const initialKnowledgePage = initialKnowledgeSlug
     ? localKnowledgeIndex.subjects[subjectId].pages.find((page) => page.slug === initialKnowledgeSlug && page.questionIds.length)
     : undefined;
@@ -613,7 +624,7 @@ function SubjectPage({ subjectId, progress, auth, initialKnowledgeSlug }: { subj
 
   return (
     <div className="viewport-app">
-      <AppHeader completedCount={progress.completed.length} auth={auth} />
+      <AppHeader completedCount={progress.completed.length} />
       <main className={`subject-main shell-width accent-${subject.accent}`}>
         <aside className="subject-summary">
           <Link href="/" className="back-link">← 408 四科</Link>
@@ -810,16 +821,78 @@ function SimilarQuestionsPanel({ question, questions, progress }: { question: Su
   );
 }
 
+function QuestionNotesPanel({
+  question,
+  value,
+  onChange,
+}: {
+  question: SubjectQuestion;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const [mode, setMode] = useState<"write" | "preview">("write");
+  const previewRef = useRef<HTMLDivElement>(null);
+  const hasNote = Boolean(value.trim());
+
+  useEffect(() => {
+    // Start each question in writing mode so a new note is immediately actionable.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMode("write");
+  }, [question.id]);
+
+  return (
+    <section className="question-notes-panel" aria-label="本题 Markdown 笔记">
+      <header className="question-notes-head">
+        <div><span>MY MARKDOWN NOTE</span><strong>本题笔记</strong></div>
+        <small>本机自动保存</small>
+      </header>
+      <div className="question-notes-toolbar">
+        <div className="question-notes-mode" role="tablist" aria-label="笔记显示模式">
+          <button className={mode === "write" ? "active" : ""} role="tab" aria-selected={mode === "write"} onClick={() => setMode("write")}>编辑</button>
+          <button className={mode === "preview" ? "active" : ""} role="tab" aria-selected={mode === "preview"} onClick={() => setMode("preview")}>预览</button>
+        </div>
+        {hasNote ? <button className="question-note-clear" onClick={() => onChange("")}>清空</button> : <span>{value.length} 字</span>}
+      </div>
+      {mode === "write" ? (
+        <label className="question-note-editor">
+          <textarea
+            aria-label="本题 Markdown 笔记"
+            value={value}
+            maxLength={MAX_QUESTION_NOTE_LENGTH}
+            onChange={(event) => onChange(event.target.value)}
+            placeholder={"## 我的思路\n- 关键条件：\n- 易错点：\n- 下次复习：\n\n```mermaid\nflowchart LR\n  条件 --> 结论\n```"}
+            spellCheck={false}
+          />
+        </label>
+      ) : hasNote ? (
+        // The renderer escapes raw HTML and permits only safe link protocols.
+        <>
+          <div ref={previewRef} className="question-note-preview" dangerouslySetInnerHTML={{ __html: renderQuestionNoteMarkdown(value) }} />
+          <MermaidCodeBlocks rootRef={previewRef} contentKey={`${question.id}:${value}`} />
+        </>
+      ) : (
+        <div className="question-note-empty"><strong>还没有笔记</strong><span>写下思路、易错点或下次复习提示。</span></div>
+      )}
+      <footer className="question-note-footer">
+        <span>{hasNote ? `${value.length} 字 · 已保存` : "随写随存"}</span>
+        <small>支持 <code>```mermaid</code> 图 · # 标题 · **加粗** · - 列表</small>
+      </footer>
+    </section>
+  );
+}
+
 function QuestionPage({
   question,
   progress,
   updateProgress,
-  auth,
+  notes,
+  updateNote,
 }: {
   question: SubjectQuestion;
   progress: PracticeProgress;
   updateProgress: (value: PracticeProgress) => void;
-  auth: AuthView;
+  notes: QuestionNotes;
+  updateNote: (questionId: string, value: string) => void;
 }) {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -837,7 +910,7 @@ function QuestionPage({
   const toggleBookmark = () => save({ ...progress, bookmarks: bookmarked ? progress.bookmarks.filter((id) => id !== question.id) : [...progress.bookmarks, question.id] });
 
   useEffect(() => {
-    // Restore the saved answer whenever the route changes or remote progress arrives.
+    // Restore the saved answer whenever the route changes or local progress is loaded.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedOption(savedAttempt?.selectedOption ?? null);
     setRevealed(Boolean(savedAttempt));
@@ -866,7 +939,7 @@ function QuestionPage({
 
   return (
     <div className="viewport-app question-viewport">
-      <AppHeader completedCount={progress.completed.length} auth={auth} />
+      <AppHeader completedCount={progress.completed.length} />
       <main className={`question-main shell-width accent-${subject.accent}`}>
         <div className="question-toolbar">
           <Link href={`/subject/${question.subject}`}>← {subject.name}题库</Link>
@@ -902,6 +975,7 @@ function QuestionPage({
             </div>
             <div className="question-side-tabs" role="tablist" aria-label="题目辅助面板">
               <button className={sideView === "answer" ? "active" : ""} role="tab" aria-selected={sideView === "answer"} onClick={() => setSideView("answer")}>作答解析</button>
+              <button className={sideView === "notes" ? "active" : ""} role="tab" aria-selected={sideView === "notes"} onClick={() => setSideView("notes")}>笔记</button>
               <button className={sideView === "knowledge" ? "active" : ""} role="tab" aria-selected={sideView === "knowledge"} onClick={() => setSideView("knowledge")}>知识点</button>
               <button className={sideView === "similar" ? "active" : ""} role="tab" aria-selected={sideView === "similar"} onClick={() => setSideView("similar")}>类似题</button>
             </div>
@@ -921,6 +995,7 @@ function QuestionPage({
                   </div>
                 </div>
               ) : null}
+              {sideView === "notes" ? <QuestionNotesPanel question={question} value={notes[question.id] || ""} onChange={(value) => updateNote(question.id, value)} /> : null}
               {sideView === "knowledge" ? <QuestionKnowledgePanel question={question} questions={subjectQuestions} /> : null}
               {sideView === "similar" ? <SimilarQuestionsPanel question={question} questions={subjectQuestions} progress={progress} /> : null}
             </div>
@@ -936,55 +1011,53 @@ export function StudyWorkspace({
   initialQuestionId,
   initialSubjectId,
   initialKnowledgeSlug,
-  initialUser = null,
-  signInPath = "/signin-with-chatgpt?return_to=%2F",
-  signOutPath = "/signout-with-chatgpt?return_to=%2F",
 }: {
   initialQuestionId?: string;
   initialSubjectId?: string;
   initialKnowledgeSlug?: string;
-  initialUser?: SignedInUser | null;
-  signInPath?: string;
-  signOutPath?: string;
 }) {
   const [progress, setProgress] = useState<PracticeProgress>(EMPTY_PROGRESS);
-  const auth: AuthView = { user: initialUser, signInPath, signOutPath };
+  const [questionNotes, setQuestionNotes] = useState<QuestionNotes>({});
+  const [notesReady, setNotesReady] = useState(false);
 
   useEffect(() => {
+    const local = readLocalStudySnapshot();
+    // Hydration must finish before reading browser-only local storage.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setProgress(local.progress);
+    setQuestionNotes(local.notes);
+    setNotesReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!notesReady) return;
     try {
-      const local = normalizeProgress(JSON.parse(window.localStorage.getItem(STORAGE_KEY) || "null") as PracticeProgress | null);
-      // Hydration must finish before reading browser-only local storage.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setProgress(local);
-      if (initialUser) {
-        fetch("/api/progress", { headers: { accept: "application/json" } })
-          .then(async (response) => response.ok ? normalizeProgress(await response.json() as PracticeProgress) : local)
-          .then((remote) => {
-            const merged = mergeProgress(local, remote);
-            setProgress(merged);
-            window.localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
-            if (JSON.stringify(merged) !== JSON.stringify(remote)) {
-              void fetch("/api/progress", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(merged) });
-            }
-          })
-          .catch(() => undefined);
-      }
-    } catch { window.localStorage.removeItem(STORAGE_KEY); }
-  }, [initialUser]);
+      if (Object.keys(questionNotes).length) window.localStorage.setItem(QUESTION_NOTES_STORAGE_KEY, JSON.stringify(questionNotes));
+      else window.localStorage.removeItem(QUESTION_NOTES_STORAGE_KEY);
+    } catch {
+      // A full or unavailable browser storage should never interrupt answering questions.
+    }
+  }, [notesReady, questionNotes]);
 
   const updateProgress = (value: PracticeProgress) => {
     setProgress(value);
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
-    if (initialUser) {
-      void fetch("/api/progress", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(value), keepalive: true }).catch(() => undefined);
-    }
+    window.localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(value));
+  };
+
+  const updateQuestionNote = (questionId: string, value: string) => {
+    setQuestionNotes((current) => {
+      const next = { ...current };
+      if (value) next[questionId] = value.slice(0, MAX_QUESTION_NOTE_LENGTH);
+      else delete next[questionId];
+      return next;
+    });
   };
 
   if (initialQuestionId) {
     const question = allQuestions.find((item) => item.id === initialQuestionId);
-    if (question) return <QuestionPage question={question} progress={progress} updateProgress={updateProgress} auth={auth} />;
+    if (question) return <QuestionPage question={question} progress={progress} updateProgress={updateProgress} notes={questionNotes} updateNote={updateQuestionNote} />;
   }
-  if (initialSubjectId && subjectById.has(initialSubjectId as SubjectId)) return <SubjectPage subjectId={initialSubjectId as SubjectId} progress={progress} auth={auth} initialKnowledgeSlug={initialKnowledgeSlug} />;
-  if (initialQuestionId || initialSubjectId) return <div className="viewport-app"><AppHeader completedCount={progress.completed.length} auth={auth} /><main className="missing-page"><span>404</span><h1>这个页面暂时不存在。</h1><Link href="/">返回 408 四科题库</Link></main></div>;
-  return <HomePage progress={progress} auth={auth} />;
+  if (initialSubjectId && subjectById.has(initialSubjectId as SubjectId)) return <SubjectPage subjectId={initialSubjectId as SubjectId} progress={progress} initialKnowledgeSlug={initialKnowledgeSlug} />;
+  if (initialQuestionId || initialSubjectId) return <div className="viewport-app"><AppHeader completedCount={progress.completed.length} /><main className="missing-page"><span>404</span><h1>这个页面暂时不存在。</h1><Link href="/">返回 408 四科题库</Link></main></div>;
+  return <HomePage progress={progress} />;
 }

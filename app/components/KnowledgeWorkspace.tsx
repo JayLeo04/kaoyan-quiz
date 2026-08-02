@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { type RefObject, useEffect, useMemo, useRef, useState } from "react";
-import { AppHeader, type AuthView } from "@/app/components/AppHeader";
+import { AppHeader } from "@/app/components/AppHeader";
 import { KnowledgeVisual } from "@/app/components/knowledge-visuals/KnowledgeVisual";
 import type { KnowledgeVisualizationSpec } from "@/app/components/knowledge-visuals/types";
+import { MermaidCodeBlocks } from "@/app/components/MermaidCodeBlocks";
 import { subjectById, type SubjectId } from "@/app/data/catalog";
 
 export type LocalKnowledgePage = {
@@ -53,6 +54,7 @@ function KnowledgeArticle({ page, articleRef }: { page: LocalKnowledgePage; arti
       {pieces.map((piece, index) => piece.kind === "visual"
         ? <KnowledgeVisual key={piece.spec.id} spec={piece.spec} />
         : <div key={`knowledge-html-${index}`} className="local-markdown-segment" dangerouslySetInnerHTML={{ __html: piece.html }} />)}
+      <MermaidCodeBlocks rootRef={articleRef} contentKey={`${page.id}:${page.html}`} />
     </article>
   );
 }
@@ -61,12 +63,10 @@ export function KnowledgeWorkspace({
   subjectId,
   data,
   currentSlug,
-  auth,
 }: {
   subjectId: SubjectId;
   data: LocalKnowledgeSubject;
   currentSlug: string;
-  auth: AuthView;
 }) {
   const [completedCount, setCompletedCount] = useState(0);
   const [query, setQuery] = useState("");
@@ -121,7 +121,7 @@ export function KnowledgeWorkspace({
 
   return (
     <div className="viewport-app knowledge-viewport">
-      <AppHeader completedCount={completedCount} auth={auth} />
+      <AppHeader completedCount={completedCount} />
       <main className={`local-knowledge-main shell-width accent-${subject.accent}`}>
         <aside className="local-knowledge-sidebar">
           <div className="local-knowledge-intro">

@@ -1,14 +1,7 @@
 import Link from "next/link";
 import { subjectCatalog } from "@/app/data/catalog";
 
-export type SignedInUser = { displayName: string; email: string };
-export type AuthView = {
-  user: SignedInUser | null;
-  signInPath: string;
-  signOutPath: string;
-};
-
-export function AppHeader({ completedCount, auth }: { completedCount: number; auth: AuthView }) {
+export function AppHeader({ completedCount }: { completedCount: number }) {
   return (
     <header className="app-header">
       <div className="app-header-inner">
@@ -21,7 +14,10 @@ export function AppHeader({ completedCount, auth }: { completedCount: number; au
         </nav>
         <div className="header-account">
           <div className="header-progress"><span>已完成</span><b>{completedCount}</b><span>题</span></div>
-          {auth.user ? <div className="signed-in-user"><span>{auth.user.displayName}</span><a href={auth.signOutPath}>退出</a></div> : <a className="sign-in-link" href={auth.signInPath}>登录 / 注册</a>}
+          <Link className="local-profile-link" href="/profile" aria-label="打开本地资料库">
+            <span aria-hidden="true">我</span>
+            <strong>本地资料</strong>
+          </Link>
         </div>
       </div>
     </header>

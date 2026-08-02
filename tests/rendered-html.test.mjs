@@ -32,7 +32,8 @@ test("renders the 408 practice workspace", async () => {
   assert.match(html, /408/);
   assert.match(html, /真题/);
   assert.match(html, /每页只做一道题/);
-  assert.match(html, /登录 \/ 注册/);
+  assert.match(html, /本地资料/);
+  assert.doesNotMatch(html, /登录 \/ 注册/);
   assert.match(html, /数据结构/);
   assert.match(html, /计算机组成原理/);
   assert.match(html, /846/);

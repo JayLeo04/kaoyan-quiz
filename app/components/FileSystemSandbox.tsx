@@ -172,6 +172,17 @@ const toneLabel: Record<EventTone, string> = {
   done: "完成",
 };
 
+const lensOptions: Array<{ id: SelectedObject; icon: string; label: string; note: string }> = [
+  { id: "overview", icon: "🧭", label: "总览", note: "先看清七层结构怎样接力" },
+  { id: "directory", icon: "🌳", label: "路径", note: "名字如何逐级找到 inode" },
+  { id: "inode", icon: "🧾", label: "inode", note: "文件身份与块地址住在哪里" },
+  { id: "memory", icon: "🧠", label: "内存", note: "fd、打开表、缓存只在运行时存在" },
+  { id: "disk", icon: "💿", label: "磁盘", note: "持久化布局与启动挂载" },
+  { id: "blocks", icon: "🧩", label: "数据块", note: "逻辑块怎样映射到物理块" },
+  { id: "free", icon: "🍀", label: "空闲空间", note: "同一批块如何被不同策略记账" },
+  { id: "vfs", icon: "🗺️", label: "VFS", note: "多种文件系统怎样连成一棵树" },
+];
+
 function noteExists(state: FsState) {
   return state.fileCreated && !state.reclaimed && (!state.originalUnlinked || (state.hardLink && !state.copyUnlinked));
 }
@@ -186,40 +197,9 @@ function panelFocusClass(selected: SelectedObject, panel: SelectedObject) {
   return selected === panel ? "is-focused" : "";
 }
 
-function DiskCharacter({ state }: { state: FsState }) {
-  const face = state.reclaimed ? "😴" : state.mounted ? "🤖" : state.boot === "关机" ? "💤" : "✨";
-  const speech = state.reclaimed
-    ? "空间已回收，等下一次冒险！"
-    : state.fileOpen
-      ? "我正在帮你看住打开的文件。"
-      : state.mounted
-        ? "根文件系统已挂到 / 啦！"
-        : "按下启动，让我醒来吧！";
-  return <div className="fs-game-mascot" aria-label={speech}><span>{face}</span><p>{speech}</p></div>;
-}
-
-function Timeline({ history, cursor, onStep }: { history: Frame[]; cursor: number; onStep: (index: number) => void }) {
-  const visible = history.slice(Math.max(0, history.length - 10));
-  const offset = history.length - visible.length;
+function ActionButton({ label, icon, disabled, onClick, hint, featured = false }: { label: string; icon: string; disabled: boolean; onClick: () => void; hint: string; featured?: boolean }) {
   return (
-    <ol className="fs-game-timeline" aria-label="文件系统事件时间线">
-      {visible.map((item, index) => {
-        const realIndex = offset + index;
-        return (
-          <li key={`${item.id}-${realIndex}`} className={realIndex === cursor ? "active" : realIndex < cursor ? "done" : ""}>
-            <button type="button" onClick={() => onStep(realIndex)} aria-current={realIndex === cursor ? "step" : undefined}>
-              <span>{item.icon}</span><b>{realIndex + 1}</b><small>{item.action}</small>
-            </button>
-          </li>
-        );
-      })}
-    </ol>
-  );
-}
-
-function ActionButton({ label, icon, disabled, onClick, hint }: { label: string; icon: string; disabled: boolean; onClick: () => void; hint: string }) {
-  return (
-    <button className="fs-game-action" type="button" disabled={disabled} onClick={onClick} data-tooltip={hint}>
+    <button className={`fs-game-action ${featured ? "fs-game-continue" : ""}`} type="button" disabled={disabled} onClick={onClick} data-tooltip={hint}>
       <span aria-hidden="true">{icon}</span><b>{label}</b>
     </button>
   );
@@ -361,7 +341,7 @@ function VfsPanel({ state, selected, onSelect }: { state: FsState; selected: Sel
 }
 
 export function FileSystemSandbox() {
-  const [history, setHistory] = useState<Frame[]>([initialFrame]);
+  const [history, setHistory] = useState<Frame[]>([initialFrame()]);
   const [cursor, setCursor] = useState(0);
   const [selected, setSelected] = useState<SelectedObject>("overview");
   const [allocation, setAllocation] = useState<AllocationMode>("hybrid");
@@ -377,20 +357,28 @@ export function FileSystemSandbox() {
       const stop = window.setTimeout(() => setPlaying(false), 0);
       return () => window.clearTimeout(stop);
     }
-    const timer = window.setTimeout(() => setCursor((value) => Math.min(value + 1, history.length - 1)), 920);
+    const timer = window.setTimeout(() => {
+      const nextCursor = Math.min(cursor + 1, history.length - 1);
+      const nextFrame = history[nextCursor];
+      setCursor(nextCursor);
+      setSelected(nextFrame?.focus.find((item) => item !== "overview") ?? "overview");
+    }, 920);
     return () => window.clearTimeout(timer);
-  }, [cursor, history.length, playing]);
-
-  useEffect(() => {
-    const nextFocus = current.focus.find((item) => item !== "overview");
-    if (nextFocus) setSelected(nextFocus);
-  }, [current.id, current.focus]);
+  }, [cursor, history, playing]);
 
   const append = (frames: Frame[]) => {
     const prefix = history.slice(0, cursor + 1);
     setHistory([...prefix, ...frames]);
     setCursor(prefix.length);
+    setSelected(frames[0]?.focus.find((item) => item !== "overview") ?? "overview");
     setPlaying(false);
+  };
+
+  const jumpToCursor = (nextCursor: number) => {
+    const boundedCursor = Math.max(0, Math.min(nextCursor, history.length - 1));
+    const nextFrame = history[boundedCursor];
+    setCursor(boundedCursor);
+    setSelected(nextFrame?.focus.find((item) => item !== "overview") ?? "overview");
   };
 
   const start = () => {
@@ -581,98 +569,93 @@ export function FileSystemSandbox() {
   };
 
   const recommendation = useMemo(() => {
-    if (previewing) return "先沿时间线走完这组变化，再进行下一次操作";
+    if (previewing) return "想继续细看就点下方“下一步”；想马上继续操作就点“完成这一步”";
     if (!state.mounted) return "先启动并挂载根文件系统";
     if (!state.fileCreated) return "下一步：新建一个空文件";
     if (!state.fileOpen && noteExists(state)) return "下一步：打开文件，观察 fd 表";
     if (state.fileOpen && !state.fileWritten) return "下一步：写入 hello-fs!";
     if (state.fileOpen && state.fileWritten && !state.synced) return "下一步：同步脏页到磁盘";
-    if (state.fileOpen && !state.hardLink) return "可以先加一个硬链接，再删除名字";
-    if (state.fileOpen && state.hardLink && !state.originalUnlinked) return "下一步：删除原来的 note.txt";
+    if (state.fileOpen && !state.hardLink) return "下一步：先加硬链接，保留同一份 inode";
+    if (state.fileOpen && state.hardLink && !state.softLink) return "下一步：再加软链接，看看路径引用";
+    if (state.fileOpen && state.hardLink && state.softLink && !state.originalUnlinked) return "下一步：删除原来的 note.txt";
     if (state.fileOpen && state.hardLink && state.originalUnlinked && !state.copyUnlinked) return "下一步：删除最后一个硬链接";
     if (state.fileOpen) return "最后关闭 fd，看看空间何时回收";
     return "可以挂载 USB，或重置后再走一遍";
   }, [previewing, state]);
 
   return (
-    <main className="fs-game-page">
-      <div className="fs-game-stars" aria-hidden="true"><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i></div>
+    <main className="fs-game-page fs-clean-page">
       <header className="fs-game-topbar">
         <Link href="/" className="fs-game-brand"><span>🧠</span><b>研刷 408</b></Link>
-        <div className="fs-game-title"><span>OS · FILE SYSTEM</span><strong>文件系统冒险岛</strong></div>
-        <div className="fs-game-top-actions"><Link href="/knowledge/os/files">原文资料</Link><button type="button" onClick={reset}>重新开局 ↻</button></div>
+        <div className="fs-game-title"><span>OS · FILE SYSTEM</span><strong>文件系统沙盘</strong></div>
+        <div className="fs-game-top-actions"><Link href="/knowledge/os/files">原文资料</Link><button type="button" onClick={reset}>重新开始</button></div>
       </header>
 
-      <section className="fs-game-hero">
-        <div>
-          <p>单人互动沙盘 · 每一步都能回看</p>
-          <h1>让一个文件<br /><em>活</em>起来</h1>
-          <p className="fs-game-hero-copy">从开机挂载到最后回收：目录项、inode、位图、数据块与内存状态会一起改变。你不需要答题，只要看见它们怎样协作。</p>
-          <div className="fs-game-status"><span className={`state-${state.boot}`}>● {state.boot}</span><span>{state.mounted ? "根文件系统已挂载" : "目录树未挂载"}</span><span>{state.fileOpen ? "fd 3 打开中" : "没有打开的文件"}</span></div>
-        </div>
-        <DiskCharacter state={state} />
-      </section>
+      <div className="fs-clean-shell">
+        <section className="fs-clean-workspace" aria-label="文件系统结构观察台">
+          <header className="fs-clean-workspace-head">
+            <div><span>FILE SYSTEM LAB</span><h1>文件系统沙盘</h1></div>
+            <div className="fs-clean-status" aria-label="当前状态">
+              <span className={`state-${state.boot}`}>{state.boot}</span>
+              <span>{state.mounted ? "根目录已挂载" : "尚未挂载"}</span>
+              <span>{state.fileOpen ? "fd 3 已打开" : "无打开文件"}</span>
+            </div>
+          </header>
 
-      <section className="fs-game-control-strip" aria-label="沙盘操作">
-        <div className="fs-game-recommendation"><span>下一步建议</span><strong>{recommendation}</strong></div>
-        <div className="fs-game-actions">
-          <ActionButton label="启动" icon="⚡" disabled={previewing || state.mounted} onClick={start} hint="从固件、内核到挂载根文件系统" />
-          <ActionButton label="新建文件" icon="📝" disabled={previewing || !state.mounted || state.fileCreated} onClick={createFile} hint="分配 inode 并写入目录项" />
-          <ActionButton label="打开" icon="🔓" disabled={previewing || !noteExists(state) || state.fileOpen} onClick={openFile} hint="建立 fd 表与系统打开文件表" />
-          <ActionButton label="写入" icon="✍️" disabled={previewing || !state.fileOpen || state.fileWritten} onClick={writeFile} hint="先进入页缓存，再分配数据块" />
-          <ActionButton label="同步" icon="💾" disabled={previewing || !state.fileOpen || !state.fileWritten || state.synced} onClick={syncFile} hint="fsync：将脏页与元数据写回磁盘" />
-          <ActionButton label="硬链接" icon="🔗" disabled={previewing || !state.fileCreated || state.hardLink || state.originalUnlinked || state.reclaimed} onClick={addHardLink} hint="只增加目录项和链接计数，不复制数据" />
-          <ActionButton label="软链接" icon="🪄" disabled={previewing || !state.fileCreated || state.softLink || state.reclaimed} onClick={addSoftLink} hint="创建独立 inode，保存目标路径字符串" />
-          <ActionButton label="删 note" icon="🗑️" disabled={previewing || !state.fileCreated || state.originalUnlinked || state.reclaimed} onClick={unlinkOriginal} hint="unlink：删除目录项，不一定马上回收空间" />
-          <ActionButton label="删最后链接" icon="🧹" disabled={previewing || !state.hardLink || state.copyUnlinked || state.reclaimed} onClick={unlinkCopy} hint="让 inode 链接计数归零" />
-          <ActionButton label="关闭" icon="🔐" disabled={previewing || !state.fileOpen} onClick={closeFile} hint="释放 fd；若没有链接和打开引用才回收空间" />
-          <ActionButton label="挂载 USB" icon="🛸" disabled={previewing || !state.mounted || state.externalMounted} onClick={mountUsb} hint="把外部文件系统接到 /mnt/usb" />
-        </div>
-      </section>
+          <div className="fs-clean-tabs" role="tablist" aria-label="选择文件系统观察层">
+            {lensOptions.map((lens) => <button key={lens.id} type="button" role="tab" aria-selected={selected === lens.id} className={selected === lens.id ? "active" : ""} onClick={() => setSelected(lens.id)}><span>{lens.icon}</span><b>{lens.label}</b></button>)}
+          </div>
 
-      <section className="fs-game-story" aria-live="polite">
-        <div className={`fs-story-card tone-${current.tone}`}>
-          <span>{current.icon}</span><div><small>{toneLabel[current.tone]} · 第 {cursor + 1} 步</small><h2>{current.title}</h2><p>{current.detail}</p></div>
-        </div>
-        <div className="fs-story-controls">
-          <button type="button" onClick={() => setCursor((value) => Math.max(0, value - 1))} disabled={cursor === 0}>← 上一步</button>
-          <button type="button" onClick={() => setPlaying((value) => !value)} disabled={cursor >= history.length - 1}>{playing ? "暂停" : "自动播放"}</button>
-          <button type="button" onClick={() => setCursor((value) => Math.min(history.length - 1, value + 1))} disabled={cursor >= history.length - 1}>下一步 →</button>
-        </div>
-        <Timeline history={history} cursor={cursor} onStep={(index) => { setCursor(index); setPlaying(false); }} />
-      </section>
+          <div className="fs-clean-stage">
+            <div className="fs-clean-stage-caption"><span>{lensOptions.find((lens) => lens.id === selected)?.icon}</span><div><strong>{lensOptions.find((lens) => lens.id === selected)?.label}</strong><small>{lensOptions.find((lens) => lens.id === selected)?.note}</small></div></div>
+            <div className={`fs-game-workbench-stage stage-${selected}`}>
+              {selected === "overview" ? <section className="fs-game-overview-map"><div><span>🧭</span><div><small>先选一条线索</small><h2>文件不是一个东西，而是一段接力</h2><p>从名字开始，到 inode、内存、磁盘与挂载；点任意卡片，进入对应层。</p></div></div><div className="fs-game-overview-steps">{lensOptions.filter((lens) => lens.id !== "overview").map((lens, index) => <button key={lens.id} type="button" onClick={() => setSelected(lens.id)}><b>{index + 1}</b><span>{lens.icon}</span><strong>{lens.label}</strong><small>{lens.note}</small></button>)}</div></section> : null}
+              {selected === "directory" ? <><DirectoryTree state={state} selected={selected} onSelect={setSelected} /><InodePanel state={state} selected={selected} onSelect={setSelected} /></> : null}
+              {selected === "inode" ? <><InodePanel state={state} selected={selected} onSelect={setSelected} /><MemoryPanel state={state} selected={selected} onSelect={setSelected} /></> : null}
+              {selected === "memory" ? <><MemoryPanel state={state} selected={selected} onSelect={setSelected} /><InodePanel state={state} selected={selected} onSelect={setSelected} /></> : null}
+              {selected === "disk" ? <DiskPanel state={state} selected={selected} onSelect={setSelected} /> : null}
+              {selected === "blocks" ? <><section className="fs-game-mode-picker"><div><span>结构透视镜</span><strong>同一文件，换一种组织方式</strong></div><div className="fs-mode-buttons" role="group" aria-label="选择文件分配方式">{(Object.keys(allocationLabels) as AllocationMode[]).map((mode) => <button key={mode} type="button" className={allocation === mode ? "active" : ""} aria-pressed={allocation === mode} onClick={() => setAllocation(mode)}>{allocationLabels[mode]}</button>)}</div></section><BlockPanel state={state} allocation={allocation} selected={selected} onSelect={setSelected} /></> : null}
+              {selected === "free" ? <><section className="fs-game-mode-picker free-picker"><div><span>空闲空间小管家</span><strong>同一批空闲块，换一种记账法</strong></div><div className="fs-mode-buttons" role="group" aria-label="选择空闲空间管理方式">{(Object.keys(freeLabels) as FreeMode[]).map((mode) => <button key={mode} type="button" className={freeMode === mode ? "active" : ""} aria-pressed={freeMode === mode} onClick={() => setFreeMode(mode)}>{freeLabels[mode]}</button>)}</div></section><FreePanel state={state} freeMode={freeMode} selected={selected} onSelect={setSelected} /></> : null}
+              {selected === "vfs" ? <><VfsPanel state={state} selected={selected} onSelect={setSelected} /><DirectoryTree state={state} selected={selected} onSelect={setSelected} /></> : null}
+            </div>
+          </div>
+        </section>
 
-      <section className="fs-game-diff" aria-label="本步骤变化清单">
-        <div><span>本步骤变化</span><strong>{current.action}</strong></div>
-        <ul>{current.changes.map((change, index) => <li key={`${change.target}-${index}`} className={`change-${change.tone}`}><b>{change.target}</b><span>{change.from}</span><i>→</i><strong>{change.to}</strong></li>)}</ul>
-      </section>
-
-      <section className="fs-game-workbench">
-        <div className="fs-game-workbench-main">
-          <DirectoryTree state={state} selected={selected} onSelect={setSelected} />
-          <InodePanel state={state} selected={selected} onSelect={setSelected} />
-          <MemoryPanel state={state} selected={selected} onSelect={setSelected} />
-          <DiskPanel state={state} selected={selected} onSelect={setSelected} />
-        </div>
-        <aside className="fs-game-workbench-side">
-          <section className="fs-game-mode-picker">
-            <div><span>结构透视镜</span><strong>同一文件，换一种组织方式</strong></div>
-            <div className="fs-mode-buttons" role="group" aria-label="选择文件分配方式">{(Object.keys(allocationLabels) as AllocationMode[]).map((mode) => <button key={mode} type="button" className={allocation === mode ? "active" : ""} aria-pressed={allocation === mode} onClick={() => setAllocation(mode)}>{allocationLabels[mode]}</button>)}</div>
+        <aside className="fs-clean-sidebar" aria-label="当前步骤">
+          <section className="fs-clean-lesson" aria-live="polite">
+            <div className="fs-clean-step"><span>{current.icon}</span><small>{toneLabel[current.tone]} · 第 {cursor + 1} 步</small></div>
+            <h2>{current.title}</h2>
+            <p>{current.detail}</p>
+            <div className="fs-clean-change-list" aria-label="本步骤变化">
+              {current.changes.map((change, index) => <div key={`${change.target}-${index}`} className={`change-${change.tone}`}><span>{change.target}</span><b>{change.to}</b></div>)}
+            </div>
           </section>
-          <BlockPanel state={state} allocation={allocation} selected={selected} onSelect={setSelected} />
-          <section className="fs-game-mode-picker free-picker">
-            <div><span>空闲空间小管家</span><strong>同一批空闲块，换一种记账法</strong></div>
-            <div className="fs-mode-buttons" role="group" aria-label="选择空闲空间管理方式">{(Object.keys(freeLabels) as FreeMode[]).map((mode) => <button key={mode} type="button" className={freeMode === mode ? "active" : ""} aria-pressed={freeMode === mode} onClick={() => setFreeMode(mode)}>{freeLabels[mode]}</button>)}</div>
+
+          <section className="fs-clean-actions" aria-label="沙盘操作">
+            <span>现在该做什么</span>
+            <strong>{recommendation}</strong>
+            <div className="fs-game-actions">
+              <ActionButton label="完成这一步" icon="▶" disabled={!previewing} onClick={() => { jumpToCursor(history.length - 1); setPlaying(false); }} hint="跳到当前操作的最终结果，之后可继续下一次操作" featured />
+              <ActionButton label="启动" icon="⚡" disabled={previewing || state.mounted} onClick={start} hint="从固件、内核到挂载根文件系统" />
+              <ActionButton label="新建文件" icon="📝" disabled={previewing || !state.mounted || state.fileCreated} onClick={createFile} hint="分配 inode 并写入目录项" />
+              <ActionButton label="打开" icon="🔓" disabled={previewing || !noteExists(state) || state.fileOpen} onClick={openFile} hint="建立 fd 表与系统打开文件表" />
+              <ActionButton label="写入" icon="✍️" disabled={previewing || !state.fileOpen || state.fileWritten} onClick={writeFile} hint="先进入页缓存，再分配数据块" />
+              <ActionButton label="同步" icon="💾" disabled={previewing || !state.fileOpen || !state.fileWritten || state.synced} onClick={syncFile} hint="fsync：将脏页与元数据写回磁盘" />
+              <ActionButton label="硬链接" icon="🔗" disabled={previewing || !state.fileOpen || !state.synced || state.hardLink || state.originalUnlinked || state.reclaimed} onClick={addHardLink} hint="只增加目录项和链接计数，不复制数据" />
+              <ActionButton label="软链接" icon="🪄" disabled={previewing || !state.fileOpen || !state.synced || !state.hardLink || state.softLink || state.reclaimed} onClick={addSoftLink} hint="创建独立 inode，保存目标路径字符串" />
+              <ActionButton label="删 note" icon="🗑️" disabled={previewing || !state.fileOpen || !state.hardLink || !state.softLink || state.originalUnlinked || state.reclaimed} onClick={unlinkOriginal} hint="unlink：删除目录项，不一定马上回收空间" />
+              <ActionButton label="删最后链接" icon="🧹" disabled={previewing || !state.fileOpen || !state.hardLink || !state.originalUnlinked || state.copyUnlinked || state.reclaimed} onClick={unlinkCopy} hint="让 inode 链接计数归零" />
+              <ActionButton label="关闭" icon="🔐" disabled={previewing || !state.fileOpen || !state.copyUnlinked} onClick={closeFile} hint="释放 fd；若没有链接和打开引用才回收空间" />
+              <ActionButton label="挂载 USB" icon="🛸" disabled={previewing || !state.mounted || !state.reclaimed || state.externalMounted} onClick={mountUsb} hint="把外部文件系统接到 /mnt/usb" />
+            </div>
+            <div className="fs-clean-navigation" aria-label="步骤回看">
+              <button type="button" onClick={() => jumpToCursor(cursor - 1)} disabled={cursor === 0}>上一步</button>
+              <button type="button" onClick={() => setPlaying((value) => !value)} disabled={cursor >= history.length - 1}>{playing ? "暂停" : "播放"}</button>
+              <button type="button" onClick={() => jumpToCursor(cursor + 1)} disabled={cursor >= history.length - 1}>下一步</button>
+            </div>
           </section>
-          <FreePanel state={state} freeMode={freeMode} selected={selected} onSelect={setSelected} />
-          <VfsPanel state={state} selected={selected} onSelect={setSelected} />
         </aside>
-      </section>
-
-      <section className="fs-game-footer-note">
-        <span>🧡 观察提醒</span>
-        <p>这是一个用于理解关系与顺序的教学模型：具体文件系统的写回时机、缓存策略和底层实现会不同；这里保持的是 inode、目录项、打开文件表、位图、数据块与挂载的正确层次。</p>
-      </section>
+      </div>
     </main>
   );
 }

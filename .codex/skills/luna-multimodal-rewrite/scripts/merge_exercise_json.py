@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from validate_exercise_json import validate_file
+from validate_exercise_json import DEFAULT_SCHEMA, validate_file
 
 
 def natural_key(value: Any) -> tuple[Any, ...]:
@@ -52,6 +52,11 @@ def main(argv: list[str] | None = None) -> int:
     warnings: list[dict[str, Any]] = []
     ids: dict[str, str] = {}
     chapter_numbers: dict[tuple[str, str], str] = {}
+    try:
+        schema = load_json(DEFAULT_SCHEMA)
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        schema = None
+        errors.append({"path": "schema", "code": "schema", "message": str(exc)})
     if not root.is_dir():
         errors.append({"path": "root", "code": "root", "message": f"root directory does not exist: {root}"})
     if not input_dir.is_dir():
@@ -76,7 +81,7 @@ def main(argv: list[str] | None = None) -> int:
     for file_path in files:
         file_errors: list[dict[str, Any]] = []
         file_warnings: list[dict[str, Any]] = []
-        validate_file(file_path, root, file_errors, file_warnings, ids, chapter_numbers)
+        validate_file(file_path, root, file_errors, file_warnings, ids, chapter_numbers, schema)
         for item in file_errors:
             errors.append({**item, "file": file_path.relative_to(root).as_posix()})
         for item in file_warnings:

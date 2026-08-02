@@ -17,6 +17,11 @@ import sys
 from pathlib import Path
 from typing import Any, Iterable
 
+try:
+    from jsonschema import Draft202012Validator
+except ImportError:  # pragma: no cover - the manual checks remain usable offline.
+    Draft202012Validator = None
+
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_SCHEMA = SCRIPT_DIR.parent / "references" / "exercise-json-schema.json"
@@ -364,7 +369,26 @@ def validate_question(value: Any, path: str, root: Path, expected_chapter: str, 
                 issue(errors, f"{path}.images", f"Markdown image is not represented in JSON images: {match.group(1)}", code="image-backlink")
 
 
-def validate_file(file_path: Path, root: Path, errors: list[dict[str, Any]], warnings: list[dict[str, Any]], ids: dict[str, str], chapter_numbers: dict[tuple[str, str], str]) -> int:
+def schema_path(error: Any) -> str:
+    parts = [str(item) if not isinstance(item, int) else f"[{item}]" for item in error.absolute_path]
+    output = "$"
+    for part in parts:
+        output += part if part.startswith("[") else f".{part}"
+    return output
+
+
+def validate_against_schema(data: Any, schema: dict[str, Any] | None, path: str, errors: list[dict[str, Any]], warnings: list[dict[str, Any]]) -> None:
+    if schema is None:
+        return
+    if Draft202012Validator is None:
+        warnings.append({"path": path, "code": "schema-engine-unavailable", "message": "jsonschema is not installed; manual cross-file checks were used"})
+        return
+    validator = Draft202012Validator(schema)
+    for validation_error in sorted(validator.iter_errors(data), key=lambda item: list(item.absolute_path)):
+        issue(errors, f"{path}{schema_path(validation_error)[1:]}", validation_error.message, code="schema")
+
+
+def validate_file(file_path: Path, root: Path, errors: list[dict[str, Any]], warnings: list[dict[str, Any]], ids: dict[str, str], chapter_numbers: dict[tuple[str, str], str], schema: dict[str, Any] | None = None) -> int:
     try:
         data = json.loads(file_path.read_text(encoding="utf-8"))
     except FileNotFoundError:
@@ -377,6 +401,7 @@ def validate_file(file_path: Path, root: Path, errors: list[dict[str, Any]], war
         issue(errors, str(file_path), f"invalid JSON: {exc}", code="json")
         return 0
     path = file_path.relative_to(root).as_posix()
+    validate_against_schema(data, schema, path, errors, warnings)
     if not expect_type(data, dict, path, errors):
         return 0
     required(data, ("schemaVersion", "book", "chapter", "source", "questions"), path, errors)
@@ -455,8 +480,9 @@ def main(argv: list[str] | None = None) -> int:
     warnings: list[dict[str, Any]] = []
     if not root.is_dir():
         issue(errors, "root", f"root directory does not exist: {root}", code="root")
+    schema_data: dict[str, Any] | None = None
     try:
-        json.loads(schema_path.read_text(encoding="utf-8"))
+        schema_data = json.loads(schema_path.read_text(encoding="utf-8"))
     except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
         issue(errors, "schema", f"cannot load JSON Schema {schema_path}: {exc}", code="schema")
     files = collect_files(root, args.input) if root.is_dir() else []
@@ -466,7 +492,7 @@ def main(argv: list[str] | None = None) -> int:
     chapter_numbers: dict[tuple[str, str], str] = {}
     question_count = 0
     for file_path in files:
-        question_count += validate_file(file_path, root, errors, warnings, ids, chapter_numbers)
+        question_count += validate_file(file_path, root, errors, warnings, ids, chapter_numbers, schema_data)
     report = {
         "schemaVersion": "luna-exercise-question-audit-1",
         "root": root.as_posix(),

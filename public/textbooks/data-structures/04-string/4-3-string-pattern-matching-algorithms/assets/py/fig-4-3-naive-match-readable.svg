@@ -1,0 +1,272 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="560" viewBox="0 0 760 560" role="img" aria-labelledby="title desc" text-rendering="geometricPrecision">
+  <title id="title">图 4.3：算法 4.5 对主串 ababcabcacbab 与模式 abcac 的六趟匹配过程</title>
+  <desc id="desc">主串 S 为 ababcabcacbab，模式 T 为 abcac，pos=1。六行分别展示从 S1 到 S6 的完整对齐状态；绿色箭头表示匹配，红色箭头表示失配，右侧逐步列出每一对 i、j 及失配后的回退状态，最后一趟在 j=6 时匹配成功并返回 6。</desc>
+  <defs>
+    <marker id="arrow-match" markerWidth="6" markerHeight="6" refX="5.2" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#15803d"/>
+    </marker>
+    <marker id="arrow-mismatch" markerWidth="6" markerHeight="6" refX="5.2" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#b91c1c"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="760" height="560" fill="#ffffff"/>
+  <style>
+    text{font-family:"Noto Sans CJK SC","Microsoft YaHei",sans-serif;fill:#1f2937}
+    .title{font-size:16px;font-weight:700}
+    .top-note{font-size:13px;font-weight:600;fill:#334155}
+    .axis{font-size:11px;fill:#64748b}
+    .index{font-size:9px;fill:#64748b;text-anchor:middle}
+    .char{font-family:Consolas,"Courier New",monospace;font-size:16px;font-weight:600;text-anchor:middle;dominant-baseline:middle}
+    .cell{fill:#ffffff;stroke:#334155;stroke-width:1.2}
+    .header-cell{fill:#f8fafc;stroke:#334155;stroke-width:1.2}
+    .pattern-cell{fill:#eff6ff;stroke:#2563eb;stroke-width:1.2}
+    .match-outline{fill:#f0fdf4;stroke:#15803d;stroke-width:2}
+    .mismatch-outline{fill:#fff1f2;stroke:#b91c1c;stroke-width:2}
+    .row-label{font-size:14px;font-weight:700}
+    .align-note{font-size:11px;fill:#64748b}
+    .band-label{font-size:11px;font-weight:700;fill:#475569;text-anchor:end}
+    .step-label{font-size:8.5px;font-weight:600;fill:#2563eb;text-anchor:middle}
+    .terminal-label{font-size:8.5px;font-weight:700;fill:#15803d;text-anchor:middle}
+    .compare-match{stroke:#15803d;stroke-width:1.8;fill:none;marker-end:url(#arrow-match)}
+    .compare-mismatch{stroke:#b91c1c;stroke-width:1.8;fill:none;marker-end:url(#arrow-mismatch)}
+    .state{font-size:10.5px;fill:#334155}
+    .state-strong{font-size:10.5px;font-weight:700;fill:#1f2937}
+    .state-panel{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1}
+  </style>
+
+  <text x="24" y="32" class="title">主串 S：a b a b c a b c a c b a b</text>
+  <text x="520" y="32" class="top-note">模式 T：a b c a c · pos=1</text>
+
+  <g aria-label="主串位置与字符" transform="translate(0 44)">
+    <text x="154" y="18" class="axis" text-anchor="end">位置</text>
+    <text x="194" y="-3" class="index">1</text>
+    <text x="222" y="-3" class="index">2</text>
+    <text x="250" y="-3" class="index">3</text>
+    <text x="278" y="-3" class="index">4</text>
+    <text x="306" y="-3" class="index">5</text>
+    <text x="334" y="-3" class="index">6</text>
+    <text x="362" y="-3" class="index">7</text>
+    <text x="390" y="-3" class="index">8</text>
+    <text x="418" y="-3" class="index">9</text>
+    <text x="446" y="-3" class="index">10</text>
+    <text x="474" y="-3" class="index">11</text>
+    <text x="502" y="-3" class="index">12</text>
+    <text x="530" y="-3" class="index">13</text>
+    <rect x="180" y="0" width="28" height="26" class="header-cell"/><text x="194" y="13" class="char">a</text>
+    <rect x="208" y="0" width="28" height="26" class="header-cell"/><text x="222" y="13" class="char">b</text>
+    <rect x="236" y="0" width="28" height="26" class="header-cell"/><text x="250" y="13" class="char">a</text>
+    <rect x="264" y="0" width="28" height="26" class="header-cell"/><text x="278" y="13" class="char">b</text>
+    <rect x="292" y="0" width="28" height="26" class="header-cell"/><text x="306" y="13" class="char">c</text>
+    <rect x="320" y="0" width="28" height="26" class="header-cell"/><text x="334" y="13" class="char">a</text>
+    <rect x="348" y="0" width="28" height="26" class="header-cell"/><text x="362" y="13" class="char">b</text>
+    <rect x="376" y="0" width="28" height="26" class="header-cell"/><text x="390" y="13" class="char">c</text>
+    <rect x="404" y="0" width="28" height="26" class="header-cell"/><text x="418" y="13" class="char">a</text>
+    <rect x="432" y="0" width="28" height="26" class="header-cell"/><text x="446" y="13" class="char">c</text>
+    <rect x="460" y="0" width="28" height="26" class="header-cell"/><text x="474" y="13" class="char">b</text>
+    <rect x="488" y="0" width="28" height="26" class="header-cell"/><text x="502" y="13" class="char">a</text>
+    <rect x="516" y="0" width="28" height="26" class="header-cell"/><text x="530" y="13" class="char">b</text>
+  </g>
+
+  <g role="group" aria-label="第一趟匹配：S1 到 S5，对比 S1=T1、S2=T2 后在 S3 与 T3 失配，回退到 i=2,j=1" transform="translate(0 66)">
+    <text x="24" y="31" class="row-label">第一趟匹配</text><text x="24" y="47" class="align-note">对齐 S1–S5</text>
+    <text x="154" y="33" class="band-label">S</text><text x="154" y="67" class="band-label">T</text>
+    <text x="194" y="16" class="step-label">i=1</text><text x="222" y="16" class="step-label">i=2</text><text x="250" y="16" class="step-label">i=3</text>
+    <text x="194" y="84" class="step-label">j=1</text><text x="222" y="84" class="step-label">j=2</text><text x="250" y="84" class="step-label">j=3</text>
+    <rect x="568" y="4" width="176" height="70" rx="3" class="state-panel"/>
+    <text x="578" y="20" class="state">i/j：1/1 → 2/2 → 3/3</text>
+    <text x="578" y="33" class="state">S1=T1 ✓　S2=T2 ✓</text>
+    <text x="578" y="46" class="state-strong">S3≠T3 ×</text>
+    <text x="578" y="59" class="state">失配后：i=2，j=1</text>
+    <g>
+      <rect x="180" y="18" width="28" height="24" class="cell"/><text x="194" y="30" class="char">a</text>
+      <rect x="208" y="18" width="28" height="24" class="cell"/><text x="222" y="30" class="char">b</text>
+      <rect x="236" y="18" width="28" height="24" class="cell"/><text x="250" y="30" class="char">a</text>
+      <rect x="264" y="18" width="28" height="24" class="cell"/><text x="278" y="30" class="char">b</text>
+      <rect x="292" y="18" width="28" height="24" class="cell"/><text x="306" y="30" class="char">c</text>
+      <rect x="320" y="18" width="28" height="24" class="cell"/><text x="334" y="30" class="char">a</text>
+      <rect x="348" y="18" width="28" height="24" class="cell"/><text x="362" y="30" class="char">b</text>
+      <rect x="376" y="18" width="28" height="24" class="cell"/><text x="390" y="30" class="char">c</text>
+      <rect x="404" y="18" width="28" height="24" class="cell"/><text x="418" y="30" class="char">a</text>
+      <rect x="432" y="18" width="28" height="24" class="cell"/><text x="446" y="30" class="char">c</text>
+      <rect x="460" y="18" width="28" height="24" class="cell"/><text x="474" y="30" class="char">b</text>
+      <rect x="488" y="18" width="28" height="24" class="cell"/><text x="502" y="30" class="char">a</text>
+      <rect x="516" y="18" width="28" height="24" class="cell"/><text x="530" y="30" class="char">b</text>
+      <rect x="180" y="52" width="28" height="24" class="pattern-cell"/><text x="194" y="64" class="char">a</text>
+      <rect x="208" y="52" width="28" height="24" class="pattern-cell"/><text x="222" y="64" class="char">b</text>
+      <rect x="236" y="52" width="28" height="24" class="pattern-cell"/><text x="250" y="64" class="char">c</text>
+      <rect x="264" y="52" width="28" height="24" class="pattern-cell"/><text x="278" y="64" class="char">a</text>
+      <rect x="292" y="52" width="28" height="24" class="pattern-cell"/><text x="306" y="64" class="char">c</text>
+      <rect x="180" y="52" width="28" height="24" class="match-outline"/><rect x="208" y="52" width="28" height="24" class="match-outline"/><rect x="236" y="52" width="28" height="24" class="mismatch-outline"/>
+      <rect x="180" y="18" width="28" height="24" class="match-outline"/><rect x="208" y="18" width="28" height="24" class="match-outline"/><rect x="236" y="18" width="28" height="24" class="mismatch-outline"/>
+    </g>
+    <line x1="194" y1="43" x2="194" y2="51" class="compare-match"/><line x1="222" y1="43" x2="222" y2="51" class="compare-match"/><line x1="250" y1="43" x2="250" y2="51" class="compare-mismatch"/>
+  </g>
+
+  <g role="group" aria-label="第二趟匹配：S2 与 T1 失配，回退到 i=3,j=1" transform="translate(0 144)">
+    <text x="24" y="31" class="row-label">第二趟匹配</text><text x="24" y="47" class="align-note">对齐 S2–S6</text>
+    <text x="154" y="33" class="band-label">S</text><text x="154" y="67" class="band-label">T</text>
+    <text x="222" y="16" class="step-label">i=2</text><text x="222" y="84" class="step-label">j=1</text>
+    <rect x="568" y="4" width="176" height="70" rx="3" class="state-panel"/>
+    <text x="578" y="20" class="state">i/j：2/1</text>
+    <text x="578" y="33" class="state-strong">S2≠T1 ×</text>
+    <text x="578" y="46" class="state">失配后：i=3，j=1</text>
+    <g>
+      <rect x="180" y="18" width="28" height="24" class="cell"/><text x="194" y="30" class="char">a</text>
+      <rect x="208" y="18" width="28" height="24" class="cell"/><text x="222" y="30" class="char">b</text>
+      <rect x="236" y="18" width="28" height="24" class="cell"/><text x="250" y="30" class="char">a</text>
+      <rect x="264" y="18" width="28" height="24" class="cell"/><text x="278" y="30" class="char">b</text>
+      <rect x="292" y="18" width="28" height="24" class="cell"/><text x="306" y="30" class="char">c</text>
+      <rect x="320" y="18" width="28" height="24" class="cell"/><text x="334" y="30" class="char">a</text>
+      <rect x="348" y="18" width="28" height="24" class="cell"/><text x="362" y="30" class="char">b</text>
+      <rect x="376" y="18" width="28" height="24" class="cell"/><text x="390" y="30" class="char">c</text>
+      <rect x="404" y="18" width="28" height="24" class="cell"/><text x="418" y="30" class="char">a</text>
+      <rect x="432" y="18" width="28" height="24" class="cell"/><text x="446" y="30" class="char">c</text>
+      <rect x="460" y="18" width="28" height="24" class="cell"/><text x="474" y="30" class="char">b</text>
+      <rect x="488" y="18" width="28" height="24" class="cell"/><text x="502" y="30" class="char">a</text>
+      <rect x="516" y="18" width="28" height="24" class="cell"/><text x="530" y="30" class="char">b</text>
+      <rect x="208" y="52" width="28" height="24" class="pattern-cell"/><text x="222" y="64" class="char">a</text>
+      <rect x="236" y="52" width="28" height="24" class="pattern-cell"/><text x="250" y="64" class="char">b</text>
+      <rect x="264" y="52" width="28" height="24" class="pattern-cell"/><text x="278" y="64" class="char">c</text>
+      <rect x="292" y="52" width="28" height="24" class="pattern-cell"/><text x="306" y="64" class="char">a</text>
+      <rect x="320" y="52" width="28" height="24" class="pattern-cell"/><text x="334" y="64" class="char">c</text>
+      <rect x="208" y="52" width="28" height="24" class="mismatch-outline"/><rect x="208" y="18" width="28" height="24" class="mismatch-outline"/>
+    </g>
+    <line x1="222" y1="43" x2="222" y2="51" class="compare-mismatch"/>
+  </g>
+
+  <g role="group" aria-label="第三趟匹配：S3=T1、S4=T2、S5=T3、S6=T4 匹配，S7 与 T5 失配，回退到 i=4,j=1" transform="translate(0 222)">
+    <text x="24" y="31" class="row-label">第三趟匹配</text><text x="24" y="47" class="align-note">对齐 S3–S7</text>
+    <text x="154" y="33" class="band-label">S</text><text x="154" y="67" class="band-label">T</text>
+    <text x="250" y="16" class="step-label">i=3</text><text x="278" y="16" class="step-label">i=4</text><text x="306" y="16" class="step-label">i=5</text><text x="334" y="16" class="step-label">i=6</text><text x="362" y="16" class="step-label">i=7</text>
+    <text x="250" y="84" class="step-label">j=1</text><text x="278" y="84" class="step-label">j=2</text><text x="306" y="84" class="step-label">j=3</text><text x="334" y="84" class="step-label">j=4</text><text x="362" y="84" class="step-label">j=5</text>
+    <rect x="568" y="4" width="176" height="70" rx="3" class="state-panel"/>
+    <text x="578" y="20" class="state">i/j：3/1 → 4/2 → 5/3</text>
+    <text x="578" y="33" class="state">i/j：6/4 → 7/5</text>
+    <text x="578" y="46" class="state">S3=T1 ✓　S4=T2 ✓　S5=T3 ✓</text>
+    <text x="578" y="59" class="state-strong">S6=T4 ✓　S7≠T5 ×</text>
+    <text x="578" y="71" class="state">失配后：i=4，j=1</text>
+    <g>
+      <rect x="180" y="18" width="28" height="24" class="cell"/><text x="194" y="30" class="char">a</text>
+      <rect x="208" y="18" width="28" height="24" class="cell"/><text x="222" y="30" class="char">b</text>
+      <rect x="236" y="18" width="28" height="24" class="cell"/><text x="250" y="30" class="char">a</text>
+      <rect x="264" y="18" width="28" height="24" class="cell"/><text x="278" y="30" class="char">b</text>
+      <rect x="292" y="18" width="28" height="24" class="cell"/><text x="306" y="30" class="char">c</text>
+      <rect x="320" y="18" width="28" height="24" class="cell"/><text x="334" y="30" class="char">a</text>
+      <rect x="348" y="18" width="28" height="24" class="cell"/><text x="362" y="30" class="char">b</text>
+      <rect x="376" y="18" width="28" height="24" class="cell"/><text x="390" y="30" class="char">c</text>
+      <rect x="404" y="18" width="28" height="24" class="cell"/><text x="418" y="30" class="char">a</text>
+      <rect x="432" y="18" width="28" height="24" class="cell"/><text x="446" y="30" class="char">c</text>
+      <rect x="460" y="18" width="28" height="24" class="cell"/><text x="474" y="30" class="char">b</text>
+      <rect x="488" y="18" width="28" height="24" class="cell"/><text x="502" y="30" class="char">a</text>
+      <rect x="516" y="18" width="28" height="24" class="cell"/><text x="530" y="30" class="char">b</text>
+      <rect x="236" y="52" width="28" height="24" class="pattern-cell"/><text x="250" y="64" class="char">a</text>
+      <rect x="264" y="52" width="28" height="24" class="pattern-cell"/><text x="278" y="64" class="char">b</text>
+      <rect x="292" y="52" width="28" height="24" class="pattern-cell"/><text x="306" y="64" class="char">c</text>
+      <rect x="320" y="52" width="28" height="24" class="pattern-cell"/><text x="334" y="64" class="char">a</text>
+      <rect x="348" y="52" width="28" height="24" class="pattern-cell"/><text x="362" y="64" class="char">c</text>
+      <rect x="236" y="52" width="28" height="24" class="match-outline"/><rect x="264" y="52" width="28" height="24" class="match-outline"/><rect x="292" y="52" width="28" height="24" class="match-outline"/><rect x="320" y="52" width="28" height="24" class="match-outline"/><rect x="348" y="52" width="28" height="24" class="mismatch-outline"/>
+      <rect x="236" y="18" width="28" height="24" class="match-outline"/><rect x="264" y="18" width="28" height="24" class="match-outline"/><rect x="292" y="18" width="28" height="24" class="match-outline"/><rect x="320" y="18" width="28" height="24" class="match-outline"/><rect x="348" y="18" width="28" height="24" class="mismatch-outline"/>
+    </g>
+    <line x1="250" y1="43" x2="250" y2="51" class="compare-match"/><line x1="278" y1="43" x2="278" y2="51" class="compare-match"/><line x1="306" y1="43" x2="306" y2="51" class="compare-match"/><line x1="334" y1="43" x2="334" y2="51" class="compare-match"/><line x1="362" y1="43" x2="362" y2="51" class="compare-mismatch"/>
+  </g>
+
+  <g role="group" aria-label="第四趟匹配：S4 与 T1 失配，回退到 i=5,j=1" transform="translate(0 300)">
+    <text x="24" y="31" class="row-label">第四趟匹配</text><text x="24" y="47" class="align-note">对齐 S4–S8</text>
+    <text x="154" y="33" class="band-label">S</text><text x="154" y="67" class="band-label">T</text>
+    <text x="278" y="16" class="step-label">i=4</text><text x="278" y="84" class="step-label">j=1</text>
+    <rect x="568" y="4" width="176" height="70" rx="3" class="state-panel"/>
+    <text x="578" y="20" class="state">i/j：4/1</text>
+    <text x="578" y="33" class="state-strong">S4≠T1 ×</text>
+    <text x="578" y="46" class="state">失配后：i=5，j=1</text>
+    <g>
+      <rect x="180" y="18" width="28" height="24" class="cell"/><text x="194" y="30" class="char">a</text>
+      <rect x="208" y="18" width="28" height="24" class="cell"/><text x="222" y="30" class="char">b</text>
+      <rect x="236" y="18" width="28" height="24" class="cell"/><text x="250" y="30" class="char">a</text>
+      <rect x="264" y="18" width="28" height="24" class="cell"/><text x="278" y="30" class="char">b</text>
+      <rect x="292" y="18" width="28" height="24" class="cell"/><text x="306" y="30" class="char">c</text>
+      <rect x="320" y="18" width="28" height="24" class="cell"/><text x="334" y="30" class="char">a</text>
+      <rect x="348" y="18" width="28" height="24" class="cell"/><text x="362" y="30" class="char">b</text>
+      <rect x="376" y="18" width="28" height="24" class="cell"/><text x="390" y="30" class="char">c</text>
+      <rect x="404" y="18" width="28" height="24" class="cell"/><text x="418" y="30" class="char">a</text>
+      <rect x="432" y="18" width="28" height="24" class="cell"/><text x="446" y="30" class="char">c</text>
+      <rect x="460" y="18" width="28" height="24" class="cell"/><text x="474" y="30" class="char">b</text>
+      <rect x="488" y="18" width="28" height="24" class="cell"/><text x="502" y="30" class="char">a</text>
+      <rect x="516" y="18" width="28" height="24" class="cell"/><text x="530" y="30" class="char">b</text>
+      <rect x="264" y="52" width="28" height="24" class="pattern-cell"/><text x="278" y="64" class="char">a</text>
+      <rect x="292" y="52" width="28" height="24" class="pattern-cell"/><text x="306" y="64" class="char">b</text>
+      <rect x="320" y="52" width="28" height="24" class="pattern-cell"/><text x="334" y="64" class="char">c</text>
+      <rect x="348" y="52" width="28" height="24" class="pattern-cell"/><text x="362" y="64" class="char">a</text>
+      <rect x="376" y="52" width="28" height="24" class="pattern-cell"/><text x="390" y="64" class="char">c</text>
+      <rect x="264" y="52" width="28" height="24" class="mismatch-outline"/><rect x="264" y="18" width="28" height="24" class="mismatch-outline"/>
+    </g>
+    <line x1="278" y1="43" x2="278" y2="51" class="compare-mismatch"/>
+  </g>
+
+  <g role="group" aria-label="第五趟匹配：S5 与 T1 失配，回退到 i=6,j=1" transform="translate(0 378)">
+    <text x="24" y="31" class="row-label">第五趟匹配</text><text x="24" y="47" class="align-note">对齐 S5–S9</text>
+    <text x="154" y="33" class="band-label">S</text><text x="154" y="67" class="band-label">T</text>
+    <text x="306" y="16" class="step-label">i=5</text><text x="306" y="84" class="step-label">j=1</text>
+    <rect x="568" y="4" width="176" height="70" rx="3" class="state-panel"/>
+    <text x="578" y="20" class="state">i/j：5/1</text>
+    <text x="578" y="33" class="state-strong">S5≠T1 ×</text>
+    <text x="578" y="46" class="state">失配后：i=6，j=1</text>
+    <g>
+      <rect x="180" y="18" width="28" height="24" class="cell"/><text x="194" y="30" class="char">a</text>
+      <rect x="208" y="18" width="28" height="24" class="cell"/><text x="222" y="30" class="char">b</text>
+      <rect x="236" y="18" width="28" height="24" class="cell"/><text x="250" y="30" class="char">a</text>
+      <rect x="264" y="18" width="28" height="24" class="cell"/><text x="278" y="30" class="char">b</text>
+      <rect x="292" y="18" width="28" height="24" class="cell"/><text x="306" y="30" class="char">c</text>
+      <rect x="320" y="18" width="28" height="24" class="cell"/><text x="334" y="30" class="char">a</text>
+      <rect x="348" y="18" width="28" height="24" class="cell"/><text x="362" y="30" class="char">b</text>
+      <rect x="376" y="18" width="28" height="24" class="cell"/><text x="390" y="30" class="char">c</text>
+      <rect x="404" y="18" width="28" height="24" class="cell"/><text x="418" y="30" class="char">a</text>
+      <rect x="432" y="18" width="28" height="24" class="cell"/><text x="446" y="30" class="char">c</text>
+      <rect x="460" y="18" width="28" height="24" class="cell"/><text x="474" y="30" class="char">b</text>
+      <rect x="488" y="18" width="28" height="24" class="cell"/><text x="502" y="30" class="char">a</text>
+      <rect x="516" y="18" width="28" height="24" class="cell"/><text x="530" y="30" class="char">b</text>
+      <rect x="292" y="52" width="28" height="24" class="pattern-cell"/><text x="306" y="64" class="char">a</text>
+      <rect x="320" y="52" width="28" height="24" class="pattern-cell"/><text x="334" y="64" class="char">b</text>
+      <rect x="348" y="52" width="28" height="24" class="pattern-cell"/><text x="362" y="64" class="char">c</text>
+      <rect x="376" y="52" width="28" height="24" class="pattern-cell"/><text x="390" y="64" class="char">a</text>
+      <rect x="404" y="52" width="28" height="24" class="pattern-cell"/><text x="418" y="64" class="char">c</text>
+      <rect x="292" y="52" width="28" height="24" class="mismatch-outline"/><rect x="292" y="18" width="28" height="24" class="mismatch-outline"/>
+    </g>
+    <line x1="306" y1="43" x2="306" y2="51" class="compare-mismatch"/>
+  </g>
+
+  <g role="group" aria-label="第六趟匹配：S6=T1、S7=T2、S8=T3、S9=T4、S10=T5 全部匹配，进入 i=11,j=6 并返回 6" transform="translate(0 456)">
+    <text x="24" y="31" class="row-label">第六趟匹配</text><text x="24" y="47" class="align-note">对齐 S6–S10</text>
+    <text x="154" y="33" class="band-label">S</text><text x="154" y="67" class="band-label">T</text>
+    <text x="334" y="16" class="step-label">i=6</text><text x="362" y="16" class="step-label">i=7</text><text x="390" y="16" class="step-label">i=8</text><text x="418" y="16" class="step-label">i=9</text><text x="446" y="16" class="step-label">i=10</text><text x="474" y="16" class="terminal-label">i=11</text>
+    <text x="334" y="84" class="step-label">j=1</text><text x="362" y="84" class="step-label">j=2</text><text x="390" y="84" class="step-label">j=3</text><text x="418" y="84" class="step-label">j=4</text><text x="446" y="84" class="step-label">j=5</text><text x="474" y="84" class="terminal-label">j=6</text>
+    <rect x="568" y="4" width="176" height="70" rx="3" class="state-panel"/>
+    <text x="578" y="20" class="state">i/j：6/1 → 7/2 → 8/3</text>
+    <text x="578" y="33" class="state">i/j：9/4 → 10/5</text>
+    <text x="578" y="46" class="state">S6=T1 ✓　S7=T2 ✓　S8=T3 ✓</text>
+    <text x="578" y="59" class="state">S9=T4 ✓　S10=T5 ✓</text>
+    <text x="578" y="71" class="state-strong">成功：i=11，j=6；Index=6</text>
+    <g>
+      <rect x="180" y="18" width="28" height="24" class="cell"/><text x="194" y="30" class="char">a</text>
+      <rect x="208" y="18" width="28" height="24" class="cell"/><text x="222" y="30" class="char">b</text>
+      <rect x="236" y="18" width="28" height="24" class="cell"/><text x="250" y="30" class="char">a</text>
+      <rect x="264" y="18" width="28" height="24" class="cell"/><text x="278" y="30" class="char">b</text>
+      <rect x="292" y="18" width="28" height="24" class="cell"/><text x="306" y="30" class="char">c</text>
+      <rect x="320" y="18" width="28" height="24" class="cell"/><text x="334" y="30" class="char">a</text>
+      <rect x="348" y="18" width="28" height="24" class="cell"/><text x="362" y="30" class="char">b</text>
+      <rect x="376" y="18" width="28" height="24" class="cell"/><text x="390" y="30" class="char">c</text>
+      <rect x="404" y="18" width="28" height="24" class="cell"/><text x="418" y="30" class="char">a</text>
+      <rect x="432" y="18" width="28" height="24" class="cell"/><text x="446" y="30" class="char">c</text>
+      <rect x="460" y="18" width="28" height="24" class="cell"/><text x="474" y="30" class="char">b</text>
+      <rect x="488" y="18" width="28" height="24" class="cell"/><text x="502" y="30" class="char">a</text>
+      <rect x="516" y="18" width="28" height="24" class="cell"/><text x="530" y="30" class="char">b</text>
+      <rect x="320" y="52" width="28" height="24" class="pattern-cell"/><text x="334" y="64" class="char">a</text>
+      <rect x="348" y="52" width="28" height="24" class="pattern-cell"/><text x="362" y="64" class="char">b</text>
+      <rect x="376" y="52" width="28" height="24" class="pattern-cell"/><text x="390" y="64" class="char">c</text>
+      <rect x="404" y="52" width="28" height="24" class="pattern-cell"/><text x="418" y="64" class="char">a</text>
+      <rect x="432" y="52" width="28" height="24" class="pattern-cell"/><text x="446" y="64" class="char">c</text>
+      <rect x="320" y="52" width="28" height="24" class="match-outline"/><rect x="348" y="52" width="28" height="24" class="match-outline"/><rect x="376" y="52" width="28" height="24" class="match-outline"/><rect x="404" y="52" width="28" height="24" class="match-outline"/><rect x="432" y="52" width="28" height="24" class="match-outline"/>
+      <rect x="320" y="18" width="28" height="24" class="match-outline"/><rect x="348" y="18" width="28" height="24" class="match-outline"/><rect x="376" y="18" width="28" height="24" class="match-outline"/><rect x="404" y="18" width="28" height="24" class="match-outline"/><rect x="432" y="18" width="28" height="24" class="match-outline"/>
+    </g>
+    <line x1="334" y1="43" x2="334" y2="51" class="compare-match"/><line x1="362" y1="43" x2="362" y2="51" class="compare-match"/><line x1="390" y1="43" x2="390" y2="51" class="compare-match"/><line x1="418" y1="43" x2="418" y2="51" class="compare-match"/><line x1="446" y1="43" x2="446" y2="51" class="compare-match"/>
+  </g>
+</svg>

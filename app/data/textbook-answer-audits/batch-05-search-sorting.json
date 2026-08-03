@@ -1,0 +1,319 @@
+{
+  "schemaVersion": "textbook-answer-audit-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "09-search",
+    "10-internal-sorting"
+  ],
+  "updates": [
+    {
+      "id": "book-ds-yan-09-30",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n以下按题干的非空、关键字互异且递增的双向循环链表处理。每个结点有 prior、next 和 key；sp 始终指向上一次成功查到的结点。一次三路关键字比较（小于、等于或大于）计作一次查找比较。\n\n~~~~c\nDNode *Search(DNode **sp, KeyType K) {\n    DNode *s = *sp, *p;\n    if (s == NULL) return NULL;\n    if (K == s->key) return s;\n    if (K < s->key) {\n        p = s->prior;\n        while (p != s && p->key > K) p = p->prior;\n    } else {\n        p = s->next;\n        while (p != s && p->key < K) p = p->next;\n    }\n    if (p != s && p->key == K) {\n        *sp = p;                 // 只在成功时更新浮动指针\n        return p;\n    }\n    return NULL;                 // 也覆盖 K 不在表中的情形\n}\n~~~~\n\n若当前 sp 是秩为 $i$ 的结点、待查结点秩为 $j$，成功查找的比较次数为 $1+|i-j|$：先比较 sp，随后沿唯一正确的增序或减序方向走到目标。故算法正确；最坏时间为 $O(n)$，额外空间为 $O(1)$。\n\n按题意，$i,j$ 独立且均匀分布在 $1,\\ldots,n$。于是\n\n$$\nASL=1+\\frac{1}{n^2}\\sum_{i=1}^{n}\\sum_{j=1}^{n}|i-j|\n=1+\\frac{n^2-1}{3n}\n=\\frac{n^2+3n-1}{3n}.\n$$\n\n若把代码中的相等测试和方向测试机械算作两次关系测试，则每个 $i\\ne j$ 的情形多一次，数值为上式再加 $1-1/n$；通常 ASL 按一次三路关键字比较采用上式。",
+        "explanation": "按双向循环有序链表和浮动指针的题设给出查找，独立推导成功查找的精确平均长度并说明比较计数约定。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书独立答案页未出现本题；补充内容为独立算法与推导，不改写原书答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-32",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设二叉排序树关键字互异，结点含 lchild、rchild。题设给出最小关键字为 $-max$、最大关键字为 $max$ 且 $-max<x<max$，所以所求严格前驱、后继一定存在。沿搜索路径维护目前最大的“小于 $x$”候选 a 和最小的“大于 $x$”候选 b；若恰好找到 $x$，再分别取其左子树最右结点和右子树最左结点。\n\n~~~~c\nNode *MinNode(Node *p) { while (p->lchild) p = p->lchild; return p; }\nNode *MaxNode(Node *p) { while (p->rchild) p = p->rchild; return p; }\n\nvoid NearestRec(Node *T, KeyType x, KeyType *a, KeyType *b) {\n    if (T == NULL) return;\n    if (T->key < x) {\n        *a = T->key;\n        NearestRec(T->rchild, x, a, b);\n    } else if (T->key > x) {\n        *b = T->key;\n        NearestRec(T->lchild, x, a, b);\n    } else {\n        if (T->lchild) *a = MaxNode(T->lchild)->key;\n        if (T->rchild) *b = MinNode(T->rchild)->key;\n    }\n}\n\nvoid Nearest(Node *T, KeyType x, KeyType max, KeyType *a, KeyType *b) {\n    *a = -max; *b = max;\n    NearestRec(T, x, a, b);\n}\n~~~~\n\n不变量是：已经略过的左侧区域不可能给出比 a 更大的小于 $x$ 的值，已经略过的右侧区域不可能给出比 b 更小的大于 $x$ 的值。BST 性质使每一步只进入一个子树；若命中 $x$，其左右子树极值就是更近的严格邻居，缺少该子树时祖先阶段留下的候选仍正确。设树高为 $h$，时间和递归栈均为 $O(h)$；平衡树时为 $O(\\log n)$。",
+        "explanation": "以两侧候选不变量独立给出递归解法，覆盖 x 在树中或不在树中的情形；时间与递归栈空间均为 O(h)。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书独立答案页未出现本题；已补充严格前驱和后继的独立递归算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-34",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n以下为普通二叉链表 BST 的原地删除。Destroy 释放一棵普通二叉树的全部结点；返回值是删除后的子树根。关键剪枝是：若当前根关键字不小于 $x$，则其整棵右子树也都不小于 $x$，可一次性释放而不再逐个查找。\n\n~~~~c\nvoid Destroy(Node *p) {\n    if (p == NULL) return;\n    Destroy(p->lchild);\n    Destroy(p->rchild);\n    free(p);\n}\n\nNode *DeleteGE(Node *T, KeyType x) {\n    Node *left;\n    if (T == NULL) return NULL;\n    if (T->key < x) {\n        T->rchild = DeleteGE(T->rchild, x);\n        return T;                // T 及其左子树必保留\n    }\n    left = T->lchild;\n    Destroy(T->rchild);          // 右子树全部应删\n    free(T);\n    return DeleteGE(left, x);\n}\n~~~~\n\n当根关键字小于 $x$ 时，BST 性质保证左子树全可保留，只须递归右子树；当根关键字不小于 $x$ 时，根和右子树必删，只把左子树交给同一问题。因此保留下来的结点仍保持 BST 次序，且每个被删除结点恰释放一次。空树、全部小于 $x$、全部不小于 $x$ 均自然覆盖。\n\n设树高为 $h$、删除结点数为 $m$，搜索边界路径为 $O(h)$，各被删结点总共为 $O(m)$，所以时间为 $O(h+m)$，递归栈为 $O(h)$。题面写成 $O(\\log_2 n+m)$ 时，必须另有 $h=O(\\log n)$ 的平衡性前提；普通 BST 可退化为链，不能保证该对数上界。",
+        "explanation": "利用 BST 子树范围剪枝，独立验证每个删除结点只被释放一次；时间为 O(h+m)、递归栈空间为 O(h)，并明确题面复杂度所需的平衡性条件。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书独立答案页未出现本题；补充了可执行的剪枝删除算法及普通 BST 的高度边界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-36",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n按 9.35 的中序后继线索表示，令 rtag=0 表示 rchild 是实右孩子，rtag=1 表示 rchild 指向中序后继，最大结点的后继为 NULL；lchild 始终是实左孩子或 NULL。下面插入互异关键字，重复关键字返回 DUPLICATE 且树不变。\n\n~~~~c\ntypedef struct TNode {\n    KeyType key; Record data;\n    struct TNode *lchild, *rchild;\n    int rtag;\n} TNode, *STBST;\n\nStatus Insert(STBST *T, KeyType x, Record e) {\n    TNode *p = *T, *parent = NULL;\n    TNode *pred = NULL, *succ = NULL, *q;\n    while (p != NULL) {\n        parent = p;\n        if (x == p->key) return DUPLICATE;\n        if (x < p->key) {\n            succ = p;\n            p = p->lchild;\n        } else {\n            pred = p;\n            p = (p->rtag == 0) ? p->rchild : NULL;\n        }\n    }\n    q = NewNode(x, e);\n    if (q == NULL) return OVERFLOW;\n    q->lchild = NULL;\n    q->rchild = succ;\n    q->rtag = 1;\n\n    if (parent == NULL) { *T = q; return OK; }\n    if (x < parent->key) {\n        parent->lchild = q;\n        if (pred != NULL) pred->rchild = q;\n    } else {\n        parent->rchild = q;\n        parent->rtag = 0;\n    }\n    return OK;\n}\n~~~~\n\n搜索过程中 pred 小于 x 且 succ 大于 x，存在的一侧分别是已知的最大下界、最小上界。插入为左孩子时，pred 的后继原为 succ，改指向新结点；插入为右孩子时，parent 正是 pred，把它原来的后继线索改为实孩子。新结点的后继线索指向 succ，故中序线索链只是在 pred 和 succ 之间插入一个结点，BST 性质亦成立。空树、最小新关键字和最大新关键字均正确覆盖。\n\n设树高为 $h$，查找和常数次改链均为 $O(h)$ 时间、$O(1)$ 辅助空间；平衡树时为 $O(\\log n)$。若实现使用头结点，把最大结点的 NULL 后继替换为头结点，并从头结点的左孩子传入即可。",
+        "explanation": "严格采用中序后继线索的右标志和右指针，独立补全了插入时前驱、后继线索的同步更新。",
+        "correction": {
+          "verified": "**独立参考解答（非原书摘录，已交叉复核）**\n\n按 9.35 的中序后继线索表示，令 `rtag=0` 表示 `rchild` 是实右孩子，`rtag=1` 表示 `rchild` 指向中序后继；`lchild` 始终是实左孩子或 `NULL`。插入互异关键字，重复关键字返回 `DUPLICATE` 且树不变。\n\n~~~~c\ntypedef struct TNode {\n    KeyType key; Record data;\n    struct TNode *lchild, *rchild;\n    int rtag;\n} TNode, *STBST;\n\nStatus Insert(STBST *T, KeyType x, Record e) {\n    TNode *p = *T, *parent = NULL;\n    TNode *pred = NULL, *succ = NULL, *q;\n    while (p != NULL) {\n        parent = p;\n        if (x == p->key) return DUPLICATE;\n        if (x < p->key) {\n            succ = p;\n            p = p->lchild;\n        } else {\n            pred = p;\n            p = (p->rtag == 0) ? p->rchild : NULL;\n        }\n    }\n    q = NewNode(x, e);\n    if (q == NULL) return OVERFLOW;\n    q->lchild = NULL;\n    q->rchild = succ;                 // 新结点的中序后继\n    q->rtag = 1;\n\n    if (parent == NULL) { *T = q; return OK; }\n    if (x < parent->key) {\n        parent->lchild = q;\n        /* 只有前驱的 rchild 原本就是后继线索时，才能改接 q。 */\n        if (pred != NULL && pred->rtag == 1) pred->rchild = q;\n    } else {\n        /* parent 即 pred：把原后继线索改成实右孩子。 */\n        parent->rchild = q;\n        parent->rtag = 0;\n    }\n    return OK;\n}\n~~~~\n\n搜索过程中，`pred` 是小于 `x` 的最大已知下界，`succ` 是大于 `x` 的最小已知上界。左插时，只有 `pred->rtag==1` 才说明它的右指针确实是“指向 `succ` 的后继线索”，此时应改为指向 `q`；若 `pred->rtag==0`，其右指针是一棵真实右子树，绝不能覆盖。右插时 `parent` 就是 `pred`，把它原有的后继线索改成实右孩子 `q`，而 `q` 再以线索指向原后继 `succ`。\n\n回归情形：若根为 10，10 的实右孩子为 20，20 的实左孩子为 15，插入 12 时 `pred=10` 且 `pred->rtag=0`；算法保留 `10->rchild=20`，把 12 作为 15 的左孩子，中序序列仍为 `10, 12, 15, 20`。空树、最小/最大新键和重复键也由上述分支覆盖。\n\n设树高为 `h`，查找与常数次改链均为 `O(h)` 时间、`O(1)` 辅助空间；平衡树时为 `O(\\log n)`。若使用头结点，只需把最大结点的 `NULL` 后继替换为头结点，并从头结点的左孩子传入即可。",
+          "explanation": "左插时仅在前驱右指针是后继线索时更新它，避免覆盖前驱的真实右子树。",
+          "reason": "交叉复核发现原草稿在左插时无条件写入 pred->rchild，会覆盖 pred 的实右孩子；现已按 rtag 区分真实右孩子与后继线索，并加入该回归情形。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书独立答案页未出现本题；已按后继线索 BST 的存储约定补充插入算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-37",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n仍采用 9.36 所定义的中序后继线索 BST。RealRight 只返回实右孩子，Successor 同时处理线索和实右子树。删除有两个实孩子的结点时，先保存其中序后继的完整记录，先把该后继结点删掉，再把保存的记录写回目标结点；这样找后继前驱线索时不会短暂出现两个相同关键字。\n\n~~~~c\nTNode *RealRight(TNode *p) {\n    return (p != NULL && p->rtag == 0) ? p->rchild : NULL;\n}\nTNode *Successor(TNode *p) {\n    if (p == NULL) return NULL;\n    if (p->rtag == 1) return p->rchild;\n    p = p->rchild;\n    while (p != NULL && p->lchild != NULL) p = p->lchild;\n    return p;\n}\nTNode *RightMost(TNode *p) {\n    while (RealRight(p) != NULL) p = RealRight(p);\n    return p;\n}\nTNode *Predecessor(STBST T, KeyType x) {\n    TNode *p = T, *pre = NULL;\n    while (p != NULL) {\n        if (p->key < x) { pre = p; p = RealRight(p); }\n        else p = p->lchild;\n    }\n    return pre;\n}\n\n/* p 至多有一个实孩子；isLeft 说明 p 是否为 parent 的实左孩子。 */\nvoid SpliceOut(STBST *T, TNode *parent, TNode *p, int isLeft) {\n    TNode *succ = Successor(p), *child, *pre;\n    if (p->lchild != NULL) {\n        child = p->lchild;\n        pre = RightMost(child);\n        pre->rchild = succ;\n        pre->rtag = 1;\n    } else {\n        child = RealRight(p);\n        pre = Predecessor(*T, p->key);\n        if (pre != NULL && pre->rtag == 1) pre->rchild = succ;\n    }\n    if (parent == NULL) *T = child;\n    else if (isLeft) parent->lchild = child;\n    else if (child != NULL) { parent->rchild = child; parent->rtag = 0; }\n    else { parent->rchild = succ; parent->rtag = 1; }\n    free(p);\n}\n\nStatus Delete(STBST *T, KeyType x) {\n    TNode *p = *T, *parent = NULL, *s, *ps;\n    int isLeft = 0, sIsLeft;\n    while (p != NULL && p->key != x) {\n        parent = p;\n        if (x < p->key) { isLeft = 1; p = p->lchild; }\n        else { isLeft = 0; p = RealRight(p); }\n    }\n    if (p == NULL) return NOT_FOUND;\n    if (p->lchild != NULL && RealRight(p) != NULL) {\n        ps = p; s = p->rchild; sIsLeft = 0;\n        while (s->lchild != NULL) {\n            ps = s; s = s->lchild; sIsLeft = 1;\n        }\n        KeyType savedKey = s->key; Record savedData = s->data;\n        SpliceOut(T, ps, s, sIsLeft);\n        p->key = savedKey; p->data = savedData;\n    } else {\n        SpliceOut(T, parent, p, isLeft);\n    }\n    return OK;\n}\n~~~~\n\nSpliceOut 的不变量是：被删结点的中序前驱若存在，其后继线索必须改接被删结点的中序后继；父结点原来的实孩子链接则改接唯一实孩子，若删去最后一个实右孩子就恢复为后继线索。故无孩子、仅左孩子、仅实右孩子和根结点均保持 BST 与后继线索一致。两实孩子时，后继没有左孩子，归约到上述情形；替换后的左右子树关键字仍分别小于、大于新根关键字。\n\n查找、求前驱或后继和沿边界路径改链均为 $O(h)$ 时间，额外空间为 $O(1)$；平衡树中为 $O(\\log n)$，普通退化 BST 则为 $O(h)$。",
+        "explanation": "按后继线索的真实右孩子与后继线索区分，独立给出删除的所有子树情形、线索修复和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书独立答案页未出现本题；已补充可执行的后继线索 BST 删除算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-38",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设两棵普通二叉链表 BST 的关键字在各树内互异。一个稳妥的合并办法是“中序取有序序列—归并—按中点重建”：它不依赖两棵树的高度或键值范围，且输出树天然较平衡。若两个输入树允许相同关键字，归并时必须按应用语义选择保留一个记录、合并记录，或报告重复；此处按查找表的唯一关键字语义报告重复。\n\n~~~~c\nvoid Inorder(Node *T, Vector *V) {\n    if (T == NULL) return;\n    Inorder(T->lchild, V);\n    PushBack(V, T->data);        // data 含 key，按中序得到递增序列\n    Inorder(T->rchild, V);\n}\nNode *BuildBalanced(Vector *V, int lo, int hi) {\n    if (lo > hi) return NULL;\n    int mid = lo + (hi - lo) / 2;\n    Node *p = NewNode(V->a[mid]);\n    p->lchild = BuildBalanced(V, lo, mid - 1);\n    p->rchild = BuildBalanced(V, mid + 1, hi);\n    return p;\n}\nStatus MergeBST(Node *T1, Node *T2, Node **out) {\n    Vector A = EmptyVector(), B = EmptyVector(), C = EmptyVector();\n    int i = 0, j = 0;\n    Inorder(T1, &A); Inorder(T2, &B);\n    while (i < A.size && j < B.size) {\n        if (A.a[i].key < B.a[j].key) PushBack(&C, A.a[i++]);\n        else if (B.a[j].key < A.a[i].key) PushBack(&C, B.a[j++]);\n        else return DUPLICATE;\n    }\n    while (i < A.size) PushBack(&C, A.a[i++]);\n    while (j < B.size) PushBack(&C, B.a[j++]);\n    *out = BuildBalanced(&C, 0, C.size - 1);\n    return OK;\n}\n~~~~\n\n中序遍历分别输出两棵 BST 的递增序列，标准归并保持递增且不漏、不重；BuildBalanced 把较小部分建为左子树、较大部分建为右子树，故结果仍是 BST。若不需要保留原树，可在复制记录后释放 T1、T2；若必须复用原结点，可让向量保存结点指针并在重建前清空其左右指针。\n\n令两树结点数为 $n_1,n_2$，总数 $N=n_1+n_2$。遍历、归并和建树各为 $O(N)$，辅助序列为 $O(N)$，递归建树栈为 $O(\\log N)$；输出树高为 $O(\\log N)$。",
+        "explanation": "用两路有序归并和中点建树独立实现任意两棵 BST 的合并，明确重复关键字和资源归属；时间、辅助空间均为 O(n1+n2)。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书独立答案页未出现本题；补充为独立的线性时间合并方案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-39",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n对普通二叉链表 BST 可直接在原结点上分裂，不复制也不释放结点。函数返回两棵树 L、G，分别含不大于 $x$ 和大于 $x$ 的全部结点。\n\n~~~~c\nvoid SplitBST(Node *T, KeyType x, Node **L, Node **G) {\n    if (T == NULL) { *L = NULL; *G = NULL; return; }\n    if (T->key <= x) {\n        /* T 及其左子树全归 L，只分裂原右子树。 */\n        SplitBST(T->rchild, x, &T->rchild, G);\n        *L = T;\n    } else {\n        /* T 及其右子树全归 G，只分裂原左子树。 */\n        SplitBST(T->lchild, x, L, &T->lchild);\n        *G = T;\n    }\n}\n~~~~\n\n当根关键字不大于 $x$ 时，BST 性质保证根与左子树可整体保留在 L；递归返回的右侧小树接回根的右指针。另一分支完全对称。因此每一次接回后，左树全部关键字仍不大于根、右树全部关键字仍大于根，两个输出均为 BST，且每个原结点恰归入一棵输出树。空树、全部不大于 $x$ 或全部大于 $x$ 也自然覆盖。\n\n算法只沿从根到分界处的一条路径递归，时间和栈空间均为 $O(h)$；平衡树中是 $O(\\log n)$，最坏退化树中为 $O(n)$。",
+        "explanation": "利用 BST 子树整体落在阈值一侧的性质，独立给出原地分裂和正确性、复杂度说明。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书独立答案页未出现本题；已补充不复制结点的 BST 分裂算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-42",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n采用 Trie 的标准分支表示：每个分支结点有 child[0..R-1] 与非空孩子数 used；Digit(K,i) 给出关键字第 $i$ 层的分支号。叶层深度固定为 $h$，变长关键字须先用终止符或零位补齐为长度 $h$ 的编码。叶结点保存一个同义词链 syn：不同关键字若完整的 $h$ 位路径相同，就放在同一叶；链内仍以完整关键字判等。孩子—兄弟表示只需把 child 的读写替换为同层孩子查找/插入，算法语义不变。\n\n~~~~c\nStatus InsertTrie(Branch **root, KeyType K, Record e, int h) {\n    Branch *p;\n    Leaf *leaf;\n    SynNode *s;\n    if (h < 1) return ERROR;\n    if (*root == NULL) *root = NewBranch();\n    p = *root;\n    for (int level = 0; level < h; ++level) {\n        int d = Digit(K, level);                 // 0 <= d < R\n        if (p->child[d] == NULL) {\n            p->child[d] = (level == h - 1) ? NewLeaf() : NewBranch();\n            if (p->child[d] == NULL) return OVERFLOW;\n            ++p->used;\n        }\n        if (level == h - 1) leaf = (Leaf *)p->child[d];\n        else p = (Branch *)p->child[d];\n    }\n    for (s = leaf->syn; s != NULL; s = s->next)\n        if (EqualKey(s->data.key, K)) return DUPLICATE;\n    s = NewSynNode(K, e);                         // 同义词链头插或尾插均可\n    if (s == NULL) return OVERFLOW;\n    s->next = leaf->syn;\n    leaf->syn = s;\n    return OK;\n}\n~~~~\n\n循环结束时 leaf 恰是编码 Digit(K,0..h-1) 对应的叶；新建结点只补齐此前不存在的路径，已有路径绝不改变。完整关键字检查排除真正的重复，而不同键的路径冲突被保留在同义词链中，因此查找语义不丢失。空 Trie、路径部分缺失、首个同义词及重复关键字均已处理。\n\n路径访问为 $O(h)$，为防重复而扫描同义词链的长度记为 $s$，故时间为 $O(h+s)$；若题设保证输入键互异且允许直接头插，插入本身为 $O(h)$。新分配空间至多为 $O(h)$ 个路径、叶和记录结点，除输出结构外辅助空间为 $O(1)$。",
+        "explanation": "明确固定层数 Trie 与叶上同义词链的表示，独立补全路径创建、重复判定和复杂度。",
+        "correction": {
+          "verified": "**独立参考解答（非原书摘录，已交叉复核）**\n\n题设的 `h` 是叶的**最大**层次，不要求每条路径都走满 `h`：已有叶可以在更早层出现。因此结点必须先带 `kind`，走到叶时不能再把它当作分支解引用。以下以“根始终是分支；非根路径可在任意不超过 `h` 的层次以叶结束”为约定。分支保存 `ptr[0..R-1]` 和非空孩子数 `num`；叶保存完整关键字（或完整键组）及同义词记录。\n\n~~~~text\nInsertTrie(root, K, e, h):\n    if h < 1: return ERROR\n    if root == NULL:\n        root = NewBranch()\n        if root == NULL: return OVERFLOW       // 根分支也必须检查分配失败\n    d = Digit(K, 0)\n    if root.ptr[d] == NULL:\n        root.ptr[d] = NewLeaf(K, e)\n        if root.ptr[d] == NULL: return OVERFLOW\n        root.num++\n        return OK\n    return InsertAt(&root.ptr[d], K, e, 1, h)\n\nInsertAt(slot, K, e, level, h):\n    p = *slot\n    if p.kind == BRANCH:\n        if level == h: return ERROR            // 不会越过最大层次\n        d = Digit(K, level)\n        if p.ptr[d] == NULL:\n            q = NewLeaf(K, e)\n            if q == NULL: return OVERFLOW\n            p.ptr[d] = q; p.num++\n            return OK\n        return InsertAt(&p.ptr[d], K, e, level + 1, h)\n\n    // p 是叶；它可能早于 h 层。\n    if SameTerminal(p, K) or level == h:\n        return AddSynonym(p, K, e)            // 同义词/同终端记录仍放在这个叶\n\n    old = p\n    j = level\n    while j < h and Digit(old.fullKey, j) == Digit(K, j):\n        j++\n    if j == h:\n        return AddSynonym(old, K, e)\n\n    // 先在树外完整分配一条分支链；失败时旧树不动。\n    chain = MakeSplitChain(old, K, e, level, j)\n    if chain == NULL: return OVERFLOW\n    *slot = chain\n    return OK\n~~~~\n\n`MakeSplitChain(old,K,e,level,j)` 的含义是：对 `level..j-1` 的公共数字依次建立 `num=1` 的分支；在第 `j` 层建立一个 `num=2` 的分支，把旧叶放到 `Digit(old.fullKey,j)` 的孩子，把 `NewLeaf(K,e)` 放到 `Digit(K,j)` 的孩子。两键在该层数字不同，所以二者不会覆盖。该链在任何指针写回原树前已完整分配；若任一分配失败，释放临时链并返回 `NULL`。\n\n这样，查找只会沿分支进入下一层；若途经的是已有叶，就比较完整键、插入同义词，或在仍有数字可用时把**两个叶**在第一次不同数字处分开。故不会把早层叶误作分支。空 Trie、根分支分配失败、已有短路径叶、相同键/同终端记录和首次分歧均被覆盖。一次插入最多下降 `h` 层，时间为 `O(h+s)`（`s` 为叶内同义词组的查找/追加代价），新路径空间至多为 `O(h)`。",
+          "explanation": "按结点 kind 区分分支和早层叶；两键分歧前建立脱离原树的分支链，成功后一次替换。",
+          "reason": "交叉复核指出原草稿把所有叶错误限定在第 h 层，并会把早层 Leaf 强制转换为 Branch；现已按“最大层次”语义重写插入和分裂过程。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书独立答案页未出现本题；补充为固定高度 Trie 的独立插入实现。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-43",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n沿用 9.42 的固定高度 Trie、分支结点 used 计数和叶上同义词链。删除时先走满 $h$ 层并只从目标叶的同义词链中删除完全相同的关键字；只有叶链变空才删除叶，再自底向上清理没有任何孩子的分支结点。因此删去一个同义词不会误删与它共用叶子的其他键。\n\n~~~~c\nStatus DeleteTrie(Branch **root, KeyType K, int h) {\n    Branch *path[MAXH], *p;\n    int edge[MAXH];\n    Leaf *leaf; SynNode **pp, *q;\n    if (root == NULL || *root == NULL || h < 1 || h > MAXH) return NOT_FOUND;\n    p = *root;\n    for (int level = 0; level < h; ++level) {\n        int d = Digit(K, level);\n        if (p->child[d] == NULL) return NOT_FOUND;\n        path[level] = p; edge[level] = d;\n        if (level == h - 1) leaf = (Leaf *)p->child[d];\n        else p = (Branch *)p->child[d];\n    }\n    pp = &leaf->syn;\n    while (*pp != NULL && !EqualKey((*pp)->data.key, K)) pp = &(*pp)->next;\n    if (*pp == NULL) return NOT_FOUND;\n    q = *pp; *pp = q->next; free(q);\n    if (leaf->syn != NULL) return OK;\n\n    free(leaf);\n    path[h - 1]->child[edge[h - 1]] = NULL;\n    --path[h - 1]->used;\n    for (int level = h - 1; level >= 0 && path[level]->used == 0; --level) {\n        if (level == 0) { free(path[0]); *root = NULL; }\n        else {\n            path[level - 1]->child[edge[level - 1]] = NULL;\n            --path[level - 1]->used;\n            free(path[level]);\n        }\n    }\n    return OK;\n}\n~~~~\n\n每个 path[level] 保存通向目标叶的父分支，因而叶删除后可精确回收空路径；used 大于 0 时立即停止，保留仍服务于其他关键字的公共前缀。若路径不存在、叶不存在或链中没有完整键，函数直接返回且 Trie 不变。扫描目标同义词链长度为 $s$，时间为 $O(h+s)$，数组路径为 $O(h)$ 辅助空间；若分支不维护 used 而每次扫描 $R$ 个孩子，清理阶段会额外成为 $O(hR)$。",
+        "explanation": "按同义词链的精确键匹配和自底向上空路径回收，独立补全 Trie 删除及边界。",
+        "correction": {
+          "verified": "**独立参考解答（非原书摘录，已交叉复核）**\n\n沿用 9.42 的压缩 Trie：`h` 只限制叶的最大层次，分支路径中可能在任意更早层遇到叶。删除时必须每一步先判定 `kind`；到叶后按完整键从该叶的同义词/同终端记录组中删除，不能假设还可以继续访问 `child[d]`。\n\n~~~~text\nDeleteTrie(root, K, h):\n    if root == NULL or h < 1: return NOT_FOUND\n    path = empty stack                         // 实际经过的 Branch\n    link = empty stack                         // 指向该 Branch 的父指针槽\n    b = root\n    d = Digit(K, 0)\n    push(path, b); push(link, ROOT_LINK)\n    slot = &b.ptr[d]\n    level = 1\n\n    while *slot != NULL and (*slot).kind == BRANCH:\n        if level == h: return NOT_FOUND        // 不越过最大层次\n        b = *slot\n        push(path, b); push(link, slot)\n        slot = &b.ptr[Digit(K, level)]\n        level++\n\n    if *slot == NULL or (*slot).kind != LEAF: return NOT_FOUND\n    leaf = *slot\n    if not RemoveKeyGroup(leaf, K): return NOT_FOUND\n    if not LeafEmpty(leaf): return OK          // 同义词或同终端记录仍在\n\n    FreeLeaf(leaf)\n    *slot = NULL\n    while path is not empty:\n        b = pop(path); parentLink = pop(link)\n        b.num--                                  // 刚删去的孩子恰在这条路径上\n        if b.num != 0: break\n        FreeBranch(b)\n        if parentLink == ROOT_LINK:\n            root = NULL\n        else:\n            *parentLink = NULL\n    return OK\n~~~~\n\n`RemoveKeyGroup` 以叶中保存的**完整**键比较，只删除目标键对应的记录组；若叶里还保留同义词或其他到同一终端的记录，则叶不移除。`path` 和 `link` 只记录实际走过的分支，因此即使叶在第 1、2 … `h` 层提前出现，也不会把叶当作分支或回收错误的公共前缀。\n\n这里的压缩约定是“允许早层叶、只回收 `num=0` 的分支”：`num=1` 的分支仍是合法 Trie，删除无需冒险把它与孩子强行合并；若实现采用“必须规范化为最短路径”的额外约定，则仅可在剩余子树是叶且完整键组不丢失时执行等价收缩。空树、路径不存在、提前叶但完整键不匹配、一个叶含多个同义词、删去最后一组记录以及根分支变空都由上述分支处理。时间为 `O(h+s)`，其中 `s` 为目标叶内键组定位代价；`path` 占 `O(h)` 辅助空间。",
+          "explanation": "删除沿真实分支路径推进，遇到早层 Leaf 即按完整键处理；只回收空分支，保留合法的单孩子分支。",
+          "reason": "交叉复核指出原草稿假定所有叶都在第 h 层，会把合法早层叶当成 Branch 解引用；现已按压缩 Trie 的最大层次语义修正。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书独立答案页未出现本题；已补充固定高度 Trie 的独立删除算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-45",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n采用题设的链地址法。哈希表是长度为 $m$ 的桶头指针数组，每个桶是一条单链；假定哈希函数 H(x) 总返回 $[0,m)$ 内的下标。按通常查找表语义把输入关键字视为互异；若读到重复键，下面返回错误并销毁已经建立的部分表，避免留下半成品。若业务需要多重集，只需删除重复检测，继续挂入新结点。\n\n~~~~c\nStatus CreateHash(HashNode *table[], int m, int n) {\n    if (m <= 0 || n < 0) return ERROR;\n    for (int i = 0; i < m; ++i) table[i] = NULL;\n    for (int k = 0; k < n; ++k) {\n        KeyType x; HashNode **pp, *q;\n        ReadKey(&x);\n        int b = H(x);\n        if (b < 0 || b >= m) { DestroyHash(table, m); return ERROR; }\n        pp = &table[b];\n        while (*pp != NULL && !EqualKey((*pp)->key, x)) pp = &(*pp)->next;\n        if (*pp != NULL) { DestroyHash(table, m); return DUPLICATE; }\n        q = NewHashNode(x);\n        if (q == NULL) { DestroyHash(table, m); return OVERFLOW; }\n        q->next = table[b];       // 头插不影响链地址查找正确性\n        table[b] = q;\n    }\n    return OK;\n}\n~~~~\n\n初始化后每个桶为空；每读入一个键，算法只把它放进编号为 H(x) 的冲突链，因而任意键都可在唯一的目标桶中查找，所有同义词由链表保留。空输入、非法表长、非法哈希值、重复键和分配失败均有明确处理。\n\n设第 $i$ 桶当前长度为 $l_i$。构建时间精确为 $O(m+n+\\sum l_i)$，这里的和来自重复检测；在简单均匀散列且装载因子 $\\alpha=n/m$ 有界时为期望 $O(m+n)$，最坏所有键落同一桶时为 $O(m+n^2)$。表与结点空间为 $O(m+n)$；若输入已承诺无重复，可省略桶内扫描，建表时间恒为 $O(m+n)$。",
+        "explanation": "按链地址散列表的桶头指针和冲突链独立实现建表，明确重复键和平均、最坏复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书独立答案页未出现本题；已补充链地址法建表算法及异常边界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-46",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n矩阵按 0 起始下标，行、列均在 $[0,1000)$。非零元数约为 $t=1000\\times1000\\times1\\%=10000$。取素数桶数 $M=20011$，以行优先坐标编码 $code(r,c)=1000r+c$，并采用链地址法：\n\n$$\nB(r,c)=(1000r+c)\\bmod 20011.\n$$\n\n每个链结点保存 row、col、value、next；同一坐标只允许一个结点。装载因子约为 $10000/20011<0.5$。\n\n~~~~c\nenum { ROWS = 1000, COLS = 1000, M = 20011 };\ntypedef struct Cell { int row, col; ElemType value; struct Cell *next; } Cell;\nCell *table[M];\n\nint Bucket(int r, int c) { return (r * COLS + c) % M; }\nCell *Locate(int r, int c) {\n    if (r < 0 || r >= ROWS || c < 0 || c >= COLS) return NULL;\n    for (Cell *p = table[Bucket(r, c)]; p != NULL; p = p->next)\n        if (p->row == r && p->col == c) return p;\n    return NULL;                  // 不在表中即矩阵元素为 0\n}\nStatus Store(int r, int c, ElemType v) {\n    Cell **pp, *q;\n    if (r < 0 || r >= ROWS || c < 0 || c >= COLS) return ERROR;\n    pp = &table[Bucket(r, c)];\n    while (*pp != NULL && ((*pp)->row != r || (*pp)->col != c)) pp = &(*pp)->next;\n    if (v == 0) { if (*pp != NULL) { q = *pp; *pp = q->next; free(q); } return OK; }\n    if (*pp != NULL) { (*pp)->value = v; return OK; }\n    q = NewCell(r, c, v); if (q == NULL) return OVERFLOW;\n    q->next = table[Bucket(r, c)]; table[Bucket(r, c)] = q;\n    return OK;\n}\n~~~~\n\n同一坐标有唯一编码，桶内再比较完整的行、列，所以碰撞不会把不同元素混淆；零元不建结点，保持稀疏表示。Locate 可用于读，Store 同时覆盖插入、更新和置零删除。\n\n链地址法的单次读、写期望时间为 $O(1+\\alpha)=O(1)$，本设计中平均链长小于 0.5；最坏碰撞时为 $O(t)=O(10000)$。空间为 $O(M+t)$。普通三元组表若未另建索引，按给定行列定位需顺序扫描 $O(t)$，插入、删除还可能移动 $O(t)$ 个三元组；即使三元组按行优先有序并以二分查找定位，也为 $O(\\log t)$，仍不及散列的期望常数时间。",
+        "explanation": "给出可执行的坐标哈希、链地址读写和与三元组表的期望、最坏复杂度对比。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书独立答案页未出现本题；已独立设计稀疏矩阵哈希存储与访问算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-01",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n以下把关键码按三位十进制显示，故 087、061 保留前导零。为使每一趟可复核，约定：快速排序采用首元素枢轴的 Hoare 划分并先递归左区间；堆排序采用自底向上建大顶堆、每趟把堆顶交换到末尾；归并采用自底向上的二路归并；基数排序采用十进制 LSD 稳定分配。不同教材的枢轴、归并或堆调整实现可能给出不同中间排列，但最终有序结果相同。\n\n**1. 直接插入排序（第 $i$ 趟把第 $i$ 个记录插入左侧有序区）**\n\n| 趟 | 关键码状态 |\n| --- | --- |\n| 2 | (087, 503, 512, 061, 908, 170, 897, 275, 653, 426) |\n| 3 | (087, 503, 512, 061, 908, 170, 897, 275, 653, 426) |\n| 4 | (061, 087, 503, 512, 908, 170, 897, 275, 653, 426) |\n| 5 | (061, 087, 503, 512, 908, 170, 897, 275, 653, 426) |\n| 6 | (061, 087, 170, 503, 512, 908, 897, 275, 653, 426) |\n| 7 | (061, 087, 170, 503, 512, 897, 908, 275, 653, 426) |\n| 8 | (061, 087, 170, 275, 503, 512, 897, 908, 653, 426) |\n| 9 | (061, 087, 170, 275, 503, 512, 653, 897, 908, 426) |\n| 10 | (061, 087, 170, 275, 426, 503, 512, 653, 897, 908) |\n\n**2. 希尔排序**\n\n题面只指定 $d[1]=5$，所以唯一可确定的是该增量的一趟：按间隔为 5 的直接插入排序后为\n\n(170, 087, 275, 061, 426, 503, 897, 512, 653, 908)。\n\n要继续完成希尔排序还必须给出后续增量，并最终含 1；不同增量序列的后续每趟状态不唯一。\n\n**3. 快速排序（每次列出完成一个划分后的全表状态）**\n\n| 划分区间与枢轴 | 状态 |\n| --- | --- |\n| [1,10]，503 | (426, 087, 275, 061, 170, 503, 897, 908, 653, 512) |\n| [1,5]，426 | (170, 087, 275, 061, 426, 503, 897, 908, 653, 512) |\n| [1,4]，170 | (061, 087, 170, 275, 426, 503, 897, 908, 653, 512) |\n| [1,2]，061 | (061, 087, 170, 275, 426, 503, 897, 908, 653, 512) |\n| [7,10]，897 | (061, 087, 170, 275, 426, 503, 512, 653, 897, 908) |\n| [7,8]，512 | (061, 087, 170, 275, 426, 503, 512, 653, 897, 908) |\n\n**4. 堆排序（大顶堆）**\n\n自底向上建堆完成后：\n\n(908, 653, 897, 503, 426, 170, 512, 275, 061, 087)。\n\n| 取出轮（交换堆顶到位置） | 调整后的全表 |\n| --- | --- |\n| 10 | (897, 653, 512, 503, 426, 170, 087, 275, 061, 908) |\n| 9 | (653, 503, 512, 275, 426, 170, 087, 061, 897, 908) |\n| 8 | (512, 503, 170, 275, 426, 061, 087, 653, 897, 908) |\n| 7 | (503, 426, 170, 275, 087, 061, 512, 653, 897, 908) |\n| 6 | (426, 275, 170, 061, 087, 503, 512, 653, 897, 908) |\n| 5 | (275, 087, 170, 061, 426, 503, 512, 653, 897, 908) |\n| 4 | (170, 087, 061, 275, 426, 503, 512, 653, 897, 908) |\n| 3 | (087, 061, 170, 275, 426, 503, 512, 653, 897, 908) |\n| 2 | (061, 087, 170, 275, 426, 503, 512, 653, 897, 908) |\n\n**5. 归并排序（当前有序段长度）**\n\n| 段长 | 一趟归并后状态 |\n| --- | --- |\n| 1 | (087, 503, 061, 512, 170, 908, 275, 897, 426, 653) |\n| 2 | (061, 087, 503, 512, 170, 275, 897, 908, 426, 653) |\n| 4 | (061, 087, 170, 275, 503, 512, 897, 908, 426, 653) |\n| 8 | (061, 087, 170, 275, 426, 503, 512, 653, 897, 908) |\n\n**6. 基数排序（LSD，稳定）**\n\n| 按位 | 一趟分配、收集后状态 |\n| --- | --- |\n| 个位 | (170, 061, 512, 503, 653, 275, 426, 087, 897, 908) |\n| 十位 | (503, 908, 512, 426, 653, 061, 170, 275, 087, 897) |\n| 百位 | (061, 087, 170, 275, 426, 503, 512, 653, 897, 908) |\n\n六种已完全指定的执行约定均得到相同的递增结果；希尔排序的后续过程则依赖题面未给出的增量序列。",
+        "explanation": "逐趟独立复算六种排序；对未给出完整增量序列的希尔排序明确了可唯一核验的范围。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书答案缺失；按明确的标准实现约定补充全部可确定的手工排序过程。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-10",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n该程序每趟从当前区间 $[i,n-i+1]$ 同时选出最小、最大关键字，分别送到左、右端；max 等于 i 的分支是在最小值先交换到左端后，把原最大值送到右端。它是双向选择排序，非稳定，辅助空间为 $O(1)$。\n\n令第 $i$ 趟待排区长度为\n\n$$\nL_i=n-2i+2,\\qquad i=1,\\ldots,\\lfloor n/2\\rfloor.\n$$\n\n内层循环恰检查 $L_i-1$ 个元素。每个元素必做一次与当前最小值的比较；只有该比较为假时才做第二次与当前最大值的比较。若第 $i$ 趟有 $u_i$ 个元素成为新的当前最小值，则该趟关键字比较数为\n\n$$\nC_i=2(L_i-1)-u_i.\n$$\n\n令\n\n$$\nP=\\sum_i(L_i-1)=\\lfloor n^2/4\\rfloor,\n$$\n\n则总比较数为 $C=2P-\\sum_i u_i$，所以紧确范围为\n\n$$\n\\lfloor n^2/4\\rfloor\\le C\\le2\\lfloor n^2/4\\rfloor.\n$$\n\n严格递减的待排段使每个新元素都成为新最小值，达到下界；严格递增的待排段使第二次比较每次都执行，达到上界。因此时间复杂度始终为 $\\Theta(n^2)$。每趟至多进行两次端点交换；若只计实际交换不同位置记录，最后一个长度为 2 的区间至多一次，故总数在 0 到 $n-1$ 之间。若机械计数代码中的交换语句调用，偶数 $n$ 的最后一趟还可能出现一次自交换，调用数上界为 $2\\lfloor n/2\\rfloor$。\n\n与普通简单选择排序比较：后者固定做 $n(n-1)/2$ 次关键字比较、至多 $n-1$ 次记录交换。本算法用大约一半的扫描趟数同时选两端，比较次数却依赖数据：最好约为普通选择排序的一半，最坏为 $2\\lfloor n^2/4\\rfloor$，比普通选择排序多 $\\lfloor n/2\\rfloor$ 次；交换次数量级和上界并未改善。",
+        "explanation": "逐层计数两个条件比较和端点交换，独立给出紧确上下界并与普通选择排序比较。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书答案缺失；已补充双向选择排序的基本操作计数、边界与比较。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-12",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n以下按顺序存储完全二叉树的 1 起始下标检验，父结点 $i$ 的孩子为 $2i,2i+1$。允许相等关键字，因此两个 33 不违反小顶堆定义。\n\n1. 序列（100，86，48，73，35，39，42，57，66，21）已是**大顶堆**：每个父结点均不小于其存在的孩子，交换次数为 0。\n\n2. 原序列不是堆。取小顶堆，交换位置 $2\\leftrightarrow5$（70 与 24），再交换位置 $5\\leftrightarrow10$（70 与 33），得到\n\n   （12，24，33，65，33，56，48，92，86，70）。\n\n   该序列满足所有父不大于子关系，共 2 次交换且最少。原位置 2 的 70 同时大于孩子 65、24；一次交换若要使该处不大于 24，只能换入 12 或 24。换入 12 会使根位置违例，换入 24 会把 70 放到位置 5 并仍大于孩子位置 10 的 33，故 1 次不可能。\n\n3. 序列（103，97，56，38，66，23，42，12，30，52，06，20）已是**大顶堆**，交换次数为 0。\n\n4. 原序列不是堆。取小顶堆，交换位置 $2\\leftrightarrow3$（56 与 20），再交换位置 $3\\leftrightarrow11$（56 与 28），得到\n\n   （05，20，28，23，40，38，29，61，35，76，56，100）。\n\n   所有父结点均不大于孩子，共 2 次且最少。原位置 2 的 56 必须换入不大于其孩子最小值 23 的记录；可选的 5、20、23 分别来自位置 1、3、4。一次换入 5 会破坏根，换入 20 会使位置 3 的 56 大于 38、29，换入 23 会使位置 4 的 56 大于孩子 35；因此任何单次交换都不能形成小顶堆，2 次即为最优。",
+        "explanation": "逐个父子关系核验，并为两组非堆构造和证明了最少记录交换次数。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书答案缺失；已补充四组堆判定、最少交换构造和下界理由。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-15",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n可以用成对比较减少次数。把记录两两配对，先比较同一对内的两个关键字：较大者只可能是全局最大值，较小者只可能是全局最小值；随后分别在所有较大者中求最大、在所有较小者中求最小。\n\n~~~~text\n若 n 为偶数：把 n 个记录分为 n/2 对；每对比较一次，\n            再在所有胜者中求最大、所有负者中求最小。\n若 n 为奇数：令第一个记录同时为初始最小、最大；\n            将其余 n-1 个记录成对后按同一方法处理。\n~~~~\n\n比较次数为\n\n$$\nC(n)=\n\\begin{cases}\n3n/2-2, & n\\text{ 为偶数},\\\\\n3(n-1)/2, & n\\text{ 为奇数},\n\\end{cases}\n=\\lceil3n/2\\rceil-2.\n$$\n\n偶数情形中，$n/2$ 次对内比较后，最大候选和最小候选各有 $n/2$ 个，分别还需 $n/2-1$ 次比较。奇数情形先留下一个初始最小、最大候选，余下 $(n-1)/2$ 对各贡献一次对内比较和各一次与两端候选的比较。\n\n这也是最坏情况下的下界：一个记录只有输过一次才可排除最大值候选身份，只有赢过一次才可排除最小值候选身份；最初成对比较最多同时完成这两种排除，之后必须分别在胜者、负者候选中决出极值，得到同样的 $\\lceil3n/2\\rceil-2$。因此算法最优，时间为 $\\Theta(n)$、除候选变量外空间为 $O(1)$。\n\n和 $2n-3$ 相比，$n\\ge4$ 时严格更少；$n=2,3$ 时该最优值恰等于 $2n-3$，$n=1$ 时无需比较。",
+        "explanation": "给出成对筛选极值的算法、奇偶精确比较数及匹配的最坏情形下界。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书答案缺失；已补充独立的最优极值选择算法与下界证明。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-16",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n把每个非负关键字写成恰好 $k$ 位的 $n$ 进制数，高位不足补 0：\n\n$$\nK=\\sum_{p=0}^{k-1}d_p n^p,\\qquad d_p=\\left\\lfloor K/n^p\\right\\rfloor\\bmod n,\\quad 0\\le d_p<n.\n$$\n\n从最低位 $d_0$ 到最高位 $d_{k-1}$ 做 $k$ 趟稳定的计数分配。每趟有 $n$ 个桶或计数器，恰好与记录数同阶。\n\n~~~~c\nvoid RadixN(Record a[], int n, int k) {\n    Record b[MAXN];\n    int count[MAXN], pos[MAXN];\n    long long power = 1;\n    for (int p = 0; p < k; ++p, power *= n) {\n        for (int d = 0; d < n; ++d) count[d] = 0;\n        for (int i = 0; i < n; ++i) ++count[(a[i].key / power) % n];\n        pos[0] = 0;\n        for (int d = 1; d < n; ++d) pos[d] = pos[d - 1] + count[d - 1];\n        for (int i = 0; i < n; ++i) {\n            int d = (a[i].key / power) % n;\n            b[pos[d]++] = a[i];          // 按原序扫描，故同桶稳定\n        }\n        for (int i = 0; i < n; ++i) a[i] = b[i];\n    }\n}\n~~~~\n\n第 $p$ 趟结束时，稳定性保证序列已按低 $p+1$ 位 $n$ 进制数有序；归纳到第 $k$ 趟时，所有位均参与排序，因此等价于按完整关键字递增排序。题设 $0\\le K<n^k$ 恰保证不需要第 $k$ 位以上的处理。应以足够宽的整数或逐位提取避免 power 乘以 n 的实现溢出。\n\n每趟初始化 $n$ 个计数器、扫描 $n$ 个记录并回写 $n$ 个记录，时间为 $O(n)$；共 $k$ 趟，故为 $O(kn)$。辅助数组、计数器和位置数组均为 $O(n)$ 空间；若用链式桶替代数组，结论仍为 $O(kn)$ 时间、$O(n)$ 桶和链接空间。",
+        "explanation": "以 n 进制 LSD 稳定计数分配独立实现推广的基数排序，并证明 O(kn) 复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书答案缺失；已补充 n 进制稳定基数排序、正确性归纳和复杂度。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-17",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n先区分“可直接在单链表上改链接或交换数据域实现”与“教材的顺序表实现可直接套用”。若允许改写算法但仍只保存这 3000 个单链表结点，则下列结论较准确：\n\n| 第 10 章方法 | 结论 | 原因 |\n| --- | --- | --- |\n| 直接插入、表插入 | 可用 | 顺链寻找插入位置，再改 next 链接；表插入本质正适合用链接维护次序，时间通常为 $O(n^2)$。 |\n| 冒泡、简单选择 | 可用 | 只需前向扫描；可交换数据域，或保存前驱后交换、摘接结点，均为 $O(n^2)$。 |\n| 归并 | 很适合 | 快慢指针切分，两个有序链表按头结点合并即可，时间为 $O(n\\log n)$；自底向上可做到 $O(1)$ 额外链接空间。 |\n| 基数 | 很适合 | 按十进制每位维护 10 个链式桶的头尾指针，稳定收集；键在 1 到 1000000，可按最多 6 位处理，时间为 $O(d(n+10))$。 |\n| 快速 | 可改写后使用 | 课本的双向 low、high 划分不能直接套用；但可一次前向扫描，把结点拆到小于、等于、大于枢轴三条链并递归拼接，平均为 $O(n\\log n)$、最坏为 $O(n^2)$。 |\n| 折半插入、二路插入、希尔 | 不宜直接用 | 它们依赖按下标取中点、环形或双端顺序缓冲、固定间隔访问；单链表没有 $O(1)$ 随机访问，强行模拟会失去原算法的复杂度优势。 |\n| 树形选择、堆排序 | 不宜直接用 | 胜者树、堆的父子编号 $i,2i,2i+1$ 都要求高效随机定位；可另建数组或辅助优先队列，但那已不是仅用原单链表的直接实现。 |\n\n因此若题目要求不复制到顺序表，首选归并或基数排序；3000 个整数且值域有限时，基数排序尤其直接。不能仅因课本快排代码使用下标就断言快排在单链表上绝对不能实现，正确结论是它需要改成前向分区版本。",
+        "explanation": "按单链表的前向访问约束逐一评估本章排序法，区分直接可用、需改写与需额外顺序存储的情形。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书答案缺失；已补充基于单链表表示限制的逐类讨论。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-18",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\nLSD 法无论高位是否已经把记录区分开，都会从最低关键字起对全部 $N$ 个记录做完 $d$ 趟稳定分配，工作量近似为 $dN$，另加每趟桶初始化。MSD 法先按最高关键字分桶，只对仍落在同一桶、尚不能区分的记录递归处理下一关键字；已经成为单元素桶的记录立即停止。\n\n令 $N_t$ 表示处理第 $t$ 个关键字时仍属于大小至少为 2 的同前缀组的记录数，则忽略同阶桶管理开销时，MSD 的实际记录处理量约为\n\n$$\n\\sum_{t=1}^{d}N_t,\n$$\n\n而 LSD 为 $dN$。因此当高位关键字区分度强、记录在前几位就大量分散到不同桶、共同前缀短时，例如地区码、首字母、年份等高位字段已高度离散，或字符串长度、终止符使许多记录早停，MSD 有 $\\sum N_t\\ll dN$，通常效率更高。\n\n反之，若绝大多数记录共享长前缀或最高位高度集中，MSD 仍须把几乎全部记录递归到低位，且额外承受递归、桶边界和小桶管理开销；这时 LSD 的固定流程往往不差甚至更简单。两者都必须遵守关键字的字典序定义；LSD 还必须保证每趟稳定，MSD 则依靠分桶递归保持高位组之间的顺序。",
+        "explanation": "用仍需递归处理的前缀组规模独立比较 MSD 与 LSD，给出效率更高的可检验条件和反例。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书答案缺失；已补充多关键字 MSD、LSD 的条件化效率分析。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-20",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n采用下列比较判定树，叶处给出从小到大的输出次序：\n\n~~~~text\n先比较 a < b？\n├─ 是：比较 a < c？\n│  ├─ 否：输出 c < a < b                 （概率 0.19，2 次）\n│  └─ 是：比较 b < c？\n│     ├─ 是：输出 a < b < c              （概率 0.13，3 次）\n│     └─ 否：输出 a < c < b              （概率 0.08，3 次）\n└─ 否：比较 a < c？\n   ├─ 是：输出 b < a < c                 （概率 0.24，2 次）\n   └─ 否：比较 b < c？\n      ├─ 是：输出 b < c < a              （概率 0.20，3 次）\n      └─ 否：输出 c < b < a              （概率 0.16，3 次）\n~~~~\n\n因此期望比较次数为\n\n$$\nE=2(0.19+0.24)+3(0.13+0.08+0.20+0.16)=2.57.\n$$\n\n其最优性可直接核验。任取第一次比较，例如比较 a、b，每一结果分支都还含 3 种全序；第二次比较至多使其中一种全序成为叶，另两种仍须第三次比较。比较 a、b 时，a 小于 b 分支可在第二层结束的最佳叶是 c 小于 a 小于 b，概率 0.19，优于 a 小于 b 小于 c 的 0.13；b 小于 a 分支的最佳叶是 b 小于 a 小于 c，概率 0.24，优于 c 小于 b 小于 a 的 0.16，第二层可覆盖的最大概率总和为 0.43。若第一次比较 a、c，同样最多覆盖 $0.24+0.19=0.43$；若先比较 b、c，最多为 $0.20+0.16=0.36$。所以任何合法比较树的期望至少为 $3-0.43=2.57$，上述方案达到该下界。",
+        "explanation": "构造概率加权的三元素比较判定树，独立计算 2.57 的期望并枚举首比较证明最优；固定三元素时算法时间、空间均为 O(1)。",
+        "correction": {
+          "verified": "**独立参考解答（非原书摘录，已交叉复核）**\n\n先比较 `a<c`，在两个分支各选择能以第二次比较结束的概率较大的排列：\n\n~~~~text\n先比较 a < c？\n├─ 是：比较 a < b？\n│  ├─ 否：输出 b < a < c                 （概率 0.24，2 次）\n│  └─ 是：比较 b < c？\n│     ├─ 是：输出 a < b < c              （概率 0.13，3 次）\n│     └─ 否：输出 a < c < b              （概率 0.08，3 次）\n└─ 否：比较 b < c？\n   ├─ 是：输出 b < c < a                 （概率 0.20，2 次）\n   └─ 否：比较 a < b？\n      ├─ 是：输出 c < a < b              （概率 0.19，3 次）\n      └─ 否：输出 c < b < a              （概率 0.16，3 次）\n~~~~\n\n第二层即可结束的总概率为 `0.24+0.20=0.44`，故期望比较次数为\n\n$$\nE=2\\times0.44+3\\times(1-0.44)=2.56.\n$$\n\n最优性如下。第一次只能比较三对中的一对；该比较的两个结果分支各含三种全序，第二次比较在每个分支至多使一种全序成为叶。枚举每一种首比后两边可在第二层结束的最大概率：\n\n| 首次比较 | 两个分支可在第二层结束的最大概率 | 合计 |\n| --- | --- | --- |\n| `a<b` | `0.19`、`0.24` | `0.43` |\n| `a<c` | `0.24`、`0.20` | `0.44` |\n| `b<c` | `0.20`、`0.16` | `0.36` |\n\n因此任何合法判定树在两次比较后最多覆盖概率 `0.44`，其余至少以三次结束，期望下界为 `3-0.44=2.56`；上面的树达到此下界，故为最佳方案。固定三元素时，时间和辅助空间均为 `O(1)`。",
+          "explanation": "改用 a<c 首比，使 b<a<c 与 b<c<a 在第二层结束，期望由 2.57 降为 2.56。",
+          "reason": "交叉复核发现原草稿低估了以 a<c 为首次比较时可在第二层终止的概率；已改为达到 0.44 概率和 2.56 下界的判定树。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书答案缺失；已补充最优比较方案、期望值和下界证明。"
+      }
+    }
+  ],
+  "unresolved": []
+}

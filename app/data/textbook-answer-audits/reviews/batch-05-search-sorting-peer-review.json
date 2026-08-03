@@ -1,0 +1,67 @@
+{
+  "reviewedFile": "batch-05-search-sorting.json",
+  "reviewedIds": [
+    "book-ds-yan-09-30",
+    "book-ds-yan-09-32",
+    "book-ds-yan-09-34",
+    "book-ds-yan-09-36",
+    "book-ds-yan-09-37",
+    "book-ds-yan-09-38",
+    "book-ds-yan-09-39",
+    "book-ds-yan-09-42",
+    "book-ds-yan-09-43",
+    "book-ds-yan-09-45",
+    "book-ds-yan-09-46",
+    "book-ds-yan-10-01",
+    "book-ds-yan-10-10",
+    "book-ds-yan-10-12",
+    "book-ds-yan-10-15",
+    "book-ds-yan-10-16",
+    "book-ds-yan-10-17",
+    "book-ds-yan-10-18",
+    "book-ds-yan-10-20"
+  ],
+  "passedIds": [
+    "book-ds-yan-09-30",
+    "book-ds-yan-09-32",
+    "book-ds-yan-09-34",
+    "book-ds-yan-09-37",
+    "book-ds-yan-09-38",
+    "book-ds-yan-09-39",
+    "book-ds-yan-09-45",
+    "book-ds-yan-09-46",
+    "book-ds-yan-10-01",
+    "book-ds-yan-10-10",
+    "book-ds-yan-10-12",
+    "book-ds-yan-10-15",
+    "book-ds-yan-10-16",
+    "book-ds-yan-10-17",
+    "book-ds-yan-10-18"
+  ],
+  "findings": [
+    {
+      "id": "book-ds-yan-09-36",
+      "severity": "error",
+      "issue": "插入为左孩子时，算法无条件执行 pred->rchild=q，却未判断 pred 的 rchild 是否为后继线索。pred 可以拥有实右子树：例如根 10 的实右孩子为 20、20 的实左孩子为 15，插入 12 时 pred=10、parent=15，代码会把 10 的实右孩子 20 覆盖为新结点 12，丢失整棵子树并破坏 BST。",
+      "recommendedFix": "左插时只在 pred 非空且 pred->rtag==1 时，把其后继线索改为 q；pred->rtag==0 时必须保留其真实右孩子。新结点仍令 q->rchild=succ、q->rtag=1，并补充上述“前驱有实右子树”的回归用例。"
+    },
+    {
+      "id": "book-ds-yan-09-42",
+      "severity": "error",
+      "issue": "题设只给出 Trie 叶子结点的最大层次 h；教材 Trie 允许把单分支路径压缩为叶结点，因而合法的既有叶可以早于 h。答案把该前提收窄为“叶层深度固定为 h”，并在 level<h-1 时把已有孩子强制转换为 Branch。遇到题设允许的早层 Leaf 时会把 Leaf 当作 Branch 解引用，既不能在既有 Trie 中插入，也不符合教材的叶/分支表示。",
+      "recommendedFix": "按教材的 kind、分支 ptr[]/num 与叶子完整关键字表示实现：沿分支走到空指针、叶子或 h 为止；若碰到不同关键字的叶子且尚未到 h，把旧叶替换为分支并按两键后续字符逐层分裂；若已到 h，则把同义词保存在该叶。还应检查根分支分配失败。"
+    },
+    {
+      "id": "book-ds-yan-09-43",
+      "severity": "error",
+      "issue": "删除算法沿用了 9.42 的“所有叶恰在 h 层”假设。对于题设允许的压缩 Trie，若第 level<h-1 层的 child 已是 Leaf，代码仍将它强制转换为 Branch 并访问 child[d]，会发生无效访问；因此不能删除合法既有 Trie 中的关键字。",
+      "recommendedFix": "遍历时在每层先判定结点 kind；到 Leaf 后以完整关键字在该叶的同义词集合中删除，只有集合为空才移除该叶。随后沿实际经过的分支路径回收空分支，并按所采用的压缩规则处理 num 降为 1 的分支；不要假定叶深固定为 h。"
+    },
+    {
+      "id": "book-ds-yan-10-20",
+      "severity": "error",
+      "issue": "给出的最佳期望值 2.57 不是最小值。若先比较 a<c，在 a<c 分支第二次比较 a<b，可令 b<a<c（概率 0.24）在两次比较结束；在 a>c 分支第二次比较 b<c，可令 b<c<a（概率 0.20）在两次比较结束。因此可在第二层结束的概率为 0.44，而非答案对 a、c 首比所称的 0.43，期望可降至 2×0.44+3×0.56=2.56。",
+      "recommendedFix": "改用先比较 a<c 的判定树：真分支比较 a<b，假则输出 b<a<c，真则再比较 b<c；假分支比较 b<c，真则输出 b<c<a，假则再比较 a<b。枚举三种首比较时第二层可结束的最大概率分别为 0.43、0.44、0.36，故 2.56 为下界且该树达到它。"
+    }
+  ]
+}

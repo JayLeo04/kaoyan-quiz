@@ -1,0 +1,214 @@
+{
+  "schemaVersion": "textbook-answer-audit-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "01-introduction",
+    "02-linear-list"
+  ],
+  "updates": [
+    {
+      "id": "book-ds-yan-01-01-1",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n- **数据**：对客观事物的符号表示，可被输入、存储、处理和传输。\n- **数据元素**：数据的基本单位，通常作为整体参与处理；一个元素可由若干数据项组成。\n- **数据对象**：性质相同的数据元素的集合。\n- **数据结构**：相互之间存在一种或多种特定关系的数据元素的集合；这里强调的是数据元素及其逻辑关系，不等同于具体实现或操作接口。\n- **存储结构**：逻辑结构在计算机存储器中的具体映像，例如顺序、链式、索引或散列表示。\n- **数据类型**：一个值的集合及定义在该集合上的操作集合。\n- **抽象数据类型**：从使用者角度规定数据对象、关系和操作语义，而不规定具体存储表示和程序实现。",
+        "explanation": "按术语的定义层次独立整理，区分逻辑关系、物理表示和操作接口。",
+        "correction": {
+          "verified": "**独立审校修正（非原书摘录）**\n\n- **数据**：对客观事物的符号表示，可被输入、存储、处理和传输。\n- **数据元素**：数据的基本单位，通常作为整体参与处理；一个元素可由若干数据项组成。\n- **数据对象**：性质相同的数据元素的集合。\n- **数据结构**：相互之间存在一种或多种特定关系的数据元素的集合；这里强调数据元素及其逻辑关系，不等同于具体实现或操作接口。\n- **存储结构**：逻辑结构在计算机存储器中的具体映像，例如顺序、链式、索引或散列表示。\n- **数据类型**：一个值的集合及定义在该集合上的操作集合。\n- **抽象数据类型**：从使用者角度规定数据对象、关系和操作语义，而不规定具体存储表示和程序实现。",
+          "explanation": "修正数据结构与抽象数据类型的边界：操作语义不应并入数据结构本体。",
+          "reason": "交叉审计发现原补充将操作接口并入“数据结构”定义，可能混淆本题术语。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；按题意补充独立参考解答，未改动原书内容。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-1-12",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n主项分别为\n\n$$\nf(n)=\\Theta(n^4),\\qquad g(n)=\\Theta(n^4),\\qquad h(n)=\\Theta(n^{3.5}),\n$$\n\n因为 $n\\log n=o(n^{3.5})$。五个断言依次为：\n\n| 断言 | 结论 | 关键理由 |\n| --- | --- | --- |\n| （1） | 对 | $f$ 与 $g$ 同为 $\\Theta(n^4)$。 |\n| （2） | 对 | $h/f=O(n^{-0.5})\\to0$。 |\n| （3） | 错 | $g/h=\\Theta(n^{0.5})\\to\\infty$。 |\n| （4） | 对 | $h=5000n^{3.5}+n\\log n=O(n^{3.5})$。 |\n| （5） | 错 | $h/(n\\log n)=5000n^{2.5}/\\log n+1\\to\\infty$。 |\n\n特别地，（2）应为“对”：$h(n)$ 的增长阶低于 $f(n)$。",
+        "explanation": "按主项和比值极限独立核验，覆盖全部五个断言并校正冲突项。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "BOOK_ANSWER_INCOMPLETE",
+          "BOOK_ANSWER_CONFLICT"
+        ],
+        "notes": "原书答案既不完整又与独立核验冲突；完整结论已作为独立补充保留。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-1-14",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n（1）$g(n)$ 更快。$\\ln(n!+10^{n^3})=\\Theta(n^3)$，故 $f(n)=\\Theta(n^3)$ 而 $g(n)=\\Theta(n^4)$。\n\n（2）$g(n)$ 更快。由 $\\ln(n!)=\\Theta(n\\ln n)$，\n\n$$\nf(n)=\\Theta\\bigl(n^2(\\ln n)^2\\bigr)=o(n^{2.5})=o(g(n)).\n$$\n\n（3）$f(n)$ 更快。$f(n)=\\Theta(n^{2.1})$，而\n\n$$\ng(n)=\\Theta\\bigl(n^2(\\ln n)^2\\bigr),\\qquad\n\\frac{f(n)}{g(n)}=\\Theta\\left(\\frac{n^{0.1}}{(\\ln n)^2}\\right)\\to\\infty.\n$$\n\n（4）$f(n)$ 更快。主项对数分别为 $n^3\\ln2$ 与 $n^2\\ln n$，且\n\n$$\nn^3\\ln2-n^2\\ln n=n^2(n\\ln2-\\ln n)\\to\\infty.\n$$\n\n故 $2^{n^3}$ 的增长快于 $n^{n^2}$。",
+        "explanation": "用 Stirling 量级、主项比较和对数比较分别核验四组函数。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已按题意独立比较各组函数的渐进增长率。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-1-15",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n四式均按“验证初值，再由 $n=k$ 推到 $n=k+1$”证明。\n\n1. 平方和在 $n=0$ 时两边均为 $0$。若对 $k$ 成立，则\n\n$$\n\\frac{k(k+1)(2k+1)}6+(k+1)^2\n=\\frac{(k+1)(k+2)(2k+3)}6,\n$$\n\n即为 $n=k+1$ 的式子。\n\n2. 等比和在 $n=0$ 时两边为 $1$。若对 $k$ 成立，则\n\n$$\n\\frac{x^{k+1}-1}{x-1}+x^{k+1}\n=\\frac{x^{k+2}-1}{x-1},\n$$\n\n其中 $x\\ne1$。\n\n3. 二进制幂和在 $n=1$ 时成立；归纳步为\n\n$$\n(2^k-1)+2^k=2^{k+1}-1.\n$$\n\n4. 连续奇数和在 $n=1$ 时成立；归纳步为\n\n$$\nk^2+[2(k+1)-1]=k^2+2k+1=(k+1)^2.\n$$\n\n四个归纳步骤都保持原命题，故分别在题设范围内成立。",
+        "explanation": "逐式给出基例与归纳步的代数化简。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已完成独立的数学归纳法证明。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-01-3",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n关系中的有序对按第一个分量指向第二个分量解释。因此逻辑结构是一个有向路径：\n\n$$\nd_1 \\longrightarrow d_2 \\longrightarrow d_3 \\longrightarrow d_4.\n$$\n\n图中只画这 4 个顶点和上述 3 条有向边；没有反向边，也没有其他边。",
+        "explanation": "按二元关系的有序性独立将关系转换为有向图。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；关系方向可由题给有序对唯一确定。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-01-4",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n可把表示与运算语义分开规定。下面给出一种 ADT 定义。\n\n**复数 ADT**\n\n~~~~text\nADT Complex {\n  Data: C = { (re, im) | re, im ∈ R };\n  Create(re, im) -> z;\n  Real(z) -> re;  Imag(z) -> im;\n  Add(z, w) -> (z.re + w.re, z.im + w.im);\n  Sub(z, w) -> (z.re - w.re, z.im - w.im);\n  Mul(z, w) -> (z.re·w.re - z.im·w.im,\n                 z.re·w.im + z.im·w.re);\n  Div(z, w) -> ((z.re·w.re + z.im·w.im)/|w|²,\n                 (z.im·w.re - z.re·w.im)/|w|²), |w|² ≠ 0;\n} ADT Complex\n~~~~\n\n**有理数 ADT**\n\n为使减法等运算封闭，通常令分子为整数、分母为正整数；若严格按题设只允许自然数分子，则是非负有理数子集。\n\n~~~~text\nADT Rational {\n  Data: Q = { (p, q) | p ∈ Z, q ∈ N+, gcd(|p|, q) = 1 };\n  Create(p, q) -> r, q ≠ 0;     // 约分并规范为 q>0\n  Numerator(r) -> p;  Denominator(r) -> q;\n  Add(r, s) -> Normalize((p·s.q + s.p·q, q·s.q));\n  Sub(r, s) -> Normalize((p·s.q - s.p·q, q·s.q));\n  Mul(r, s) -> Normalize((p·s.p, q·s.q));\n  Div(r, s) -> Normalize((p·s.q, q·s.p)), s.p ≠ 0;\n} ADT Rational\n~~~~\n\nNormalize 表示约分和分母正化，以保证表示的规范性。",
+        "explanation": "独立给出数据对象、前置条件和封闭运算，并说明分子域与减法封闭性的关系。",
+        "correction": {
+          "verified": "**独立审校修正（非原书摘录）**\n\n下面的有理数定义严格采用题设：分子、分母均为自然数且分母非零，因此其数据对象表示**非负有理数**。\n\n**复数 ADT**\n\n~~~~text\nADT Complex {\n  Data: C = { (re, im) | re, im ∈ R };\n  Create(re, im) -> z;\n  Real(z) -> re;  Imag(z) -> im;\n  Add(z, w) -> (z.re + w.re, z.im + w.im);\n  Sub(z, w) -> (z.re - w.re, z.im - w.im);\n  Mul(z, w) -> (z.re·w.re - z.im·w.im,\n                 z.re·w.im + z.im·w.re);\n  Div(z, w) -> ((z.re·w.re + z.im·w.im)/|w|²,\n                 (z.im·w.re - z.re·w.im)/|w|²), |w|² ≠ 0;\n} ADT Complex\n~~~~\n\n**有理数 ADT（题设版本）**\n\n~~~~text\nADT Rational {\n  Data: Q = { (p, q) | p, q ∈ N, q ≠ 0, gcd(p, q) = 1 };\n  Create(p, q) -> r, q ≠ 0;     // 约分，得到规范表示\n  Numerator(r) -> p;  Denominator(r) -> q;\n  Equal(r, s) -> Boolean;\n  Compare(r, s) -> {-1, 0, 1};  // 比较 p·s.q 与 s.p·q\n  Add(r, s) -> Normalize((p·s.q + s.p·q, q·s.q));\n  Mul(r, s) -> Normalize((p·s.p, q·s.q));\n} ADT Rational\n~~~~\n\nNormalize 表示按最大公约数约分。若课程另行把有理数扩展为有符号数，可把分子域改为整数并再定义减法；那是扩展版本，不能替代本题给定的数据对象。",
+          "explanation": "严格按题设给出非负有理数的数据对象和封闭运算；有符号扩展仅作为区分说明。",
+          "reason": "交叉审计发现原补充将题设的自然数分子改成了整数，未严格回答指定的数据对象。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；补充为独立的 ADT 接口与语义定义。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-01-5",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n以下用文字框图表示控制流，菱形框表示条件判断。\n\n**（1）累乘**\n\n~~~~text\n开始 → product=1, i=1 → [i≤n？]\n                         ├─是→ product=product×i → i=i+1 ─┐\n                         └─否→ 结束                        │\n                                      ↑──────────────────────┘\n~~~~\n\n当 $n<1$ 时循环体不执行，结果保持为 $1$。\n\n**（2）后测循环**\n\n~~~~text\n开始 → i=0 → i=i+1 → [i≠n 且 a[i]≠x？]\n                         ├─是→ 回到 i=i+1\n                         └─否→ 结束\n~~~~\n\n循环体至少执行一次。按通常的 1 起始下标解释，应保证 $n\\ge1$ 且 $a[1..n]$ 可访问。\n\n**（3）三分支选择**\n\n~~~~text\n开始 → [x<y？]\n       ├─是→ z=y-x → 结束\n       └─否→ [x=y？]\n              ├─是→ z=abs(x×y) → 结束\n              └─否→ z=(x-y)/abs(x)×abs(y) → 结束\n~~~~\n\n最后一支对应 $x>y$。题面是伪代码式条件分支，不能直接当作标准 C 的 switch；执行最后一支还须有 $x\\ne0$，以避免除零。",
+        "explanation": "按每段程序的实际控制条件重建流程，并核验后测循环和除零边界。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；补充了框图等价控制流和安全边界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-01-6",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n- **立即终止并报告错误**：实现短，适合整个程序已无法继续的失败；但调用者不能恢复或选择替代策略，资源清理、批处理和单元测试也更困难。\n- **用函数返回值报告状态**：错误路径显式，调用者可重试、传播或转换错误；但返回通道往往不能同时承载正常计算结果，需要输出参数、结果结构或约定哨兵值，也可能被调用者忽略。\n- **通过整型状态参数报告**：函数仍可用返回值给出主要结果，同时用状态参数给出细分错误码；接口更强，但参数更多，必须保证该参数非空且所有路径均初始化。\n\n工程上可用枚举错误码代替裸整数；不可恢复错误宜在顶层终止，可恢复错误应由了解业务语义的调用者处理。",
+        "explanation": "按可恢复性、接口表达力和调用方责任比较三种错误处理方式。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已完成独立的接口和错误恢复性分析。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-01-9",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设 $n=2^k$，其中 $k\\ge2$。第 $j$ 次进入循环体前有 $x=2^{j+1}$，循环条件为\n\n$$\n2^{j+1}<2^{k-1},\n$$\n\n即 $j<k-2$。因此循环体恰执行\n\n$$\n\\mathrm{count}=k-2=\\log_2 n-2\n$$\n\n次。例如 $n=4$ 时 count 为 $0$，符合该式。循环次数随 $\\log_2 n$ 增长，时间复杂度为 $\\Theta(\\log n)$，额外空间为 $\\Theta(1)$。",
+        "explanation": "利用 n 为 2 的幂逐次列出 x 的指数，核验了严格小于条件造成的减 2。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已独立核验循环边界、count 精确值和渐进复杂度。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-13",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设 $L$ 为带头结点单链表，返回第一个值等于 $x$ 的元素位序；未找到返回 $0$。\n\n~~~~c\nint Locate(LinkList L, ElemType x) {\n    int pos = 1;\n    Node *p;\n    if (L == NULL) return 0;\n    for (p = L->next; p != NULL; p = p->next, ++pos) {\n        if (p->data == x) return pos;\n    }\n    return 0;\n}\n~~~~\n\n空表时直接返回 $0$；若有重复值，返回第一个匹配元素。最多扫描表中 $n$ 个结点，时间复杂度为 $O(n)$，额外空间为 $O(1)$。",
+        "explanation": "按线性表 LOCATE 返回首个匹配位序、未找到返回 0 的语义独立实现。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充带头结点单链表的独立实现与边界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-14",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n不把头结点计入长度，顺链计数即可。\n\n~~~~c\nint Length(LinkList L) {\n    int n = 0;\n    Node *p;\n    if (L == NULL) return 0;\n    for (p = L->next; p != NULL; p = p->next) ++n;\n    return n;\n}\n~~~~\n\n空表的头结点满足 $L->next=\\mathrm{NULL}$，返回 $0$。该表示未单独维护长度域，因而需要扫描全部 $n$ 个元素结点：时间 $O(n)$，额外空间 $O(1)$。",
+        "explanation": "按带头结点单链表的长度定义独立计数，明确排除头结点。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充独立算法、空表行为和复杂度。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-20",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n利用非递减有序性，相同值必连续出现。保留每一段的首结点，删除其后重复结点。\n\n~~~~c\nvoid DeleteDuplicatesSorted(LinkList L) {\n    Node *p, *q;\n    if (L == NULL) return;\n    p = L->next;\n    while (p != NULL && p->next != NULL) {\n        if (p->data == p->next->data) {\n            q = p->next;\n            p->next = q->next;\n            free(q);\n        } else {\n            p = p->next;\n        }\n    }\n}\n~~~~\n\n空表和单元素表不变。删除重复结点后不移动 $p$，因而能继续删除同一值的连续副本。每个结点至多被检查或释放一次，时间复杂度为 $O(n)$，额外空间为 $O(1)$。",
+        "explanation": "利用有序表中重复值连续的性质，独立核验了删除后不前移指针的边界。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充按有序性一次扫描的独立算法。"
+      }
+    }
+  ],
+  "unresolved": []
+}

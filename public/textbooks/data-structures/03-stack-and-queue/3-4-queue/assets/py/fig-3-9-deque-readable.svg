@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="760" height="330" viewBox="0 0 760 330"
+     role="img" aria-labelledby="fig39-title fig39-desc">
+  <title id="fig39-title">图 3.9　双端队列示意图</title>
+  <desc id="fig39-desc">上方为双端队列，端点 1 和端点 2 均可插入和删除，队列元素为 a_1、a_2、a_3、省略号和 a_n；下方为保留有意轨道交叉拓扑的铁道转轨网，左侧输入、右侧输出。</desc>
+  <defs>
+    <marker id="fig39-arrow" viewBox="0 0 10 10" refX="8.5" refY="5"
+            markerWidth="9" markerHeight="9" orient="auto"
+            markerUnits="userSpaceOnUse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <style>
+      .title { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 24px; font-weight: 700; fill: #111827; }
+      .section { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 18px; font-weight: 700; fill: #1f2937; }
+      .label { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 17px; fill: #1f2937; }
+      .cell-label { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 18px; fill: #111827; }
+      .caption { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 16px; fill: #334155; }
+      .rail { fill: none; stroke: #1f2937; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+      .operation { fill: none; stroke: #334155; stroke-width: 2.1; stroke-linecap: round; }
+    </style>
+  </defs>
+
+  <rect width="760" height="330" fill="#ffffff"/>
+  <text class="title" x="380" y="31" text-anchor="middle">图 3.9　双端队列示意图</text>
+
+  <!-- (a) deque: both endpoints retain their insert and delete operations. -->
+  <g id="deque-panel">
+    <rect x="24" y="45" width="712" height="116" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text class="section" x="380" y="67" text-anchor="middle">(a) 双端队列</text>
+
+    <text class="label" x="145" y="83" text-anchor="middle">插入</text>
+    <path class="operation" d="M 78 91 H 244" marker-end="url(#fig39-arrow)"/>
+    <text class="label" x="145" y="151" text-anchor="middle">删除</text>
+    <path class="operation" d="M 78 139 H 244" marker-end="url(#fig39-arrow)"/>
+
+    <text class="label" x="615" y="83" text-anchor="middle">插入</text>
+    <path class="operation" d="M 682 91 H 516" marker-end="url(#fig39-arrow)"/>
+    <text class="label" x="615" y="151" text-anchor="middle">删除</text>
+    <path class="operation" d="M 682 139 H 516" marker-end="url(#fig39-arrow)"/>
+
+    <g fill="#ffffff" stroke="#334155" stroke-width="1.5">
+      <rect x="244" y="91" width="52" height="36"/>
+      <rect x="296" y="91" width="52" height="36"/>
+      <rect x="348" y="91" width="52" height="36"/>
+      <rect x="400" y="91" width="52" height="36"/>
+      <rect x="452" y="91" width="64" height="36"/>
+    </g>
+    <g class="cell-label" text-anchor="middle">
+      <text x="270" y="115">a_1</text>
+      <text x="322" y="115">a_2</text>
+      <text x="374" y="115">a_3</text>
+      <text x="426" y="115">…</text>
+      <text x="484" y="115">a_n</text>
+    </g>
+    <text class="label" x="244" y="157" text-anchor="middle">端点 1</text>
+    <text class="label" x="516" y="157" text-anchor="middle">端点 2</text>
+  </g>
+
+  <!-- (b) railway switching network: the deliberate outer-loop crossing is retained. -->
+  <g id="railway-panel">
+    <path class="rail" d="M 102 226 H 658"/>
+    <path class="rail" d="M 102 245 H 658"/>
+
+    <!-- The two outer switching curves deliberately overlap/cross near the centre. -->
+    <path class="rail" d="M 410 226
+      C 410 195 348 178 255 178
+      C 162 178 102 198 102 226
+      C 102 254 162 276 255 276
+      C 348 276 410 257 410 226"/>
+    <path class="rail" d="M 350 226
+      C 350 195 412 178 505 178
+      C 598 178 658 198 658 226
+      C 658 254 598 276 505 276
+      C 412 276 350 257 350 226"/>
+
+    <path class="rail" d="M 350 226
+      C 350 206 310 192 255 192
+      C 200 192 146 207 146 226
+      C 146 245 200 259 255 259
+      C 310 259 350 246 350 226"/>
+    <path class="rail" d="M 410 226
+      C 410 206 450 192 505 192
+      C 560 192 614 207 614 226
+      C 614 245 560 259 505 259
+      C 450 259 410 246 410 226"/>
+
+    <path class="operation" d="M 48 226 H 102" marker-end="url(#fig39-arrow)"/>
+    <path class="operation" d="M 712 226 H 658" marker-end="url(#fig39-arrow)"/>
+    <text class="label" x="74" y="216" text-anchor="middle">输入</text>
+    <text class="label" x="686" y="216" text-anchor="middle">输出</text>
+    <text class="section" x="380" y="298" text-anchor="middle">(b) 铁道转轨网</text>
+  </g>
+
+  <text class="caption" x="380" y="322" text-anchor="middle">图 3.9　双端队列示意图　　(a) 双端队列；(b) 铁道转轨网</text>
+</svg>

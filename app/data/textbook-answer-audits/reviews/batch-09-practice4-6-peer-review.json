@@ -1,0 +1,74 @@
+{
+  "reviewedFile": "batch-09-practice4-6.json",
+  "reviewedIds": [
+    "ds-yan-practice-4-1",
+    "ds-yan-practice-4-2",
+    "ds-yan-practice-4-3",
+    "ds-yan-practice-4-4",
+    "ds-yan-practice-5-1",
+    "ds-yan-practice-5-2",
+    "ds-yan-practice-5-3",
+    "ds-yan-practice-5-4",
+    "ds-yan-practice-5-5",
+    "ds-yan-practice-5-6",
+    "ds-yan-practice-5-7",
+    "ds-yan-practice-5-8",
+    "book-ds-yan-practice-6-6.1",
+    "book-ds-yan-practice-6-6.2",
+    "book-ds-yan-practice-6-6.3",
+    "book-ds-yan-practice-6-6.4",
+    "book-ds-yan-practice-6-6.5",
+    "book-ds-yan-practice-6-6.6",
+    "book-ds-yan-practice-6-6.7",
+    "book-ds-yan-practice-6-report-6.6"
+  ],
+  "passedIds": [
+    "ds-yan-practice-4-1",
+    "ds-yan-practice-4-4",
+    "ds-yan-practice-5-1",
+    "ds-yan-practice-5-3",
+    "ds-yan-practice-5-5",
+    "ds-yan-practice-5-6",
+    "ds-yan-practice-5-7",
+    "book-ds-yan-practice-6-6.1",
+    "book-ds-yan-practice-6-6.2",
+    "book-ds-yan-practice-6-6.3",
+    "book-ds-yan-practice-6-6.4",
+    "book-ds-yan-practice-6-6.5",
+    "book-ds-yan-practice-6-6.6",
+    "book-ds-yan-practice-6-6.7",
+    "book-ds-yan-practice-6-report-6.6"
+  ],
+  "findings": [
+    {
+      "id": "ds-yan-practice-4-2",
+      "severity": "warning",
+      "issue": "题设将类型信息 NArray（dim、lower、upper、constants）与对象 NArrayType（elem、num、TypeRecord）分开；答案的 Locate/InitNArray 却以 NArray 指针访问 num 和 elem，且没有为 lower、upper、constants 三个指针表分配空间。映像和重叠子数组复制思路正确，但示例接口按题示定义不能直接实现。",
+      "recommendedFix": "明确声明一个合并后的自定义结构，或按题设改为 NArrayType 保存 elem、num、TypeRecord，Locate 经 TypeRecord 访问维度表；初始化时分别分配并释放 lower、upper、constants 和 elem。"
+    },
+    {
+      "id": "ds-yan-practice-4-3",
+      "severity": "warning",
+      "issue": "答案的 ParseSeq 仍先以 hsub/tsub 或 NextItem 扫描整个首项边界，再递归 ParseExpr 该首项。对连续单元素嵌套表，外层扫描会反复跨过所有内层，最坏为 O(L²)，而非答案声称的 O(L)；同一层同时产出 h、t 边界只能避免该层的双重扫描。",
+      "recommendedFix": "若要保留 O(L) 结论，改用单个前向字符游标的递归下降解析器，读到逗号或匹配右括号即返回并直接构造 hp/tp；否则把建表最坏复杂度更正为 O(L²)。"
+    },
+    {
+      "id": "ds-yan-practice-5-2",
+      "severity": "warning",
+      "issue": "答案开头把 n<2 作为非法输入，随后又为 n=1 规定唯一字符码为 0，两个契约矛盾；并且其通用译码描述会从单叶根沿 0/1 走到空孩子，无法完成 n=1 的编译码往返。题设没有排除单字符集。",
+      "recommendedFix": "统一支持 n=1：初始化只拒绝 n<1，编码唯一字符为 0，译码时每个有效的 0 直接输出根叶字符并拒绝其他位；或删去 n=1 特例并明确把它作为不支持的输入。"
+    },
+    {
+      "id": "ds-yan-practice-5-4",
+      "severity": "warning",
+      "issue": "答案同时建议状态记忆化，又把图、状态和输出空间写为 O(n+T)。已完成课程集合可形成指数多个状态；而均衡目标还依赖此前各学期负担或累计目标值，不能只按 done、学期合并状态。线性空间只适用于不保存完整记忆表的深度优先搜索。",
+      "recommendedFix": "区分两种实现：无记忆化时写 O(n+T) 的递归/输出空间；使用记忆化时写 O(状态数乘状态表示大小)，并让键或保留值包含学期、已完成集合及不会错误合并均衡目标所需的负担信息。"
+    },
+    {
+      "id": "ds-yan-practice-5-8",
+      "severity": "warning",
+      "issue": "时间扩展图只说源点连到起点 t0 后的首个事件，未定义该边的时间代价。若该边默认权重为 0，旅客从 t0 等到首班的初始等待会被漏算，和“总时间包括等待时间”的要求不一致。",
+      "recommendedFix": "显式加入 (起点,t0) 源事件，并以首个及后续同城事件的时差建立等待边；至少把源到首个事件的时间权重设为 eventTime-t0（费用为 0），再运行最短路。"
+    }
+  ]
+}

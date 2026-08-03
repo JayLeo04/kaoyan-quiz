@@ -1586,6 +1586,15 @@ button.knowledge-comparison-row:hover, button.knowledge-comparison-row.is-select
 .textbook-answer-html img { max-height: 260px; }
 .textbook-answer-html h1 { font-size: 17px; }
 .textbook-answer-html h2 { font-size: 15px; }
+.textbook-answer-composite { display: grid; }
+.textbook-book-answer > span, .textbook-verified-answer header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 17px; color: #5f6975; font-size: 7px; font-weight: 800; letter-spacing: .09em; }
+.textbook-book-answer { border-bottom: 1px solid var(--soft-line); }
+.textbook-book-answer > span { background: #f8f7f1; }
+.textbook-verified-answer { border-top: 3px solid #5c8a67; background: #f3fbf4; }
+.textbook-verified-answer header { border-bottom: 1px solid #cfe0d0; color: #347044; }
+.textbook-verified-answer header small { color: #6c806f; font-size: 7px; font-weight: 700; letter-spacing: 0; }
+.textbook-verified-answer .textbook-answer-html { padding-bottom: 12px; }
+.textbook-verified-note { margin: 0 17px 18px; padding: 9px 10px; border-left: 3px solid #6eaa79; background: #e8f5e9; color: #526857; font-size: 8px; line-height: 1.65; }
 .textbook-answer-closed, .textbook-answer-missing { display: grid; place-content: center; gap: 7px; padding: 28px 23px; color: #6d6f68; text-align: center; }
 .textbook-answer-closed strong, .textbook-answer-missing strong { color: #40413c; font-size: 13px; }
 .textbook-answer-closed span, .textbook-answer-missing p { margin: 0; font-size: 8px; line-height: 1.6; }

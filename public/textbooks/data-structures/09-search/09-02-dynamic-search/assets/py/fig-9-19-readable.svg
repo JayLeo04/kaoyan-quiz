@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="1780" viewBox="0 0 760 1780" role="img" aria-labelledby="title desc">
+  <title id="title">图9.19：表示关键字集(9-24)的键树</title>
+  <desc id="desc">根有 C、L、W、Y、Z 五棵子树。每个关键字按字符逐层展开，以 $ 表示字符串结束，并由 infoptr 指向相应记录。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <style>
+      text{font-family:Arial,"Microsoft YaHei",sans-serif;fill:#1f2937}
+      .title{font-size:30px;font-weight:700}
+      .subtitle{font-size:20px;fill:#475569}
+      .root{fill:#fff7ed;stroke:#b45309;stroke-width:2.5}
+      .group{fill:#ecfeff;stroke:#0f766e;stroke-width:2.5}
+      .panel{fill:#f8fafc;stroke:#cbd5e1;stroke-width:2}
+      .head{font-size:22px;font-weight:700;fill:#0f766e}
+      .keys{font-size:17px;fill:#475569}
+      .char{fill:#fff;stroke:#334155;stroke-width:2}
+      .charText{font-size:20px;font-weight:700;text-anchor:middle;dominant-baseline:middle}
+      .edge{stroke:#334155;stroke-width:2.2;fill:none;marker-end:url(#arrow)}
+      .ptr{font-size:17px;fill:#9a3412}
+      .foot{font-size:19px;fill:#475569}
+    </style>
+  </defs>
+
+  <text class="title" x="24" y="34">图9.19：表示关键字集(9-24)的键树</text>
+  <text class="subtitle" x="24" y="62">根到叶路径组成关键字；$ 是字符串结束符，叶结点的 infoptr 指向记录。</text>
+
+  <!-- root and the five ordered first-character subtrees -->
+  <rect class="root" x="350" y="78" width="60" height="34" rx="9"/><text class="charText" x="380" y="95">root</text>
+  <rect class="group" x="40" y="126" width="60" height="34" rx="9"/><text class="charText" x="70" y="143">C</text>
+  <rect class="group" x="180" y="126" width="60" height="34" rx="9"/><text class="charText" x="210" y="143">L</text>
+  <rect class="group" x="320" y="126" width="60" height="34" rx="9"/><text class="charText" x="350" y="143">W</text>
+  <rect class="group" x="460" y="126" width="60" height="34" rx="9"/><text class="charText" x="490" y="143">Y</text>
+  <rect class="group" x="600" y="126" width="60" height="34" rx="9"/><text class="charText" x="630" y="143">Z</text>
+  <path class="edge" d="M360 112 L70 124"/><path class="edge" d="M372 112 L210 124"/><path class="edge" d="M380 112 L350 124"/><path class="edge" d="M388 112 L490 124"/><path class="edge" d="M400 112 L630 124"/>
+
+  <!-- C subtree -->
+  <g>
+    <rect class="panel" x="20" y="175" width="720" height="460" rx="16"/>
+    <text class="head" x="42" y="207">C 子树：CAI、CAO；CHA、CHANG、CHAO、CHEN</text>
+    <text class="keys" x="42" y="232">同层字符有序；每个 $ 都是独立的字符串结束叶。</text>
+    <rect class="char" x="52" y="368" width="36" height="30" rx="7"/><text class="charText" x="70" y="383">C</text>
+    <rect class="char" x="162" y="278" width="36" height="30" rx="7"/><text class="charText" x="180" y="293">A</text>
+    <rect class="char" x="162" y="393" width="36" height="30" rx="7"/><text class="charText" x="180" y="408">H</text>
+    <rect class="char" x="162" y="513" width="36" height="30" rx="7"/><text class="charText" x="180" y="528">E</text>
+    <path class="edge" d="M88 383 L160 293"/><path class="edge" d="M88 383 L160 408"/><path class="edge" d="M88 383 L160 528"/>
+    <rect class="char" x="272" y="248" width="36" height="30" rx="7"/><text class="charText" x="290" y="263">I</text>
+    <rect class="char" x="272" y="308" width="36" height="30" rx="7"/><text class="charText" x="290" y="323">O</text>
+    <path class="edge" d="M198 293 L270 263"/><path class="edge" d="M198 293 L270 323"/>
+    <rect class="char" x="382" y="248" width="36" height="30" rx="7"/><text class="charText" x="400" y="263">$</text>
+    <rect class="char" x="382" y="308" width="36" height="30" rx="7"/><text class="charText" x="400" y="323">$</text>
+    <path class="edge" d="M308 263 L380 263"/><path class="edge" d="M308 323 L380 323"/>
+    <text class="ptr" x="426" y="269">infoptr → CAI</text><text class="ptr" x="426" y="329">infoptr → CAO</text>
+    <rect class="char" x="272" y="378" width="36" height="30" rx="7"/><text class="charText" x="290" y="393">A</text>
+    <rect class="char" x="272" y="513" width="36" height="30" rx="7"/><text class="charText" x="290" y="528">N</text>
+    <path class="edge" d="M198 408 L270 393"/><path class="edge" d="M198 528 L270 528"/>
+    <rect class="char" x="382" y="348" width="36" height="30" rx="7"/><text class="charText" x="400" y="363">$</text>
+    <rect class="char" x="382" y="393" width="36" height="30" rx="7"/><text class="charText" x="400" y="408">N</text>
+    <rect class="char" x="382" y="448" width="36" height="30" rx="7"/><text class="charText" x="400" y="463">O</text>
+    <path class="edge" d="M308 393 L380 363"/><path class="edge" d="M308 393 L380 408"/><path class="edge" d="M308 393 L380 463"/>
+    <text class="ptr" x="426" y="369">infoptr → CHA</text>
+    <rect class="char" x="452" y="393" width="36" height="30" rx="7"/><text class="charText" x="470" y="408">G</text>
+    <rect class="char" x="562" y="393" width="36" height="30" rx="7"/><text class="charText" x="580" y="408">$</text>
+    <path class="edge" d="M418 408 L450 408"/><path class="edge" d="M488 408 L560 408"/>
+    <text class="ptr" x="602" y="414">infoptr→CHANG</text>
+    <rect class="char" x="492" y="448" width="36" height="30" rx="7"/><text class="charText" x="510" y="463">$</text>
+    <path class="edge" d="M418 463 L490 463"/><text class="ptr" x="536" y="469">infoptr → CHAO</text>
+    <rect class="char" x="382" y="513" width="36" height="30" rx="7"/><text class="charText" x="400" y="528">$</text>
+    <path class="edge" d="M308 528 L380 528"/><text class="ptr" x="426" y="534">infoptr → CHEN</text>
+  </g>
+
+  <!-- L subtree -->
+  <g>
+    <rect class="panel" x="20" y="655" width="720" height="330" rx="16"/>
+    <text class="head" x="42" y="687">L 子树：LI、LAN、LONG、LIU</text>
+    <rect class="char" x="52" y="800" width="36" height="30" rx="7"/><text class="charText" x="70" y="815">L</text>
+    <rect class="char" x="162" y="740" width="36" height="30" rx="7"/><text class="charText" x="180" y="755">A</text>
+    <rect class="char" x="162" y="800" width="36" height="30" rx="7"/><text class="charText" x="180" y="815">I</text>
+    <rect class="char" x="162" y="860" width="36" height="30" rx="7"/><text class="charText" x="180" y="875">O</text>
+    <path class="edge" d="M88 815 L160 755"/><path class="edge" d="M88 815 L160 815"/><path class="edge" d="M88 815 L160 875"/>
+    <rect class="char" x="272" y="740" width="36" height="30" rx="7"/><text class="charText" x="290" y="755">N</text>
+    <rect class="char" x="272" y="785" width="36" height="30" rx="7"/><text class="charText" x="290" y="800">$</text>
+    <rect class="char" x="272" y="845" width="36" height="30" rx="7"/><text class="charText" x="290" y="860">U</text>
+    <rect class="char" x="272" y="890" width="36" height="30" rx="7"/><text class="charText" x="290" y="905">N</text>
+    <path class="edge" d="M198 755 L270 755"/><path class="edge" d="M198 815 L270 800"/><path class="edge" d="M198 815 L270 860"/><path class="edge" d="M198 875 L270 905"/>
+    <rect class="char" x="382" y="740" width="36" height="30" rx="7"/><text class="charText" x="400" y="755">$</text>
+    <rect class="char" x="382" y="845" width="36" height="30" rx="7"/><text class="charText" x="400" y="860">$</text>
+    <rect class="char" x="382" y="890" width="36" height="30" rx="7"/><text class="charText" x="400" y="905">G</text>
+    <rect class="char" x="492" y="890" width="36" height="30" rx="7"/><text class="charText" x="510" y="905">$</text>
+    <path class="edge" d="M308 755 L380 755"/><path class="edge" d="M308 860 L380 860"/><path class="edge" d="M308 905 L380 905"/><path class="edge" d="M418 905 L490 905"/>
+    <text class="ptr" x="426" y="761">infoptr → LAN</text><text class="ptr" x="326" y="806">infoptr → LI</text><text class="ptr" x="426" y="866">infoptr → LIU</text><text class="ptr" x="536" y="911">infoptr → LONG</text>
+  </g>
+
+  <!-- W subtree -->
+  <g>
+    <rect class="panel" x="20" y="995" width="720" height="270" rx="16"/>
+    <text class="head" x="42" y="1027">W 子树：WANG、WEN、WU</text>
+    <rect class="char" x="52" y="1110" width="36" height="30" rx="7"/><text class="charText" x="70" y="1125">W</text>
+    <rect class="char" x="162" y="1065" width="36" height="30" rx="7"/><text class="charText" x="180" y="1080">A</text>
+    <rect class="char" x="162" y="1110" width="36" height="30" rx="7"/><text class="charText" x="180" y="1125">E</text>
+    <rect class="char" x="162" y="1155" width="36" height="30" rx="7"/><text class="charText" x="180" y="1170">U</text>
+    <path class="edge" d="M88 1125 L160 1080"/><path class="edge" d="M88 1125 L160 1125"/><path class="edge" d="M88 1125 L160 1170"/>
+    <rect class="char" x="272" y="1065" width="36" height="30" rx="7"/><text class="charText" x="290" y="1080">N</text>
+    <rect class="char" x="272" y="1110" width="36" height="30" rx="7"/><text class="charText" x="290" y="1125">N</text>
+    <rect class="char" x="272" y="1155" width="36" height="30" rx="7"/><text class="charText" x="290" y="1170">$</text>
+    <path class="edge" d="M198 1080 L270 1080"/><path class="edge" d="M198 1125 L270 1125"/><path class="edge" d="M198 1170 L270 1170"/>
+    <rect class="char" x="382" y="1065" width="36" height="30" rx="7"/><text class="charText" x="400" y="1080">G</text>
+    <rect class="char" x="382" y="1110" width="36" height="30" rx="7"/><text class="charText" x="400" y="1125">$</text>
+    <rect class="char" x="492" y="1065" width="36" height="30" rx="7"/><text class="charText" x="510" y="1080">$</text>
+    <path class="edge" d="M308 1080 L380 1080"/><path class="edge" d="M308 1125 L380 1125"/><path class="edge" d="M418 1080 L490 1080"/>
+    <text class="ptr" x="536" y="1086">infoptr → WANG</text><text class="ptr" x="426" y="1131">infoptr → WEN</text><text class="ptr" x="326" y="1176">infoptr → WU</text>
+  </g>
+
+  <!-- Y subtree -->
+  <g>
+    <rect class="panel" x="20" y="1275" width="720" height="230" rx="16"/>
+    <text class="head" x="42" y="1307">Y 子树：YANG、YUN</text>
+    <rect class="char" x="52" y="1380" width="36" height="30" rx="7"/><text class="charText" x="70" y="1395">Y</text>
+    <rect class="char" x="162" y="1350" width="36" height="30" rx="7"/><text class="charText" x="180" y="1365">A</text>
+    <rect class="char" x="162" y="1420" width="36" height="30" rx="7"/><text class="charText" x="180" y="1435">U</text>
+    <path class="edge" d="M88 1395 L160 1365"/><path class="edge" d="M88 1395 L160 1435"/>
+    <rect class="char" x="272" y="1350" width="36" height="30" rx="7"/><text class="charText" x="290" y="1365">N</text>
+    <rect class="char" x="272" y="1420" width="36" height="30" rx="7"/><text class="charText" x="290" y="1435">N</text>
+    <path class="edge" d="M198 1365 L270 1365"/><path class="edge" d="M198 1435 L270 1435"/>
+    <rect class="char" x="382" y="1350" width="36" height="30" rx="7"/><text class="charText" x="400" y="1365">G</text>
+    <rect class="char" x="382" y="1420" width="36" height="30" rx="7"/><text class="charText" x="400" y="1435">$</text>
+    <path class="edge" d="M308 1365 L380 1365"/><path class="edge" d="M308 1435 L380 1435"/>
+    <rect class="char" x="492" y="1350" width="36" height="30" rx="7"/><text class="charText" x="510" y="1365">$</text>
+    <path class="edge" d="M418 1365 L490 1365"/>
+    <text class="ptr" x="536" y="1371">infoptr → YANG</text><text class="ptr" x="426" y="1441">infoptr → YUN</text>
+  </g>
+
+  <!-- Z subtree -->
+  <g>
+    <rect class="panel" x="20" y="1515" width="720" height="190" rx="16"/>
+    <text class="head" x="42" y="1547">Z 子树：ZHAO</text>
+    <rect class="char" x="52" y="1600" width="36" height="30" rx="7"/><text class="charText" x="70" y="1615">Z</text>
+    <rect class="char" x="162" y="1600" width="36" height="30" rx="7"/><text class="charText" x="180" y="1615">H</text>
+    <rect class="char" x="272" y="1600" width="36" height="30" rx="7"/><text class="charText" x="290" y="1615">A</text>
+    <rect class="char" x="382" y="1600" width="36" height="30" rx="7"/><text class="charText" x="400" y="1615">O</text>
+    <rect class="char" x="492" y="1600" width="36" height="30" rx="7"/><text class="charText" x="510" y="1615">$</text>
+    <path class="edge" d="M88 1615 L160 1615"/><path class="edge" d="M198 1615 L270 1615"/><path class="edge" d="M308 1615 L380 1615"/><path class="edge" d="M418 1615 L490 1615"/>
+    <text class="ptr" x="536" y="1621">infoptr → ZHAO</text>
+  </g>
+
+  <text class="foot" x="24" y="1745">同层兄弟有序；$ 小于字符；16 条叶路径对应 16 个关键字记录。</text>
+</svg>

@@ -1,0 +1,271 @@
+{
+  "schemaVersion": "textbook-answer-audit-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "10-internal-sorting",
+    "11-external-sorting"
+  ],
+  "updates": [
+    {
+      "id": "book-ds-yan-10-21",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n假定 4 个关键字互异，初始记录记为 $a_1,a_2,a_3,a_4$。\n\n**折半插入的判定树。** 先比较 $a_1:a_2$，得到 $[p,q]$（$p<q$）。插入 $x=a_3$ 的子树为：\n\n~~~~text\n比较 x:p\n├─ x<p              -> [x,p,q]\n└─ p<x：比较 x:q\n   ├─ x<q           -> [p,x,q]\n   └─ q<x           -> [p,q,x]\n~~~~\n\n最大深度为 2。对已排序的 $[p,q,r]$ 插入 $y=a_4$，以 $q$ 为第一次比较：$y<q$ 时再与 $p$ 比，$q<y$ 时再与 $r$ 比；四个叶子分别为 $[y,p,q,r]$、$[p,y,q,r]$、$[p,q,y,r]$、$[p,q,r,y]$，深度恒为 2。故完整树为根 $a_1:a_2$，后接这两个插入子树，共有 $2\\times3\\times4=24$ 个叶子，最长路径为 $1+2+2=5$。\n\n**2 路归并的判定树。** 先比较 $a_1:a_2$、$a_3:a_4$，设两段为 $p<q$、$r<s$。归并根比较 $p:r$；若 $p<r$，输出 $p$ 后比较 $q:r$，仅当 $r<q$ 时再比较 $q:s$；另一分支完全对称。一段耗尽后另一段直接复制，不作关键字比较。因此归并子树最深为 3，完整树最长路径为 $2+3=5$。\n\n两种方法的最大关键字比较次数均为 $\\boxed{5}$，并达到比较排序下界 $\\lceil\\log_2(4!)\\rceil=5$。",
+        "explanation": "按插入位置与归并分支展开判定树骨架，并以最长根—叶路径核验比较次数。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已独立展开两种排序的判定分支并核对下界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-22",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n记每一对比较后的较小、较大记录为 $(a_i,b_i)$，故 $a_i<b_i$；递归排好所有 $b_i$ 后，随其移动对应的 $a_i$。以下计的是最坏情况下关键字比较次数，某个具体输入可能在折半插入时较早结束。\n\n**$n=5$。** 两对比较后得到 $(a_1,b_1),(a_2,b_2)$ 和单独的 $a_3$。递归排好 $b_1,b_2$ 后，主链是 $[a_1,b_1,b_2]$。由 $int=[1,3]$，插入顺序为 $a_3,a_2$：前者在 3 个记录中折半插入，后者只需在配对上界 $b_2$ 之前的允许前缀中插入。比较账为\n\n| 步骤 | 最多次数 |\n| --- | ---: |\n| 两对内部比较 | 2 |\n| 递归排序 $b_1,b_2$ | 1 |\n| 插入 $a_3$ | 2 |\n| 插入 $a_2$ | 2 |\n| 合计 | $\\boxed{7}$ |\n\n例如秩序列 $(1,3,2,4,5)$ 可走到这四项的最大比较分支。\n\n**$n=11$。** 有 5 对和单独的 $a_6$。递归排好 $b_1<\\cdots<b_5$ 后，主链为 $[a_1,b_1,b_2,b_3,b_4,b_5]$。关键界为 $int=1,3,5,11$，最后一组按现有下标 6 截断，故插入次序为 $a_3,a_2,a_5,a_4,a_6$。前四项在各自 $b_i$ 前的前缀中查找，最后的 $a_6$ 在整条已建链中查找；最大比较数依次为 $2,2,3,3,4$。因此\n\n$$\n5\\;(\\text{成对})+7\\;(\\text{递归排序 5 个 }b_i)+(2+2+3+3+4)=\\boxed{26}.\n$$\n\n每一步都保持主链有序和未插入 $a_i<b_i$ 的配对约束，故最后得到完整有序序列。",
+        "explanation": "按题设的 small/large 配对、递归和 int 插入顺序逐段计数，区分最坏次数与实际次数。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已核对 n=5 的 2+1+2+2 与 n=11 的 5+7+14 比较账。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-23",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n待排记录在 L.r[1..k] 且 $k<MAXSIZE$，故 L.r[k+1] 可安全作为临时监视哨。反向维护有序后缀即可不使用通常的 L.r[0] 监视哨。\n\n~~~~c\nvoid InsertSortWithRightSentinel(SqList &L, int k) {\n    for (int i = k - 1; i >= 1; --i) {\n        L.r[k + 1] = L.r[i];\n        int j = i + 1;\n        while (L.r[j].key < L.r[k + 1].key) {\n            L.r[j - 1] = L.r[j];\n            ++j;\n        }\n        L.r[j - 1] = L.r[k + 1];\n    }\n    L.length = k;\n}\n~~~~\n\n第 i 轮开始时 L.r[i+1..k] 已非递减有序。待插记录若最大，j 走到 k+1，与监视哨自身比较为假，故不会越界；若最小，第一次比较即停止。严格 < 不会令相等关键字越过原有记录，所以稳定。$k=0,1$ 时循环不执行。最坏时间 $O(k^2)$，辅助空间除题设位置外为 $O(1)$。",
+        "explanation": "以题设指定的 L.r[k+1] 反向建立有序后缀，并核验哨兵和边界。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "未使用 r[0] 或额外数组。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-25",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n采用教材表插入排序的静态链表：L.r[1..L.length] 存记录，L.r[i].next 存下一记录下标，L.r[0] 为头结点，0 表示空链。只改 next 域，不搬动记录。\n\n~~~~c\nvoid ListInsertSort(SLList &L) {\n    L.r[0].next = 0;\n    for (int i = 1; i <= L.length; ++i) {\n        int pre = 0;\n        int p = L.r[0].next;\n        while (p != 0 && L.r[p].key <= L.r[i].key) {\n            pre = p;\n            p = L.r[p].next;\n        }\n        L.r[i].next = p;\n        L.r[pre].next = i;\n    }\n}\n~~~~\n\n第 i 轮开始时，头结点所链出的正是下标 1..i-1 的稳定有序排列；找到第一个关键字大于当前记录的位置 p，接到 pre 与 p 之间即可保持该不变量。使用 <=，同关键字的新记录接在旧记录之后，故稳定；空表和首轮自然处理。最坏比较次数为 $\\sum_{i=1}^{n}(i-1)=O(n^2)$，辅助空间 $O(1)$。",
+        "explanation": "明确 r[0].next 的静态链表语义，以循环不变量验证链接和稳定性。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "算法保持教材表插入排序的存储表示。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-26",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n第 j 次相邻交换发生在 (j,j+1)；最后交换位置之后本趟均未交换，下一趟无需再扫描到那里之后。\n\n~~~~c\nvoid BubbleSortLastExchange(SqList &L) {\n    int bound = L.length;\n    while (bound > 1) {\n        int last = 0;\n        for (int j = 1; j < bound; ++j) {\n            if (L.r[j].key > L.r[j + 1].key) {\n                RedType t = L.r[j];\n                L.r[j] = L.r[j + 1];\n                L.r[j + 1] = t;\n                last = j;\n            }\n        }\n        bound = last;\n    }\n}\n~~~~\n\n一趟后 bound 右侧没有本趟交换，且当前最大记录已到本趟右端；故只扫描 1..last 不会漏掉逆序。无交换时 last=0，立即终止；$n<2$ 也自然终止。严格 > 保证稳定。最坏时间 $O(n^2)$，已正序时只比较 $n-1$ 次，辅助空间 $O(1)$。",
+        "explanation": "last 记录最后交换左端下标，并证明其右侧可安全跳过。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已覆盖无交换终止、n<2 和稳定性。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-27",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n双向起泡的正向扫描把当前最大记录送到右端，紧接的反向扫描把当前最小记录送到左端。\n\n~~~~c\nvoid CocktailSort(SqList &L) {\n    int left = 1, right = L.length;\n    while (left < right) {\n        bool changed = false;\n        for (int i = left; i < right; ++i)\n            if (L.r[i].key > L.r[i + 1].key) {\n                RedType t = L.r[i]; L.r[i] = L.r[i + 1]; L.r[i + 1] = t;\n                changed = true;\n            }\n        --right;\n        if (!changed) break;\n        changed = false;\n        for (int i = right; i > left; --i)\n            if (L.r[i - 1].key > L.r[i].key) {\n                RedType t = L.r[i - 1]; L.r[i - 1] = L.r[i]; L.r[i] = t;\n                changed = true;\n            }\n        ++left;\n        if (!changed) break;\n    }\n}\n~~~~\n\n循环不变量是 1..left-1 与 right+1..n 均已处于最终位置；两趟分别扩大这两个边界。任一整趟无交换时扫描区没有相邻逆序，结合两端已定即整体有序。$n<2$ 自动处理，严格 > 使算法稳定。最坏 $O(n^2)$、最优 $O(n)$、辅助空间 $O(1)$。",
+        "explanation": "用相反方向的两趟维护左右最终区，给出早停、稳定性和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已用顺序表和相邻比较实现鸡尾酒排序。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-29",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n一次奇数下标阶段与紧跟的一次偶数下标阶段合为一轮。只有两个阶段都无交换，才说明所有相邻对均被检查且无逆序；单独一个阶段无交换不能结束。\n\n~~~~c\nvoid OddEvenSort(SqList &L) {\n    if (L.length < 2) return;\n    bool changed;\n    do {\n        changed = false;\n        for (int i = 1; i < L.length; i += 2)\n            if (L.r[i].key > L.r[i + 1].key) {\n                RedType t = L.r[i]; L.r[i] = L.r[i + 1]; L.r[i + 1] = t;\n                changed = true;\n            }\n        for (int i = 2; i < L.length; i += 2)\n            if (L.r[i].key > L.r[i + 1].key) {\n                RedType t = L.r[i]; L.r[i] = L.r[i + 1]; L.r[i + 1] = t;\n                changed = true;\n            }\n    } while (changed);\n}\n~~~~\n\n两阶段覆盖全部 n-1 条相邻边；最终一整轮无交换时序列非递减。算法原地且因严格 > 而稳定，最坏时间 $O(n^2)$、辅助空间 $O(1)$。",
+        "explanation": "将 10.6 的正确两阶段终止条件直接落实为 changed 标记。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已避免单独奇相或偶相无交换时过早停止。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-30",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n以下以 L.r[1..L.length] 的顺序表为对象。普通一次划分的“无跨界交换”并不足以证明某一侧内部有序，故用相邻比较的 IsOrdered 严格确认题意中的“无交换/已有序”子序列，避免漏排。\n\n~~~~c\nstruct Range { int lo, hi; };\n\nstatic bool IsOrdered(const SqList &L, int lo, int hi) {\n    for (int i = lo + 1; i <= hi; ++i)\n        if (L.r[i - 1].key > L.r[i].key) return false;\n    return true;\n}\nstatic void SmallSort(SqList &L, int lo, int hi) {\n    for (int i = lo + 1; i <= hi; ++i) {\n        RedType x = L.r[i]; int j = i - 1;\n        while (j >= lo && L.r[j].key > x.key) { L.r[j + 1] = L.r[j]; --j; }\n        L.r[j + 1] = x;\n    }\n}\nstatic int PartitionFirst(SqList &L, int lo, int hi) {\n    RedType x = L.r[lo]; int i = lo, j = hi;\n    while (i < j) {\n        while (i < j && L.r[j].key >= x.key) --j;\n        if (i < j) L.r[i++] = L.r[j];\n        while (i < j && L.r[i].key <= x.key) ++i;\n        if (i < j) L.r[j--] = L.r[i];\n    }\n    L.r[i] = x; return i;\n}\nvoid QuickSortNonRecursive(SqList &L) {\n    vector<Range> st;\n    if (L.length > 1) st.push_back({1, L.length});\n    while (!st.empty()) {\n        Range q = st.back(); st.pop_back();\n        int lo = q.lo, hi = q.hi;\n        while (lo < hi) {\n            if (hi - lo + 1 <= 3) { SmallSort(L, lo, hi); break; }\n            int p = PartitionFirst(L, lo, hi);\n            bool ltodo = lo < p - 1 && !IsOrdered(L, lo, p - 1);\n            bool rtodo = p + 1 < hi && !IsOrdered(L, p + 1, hi);\n            if (!ltodo && !rtodo) break;\n            if (!ltodo) { lo = p + 1; continue; }\n            if (!rtodo) { hi = p - 1; continue; }\n            if (p - lo <= hi - p) {\n                st.push_back({p + 1, hi}); hi = p - 1;\n            } else {\n                st.push_back({lo, p - 1}); lo = p + 1;\n            }\n        }\n    }\n}\n~~~~\n\n划分后枢轴左侧不大于它、右侧不小于它；已确认有序的子段无需再参与，其余子段最终经小段比较排序或再次划分。两个子段都待排时，把较长段入栈、立即处理较短段，故栈深度 $O(\\log n)$。有序检查不改变平均 $O(n\\log n)$、最坏 $O(n^2)$ 的渐近时间界，辅助空间为栈的 $O(\\log n)$。",
+        "explanation": "同时实现有序剪枝、先短后长和长度不超过 3 的直接比较排序。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已避免把普通 partition 的零跨界交换误判为子段有序。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-31",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n只要求负值在前、非负值在后，不要求各类内部稳定，故可双向扫描并交换两端放错侧的记录。\n\n~~~~c\nvoid NegativeBeforeNonnegative(SqList &L) {\n    int i = 1, j = L.length;\n    while (i < j) {\n        while (i < j && L.r[i].key < 0) ++i;\n        while (i < j && L.r[j].key >= 0) --j;\n        if (i < j) {\n            RedType t = L.r[i];\n            L.r[i] = L.r[j];\n            L.r[j] = t;\n            ++i; --j;\n        }\n    }\n}\n~~~~\n\n不变量为 1..i-1 均为负、j+1..n 均为非负；每次交换使两个放错侧的记录归位。空表、单记录、全负或全非负均自然处理。下标单调向中间移动，时间 $O(n)$，t 是唯一记录辅助空间。\n\n若负、非负记录数为 p、q，则最多交换 $\\min(p,q)$ 次，即至多 $2\\min(p,q)\\le2\\lfloor n/2\\rfloor$ 个记录改变位置。按一次临时记录交换计为 3 次赋值的常用口径，最大记录移动次数为\n\n$$\\boxed{3\\min(p,q)\\le3\\lfloor n/2\\rfloor}.$$\n\n算法不稳定。",
+        "explanation": "双指针一次扫描满足 O(n) 与一个记录辅助空间，并明确两种移动计数口径。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已核验所有同类边界和最大交换数。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-33",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设单链表带头结点 L，结点为 LNode { RedType data; LNode *next; }。每轮从未排序链选最小结点，摘下并尾插到已排序链，只重连指针。\n\n~~~~c\nvoid ListSelectSort(LinkList L) {\n    LNode *unsorted = L->next, *tail = L;\n    L->next = NULL;\n    while (unsorted != NULL) {\n        LNode *preMin = NULL, *minNode = unsorted;\n        LNode *pre = unsorted, *p = unsorted->next;\n        while (p != NULL) {\n            if (p->data.key < minNode->data.key) {\n                preMin = pre; minNode = p;\n            }\n            pre = p; p = p->next;\n        }\n        if (preMin == NULL) unsorted = minNode->next;\n        else preMin->next = minNode->next;\n        minNode->next = NULL;\n        tail->next = minNode; tail = minNode;\n    }\n}\n~~~~\n\n头结点到 tail 是已取出的最小若干记录，unsorted 是其余记录；摘出其中最小者尾插后不变量保持。严格 < 会在相等最小值时保留最先出现的结点，故此版本稳定。空链和单结点适用。总比较数 $n(n-1)/2$，时间 $O(n^2)$，辅助空间 $O(1)$。",
+        "explanation": "使用单链表的前驱指针摘取最小结点，未依赖随机访问。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已给出带头结点的完整指针重连与稳定性判断。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-34",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n按 1 下标顺序存储最大二叉堆，结点 i>1 的双亲是 $\\lfloor i/2\\rfloor$。第 p 个记录加入时，1..p-1 已成堆，只需沿双亲链上筛。\n\n~~~~c\nstatic void HeapInsert(SqList &H, int p) {\n    RedType x = H.r[p];\n    int hole = p;\n    while (hole > 1 && H.r[hole / 2].key < x.key) {\n        H.r[hole] = H.r[hole / 2];\n        hole /= 2;\n    }\n    H.r[hole] = x;\n}\nvoid BuildHeapByInsertion(SqList &H) {\n    for (int p = 1; p <= H.length; ++p) HeapInsert(H, p);\n}\n~~~~\n\n上筛中除洞所在路径外父子关系不变；停止位置的双亲不小于 x，而 x 不小于刚下移的孩子，故仍为最大堆。p=1 无需比较，相等关键字不再上移。总时间为\n\n$$\\sum_{p=1}^{n}O(\\log p)=O(n\\log n),$$\n\n辅助空间 $O(1)$。",
+        "explanation": "以一维最大二叉堆的双亲下标为准，给出逐插入上筛和求和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已区分逐个插入建堆与 O(n) 的自底向上建堆。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-35",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n完全三叉树按层序存入 L.r[1..n] 时，结点 i 的孩子为 $3i-1,3i,3i+1$，最后一个可能有孩子的结点是 $\\lfloor(n+1)/3\\rfloor$。以下是最大三叉堆排序。\n\n~~~~c\nstatic void SiftDown3(SqList &L, int root, int heapSize) {\n    RedType x = L.r[root];\n    for (int first = 3 * root - 1; first <= heapSize;\n         first = 3 * root - 1) {\n        int best = first;\n        if (first + 1 <= heapSize && L.r[best].key < L.r[first + 1].key) best = first + 1;\n        if (first + 2 <= heapSize && L.r[best].key < L.r[first + 2].key) best = first + 2;\n        if (x.key >= L.r[best].key) break;\n        L.r[root] = L.r[best]; root = best;\n    }\n    L.r[root] = x;\n}\nvoid TernaryHeapSort(SqList &L) {\n    for (int i = (L.length + 1) / 3; i >= 1; --i) SiftDown3(L, i, L.length);\n    for (int end = L.length; end > 1; --end) {\n        RedType t = L.r[1]; L.r[1] = L.r[end]; L.r[end] = t;\n        SiftDown3(L, 1, end - 1);\n    }\n}\n~~~~\n\n建堆后根为当前最大值；每轮把根换到 end，使 end..n 按非递减顺序固定，再对前缀下筛。空表、单记录和最后一层不足 3 个孩子均由边界判断处理。建堆 $O(n)$，每次下筛高度 $O(\\log_3 n)$ 且每层常数次比较，故总时间 $O(n\\log n)$，辅助空间 $O(1)$，不稳定。",
+        "explanation": "按 1 下标完全三叉树的孩子公式实现建堆、取根和下筛。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已核验不足三个孩子的边界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-37",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n在单链表上从长度为 1 的有序段开始，一趟归并相邻两段（各至多 width 个结点），再递归令段长加倍。LinkList 是首元结点指针，结点含 data 和 next。\n\n~~~~c\nstatic LinkList Cut(LinkList p, int width) {\n    while (p != NULL && --width > 0) p = p->next;\n    if (p == NULL) return NULL;\n    LinkList rest = p->next; p->next = NULL;\n    return rest;\n}\nstatic LinkList MergeLists(LinkList a, LinkList b) {\n    LNode dummy, *tail = &dummy; dummy.next = NULL;\n    while (a != NULL && b != NULL) {\n        if (a->data.key <= b->data.key) { tail->next = a; a = a->next; }\n        else { tail->next = b; b = b->next; }\n        tail = tail->next;\n    }\n    tail->next = (a != NULL) ? a : b;\n    return dummy.next;\n}\nstatic LinkList MergePass(LinkList head, int width) {\n    LNode dummy, *tail = &dummy; LinkList p = head; dummy.next = NULL;\n    while (p != NULL) {\n        LinkList a = p, b = Cut(a, width); p = Cut(b, width);\n        tail->next = MergeLists(a, b);\n        while (tail->next != NULL) tail = tail->next;\n    }\n    return dummy.next;\n}\nLinkList ListMergeSort(LinkList head, int n, int width) {\n    if (n <= 1 || width >= n) return head;\n    int nextWidth = width > n / 2 ? n : 2 * width;\n    return ListMergeSort(MergePass(head, width), n, nextWidth);\n}\n~~~~\n\nCut 保证 MergeLists 收到相邻的、长度至多 width 的有序段；稳定归并后长度至多翻倍，正是下一层前提。每趟只沿链走 $O(n)$，共 $\\lceil\\log_2 n\\rceil$ 趟，时间 $O(n\\log n)$，递归栈 $O(\\log n)$，无辅助数组。空链、奇数尾段由 Cut 的空指针处理。",
+        "explanation": "用断链和指针归并实现 10.36 的段长加倍递推，符合单链表存储。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已覆盖空链、奇数尾段、稳定归并和递归栈。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-42",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n所求为秩 $k=\\lceil n/2\\rceil=(n+1)/2$ 的记录；$n$ 为偶数时即较小的中间秩。用一次划分后只保留包含第 k 位的一侧。\n\n~~~~c\nstatic int SelectPartition(SqList &L, int lo, int hi) {\n    RedType x = L.r[lo]; int i = lo, j = hi;\n    while (i < j) {\n        while (i < j && L.r[j].key >= x.key) --j;\n        if (i < j) L.r[i++] = L.r[j];\n        while (i < j && L.r[i].key <= x.key) ++i;\n        if (i < j) L.r[j--] = L.r[i];\n    }\n    L.r[i] = x; return i;\n}\nRedType MedianRecord(SqList &L) {\n    int lo = 1, hi = L.length, k = (L.length + 1) / 2;\n    while (lo <= hi) {\n        int p = SelectPartition(L, lo, hi);\n        if (p == k) return L.r[p];\n        if (p > k) hi = p - 1; else lo = p + 1;\n    }\n    return L.r[1];                  /* 有效前提下不可达 */\n}\n~~~~\n\n前提为 L.length>=1；过程会重排 L。每次划分后枢轴左侧不大于它、右侧不小于它，所以 p=k 时它恰为所求秩；否则丢弃不可能含该秩的一侧。重复关键字同样适用。随机或较均衡枢轴的期望时间 $O(n)$、栈外空间 $O(1)$；固定首元枢轴最坏 $O(n^2)$。若要求最坏线性时间，可改用中位数的中位数选枢轴。",
+        "explanation": "给出原地 quickselect，说明偶数秩、输入前提、重复关键字和平均/最坏复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "避免先完整排序的 O(n log n) 多余工作。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-45",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n采用 LSD 基数排序。前提是 $R\\ge2,d\\ge0$，关键字为 $[0,R^d)$ 的非负整数（或已经编码成固定 d 位、基数 R）；每一位用稳定计数分配替代队列。\n\n~~~~c\nvoid RadixSortByCounting(SqList &L, int d, int R) {\n    vector<RedType> out(L.length + 1);\n    vector<int> count(R);\n    int exp = 1;\n    for (int pass = 0; pass < d; ++pass) {\n        fill(count.begin(), count.end(), 0);\n        for (int i = 1; i <= L.length; ++i) ++count[(L.r[i].key / exp) % R];\n        for (int v = 1; v < R; ++v) count[v] += count[v - 1];\n        for (int i = L.length; i >= 1; --i) {\n            int digit = (L.r[i].key / exp) % R;\n            out[count[digit]--] = L.r[i];\n        }\n        for (int i = 1; i <= L.length; ++i) L.r[i] = out[i];\n        exp *= R;\n    }\n}\n~~~~\n\n累加后的 count[v] 是数字不大于 v 的记录数；从右向左写出，令同一数字的记录保持上一趟次序，故每趟稳定。LSD 的稳定性使低位次序不被高位破坏，d 趟后整体有序。$n=0,d=0$ 自然处理；实现须防止 exp 溢出。每趟 $O(n+R)$，总时间 $O(d(n+R))$，辅助空间 $O(n+R)$。负数须先作单调偏移或按符号另行处理。",
+        "explanation": "以稳定计数分配实现 LSD，说明编码前提、稳定性和符号/溢出边界。",
+        "correction": {
+          "verified": "**独立参考解答（非原书摘录）**\n\n采用 LSD 基数排序。前提是 $R\\ge2,d\\ge0$，关键字为非负、固定 $d$ 位的 $R$ 进制编码；实现不直接计算 $R^d$。为使第 $d$ 趟的位权可表示，要求 $d=0$ 或 $R^{d-1}$ 能表示在无符号宽类型 `UKey` 中。每一位用稳定计数分配替代队列。\n\n~~~~c\n#include <algorithm>\n#include <cstdint>\n#include <limits>\n#include <vector>\n\nusing UKey = std::uintmax_t;\n\nbool RadixSortByCounting(SqList &L, int d, int R) {\n    if (d < 0 || R < 2) return false;\n    const UKey base = static_cast<UKey>(R);\n\n    // 在改动 L 前验证最后一趟所需位权 R^(d-1) 能表示。\n    UKey check = 1;\n    for (int p = 1; p < d; ++p) {\n        if (check > std::numeric_limits<UKey>::max() / base) return false;\n        check *= base;\n    }\n    for (int i = 1; i <= L.length; ++i)\n        if (L.r[i].key < 0) return false;\n    if (d == 0 || L.length < 2) return true;\n\n    std::vector<RedType> out(L.length + 1); // 保持教材的 1 起始下标\n    std::vector<std::size_t> count(static_cast<std::size_t>(R));\n    UKey exp = 1;\n    for (int pass = 0; pass < d; ++pass) {\n        std::fill(count.begin(), count.end(), 0);\n        for (int i = 1; i <= L.length; ++i) {\n            UKey key = static_cast<UKey>(L.r[i].key);\n            ++count[static_cast<std::size_t>((key / exp) % base)];\n        }\n        for (int v = 1; v < R; ++v) count[v] += count[v - 1];\n        for (int i = L.length; i >= 1; --i) {\n            UKey key = static_cast<UKey>(L.r[i].key);\n            std::size_t digit = static_cast<std::size_t>((key / exp) % base);\n            out[count[digit]--] = L.r[i];\n        }\n        for (int i = 1; i <= L.length; ++i) L.r[i] = out[i];\n\n        // 最后一趟以后不再计算 R^d，避免无意义的溢出。\n        if (pass + 1 < d) {\n            if (exp > std::numeric_limits<UKey>::max() / base) return false;\n            exp *= base;\n        }\n    }\n    return true;\n}\n~~~~\n\n累加后的 `count[v]` 是当前位不大于 $v$ 的记录数；从右向左写出，令相同数字的记录保持上一趟次序，故每趟稳定。LSD 的稳定性使低位次序不被高位破坏，$d$ 趟后整体有序。$n=0$、$d=0$ 自然处理；负数须先作单调偏移或按符号另行处理。每趟 $O(n+R)$，连同预检总时间 $O(d(n+R))$，辅助空间 $O(n+R)$。",
+          "reason": "交叉复审指出原实现把 exp 声明为 int，且在最后一趟后仍无条件执行 exp*=R；即使合法输入，也可能在这次无用乘法中发生有符号溢出。",
+          "explanation": "修订版在排序前验证所需的最大位权，并只在确有下一趟时经上界检查后乘以 R，因而覆盖 d=0 与最后一趟边界。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已明确累加计数的含义与从右向左写出的必要性。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-06",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n一次奇数下标阶段和紧跟的一次偶数下标阶段合为一轮。**结束条件**必须是这一整轮都没有交换：两个阶段合起来覆盖全部相邻对；单独一个阶段无交换不足以断言有序。\n\n以下设每轮完整执行两个阶段，并以“整轮无交换”结束，只计关键字比较。正序时第一轮即终止，奇数、偶数阶段分别比较 $\\lfloor n/2\\rfloor$、$\\lfloor(n-1)/2\\rfloor$ 次，合计 $\\boxed{n-1}$。\n\n逆序时，若 $n=2m$，前 m 轮仍交换，第 m+1 轮为无交换确认轮；每轮比较 $2m-1$ 次，故\n\n$$\\boxed{(m+1)(2m-1)=\\frac{n^2+n-2}{2}}.$$\n\n若 $n=2m+1$，前 m+1 轮仍交换，第 m+2 轮确认终止；每轮比较 $2m$ 次，故\n\n$$\\boxed{(m+2)2m=\\frac{n^2+2n-3}{2}}.$$\n\n$n=1$ 时为 0。若改成不检查交换、预先固定执行 n 个单阶段，则正逆序均为 $n(n-1)/2$ 次；那是不同的终止策略。",
+        "explanation": "按安全的两阶段终止条件推导正序、偶数逆序和奇数逆序的精确比较数。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已核对逆序的最终确认轮。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-08",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n本题采用教材直接快速排序的约定：每个子序列以首记录为枢轴。若输入非递减有序，首记录总是当前子序列最小值；一次划分后左段为空、右段长度为 $n-1$，而划分仍要线性扫描。\n\n设长度 n 的划分代价为 $cn$，则\n\n$$T(n)=T(n-1)+cn,\\qquad T(1)=O(1).$$\n\n展开得\n\n$$T(n)=c\\sum_{j=2}^{n}j+O(1)=\\Theta(n^2),$$\n\n所以当然为 $O(n^2)$。关键字比较也形成 $n-1,n-2,\\ldots,1$ 的和。这个结论依赖有序输入时选到端点枢轴；随机枢轴或能选近中位数的三者取中实现不必在有序输入上退化。",
+        "explanation": "明确首记录枢轴前提，以递推展开证明 Θ(n²)。"
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已说明结论的枢轴策略适用边界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-09",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n题给伪码的 low/high 与函数体 s/t 不一致，且 ci、cj 必须按引用返回。返回 i 是右子序列首下标，递归区间应为 [s,i-1] 和 [i,t]，不能跳过 i。\n\n~~~~c\nstatic KeyType MidKey(KeyType a, KeyType b, KeyType c) {\n    if (a < b) {\n        if (b < c) return b;\n        return a < c ? c : a;\n    }\n    if (a < c) return a;\n    return b < c ? c : b;\n}\nint PartitionMarked(SqList &L, int s, int t, bool &ci, bool &cj) {\n    int i = s, j = t, m = (s + t) / 2;\n    KeyType x = MidKey(L.r[s].key, L.r[m].key, L.r[t].key);\n    ci = cj = false;\n    while (i < j) {\n        while (i < j && L.r[i].key <= x) {\n            ++i;\n            if (L.r[i].key < L.r[i - 1].key) {\n                RedType z = L.r[i]; L.r[i] = L.r[i - 1]; L.r[i - 1] = z; ci = true;\n            }\n        }\n        while (j > i && L.r[j].key > x) {\n            --j;\n            if (L.r[j].key > L.r[j + 1].key) {\n                RedType z = L.r[j]; L.r[j] = L.r[j + 1]; L.r[j + 1] = z; cj = true;\n            }\n        }\n        if (i < j) {\n            RedType z = L.r[i]; L.r[i] = L.r[j]; L.r[j] = z;\n            if (i > s && L.r[i].key < L.r[i - 1].key) ci = true;\n            if (j < t && L.r[j].key > L.r[j + 1].key) cj = true;\n        }\n    }\n    return i;\n}\nvoid MarkedQuickSort(SqList &L, int s, int t) {\n    if (s >= t) return;\n    bool ci, cj; int i = PartitionMarked(L, s, t, ci, cj);\n    if (ci) MarkedQuickSort(L, s, i - 1);\n    if (cj) MarkedQuickSort(L, i, t);\n}\n~~~~\n\nci 或 cj 为假表示题给划分已认证相应侧有序，故可剪枝；有标记的一侧继续处理。划分保持左侧关键字不大于 x、右侧大于 x，按区间长度归纳可得整体有序。\n\n严格递增的最佳输入且 $N\\ge4$ 时，只作一次划分，两个标记均假。题给扫描与相邻检测作 $2N-1$ 次关键字比较；上面的三者取中在递增分支作 2 次，故总数为\n\n$$\\boxed{2N+1}\\quad(N\\ge4),$$\n\n最佳时间为 $\\Theta(N)$。一般情况下，划分仍可能极不均衡，最坏时间为 $O(N^2)$、递归栈为 $O(N)$；划分较均衡时为 $O(N\\log N)$ 时间、$O(\\log N)$ 栈。小规模直接处理：$N=1$ 为 0、$N=2$ 为 1；按题给循环，$N=3$ 的递增输入为 4 次扫描比较加 2 次取中，即 6 次。若 MidKey 固定使用 3 次比较，上式相应加 1。",
+        "explanation": "修正传参与子区间边界，利用 ci/cj 剪枝并逐项计入扫描、检测和三者取中。",
+        "correction": {
+          "verified": "**独立参考解答（非原书摘录）**\n\n题给伪码的 `low/high` 与函数体 `s/t` 不一致，且 `ci`、`cj` 必须按引用返回。`PartitionMarked` 返回的 $i$ 是右子序列首下标，递归区间应为 $[s,i-1]$ 和 $[i,t]$，不能跳过 $i$。为使小规模比较次数和实现一致，长度为 2 时直接比较一次并返回。\n\n~~~~c\nstatic KeyType MidKey(KeyType a, KeyType b, KeyType c) {\n    if (a < b) {\n        if (b < c) return b;\n        return a < c ? c : a;\n    }\n    if (a < c) return a;\n    return b < c ? c : b;\n}\nint PartitionMarked(SqList &L, int s, int t, bool &ci, bool &cj) {\n    int i = s, j = t, m = (s + t) / 2;\n    KeyType x = MidKey(L.r[s].key, L.r[m].key, L.r[t].key);\n    ci = cj = false;\n    while (i < j) {\n        while (i < j && L.r[i].key <= x) {\n            ++i;\n            if (L.r[i].key < L.r[i - 1].key) {\n                RedType z = L.r[i]; L.r[i] = L.r[i - 1]; L.r[i - 1] = z; ci = true;\n            }\n        }\n        while (j > i && L.r[j].key > x) {\n            --j;\n            if (L.r[j].key > L.r[j + 1].key) {\n                RedType z = L.r[j]; L.r[j] = L.r[j + 1]; L.r[j + 1] = z; cj = true;\n            }\n        }\n        if (i < j) {\n            RedType z = L.r[i]; L.r[i] = L.r[j]; L.r[j] = z;\n            if (i > s && L.r[i].key < L.r[i - 1].key) ci = true;\n            if (j < t && L.r[j].key > L.r[j + 1].key) cj = true;\n        }\n    }\n    return i;\n}\nvoid MarkedQuickSort(SqList &L, int s, int t) {\n    if (s >= t) return;\n    if (t == s + 1) {\n        if (L.r[t].key < L.r[s].key) {\n            RedType z = L.r[s]; L.r[s] = L.r[t]; L.r[t] = z;\n        }\n        return;\n    }\n    bool ci, cj;\n    int i = PartitionMarked(L, s, t, ci, cj);\n    if (ci) MarkedQuickSort(L, s, i - 1);\n    if (cj) MarkedQuickSort(L, i, t);\n}\n~~~~\n\n长度为 2 的分支用一次严格比较，必要时交换，故相等记录不交换；其余区间沿用题给的带标志划分。`ci` 或 `cj` 为假表示该划分已认证相应侧有序，可以剪枝；有标记的一侧继续处理。划分保持左侧关键字不大于 $x$、右侧大于 $x$，再按区间长度归纳可得整体有序。\n\n严格递增的最佳输入且 $N\\ge4$ 时，只作一次划分，两个标记均假。题给扫描与相邻检测作 $2N-1$ 次关键字比较；上面的三者取中在递增分支作 2 次，故总数为\n\n$$\\boxed{2N+1}\\quad(N\\ge4).$$\n\n小规模与代码一致：$N=0,1$ 为 0 次，$N=2$ 走直接分支为 1 次，$N=3$ 的递增输入为 4 次扫描比较加 2 次取中，即 6 次。若 `MidKey` 固定使用 3 次比较，上式相应加 1。最佳时间为 $\\Theta(N)$；一般情况下，划分仍可能极不均衡，最坏时间为 $O(N^2)$、递归栈为 $O(N)$；划分较均衡时为 $O(N\\log N)$ 时间、$O(\\log N)$ 栈。",
+          "reason": "交叉复审发现原答案虽声称 N=2 的最佳比较数为 1，但程序没有长度为 2 的直接处理，实际会调用三者取中和划分，计数与结论不一致。",
+          "explanation": "修订版在递归入口显式处理两个记录，使 N=2 的一比较结论、稳定性和程序路径完全一致。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "notes": "已特别核验 i 为右段首下标和有序输入的 2N+1 计数。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-10",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设工作区容量为 $M$，储备库容量也为 $M$。逆序输入时，工作区初装的 M 个记录中最小者先输出；每个后读记录都小于刚输出的 MINIMAX，因此进入储备库而不补进工作区。\n\n输出第 j 个记录后，工作区、储备库分别有 $M-j$、j 个记录。j=M 时工作区正好空、储备库正好满，第一初始归并段长度为 M；把储备库移回工作区后过程重复。因此除最后可能不满的一段外，初始归并段长度及平均长度均为\n\n$$\\boxed{M}.$$\n\n若文件总记录数为 N，且把最后短段纳入全文件平均，段长为 M, ..., M, N mod M，精确平均为 $N/\\lceil N/M\\rceil$；当 M 整除 N 时恰为 M。",
+        "explanation": "逐输出跟踪工作区与储备库容量，并给出有限文件末尾短段的修正。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "已独立推导逆序输入下自然选择排序的初始段长度。"
+      }
+    }
+  ],
+  "unresolved": []
+}

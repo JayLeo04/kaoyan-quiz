@@ -1,4 +1,7 @@
 import dataStructuresTextbookData from "@/app/data/textbook-data-structures.json";
+import { applyTextbookAnswerAudits } from "@/app/data/textbook-answer-audit";
+import { dataStructuresAnswerAudits } from "@/app/data/textbook-answer-audits";
+import { applyDataStructuresImageOverrides } from "@/app/data/textbook-image-overrides";
 import type {
   TextbookChapterSummary,
   TextbookDataset,
@@ -21,7 +24,7 @@ export type TextbookRegistration = {
 
 const dataStructuresTextbook: TextbookRegistration = {
   slug: "data-structures",
-  dataset: dataStructuresTextbookData as TextbookDataset,
+  dataset: applyTextbookAnswerAudits(dataStructuresTextbookData as unknown as TextbookDataset, dataStructuresAnswerAudits),
   presentation: {
     eyebrow: "TEXTBOOK / DATA STRUCTURES",
     displayName: "数据结构 教材",
@@ -94,7 +97,7 @@ function pageContent(page: TextbookDataset["pages"][number]): TextbookPageConten
       attributes: { ...page.source.attributes },
       pageMarkers: page.source.pageMarkers.map((marker) => ({ ...marker })),
     },
-    html: page.html,
+    html: applyDataStructuresImageOverrides(page.html),
   };
 }
 
@@ -106,7 +109,12 @@ function questionSummary(question: TextbookDataset["questions"][number]): Textbo
     chapterId: question.chapterId,
     section: { ...question.section, path: [...question.section.path] },
     prompt: { plain: question.prompt.plain },
-    answer: { status: question.answer.status },
+    answer: {
+      status: question.answer.status,
+      originalStatus: question.answer.originalStatus,
+      origin: question.answer.origin,
+      hasVerified: Boolean(question.answer.verified?.trim()),
+    },
     knowledgePoints: question.knowledgePoints.map((point) => ({ ...point })),
   };
 }
@@ -122,7 +130,14 @@ function questionContent(question: TextbookDataset["questions"][number]): Textbo
     section: { id: question.section.id, title: question.section.title },
     prompt: { html: question.prompt.html },
     options: question.options.map((option) => ({ label: option.label, html: option.html })),
-    answer: { status: question.answer.status, html: question.answer.html },
+    answer: {
+      status: question.answer.status,
+      originalStatus: question.answer.originalStatus,
+      origin: question.answer.origin,
+      html: question.answer.html,
+      verifiedHtml: question.answer.verifiedHtml,
+      explanation: question.answer.explanation,
+    },
     knowledgePoints: question.knowledgePoints.map((point) => ({ id: point.id, title: point.title })),
     source: {
       question: sourceQuestion ? {
@@ -173,6 +188,7 @@ export function createTextbookPracticeLibraryPayload(textbook: TextbookRegistrat
       exerciseQuestions: textbook.dataset.stats.exerciseQuestions,
       answersProvided: textbook.dataset.stats.answersProvided,
       answersHintOnly: textbook.dataset.stats.answersHintOnly,
+      answersVerified: textbook.dataset.stats.answersVerified,
     },
     chapters: chapterSummaries(textbook),
     exerciseQuestions: textbook.dataset.questions.filter((question) => question.isExercise).map(questionSummary),

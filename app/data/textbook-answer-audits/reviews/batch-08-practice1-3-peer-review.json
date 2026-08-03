@@ -1,0 +1,77 @@
+{
+  "reviewedFile": "batch-08-practice1-3.json",
+  "reviewedIds": [
+    "practice-1-2",
+    "practice-1-3",
+    "practice-1-4",
+    "practice-1-5",
+    "practice-1-6",
+    "book-ds-yan-practice-2-2-1",
+    "book-ds-yan-practice-2-2-2",
+    "book-ds-yan-practice-2-2-3",
+    "book-ds-yan-practice-2-2-4",
+    "book-ds-yan-practice-2-2-5",
+    "book-ds-yan-practice-2-2-6",
+    "book-ds-yan-practice-2-2-7",
+    "book-ds-yan-practice-2-2-8",
+    "book-ds-yan-practice-2-2-9",
+    "book-ds-yan-practice-3-3.1",
+    "book-ds-yan-practice-3-3.2",
+    "book-ds-yan-practice-3-3.3",
+    "book-ds-yan-practice-3-3.4",
+    "book-ds-yan-practice-3-3.5"
+  ],
+  "passedIds": [
+    "practice-1-2",
+    "practice-1-3",
+    "practice-1-4",
+    "practice-1-6",
+    "book-ds-yan-practice-2-2-1",
+    "book-ds-yan-practice-2-2-3",
+    "book-ds-yan-practice-2-2-4",
+    "book-ds-yan-practice-2-2-5",
+    "book-ds-yan-practice-2-2-7",
+    "book-ds-yan-practice-2-2-8",
+    "book-ds-yan-practice-2-2-9",
+    "book-ds-yan-practice-3-3.1",
+    "book-ds-yan-practice-3-3.2"
+  ],
+  "findings": [
+    {
+      "id": "practice-1-5",
+      "severity": "error",
+      "issue": "多项式表示声明的 Term 只有 coef、exp 和 next 三个域，但 InsertTerm、AddOrSub 又读写 h->terms 和 --h->terms。按所给类型该字段不存在，因而程序既不能编译，也无法满足题设“头结点存放项数”的表示约束。",
+      "recommendedFix": "将头结点表示补全并统一使用，例如定义包含 int terms 和 Term *next 的 PolyHead，或在统一结点结构中增加仅供头结点使用的 terms 域；NewPolyHead 必须初始化该项数，所有插入、同指数合并删除和结果构造都维护它。"
+    },
+    {
+      "id": "book-ds-yan-practice-2-2-2",
+      "severity": "warning",
+      "issue": "终止性说明称“每次替换均减少一个大写符号或一对括号”，但 B→tAdA 会把一个大写 B 替成两个大写 A；括号规则也可能复制其中的首字母。因此该单调减少论证不成立，虽然给定 B、A 两条无环字母规则上的解释算法本身是可行的。",
+      "recommendedFix": "改用正确的良基论证：有限输入中的每个括号组展开后不再产生括号；括号全部消失后，B 只产生 A，A 只产生小写字母，依赖图 B→A→小写无环，故仍会在有限步后终止。若允许嵌套括号，应按解析树或括号对数先完成匹配展开，而不能沿用“每次大写数减少”的说法。"
+    },
+    {
+      "id": "book-ds-yan-practice-2-2-6",
+      "severity": "error",
+      "issue": "HandleDeparture 先调用 Finish(c,now)，而文中定义 Finish 会统计并 free(c)，随后却读取 c->amount 来决定是否调用 ScanWaitingAfterDeposit。这是释放后的访问，既有未定义行为，也可能把一笔存款后的候补扫描漏掉或误触发。",
+      "recommendedFix": "在 Finish 前保存金额或方向，例如 int amount=c->amount; bool isDeposit=amount>0; total+=amount; Finish(c,now); current=NULL; if (isDeposit) ScanWaitingAfterDeposit(now,oldTotal);。不要在释放客户结点后再读取其任何字段。"
+    },
+    {
+      "id": "book-ds-yan-practice-3-3.3",
+      "severity": "error",
+      "issue": "活区已满且在首行之前插入时，算法把新行直接写入输出文件，却没有把 firstNo 增加 1。该新行逻辑上正是原 firstNo 号行，原活区第一行及后续行必须全部顺延；不更新会使随后显示、定位和命令范围出现重复或错误行号。文末的“应同步推进”提示没有落实到主流程。",
+      "recommendedFix": "在该分支每直接输出一条新插入行后显式执行 ++firstNo，并保持后续插入仍处于原活区之前；若多行插入，逐行推进。对“刷出原活区首行以腾位”的另一分支则保留 firstNo++、但仍按原逻辑行号定位插入点。"
+    },
+    {
+      "id": "book-ds-yan-practice-3-3.4",
+      "severity": "error",
+      "issue": "答案在测试说明中断言 R 'aaabc' 'a' 'aab' 的结果为 aabaabbc；但字面量 aaabc 含 3 个 a，按其自身声明的从左到右不重叠替换应得到 aabaabaabbc。aabaabbc 只对应含 2 个 a 的 aabc。答案已安全指出另一组 8 个 a 的来源矛盾，却遗漏了这一组同样的题面/期望值冲突。",
+      "recommendedFix": "把该组验证结果改为 aabaabaabbc，并明确题面列出的 aabaabbc 与 aaabc 不一致；在同一未决说明中记录这一冲突或在审校 correction 中说明，不能把错误期望值当作算法验证结果。"
+    },
+    {
+      "id": "book-ds-yan-practice-3-3.5",
+      "severity": "error",
+      "issue": "伪代码在 ScanLexicallyForHeaderAndBraces 之后才以 state.inFunction 判断是否递增 funcCodeLines。若该行是函数结尾的 }，扫描后 braceDepth 已回到 0、inFunction 已清除，闭合行不会计入函数长度；若函数头在较早代码行而 { 在后续行确认，已缓存的头行也不会被计入。结果会系统性低估平均函数长度并可能给出错误风格等级。",
+      "recommendedFix": "在状态转换前记录该代码行是否属于已进入、正在确认或正在闭合的函数，并将其计数；对于跨行函数头，在确认定义时把缓存的头部代码行一次加入。可保存 wasInFunction、startsFunction、endsFunction 和 pendingHeaderLineCount，再在处理 } 后以已计入的长度记录函数。"
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "schemaVersion": "textbook-answer-audit-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "06-tree-and-binary-tree"
+  ],
+  "updates": [
+    {
+      "id": "book-ds-yan-06-10",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核验补充。** 每个非叶子结点都有两个孩子时，设叶子数为 $n$、非叶子数为 $i$。边数一方面是 $2i$，另一方面是 $n+i-1$，因此 $i=n-1$，总结点数为\n\n$$\\boxed{2n-1}.$$\n\n对等式 $\\sum_i2^{-(l_i-1)}=1$ 按树高归纳：单叶树时 $l_1=1$，和为 1。一般情形左右子树也满足同一性质，而它们的叶子层次在整树中各增加 1，所以整树的和为\n\n$$\\frac12\\cdot1+\\frac12\\cdot1=1.$$\n\n这也可理解为各叶子对应的二进制区间恰好分割根的单位区间。",
+        "explanation": "通过边数双重计数与左右子树归纳独立核验；单叶树是归纳基。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "题干自足，已按定义独立推导；这是参考核验补充，并不声称为原书答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-14",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核验补充。** 设结点标识互异。\n\n1. 先序与中序相同，当且仅当任一结点都没有左孩子，即树为只沿右孩子延伸的链（空树也满足）。若存在左子树，它的根在先序中位于该结点之后、在中序中位于该结点之前，立即矛盾。\n2. 后序与中序相同，当且仅当任一结点都没有右孩子，即树为只沿左孩子延伸的链（空树也满足）。\n3. 非空树的先序首元和后序末元都是根。两序列相同会使首元等于末元；标识互异时只能有一个结点。因此仅单结点树（以及空树）满足。",
+        "explanation": "按根相对于左右子树的三种遍历位置独立判定；结论已说明空树与单结点边界。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "题干自足，已按定义独立推导；这是参考核验补充，并不声称为原书答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-02",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核验补充。** 度为 2 的普通树只约束结点至多有两个孩子（若“树的度为 2”取精确含义，则至少有一个结点恰有两个孩子），孩子之间没有左、右位置之分。\n\n二叉树则给每个结点规定有序的左、右子树位置；一个独生孩子必须说明是左孩子还是右孩子，且二叉树可以为空。\n\n所以忘掉二叉树的左右位置可得到一棵度不超过 2 的普通树；反向转换不唯一：普通树的每个独生孩子均可选择放在左位或右位，可能产生不同二叉树。",
+        "explanation": "依据树的度与二叉树左右位置的定义独立核验；独生孩子是两种模型差异的关键边界。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "题干自足，已按定义独立推导；这是参考核验补充，并不声称为原书答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-23",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核验补充。** 从先根序列取下一个孩子根，并在后根序列中定位该根，可确定该孩子子树的边界。所得有序树为：\n\n```text\nG\n├─ F\n│  └─ K\n│     ├─ D\n│     ├─ A\n│     │  └─ I\n│     └─ E\n└─ B\n   ├─ C\n   └─ H\n      └─ J\n```\n\n带标号广义表为 `$G(F(K(D,A(I),E)),B(C,H(J)))$`。将其先根、后根遍历分别展开，正好得到给定的两条序列。用后根位置表时重建为 $O(n)$ 时间、$O(h)$ 递归栈。",
+        "explanation": "利用有序树先根/后根中每棵子树均为连续区间的性质重建，并已反算两条序列。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "题干自足，已按定义独立推导；这是参考核验补充，并不声称为原书答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-24",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核验补充。** 先按左孩子—右兄弟对应关系把给定的先序、中序序列重建为二叉树，再把根的右链解释为森林中后续树根。所得森林为：\n\n```text\nA\n├─ B\n│  └─ C\n├─ D\n│  ├─ E\n│  └─ F\n└─ G\n\nJ    I    K    L    H\n```\n\n即 `$A(B(C),D(E,F),G),\\;J,\\;I,\\;K,\\;L,\\;H$`。把它再转为左孩子—右兄弟二叉树后，先序为 `ABCDEFGHIJKL`，中序为 `CBEFDGAJIKLH`。建位置表后的递归重建时间为 $O(n)$，栈为 $O(h)$。",
+        "explanation": "按森林与左孩子—右兄弟二叉树的标准双向对应独立重建，并反算两条给定序列。",
+        "correction": {
+          "verified": "**独立审校修正（非原书摘录）**\n\n先按左孩子—右兄弟对应关系把给定的先序、中序序列重建为二叉树，再把根的右链解释为森林中后续树根。所得森林为：\n\n~~~~text\nA                         H\n├─ B                      ├─ I\n│  └─ C                   │  └─ J\n├─ D                      ├─ K\n│  ├─ E                   └─ L\n│  └─ F\n└─ G\n~~~~\n\n即 $A(B(C),D(E,F),G),\\;H(I(J),K,L)$。把它再转为左孩子—右兄弟二叉树后，先序为 ABCDEFGHIJKL，中序为 CBEFDGAJIKLH。建位置表后的递归重建时间为 $O(n)$，栈为 $O(h)$。",
+          "explanation": "修正了第二棵树的根及其子树；并反算两条给定序列。",
+          "reason": "交叉审计发现原森林误把 H 及其后续结点拆成了单结点树，与先序/中序反算不一致。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "题干自足，已按定义独立推导；这是参考核验补充，并不声称为原书答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-25",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核验补充。** 假设一棵最优哈夫曼树（叶权均为正）存在度为 1 的结点 $u$，其唯一孩子为 $v$。删去 $u$，把 $v$ 直接接到 $u$ 的双亲；若 $u$ 是根，则令 $v$ 成为根。\n\n叶子集合与权值不变，而 $v$ 子树内所有叶子的深度均减少 1，因此加权路径长度减少\n\n$$\\sum_{z\\text{ 为 }v\\text{ 子树的叶}}w(z)>0,$$\n\n这与哈夫曼树最小加权路径长度的定义矛盾。故结点数多于 1 的哈夫曼树不存在度为 1 的结点；单叶树的根度为 0，也不构成例外。",
+        "explanation": "通过压缩度为 1 结点会严格降低正权叶子的加权路径长度进行反证。",
+        "correction": {
+          "verified": "**独立审校修正（非原书摘录）**\n\n采用教材中哈夫曼树的通常定义：叶子权值均为正。假设一棵最优哈夫曼树存在度为 1 的结点 $u$，其唯一孩子为 $v$。删去 $u$，把 $v$ 直接接到 $u$ 的双亲；若 $u$ 是根，则令 $v$ 成为根。\n\n叶子集合与权值不变，而 $v$ 子树内所有叶子的深度均减少 1，因此加权路径长度减少\n\n$$\n\\sum_{z\\text{ 为 }v\\text{ 子树的叶}}w(z)>0.\n$$\n\n这与最小加权路径长度矛盾。故结点数多于 1 的哈夫曼树不存在度为 1 的结点；单叶树的根度为 0，也不构成例外。若某个定义允许零权叶子，则应改由哈夫曼构造过程说明：每次合并两个最小权根，产生的每个内部结点恰有两个孩子。",
+          "explanation": "明确正权叶子是反证的前提，并给出零权约定下的构造性依据。",
+          "reason": "交叉审计要求明确原证明中“严格降低”所依赖的正权前提。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "题干自足，已按定义独立推导；这是参考核验补充，并不声称为原书答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-27",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核验补充。** 先序首元为根，在中序中定位它以切分左右子树。重建结果（`∅` 为空子树）是：\n\n```text\nE\n├─L B\n│   ├─L A\n│   └─R D\n│       └─L C\n└─R F\n    └─R H\n        ├─L G\n        └─R I\n            └─R K\n                └─L J\n```\n\n紧凑表示：`E(B(A,D(C,∅)),F(∅,H(G,I(∅,K(J,∅)))))`。每次切分依据唯一的根位置；建立中序位置表后时间 $O(n)$、递归栈 $O(h)$。",
+        "explanation": "依照先序根与中序左右区间独立重建，并逐项复核给定遍历序列。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "题干自足，已按定义独立推导；这是参考核验补充，并不声称为原书答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-28",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核验补充。** 后序末元为根，在中序中定位根后，按左右子树大小切分后序序列。结果为：\n\n```text\nA\n├─L B\n│   ├─L C\n│   │   └─L D\n│   └─R G\n│       └─R E\n└─R I\n    ├─L H\n    │   └─R F\n    └─R J\n        └─R K\n```\n\n紧凑表示：`A(B(C(D,∅),G(∅,E)),I(H(∅,F),J(∅,K)))`。建立中序位置表后重建时间 $O(n)$，递归栈 $O(h)$。",
+        "explanation": "按后序根、中序分割点以及左右子树结点数独立重建。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "题干自足，已按定义独立推导；这是参考核验补充，并不声称为原书答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-29",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核验补充。** 层序首元为根；在剩余层序中稳定筛出落在中序根左、右区间的元素并递归。结果为：\n\n```text\nA\n├─L B\n│   ├─L D\n│   └─R E\n│       ├─L G\n│       └─R H\n│           └─R J\n└─R C\n    └─R F\n        └─L I\n```\n\n紧凑表示：`A(B(D,E(G,H(∅,J))),C(∅,F(I,∅)))`。反做层序与中序分别回得 `ABCDEFGHIJ`、`DBGEHJACIF`。直接稳定筛分的时间为 $O(n^2)$，递归栈 $O(h)$。",
+        "explanation": "用层序中的相对先后次序和中序区间独立重建，且已反算验证。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "题干自足，已按定义独立推导；这是参考核验补充，并不声称为原书答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-30",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核验补充。** 以下“祖先”指严格祖先。\n\n若 $u$ 是 $v$ 的祖先，先序遍历先访问根再进入子树，故 $u$ 在 $v$ 前；后序遍历离开子树时才访问根，故 $u$ 在 $v$ 后。\n\n反之，设先序中 $u$ 在 $v$ 前且后序中 $u$ 在 $v$ 后。若 $v$ 是 $u$ 的祖先，先序次序应相反；若两者互非祖先，则它们分属最近公共祖先的两个不同孩子子树。任一子树在先序和后序中都是连续块，较左子树的块在两种序列中都整体先于较右子树的块，不可能出现一前一后的相对次序。两种情形都矛盾，故 $u$ 必是 $v$ 的祖先。",
+        "explanation": "利用深度优先遍历中子树在先序、后序中均为连续区间的性质独立证明。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "题干自足，已按定义独立推导；这是参考核验补充，并不声称为原书答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-36",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核验补充。** 同时递归比较两个对应位置是否都空、都非空；数据域不参与“相似”的定义。\n\n```c\nStatus Similar(BiTree a, BiTree b) {\n    if (a == NULL && b == NULL) return TRUE;\n    if (a == NULL || b == NULL) return FALSE;\n    return Similar(a->lchild, b->lchild) &&\n           Similar(a->rchild, b->rchild);\n}\n```\n\n两树均空是递归终止的真值，恰有一棵为空立即失败。相似时每个结点访问一次，时间 $O(n)$，递归辅助空间 $O(h)$。",
+        "explanation": "递归不变量为“当前两个指针所指子树形状相同”；三种空指针组合均已处理。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按题给结构独立推导并检查空树、终止条件与复杂度；这是参考核验补充，并不声称为原书答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-37",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核验补充。** 栈保存已访问但其右子树尚待处理的祖先；沿左链时立即访问，回退后改走右子树。\n\n```c\nvoid PreOrder_NonRecursive(BiTree T) {\n    Stack S; InitStack(&S);\n    BiTree p = T;\n    while (p != NULL || !StackEmpty(S)) {\n        while (p != NULL) {\n            Visit(p);\n            Push(&S, p);\n            p = p->lchild;\n        }\n        Pop(&S, &p);\n        p = p->rchild;\n    }\n}\n```\n\n空树时外层条件一开始即为假。每个结点恰进、出栈一次，时间 $O(n)$，栈最大深度 $O(h)$。",
+        "explanation": "栈不变量明确为“已访问且右子树尚未处理”，并显式覆盖空树。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按题给结构独立推导并检查空树、终止条件与复杂度；这是参考核验补充，并不声称为原书答案。"
+      }
+    }
+  ],
+  "unresolved": []
+}

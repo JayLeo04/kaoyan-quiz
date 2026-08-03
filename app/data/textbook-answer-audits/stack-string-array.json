@@ -1,0 +1,190 @@
+{
+  "schemaVersion": "textbook-answer-audit-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "03-stack-and-queue",
+    "04-string",
+    "05-array-and-generalized-list"
+  ],
+  "updates": [
+    {
+      "id": "book-ds-yan-03-11",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答：栈和队列都是操作受限的线性表，可用顺序表或链表实现，基本进出操作通常为 O(1)。栈只在栈顶插入和删除，遵循后进先出（LIFO）；队列在队尾插入、在队头删除，遵循先进先出（FIFO）。顺序实现时二者均须处理空结构和容量已满，循环队列还须按其 front、rear 约定判空和判满。",
+        "explanation": "答案从共同的线性结构属性和不同的操作端点两方面给出比较。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "notes": "题干定义充分，已补入独立核验结论。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-02",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答：栈是线性表的受限形式。二者都由一串具有一对一前驱、后继关系的元素组成；一般线性表可在任意合法位置访问、插入和删除，而栈只允许在同一端（栈顶）插入和删除。因此栈的访问次序必为后进先出，一般线性表本身不规定这样的次序。每个栈都是线性表，但一般线性表未必是栈。",
+        "explanation": "以操作受限程度说明两类数据结构的包含关系。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "notes": "已补入栈与一般线性表的独立比较。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-20",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答：令 `newColor` 为替换后的颜色。用栈做四邻域深度优先搜索；一个点入栈时立刻改色，以防重复入栈，也避免原色等于新色时无法终止。\n\n```c\ntypedef struct { int r, c; } Point;\n\nStatus Recolor(int g[MAXM][MAXN], int m, int n,\n               int i0, int j0, int newColor) {\n    if (i0 < 0 || i0 >= m || j0 < 0 || j0 >= n ||\n        newColor < 0 || newColor > K) return ERROR;\n    int old = g[i0][j0];\n    if (old == newColor) return OK;\n\n    Stack S; InitStack(&S);       // 容量至少为 m*n\n    g[i0][j0] = newColor;\n    Push(&S, (Point){i0, j0});\n    int dr[4] = {-1, 1, 0, 0};\n    int dc[4] = {0, 0, -1, 1};\n\n    while (!StackEmpty(S)) {\n        Point p; Pop(&S, &p);\n        for (int d = 0; d < 4; ++d) {\n            int r = p.r + dr[d], c = p.c + dc[d];\n            if (0 <= r && r < m && 0 <= c && c < n && g[r][c] == old) {\n                g[r][c] = newColor;\n                Push(&S, (Point){r, c});\n            }\n        }\n    }\n    return OK;\n}\n```\n\n算法只改变起点所在的四连通同色区域；最坏时间和栈空间均为 O(mn)。",
+        "explanation": "包含越界、相同颜色、栈容量和重复访问边界。",
+        "correction": {
+          "verified": "**独立审校修正（非原书摘录）**：令 newColor 为替换后的颜色。题目使用 $g(1..m,1..n)$，故下列实现始终采用 1 基下标。一个点入栈时立刻改色，以防重复入栈。\n\n~~~~c\ntypedef struct { int r, c; } Point;\n\nStatus Recolor(int g[][MAXN + 1], int m, int n, int k,\n               int i0, int j0, int newColor) {\n    if (i0 < 1 || i0 > m || j0 < 1 || j0 > n ||\n        newColor < 0 || newColor > k) return ERROR;\n    int old = g[i0][j0];\n    if (old == newColor) return OK;\n\n    Stack S; InitStack(&S);       // 容量至少为 m*n\n    g[i0][j0] = newColor;\n    Push(&S, (Point){i0, j0});\n    int dr[4] = {-1, 1, 0, 0};\n    int dc[4] = {0, 0, -1, 1};\n\n    while (!StackEmpty(S)) {\n        Point p; Pop(&S, &p);\n        for (int d = 0; d < 4; ++d) {\n            int r = p.r + dr[d], c = p.c + dc[d];\n            if (1 <= r && r <= m && 1 <= c && c <= n &&\n                g[r][c] == old) {\n                g[r][c] = newColor;\n                Push(&S, (Point){r, c});\n            }\n        }\n    }\n    return OK;\n}\n~~~~\n\n算法只改变起点所在的四连通同色区域；最坏时间和栈空间均为 $O(mn)$。",
+          "explanation": "统一使用题干的 1 基坐标，并把颜色上界 k 显式传入。",
+          "reason": "交叉审计发现原补充错误地使用 0 基边界且引用了未定义的 K。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "notes": "已用四邻域洪泛填充独立复核。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-22",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答：从左到右扫描逆波兰式。操作数入栈；遇双目运算符时，先弹出的数是右操作数，后弹出的数是左操作数。\n\n```c\nStatus EvalPostfix(Token a[], int n, Value valueOf(char name), double *ans) {\n    Stack S; InitStack(&S);\n    for (int i = 0; i < n; ++i) {\n        if (IsVariable(a[i])) {\n            Push(&S, valueOf(a[i]));\n        } else if (IsBinaryOperator(a[i])) {\n            if (StackLength(S) < 2) return ERROR;\n            double right, left;\n            Pop(&S, &right);\n            Pop(&S, &left);\n            if (a[i] == '/' && right == 0) return ERROR;\n            if (a[i] == '+') Push(&S, left + right);\n            if (a[i] == '-') Push(&S, left - right);\n            if (a[i] == '*') Push(&S, left * right);\n            if (a[i] == '/') Push(&S, left / right);\n        } else return ERROR;\n    }\n    if (StackLength(S) != 1) return ERROR;\n    Pop(&S, ans);\n    return OK;\n}\n```\n\n每个记号只作常数次栈操作，时间 O(n)、额外空间 O(n)。结束时栈中恰有一个结果也是表达式完整性的必要条件。",
+        "explanation": "特别核对了减法、除法的左右操作数顺序，以及下溢和除零。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "notes": "按单字母变量和双目四则运算条件补入独立解答。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-24",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答：\n\n```c\nlong long g(int m, long long n) {\n    if (m < 0 || n < 0) error();\n    if (m == 0) return 0;\n    return g(m - 1, 2 * n) + n;\n}\n```\n\n求 `g(5,2)` 时的入栈活动记录为：\n\n```text\n栈底 -> (5,2) -> (4,4) -> (3,8) -> (2,16) -> (1,32) -> (0,64) <- 栈顶\n```\n\n基例返回 0 后依次回退：`g(1,32)=32`、`g(2,16)=48`、`g(3,8)=56`、`g(4,4)=60`，所以 `g(5,2)=62`。每帧必须保留本帧 `n` 以便递归返回后相加。时间和递归栈空间均为 O(m)，实现时还应检测 `2*n` 与结果的整数溢出。",
+        "explanation": "递归调用链、回退值和最终结果均由题给定义逐层复算。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "notes": "递归算法和 g(5,2) 的栈变化已独立核验。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-25",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答：正整数的 `n/2` 取整除。\n\n```c\nlong long Frec(long long n) {\n    if (n < 0) error();\n    if (n == 0) return 1;\n    return n * Frec(n / 2);\n}\n\nlong long Fiter(long long n) {\n    if (n < 0) error();\n    long long result = 1;\n    while (n > 0) {\n        result *= n;\n        n /= 2;\n    }\n    return result;\n}\n```\n\n循环中的 `result` 已乘入所有尚未回退的调用帧应乘的 `n` 值，故与递归定义等价。`n=0` 返回 1；对于 `n>0`，调用或循环次数为 floor(log2(n))+1。两版时间均为 O(log n)，递归版栈空间 O(log n)，迭代版 O(1)；实际代码还需检查乘法溢出。",
+        "explanation": "给出了递归和消除递归后的循环，并保留 n=0 基例。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "notes": "已补入等价的递归与非递归实现。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-26",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答：这是 Newton 迭代。为保证题给式中的 `A/p` 有意义，对 `A>0` 取 `p>0`；`A=0` 直接返回 0，误差 `e` 必须为正。\n\n```c\ndouble SqrtRec(double A, double p, double e) {\n    if (A < 0 || e <= 0 || (A > 0 && p <= 0)) error();\n    if (A == 0) return 0;\n    if (fabs(p * p - A) < e) return p;\n    return SqrtRec(A, 0.5 * (p + A / p), e);\n}\n\ndouble SqrtIter(double A, double p, double e) {\n    if (A < 0 || e <= 0 || (A > 0 && p <= 0)) error();\n    if (A == 0) return 0;\n    while (fabs(p * p - A) >= e)\n        p = 0.5 * (p + A / p);\n    return p;\n}\n```\n\n迭代版每轮使用和递归调用相同的下一近似值，因此正确地消除了尾递归。设迭代次数为 q，时间 O(q)；递归版额外栈空间 O(q)，迭代版 O(1)。实际浮点实现可在近似值不再变化时报告精度不足或设置上限。",
+        "explanation": "覆盖了负数、除零、误差非正和浮点停滞等必要边界。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "notes": "题给递归式已安全地改写为迭代。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-33",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答：采用留一个空单元的循环数组：`front` 指向队头元素，`rear` 指向队尾元素的后一单元；空队列为 `front==rear`，满队列为 `(rear+1)%QCAP==front`。\n\n```c\ntypedef struct { int time; } Job;\ntypedef struct { Job a[QCAP]; int front, rear; } OutDeque;\n\nStatus EnJob(OutDeque *Q, Job x) {\n    if ((Q->rear + 1) % QCAP == Q->front) return OVERFLOW;\n    if (Q->front == Q->rear) {\n        Q->a[Q->rear] = x;\n        Q->rear = (Q->rear + 1) % QCAP;\n        return OK;\n    }\n    int tail = (Q->rear - 1 + QCAP) % QCAP;\n    double avg = ((double)Q->a[Q->front].time + Q->a[tail].time) / 2.0;\n    if (x.time < avg) {\n        Q->front = (Q->front - 1 + QCAP) % QCAP;\n        Q->a[Q->front] = x;\n    } else {\n        Q->a[Q->rear] = x;\n        Q->rear = (Q->rear + 1) % QCAP;\n    }\n    return OK;\n}\n\nStatus DeJob(OutDeque *Q, Job *x) {\n    if (Q->front == Q->rear) return ERROR;\n    *x = Q->a[Q->front];\n    Q->front = (Q->front + 1) % QCAP;\n    return OK;\n}\n```\n\n单元素时头、尾作业相同，平均值就是该作业时间。两种操作都是 O(1)，物理数组可存 QCAP-1 个作业，且出队只发生在题目允许的头端。",
+        "explanation": "已明确判空、判满、回绕、单元素平均值和尾元素下标。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "notes": "输出受限双端循环队列的两端入队和头端出队已独立核验。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-34",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答：令 `E` 为头端入队、`A` 为尾端入队、`D` 为头端出队。容量至少为 n 的输出受限双端队列可暂存全部非硬座车厢。\n\n```c\nStatus Dispatch(char in[], int n, OutDeque *Q) {\n    InitDeque(Q);\n    for (int i = 0; i < n; ++i) {\n        if (in[i] == 'P') {\n            EnHead(Q, 'P'); Emit('E');\n            DeHead(Q, &x);  Emit('D');\n        } else if (in[i] == 'S') {\n            EnHead(Q, 'S'); Emit('E');\n        } else if (in[i] == 'H') {\n            EnTail(Q, 'H'); Emit('A');\n        } else return ERROR;\n    }\n    while (!DequeEmpty(*Q)) {\n        DeHead(Q, &x); Emit('D');\n    }\n    return OK;\n}\n```\n\n不变量是队列从头到尾先为尚未输出的 S，再为尚未输出的 H。P 在头端入队后立即从头端输出，不破坏不变量；输入结束后的连续 D 因而先输出所有 S，再输出所有 H。总输出类型为 P* S* H*。每节车厢做常数次操作，时间 O(n)、队列空间 O(n)。",
+        "explanation": "给出了操作序列生成规则和类别顺序不变量；题意只约束车厢类别顺序。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "notes": "已验证输出受限双端队列可实现所需三类排序。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-01",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答：空串不含任何字符，长度为 0，通常写作空引号。空格串含有一个或多个空格字符，长度至少为 1。空格是普通字符，因此两者不相等；求串长、比较和存储时都必须保留这一区别。",
+        "explanation": "以长度和字符内容区分，避免把显示为空白误判为空串。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "题库记录无原书答案标记；已补入独立定义性解答。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-10",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答：对定长顺序串，`S[0]` 存长度、字符在 `S[1..S[0]]`。递归交换两端字符即可。\n\n```c\nvoid ReverseRange(SString S, int lo, int hi) {\n    if (lo >= hi) return;\n    unsigned char t = S[lo];\n    S[lo] = S[hi];\n    S[hi] = t;\n    ReverseRange(S, lo + 1, hi - 1);\n}\n\nStatus StrReverse(SString S) {\n    ReverseRange(S, 1, S[0]);\n    return OK;\n}\n```\n\n空串和单字符串会立即返回。每对对称字符只交换一次，时间 O(n)；递归深度为 ceil(n/2)，栈空间 O(n)。",
+        "explanation": "递归区间严格缩小，覆盖空串、单字符串与奇偶长度串。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入原地递归求逆算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-13",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答：以下算法按从左到右的非重叠匹配删除。空模式串没有有限个可删除位置，作为非法参数处理。\n\n```c\nStatus DeleteAll(SString S, SString T) {\n    SString pat;\n    for (int i = 0; i <= T[0]; ++i) pat[i] = T[i];\n    int m = pat[0];\n    if (m == 0) return ERROR;\n\n    int w = 0;\n    for (int r = 1; r <= S[0]; ++r) {\n        S[++w] = S[r];\n        if (w >= m) {\n            int j = 1;\n            while (j <= m && S[w - m + j] == pat[j]) ++j;\n            if (j > m) w -= m;\n        }\n    }\n    S[0] = w;\n    return OK;\n}\n```\n\n写指针始终不超过读指针，所以原地写入不会覆盖尚未读取的字符；模式副本也允许 T 与 S 意外别名。朴素后缀比较最坏为 O(|s||t|)，额外工作空间除模式副本外为 O(1)。",
+        "explanation": "明确了空模式、匹配约定、别名和原地读写安全性。",
+        "correction": {
+          "verified": "**独立审校修正（非原书摘录）**：题干没有规定重叠匹配或删除后新暴露匹配的语义。这里明确采用**流式消去**：从左到右读入字符；一旦当前结果的后缀等于模式串就删除该后缀，因此删除后重新拼接出的匹配也继续消去。空模式串没有有限个可删除位置，作为非法参数处理。\n\n~~~~c\nStatus DeleteAll(SString S, SString T) {\n    SString pat;\n    for (int i = 0; i <= T[0]; ++i) pat[i] = T[i];\n    int m = pat[0];\n    if (m == 0) return ERROR;\n\n    int w = 0;\n    for (int r = 1; r <= S[0]; ++r) {\n        S[++w] = S[r];\n        if (w >= m) {\n            int j = 1;\n            while (j <= m && S[w - m + j] == pat[j]) ++j;\n            if (j > m) w -= m;\n        }\n    }\n    S[0] = w;\n    return OK;\n}\n~~~~\n\n写指针始终不超过读指针，故原地写入不会覆盖尚未读取的字符；模式副本也允许 T 与 S 意外别名。朴素后缀比较最坏为 $O(|s||t|)$，额外工作空间除模式副本外为 $O(1)$。若课程要求“仅删除原串中从左到右的非重叠出现”，则应改用原串窗口扫描，而不能使用这份会继续消去新暴露匹配的代码。",
+          "explanation": "将实现与语义统一为反复消去，并显式说明另一种非重叠语义需要不同算法。",
+          "reason": "交叉审计发现原文字称“非重叠删除”，但后缀栈实现会继续删除新暴露的匹配。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已给出可执行的左到右删除算法。"
+      }
+    }
+  ],
+  "unresolved": []
+}

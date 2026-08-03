@@ -1,0 +1,57 @@
+{
+  "reviewedFile": "batch-06-sorting-external.json",
+  "reviewedIds": [
+    "book-ds-yan-10-21",
+    "book-ds-yan-10-22",
+    "book-ds-yan-10-23",
+    "book-ds-yan-10-25",
+    "book-ds-yan-10-26",
+    "book-ds-yan-10-27",
+    "book-ds-yan-10-29",
+    "book-ds-yan-10-30",
+    "book-ds-yan-10-31",
+    "book-ds-yan-10-33",
+    "book-ds-yan-10-34",
+    "book-ds-yan-10-35",
+    "book-ds-yan-10-37",
+    "book-ds-yan-10-42",
+    "book-ds-yan-10-45",
+    "book-ds-yan-10-06",
+    "book-ds-yan-10-08",
+    "book-ds-yan-10-09",
+    "book-ds-yan-11-10"
+  ],
+  "passedIds": [
+    "book-ds-yan-10-21",
+    "book-ds-yan-10-22",
+    "book-ds-yan-10-23",
+    "book-ds-yan-10-25",
+    "book-ds-yan-10-26",
+    "book-ds-yan-10-27",
+    "book-ds-yan-10-29",
+    "book-ds-yan-10-30",
+    "book-ds-yan-10-31",
+    "book-ds-yan-10-33",
+    "book-ds-yan-10-34",
+    "book-ds-yan-10-35",
+    "book-ds-yan-10-37",
+    "book-ds-yan-10-42",
+    "book-ds-yan-10-06",
+    "book-ds-yan-10-08",
+    "book-ds-yan-11-10"
+  ],
+  "findings": [
+    {
+      "id": "book-ds-yan-10-45",
+      "severity": "warning",
+      "issue": "答案已提示应防止 exp 溢出，但给出的代码仍把 exp 声明为 int，并在每一趟末尾无条件执行 exp*=R。对仍满足题设范围的输入，这会在最后一趟后发生有符号溢出：例如 32 位 int、R=2、d=31 时，合法关键字可取 0 到 2^31-1，而最后一次乘法把 exp 从 2^30 变为不可表示的 2^31。因而代码未实际满足自己声明的溢出边界。",
+      "recommendedFix": "把 exp 改为足以表示所需幂的无符号宽类型，并只在还存在下一趟时乘以 R；乘法前检查 exp 是否会越过该类型上限。也可改为逐位预处理或明确限制 R、d 与 KeyType 的可表示范围。这样 d=0 和最后一趟均不会执行无意义且可能溢出的乘法。"
+    },
+    {
+      "id": "book-ds-yan-10-09",
+      "severity": "warning",
+      "issue": "答案末尾称 N=2 时最佳比较数为 1，但所给 MarkedQuickSort 只有 s>=t 的基例，长度 2 仍会调用 PartitionMarked。对递增的 [a,b]，MidKey(a,a,b) 按所给 MidKey 实现要做 2 次关键字比较，划分中的 a<=x 和随后相邻检测 b<a 又做 2 次，总计 4 次而非 1 次。该小规模计数与代码不一致。",
+      "recommendedFix": "二选一保持一致：在 MarkedQuickSort 开头增加长度为 2 的直接比较、必要时交换后返回，并保留 N=2 为 1 的结论；或者删除该直接处理的说法，将当前程序在 N=2 的最佳计数改为按 MidKey 和划分实际执行的 4 次。前者更符合比较次数优化的题意。"
+    }
+  ]
+}

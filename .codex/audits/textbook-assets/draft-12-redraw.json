@@ -1,0 +1,316 @@
+{
+  "schemaVersion": "408-textbook-assets-redraw-draft/1",
+  "generatedAt": "2026-08-03T05:23:14Z",
+  "project": "/Users/minimax/schedule/kaoyan-quiz",
+  "authority": ".codex/audits/textbook-assets/09-12.json",
+  "skill": "/Users/minimax/.codex/skills/audit-408-textbook-assets-demo/SKILL.md",
+  "scope": {
+    "chapter": "12-file",
+    "assets": [
+      "public/textbooks/data-structures/12-file/12-4-isam-and-vsam-files/assets/py/fig-12-8-isam-structure.svg",
+      "public/textbooks/data-structures/12-file/12-4-isam-and-vsam-files/assets/py/fig-12-10-isam-insert-overflow.svg",
+      "public/textbooks/data-structures/12-file/12-6-multikey-files/assets/py/fig-12-16-inverted-file.svg"
+    ],
+    "allowedNewCandidates": [
+      "public/textbooks/data-structures/12-file/12-4-isam-and-vsam-files/assets/py/fig-12-8-isam-structure-readable.svg",
+      "public/textbooks/data-structures/12-file/12-4-isam-and-vsam-files/assets/py/fig-12-10-isam-insert-overflow-readable.svg",
+      "public/textbooks/data-structures/12-file/12-6-multikey-files/assets/py/fig-12-16-inverted-file-readable.svg"
+    ]
+  },
+  "method": {
+    "sourceContext": "教材页由 app/data/textbook-data-structures.json 的 pages[].markdown/pages[].html 提供；源页 sourcePath、生成 HTML 地址、caption/alt、相邻正文和原始 SVG 逐项核对。",
+    "readonlySubagent": {
+      "id": "019fc606-6b63-78d3-b490-1bd7b55dc921",
+      "nickname": "Euler",
+      "role": "逐页证据复核",
+      "status": "completed",
+      "writeScope": "read-only",
+      "conclusion": "三项均可进入 candidate_safe 候选重绘范围；原图不足之处只按源文和原图可确定语义补足，不编造未给出的数值指针。"
+    },
+    "sourcePages": [
+      {
+        "sourcePath": "12-file/12-4-isam-and-vsam-files/index.md",
+        "route": "/textbook/data-structures/12-file/12-4-isam-and-vsam-files",
+        "datasetLocator": "app/data/textbook-data-structures.json#pages[12-file/12-4-isam-and-vsam-files]",
+        "pdfPages": "322-327",
+        "bookPages": "312-317"
+      },
+      {
+        "sourcePath": "12-file/12-6-multikey-files/index.md",
+        "route": "/textbook/data-structures/12-file/12-6-multikey-files",
+        "datasetLocator": "app/data/textbook-data-structures.json#pages[12-file/12-6-multikey-files]",
+        "pdfPages": "329-331",
+        "bookPages": "319-321"
+      }
+    ]
+  },
+  "items": [
+    {
+      "oldAsset": "public/textbooks/data-structures/12-file/12-4-isam-and-vsam-files/assets/py/fig-12-8-isam-structure.svg",
+      "candidateAsset": "public/textbooks/data-structures/12-file/12-4-isam-and-vsam-files/assets/py/fig-12-8-isam-structure-readable.svg",
+      "verdict": "candidate_safe",
+      "severity": "high",
+      "category": "overlap",
+      "source": {
+        "page": "12-file/12-4-isam-and-vsam-files/index.md",
+        "sourceMarkers": {
+          "pdf_pages": "322-327",
+          "book_pages": "312-317"
+        },
+        "markdownImage": "![图 12.8：主索引、柱面索引、磁道索引与柱面数据及溢出区](assets/py/fig-12-8-isam-structure.svg)",
+        "generatedHtmlImage": "/textbooks/data-structures/12-file/12-4-isam-and-vsam-files/assets/py/fig-12-8-isam-structure.svg",
+        "alt": "图 12.8：主索引、柱面索引、磁道索引与柱面数据及溢出区",
+        "caption": "图 12.8　ISAM 文件结构示例。"
+      },
+      "sourceEvidence": [
+        {
+          "logicalMarkdownLines": [8],
+          "quote": "每个柱面建立一个磁道索引；每个磁道索引项由基本索引项和溢出索引项两部分组成；柱面索引项由关键字和指针组成，必要时建立主索引。"
+        },
+        {
+          "logicalMarkdownLines": [18],
+          "quote": "检索先从主索引找到柱面索引，再找到记录所在柱面的磁道索引，最后找到该磁道第一个记录的位置；查找关键字 21 的路径如图 12.8 中的粗实线所示。"
+        },
+        {
+          "logicalMarkdownLines": [20, 26],
+          "quote": "每个柱面开辟溢出区；图 12.8 采用每柱面一个溢出区，基本区是顺序存储结构，溢出区是链表结构，同一磁道溢出的记录由指针相链。"
+        },
+        {
+          "authorityAuditLines": [2798, 2817, 2818, 2819, 2830, 2832, 2837],
+          "quote": "权威审计确认三层索引/数据关系、C₁/C₂/Cₙ、关键字 21 路径和溢出区均需保留；原图的碰撞使路径难以复核。"
+        }
+      ],
+      "originalSemanticInventory": {
+        "indexLayers": [
+          "主索引：620、1100、…、4150",
+          "柱面索引：164、330、…、810、…、4150",
+          "每个柱面的磁道索引"
+        ],
+        "cylinders": [
+          "C₁",
+          "C₂",
+          "Cₙ"
+        ],
+        "basicZones": {
+          "C₁": ["R₁", "R₂", "R₄₅", "R₄₇", "R₅₀"],
+          "C₂": ["R₁₈₉", "…", "R₂₁₅", "…", "R₃₃₀"],
+          "Cₙ": ["R₃₈₄₃", "…", "R₄₁₅₀"]
+        },
+        "overflowZones": "C₁、C₂、Cₙ 均保留溢出区及链表/指针语义；原图未提供具体溢出记录号，因此候选只画结构性首记录/后继记录标签，不编造记录值。",
+        "pointersAndLabels": [
+          "主索引 → 柱面索引",
+          "柱面索引 → C₁/C₂/Cₙ 的磁道索引",
+          "磁道索引的基本索引项/溢出索引项均含关键字 | 指针结构",
+          "溢出索引项 → 首个溢出记录 → 后继记录"
+        ],
+        "searchPath": "查找关键字 21：主索引 → 柱面索引 → 选取 C₁ 磁道索引 → C₁ 基本区按关键字顺序查找。C₁ 显示 R₁…R₅₀ 的有序范围，C₂ 从 R₁₈₉ 起，故未新增具体索引数值，只将源文要求的 21 路径标在已有层级上。"
+      },
+      "preservationChecklist": [
+        {"check": "所有索引层、C₁/C₂/Cₙ、基本区和溢出区保留", "verified": true},
+        {"check": "主索引与柱面索引原始数值和省略号保留", "verified": true},
+        {"check": "全部原图记录值保留", "verified": true},
+        {"check": "所有层级指针方向和溢出链结构标签保留", "verified": true},
+        {"check": "关键字 21 的完整四段路径显式可见", "verified": true},
+        {"check": "没有补写未由源文/原图确定的具体指针值或溢出记录号", "verified": true},
+        {"check": "caption 与 alt 未被候选语义改变", "verified": true}
+      ],
+      "validation": {
+        "xml": "xmllint --noout passed",
+        "requiredTextTokensMissing": [],
+        "intrinsic": {"width": 1440, "height": 1120, "result": "passed"},
+        "render760px": {"renderedWidth": 760, "renderedHeight": 591, "result": "passed; no visible collision or clipping"},
+        "render396px": {"renderedWidth": 396, "renderedHeight": 308, "result": "passed; no horizontal overflow, collision or clipping"},
+        "visualQA": "in-memory SVG rasterization at intrinsic, 760px and 396px; no QA image file written",
+        "realPage": "unavailable: localhost:3000 was not open and the browser rejected the local target; no development server was started, so no build cache or page file was written"
+      }
+    },
+    {
+      "oldAsset": "public/textbooks/data-structures/12-file/12-4-isam-and-vsam-files/assets/py/fig-12-10-isam-insert-overflow.svg",
+      "candidateAsset": "public/textbooks/data-structures/12-file/12-4-isam-and-vsam-files/assets/py/fig-12-10-isam-insert-overflow-readable.svg",
+      "verdict": "candidate_safe",
+      "severity": "high",
+      "category": "unreadable-density",
+      "source": {
+        "page": "12-file/12-4-isam-and-vsam-files/index.md",
+        "sourceMarkers": {
+          "pdf_pages": "322-327",
+          "book_pages": "312-317"
+        },
+        "markdownImage": "![图 12.10：ISAM 插入 R65、R95、R83 时的基本区和溢出区变化](assets/py/fig-12-10-isam-insert-overflow.svg)",
+        "generatedHtmlImage": "/textbooks/data-structures/12-file/12-4-isam-and-vsam-files/assets/py/fig-12-10-isam-insert-overflow.svg",
+        "alt": "图 12.10：ISAM 插入 R65、R95、R83 时的基本区和溢出区变化",
+        "caption": "图 12.10　ISAM 文件的插入和溢出处理：（a）插入前；（b）插入 R65 时记录移动的情形；（c）插入 R65 后；（d）先插入 R95 再插入 R83 后。"
+      },
+      "sourceEvidence": [
+        {
+          "logicalMarkdownLines": [28, 30, 31, 32, 33, 35, 37],
+          "quote": "(a) 为插入前；(b) 插入 R65 时第二道中关键字大于 65 的记录顺次后移并使 R90 溢出；(c) 第二道基本索引项改为 80、溢出索引项改为 90 且指向第四道第一个记录 R90；(d) 插入 R95 和 R83 后 R145 溢出、R83 作为第二道溢出区首记录并指向 R90。"
+        },
+        {
+          "authorityAuditLines": [2661, 2679, 2680, 2681, 2693, 2695, 2700],
+          "quote": "权威审计要求四个状态、基本/溢出区、R65/R95/R83/R145/R90、R83→R90、索引更新、记录移动和箭头全部保留。"
+        }
+      ],
+      "originalSemanticInventory": {
+        "stateA": {
+          "indexItems": ["90 | T₂′₁", "145 | T₃′₁"],
+          "basicZone": ["R₅₀", "R₆₀", "R₇₀", "R₈₀", "R₉₀", "R₁₀₀", "R₁₂₀", "R₁₃₀", "R₁₃₆", "R₁₄₅"],
+          "overflowZone": "空"
+        },
+        "stateB": {
+          "operation": "插入 R₆₅；第二道中大于 65 的记录顺次后移",
+          "movement": ["R₇₀ 后移", "R₈₀ 后移", "R₉₀ 移至溢出区"],
+          "basicZoneAfterMovement": ["R₅₀", "R₆₀", "R₆₅", "R₇₀", "R₈₀"],
+          "overflowZone": ["R₉₀"],
+          "indexItemsDuringMove": ["90 | T₂′₁", "145 | T₃′₁"]
+        },
+        "stateC": {
+          "indexItems": ["80 | T₂′₁", "90 | T₄′₁", "145 | T₃′₁"],
+          "basicZone": ["R₅₀", "R₆₀", "R₆₅", "R₇₀", "R₈₀", "R₁₀₀", "R₁₂₀", "R₁₃₀", "R₁₃₆", "R₁₄₅"],
+          "overflowLink": "T₄′₁ → R₉₀"
+        },
+        "stateD": {
+          "indexItems": ["80 | T₂′₁", "90 | T₄′₃", "136 | T₃′₁", "145 | T₄′₂"],
+          "basicZone": ["R₅₀", "R₆₀", "R₆₅", "R₇₀", "R₈₀", "R₉₅", "R₁₀₀", "R₁₂₀", "R₁₃₀", "R₁₃₆"],
+          "overflowLinks": ["T₄′₃ → R₈₃ → R₉₀", "T₄′₂ → R₁₄₅"],
+          "orderingEvidence": "80 < 83 < 90"
+        }
+      },
+      "preservationChecklist": [
+        {"check": "(a)–(d) 四个状态全部保留", "verified": true},
+        {"check": "每个状态的基本区与溢出区均单独标出", "verified": true},
+        {"check": "全部索引值和 T₂′₁/T₃′₁/T₄′₁/T₄′₂/T₄′₃ 记号保留", "verified": true},
+        {"check": "R₆₅、R₉₅、R₈₃、R₁₄₅、R₉₀ 及其他原图记录值保留", "verified": true},
+        {"check": "R₆₅ 插入、R₇₀/R₈₀ 后移、R₉₀ 溢出和索引 90→80 更新可追踪", "verified": true},
+        {"check": "R₉₅ 进入第 3 道首位、R₁₄₅ 溢出、R₈₃→R₉₀ 和指针改指 R₈₃ 可追踪", "verified": true},
+        {"check": "没有省略未变化的第 3 道记录", "verified": true},
+        {"check": "caption 与 alt 未被候选语义改变", "verified": true}
+      ],
+      "validation": {
+        "xml": "xmllint --noout passed",
+        "requiredTextTokensMissing": [],
+        "intrinsic": {"width": 1200, "height": 1500, "result": "passed"},
+        "render760px": {"renderedWidth": 760, "renderedHeight": 950, "result": "passed; four panels and links remain readable without visible clipping"},
+        "render396px": {"renderedWidth": 396, "renderedHeight": 495, "result": "passed; 2×2 layout has no horizontal overflow or visible text collision"},
+        "visualQA": "in-memory SVG rasterization at intrinsic, 760px and 396px; long panel notes were wrapped/shortened after visual review; no QA image file written",
+        "realPage": "unavailable: localhost:3000 was not open and the browser rejected the local target; no development server was started"
+      }
+    },
+    {
+      "oldAsset": "public/textbooks/data-structures/12-file/12-6-multikey-files/assets/py/fig-12-16-inverted-file.svg",
+      "candidateAsset": "public/textbooks/data-structures/12-file/12-6-multikey-files/assets/py/fig-12-16-inverted-file-readable.svg",
+      "verdict": "candidate_safe",
+      "severity": "medium",
+      "category": "unreadable-density",
+      "source": {
+        "page": "12-file/12-6-multikey-files/index.md",
+        "sourceMarkers": {
+          "pdf_pages": "329-331",
+          "book_pages": "319-321"
+        },
+        "markdownImage": "![图 12.16：专业、已修学分、选修课目的倒排表及各记录号序列](assets/py/fig-12-16-inverted-file.svg)",
+        "generatedHtmlImage": "/textbooks/data-structures/12-file/12-6-multikey-files/assets/py/fig-12-16-inverted-file.svg",
+        "alt": "图 12.16：专业、已修学分、选修课目的倒排表及各记录号序列",
+        "caption": "图 12.16　倒排文件索引示例：专业、次关键字与物理记录号构成三张倒排表。"
+      },
+      "sourceEvidence": [
+        {
+          "logicalMarkdownLines": [39, 41, 43, 45, 47],
+          "quote": "倒排表按次关键字存放物理记录号；相同次关键字的记录之间不设指针相链；记录号有序；ISAM 文件时应存主关键字而不是物理记录号。"
+        },
+        {
+          "logicalMarkdownLines": [49, 51, 53, 55, 56, 57, 58, 59, 60, 61, 62, 63],
+          "quote": "图 12.16 及其表格逐行给出专业、已修学分、选修课目的三张表、三个表头和九个次关键字行。"
+        },
+        {
+          "authorityAuditLines": [3025, 3043, 3057, 3058, 3064],
+          "quote": "权威审计确认三张倒排表及全部记录号序列必须完整保留；原图长序列在正文宽度下过密。"
+        }
+      ],
+      "originalSemanticInventory": {
+        "tableHeaders": ["倒排表", "次关键字", "物理记录号"],
+        "tables": {
+          "专业": {
+            "软件": ["01", "02", "07", "08"],
+            "计算机": ["03", "05"],
+            "应用": ["04", "06", "09", "10"]
+          },
+          "已修学分": {
+            "350～399": ["02", "05", "06", "07", "09", "10"],
+            "400～449": ["01", "03", "04", "08"]
+          },
+          "选修课目": {
+            "甲": ["02", "04", "06", "07", "08", "09", "10"],
+            "乙": ["03", "05", "07"],
+            "丙": ["01", "02", "03", "04", "08"],
+            "丁": ["01", "03", "05", "09"]
+          }
+        },
+        "relations": [
+          "三张表共享物理记录号",
+          "相同次关键字的记录号集中在对应倒排表项，不设指针相链",
+          "每个次关键字的物理记录号按升序排列，可跨表按记录号作集合运算",
+          "若数据文件是 ISAM，表中应存主关键字而非物理记录号"
+        ]
+      },
+      "preservationChecklist": [
+        {"check": "专业、已修学分、选修课目三张表及 (a)–(c) 标题保留", "verified": true},
+        {"check": "倒排表/次关键字/物理记录号三列表头显式保留", "verified": true},
+        {"check": "九个次关键字行全部保留", "verified": true},
+        {"check": "全部物理记录号、顺序和分组全部保留", "verified": true},
+        {"check": "不添加多重表文件式指针链", "verified": true},
+        {"check": "同次关键字有序、跨表共享记录号和集合运算关系保留", "verified": true},
+        {"check": "物理记录号与 ISAM 主关键字的区别未被改变", "verified": true},
+        {"check": "caption 与 alt 未被候选语义改变", "verified": true}
+      ],
+      "validation": {
+        "xml": "xmllint --noout passed",
+        "requiredTextTokensMissing": [],
+        "intrinsic": {"width": 1240, "height": 1500, "result": "passed"},
+        "render760px": {"renderedWidth": 760, "renderedHeight": 919, "result": "passed; all rows and columns remain visible without clipping"},
+        "render396px": {"renderedWidth": 396, "renderedHeight": 479, "result": "passed; vertical tables fit the narrow width with no horizontal overflow"},
+        "visualQA": "in-memory SVG rasterization at intrinsic, 760px and 396px; no QA image file written",
+        "realPage": "unavailable: localhost:3000 was not open and the browser rejected the local target; no development server was started"
+      }
+    }
+  ],
+  "globalValidation": {
+    "candidateCount": 3,
+    "candidateFiles": "Only the three allowed same-directory readable SVG candidates and this draft report were added by this turn.",
+    "originalAssets": {
+      "exist": true,
+      "workingTreeDiff": "passed; all three original SVGs remain unchanged"
+    },
+    "assetInventoryRerun": {
+      "command": "node /Users/minimax/.codex/skills/audit-408-textbook-assets-demo/scripts/audit-textbook-assets.mjs --project /Users/minimax/schedule/kaoyan-quiz --dataset app/data/textbook-data-structures.json --assets public/textbooks/data-structures --report /dev/null",
+      "files": 444,
+      "referenced": 274,
+      "missing": 0,
+      "malformed": 0,
+      "unreferenced": 170,
+      "interpretation": "The shared worktree inventory changed while this turn was running (an earlier snapshot was 441 files/167 unreferenced); these counts are the final read-only snapshot and are not attributed to this turn. The required gates remained missing=0, no new malformed entry was observed, and targeted xmllint validation passed for all three candidates. The new candidates are intentionally not referenced because Markdown, dataset JSON and image references were out of scope."
+    },
+    "sourceAndProjectIntegrity": {
+      "markdownChangedByThisTurn": false,
+      "datasetJsonChangedByThisTurn": false,
+      "componentsChangedByThisTurn": false,
+      "cssChangedByThisTurn": false,
+      "imageReferencesChangedByThisTurn": false,
+      "preExistingWorktreeChanges": "The shared worktree already contained unrelated tracked/untracked changes; they were preserved and not touched.",
+      "worktreeCreated": false,
+      "temporaryFilesWritten": false,
+      "commitCreated": false,
+      "pushPerformed": false
+    }
+  },
+  "handoff": {
+    "reportPath": ".codex/audits/textbook-assets/draft-12-redraw.json",
+    "replacementMappings": [
+      "public/textbooks/data-structures/12-file/12-4-isam-and-vsam-files/assets/py/fig-12-8-isam-structure.svg → public/textbooks/data-structures/12-file/12-4-isam-and-vsam-files/assets/py/fig-12-8-isam-structure-readable.svg",
+      "public/textbooks/data-structures/12-file/12-4-isam-and-vsam-files/assets/py/fig-12-10-isam-insert-overflow.svg → public/textbooks/data-structures/12-file/12-4-isam-and-vsam-files/assets/py/fig-12-10-isam-insert-overflow-readable.svg",
+      "public/textbooks/data-structures/12-file/12-6-multikey-files/assets/py/fig-12-16-inverted-file.svg → public/textbooks/data-structures/12-file/12-6-multikey-files/assets/py/fig-12-16-inverted-file-readable.svg"
+    ],
+    "statement": "未删除任何非重复知识内容",
+    "reviewRisk": "真实教材页无法在当前环境打开；intrinsic、760px、396px 的确定性 SVG 渲染、XML、语义 token 和资产清单检查已完成。"
+  }
+}

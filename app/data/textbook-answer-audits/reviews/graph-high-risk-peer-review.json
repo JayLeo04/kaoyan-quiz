@@ -1,0 +1,48 @@
+{
+  "reviewedFile": "graph.json",
+  "reviewedIds": [
+    "ds-yan-weimin-exercises-07-graph-7-14",
+    "ds-yan-weimin-exercises-07-graph-7-15",
+    "ds-yan-weimin-exercises-07-graph-7-16",
+    "ds-yan-weimin-exercises-07-graph-7-17",
+    "ds-yan-weimin-exercises-07-graph-7-18",
+    "ds-yan-weimin-exercises-07-graph-7-19",
+    "ds-yan-weimin-exercises-07-graph-7-20",
+    "ds-yan-weimin-exercises-07-graph-7-21",
+    "ds-yan-weimin-exercises-07-graph-7-22",
+    "ds-yan-weimin-exercises-07-graph-7-23",
+    "ds-yan-weimin-exercises-07-graph-7-24",
+    "ds-yan-weimin-exercises-07-graph-7-29"
+  ],
+  "passedIds": [
+    "ds-yan-weimin-exercises-07-graph-7-14",
+    "ds-yan-weimin-exercises-07-graph-7-15",
+    "ds-yan-weimin-exercises-07-graph-7-16",
+    "ds-yan-weimin-exercises-07-graph-7-17",
+    "ds-yan-weimin-exercises-07-graph-7-18",
+    "ds-yan-weimin-exercises-07-graph-7-19",
+    "ds-yan-weimin-exercises-07-graph-7-22",
+    "ds-yan-weimin-exercises-07-graph-7-23",
+    "ds-yan-weimin-exercises-07-graph-7-29"
+  ],
+  "findings": [
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-20",
+      "severity": "warning",
+      "issue": "题干写作 G=(V,E) 并以“邻接”和平均结点度数 d 描述，通常应按无向图口径给出复杂度；解答改用“弧”、入度和出度，并只写 m=n*d 的有向关系。判定循环对对称邻接矩阵仍正确，但 m、d 的换算和解释不完整。",
+      "recommendedFix": "将定义表述为边的传递性，并补充无向图 m=n*d/2、逻辑检查量为 sum(deg(v)^2)、度数近似均匀时为 O(n*d^2)=O(m*d)。可保留直接矩阵扫描 O(n^2+m*n)，但须同时说明有向和无向的 m-d 关系。"
+    },
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-21",
+      "severity": "warning",
+      "issue": "邻接表算法的时间戳标记思路正确，但复杂度只按有向图的 sum(indegree*outdegree) 与 m=n*d 解释，未与 7.20 题面常用的无向图 E、度数 d 口径对齐。",
+      "recommendedFix": "补充无向图版本：每个 y 的贡献为 deg(y)^2，精确时间为 O(n+m+sum(deg(y)^2))，近似规则图时为 O(n*d^2)=O(m*d)，其中 m=n*d/2。若明确限定有向图，则在题首声明该扩展假设。"
+    },
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-24",
+      "severity": "warning",
+      "issue": "题目要求只利用栈的基本操作，代码额外使用了未定义的 ReplaceTop。若栈 ADT 只有 Init、Push、Pop、GetTop 等标准操作，该调用不是已声明接口的一部分。",
+      "recommendedFix": "将 ReplaceTop 明确实现为先 Pop 旧 Frame、再 Push 更新后的 Frame，或把它列为 GetTop 的可写引用语义；这样算法即可严格只依赖声明的栈基本操作。"
+    }
+  ]
+}

@@ -1,0 +1,1311 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-08-03T14:05:32+08:00",
+  "reportType": "independent-candidate-final-review",
+  "reviewer": {
+    "nickname": "Luna",
+    "independentReview": true,
+    "priorConversationConclusionsUsedAsVerdict": false,
+    "entranceReportsRead": [
+      ".codex/audits/textbook-assets/draft-05-redraw.json",
+      ".codex/audits/textbook-assets/review-05-08-adjudication.json"
+    ],
+    "decisionBasis": [
+      "重新读取教材 JSON pages[26..28] 的 markdown、html、source attributes、图前后文、caption、alt 和图片引用。",
+      "独立读取五幅原始 SVG 与五幅 readable 候选 SVG；逐项比对文字序列、维度、行列/下标、单元格、分组、线条/箭头语义和几何布局。",
+      "对原图和候选图分别执行 intrinsic、760px、578px、396px 的等比例 SVG 栅格化，并检查字体缺字/退化、矩阵边线与文字碰撞、裁切和横向溢出。",
+      "在本地真实教材页以 760px 和 396px 视口检查当前原图引用、懒加载、页面 scrollWidth 和图像可见布局；没有把候选接入页面。"
+    ]
+  },
+  "project": {
+    "root": "/Users/minimax/schedule/kaoyan-quiz",
+    "dataset": "app/data/textbook-data-structures.json",
+    "chapter": "05-array-and-generalized-list",
+    "pages": [
+      {
+        "zeroBasedPageIndex": 26,
+        "id": "textbook-ds:05-array-and-generalized-list/5-1-array-definition",
+        "slug": "05-array-and-generalized-list/5-1-array-definition",
+        "route": "/textbook/data-structures/05-array-and-generalized-list/5-1-array-definition",
+        "title": "5.1　数组的定义",
+        "sourcePath": "05-array-and-generalized-list/5-1-array-definition/index.md",
+        "sourceAttributes": {
+          "book_pages": "90-91",
+          "pdf_pages": "100-101"
+        }
+      },
+      {
+        "zeroBasedPageIndex": 27,
+        "id": "textbook-ds:05-array-and-generalized-list/5-2-array-sequential-representation",
+        "slug": "05-array-and-generalized-list/5-2-array-sequential-representation",
+        "route": "/textbook/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation",
+        "title": "5.2　数组的顺序表示和实现",
+        "sourcePath": "05-array-and-generalized-list/5-2-array-sequential-representation/index.md",
+        "sourceAttributes": {
+          "book_pages": "91-95",
+          "pdf_pages": "101-105"
+        }
+      },
+      {
+        "zeroBasedPageIndex": 28,
+        "id": "textbook-ds:05-array-and-generalized-list/5-3-matrix-compressed-storage",
+        "slug": "05-array-and-generalized-list/5-3-matrix-compressed-storage",
+        "route": "/textbook/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage",
+        "title": "5.3 矩阵的压缩存储",
+        "sourcePath": "05-array-and-generalized-list/5-3-matrix-compressed-storage/index.md",
+        "sourceAttributes": {
+          "book_pages": "95-106",
+          "pdf_pages": "105-116"
+        }
+      }
+    ]
+  },
+  "scope": {
+    "reviewedAssets": [
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array-readable.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders-readable.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression-readable.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix-readable.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose-readable.svg"
+    ],
+    "candidatePairs": [
+      {
+        "figure": "fig-5-1",
+        "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array.svg",
+        "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array-readable.svg"
+      },
+      {
+        "figure": "fig-5-2",
+        "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders.svg",
+        "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders-readable.svg"
+      },
+      {
+        "figure": "fig-5-3",
+        "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression.svg",
+        "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression-readable.svg"
+      },
+      {
+        "figure": "fig-5-4",
+        "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix.svg",
+        "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix-readable.svg"
+      },
+      {
+        "figure": "fig-5-5",
+        "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose.svg",
+        "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose-readable.svg"
+      }
+    ],
+    "candidateRejectedItems": [],
+    "candidateNotNeededItems": [],
+    "allowedCandidateChange": [
+      "修复缺字、缺失/退化的复合下标和上标字形。",
+      "修复文字与边框/矩阵/图注的局部重叠。",
+      "修复 SVG 内部裁切或为修复布局增加安全画布空间。"
+    ],
+    "prohibitedCandidateChange": [
+      "用摘要矩阵、摘要序列或删减版图意替换教材例子。",
+      "删除任何非重复的矩阵值、下标、维度、数组顺序、三元组、分组、线条或关系。",
+      "把普通分组线/斜线虚构成方向箭头，或添加原图没有的箭头语义。"
+    ]
+  },
+  "readOnlyBoundary": {
+    "onlyWorkspaceFilesWritten": [
+      ".codex/audits/textbook-assets/candidate-05-final-review.json",
+      ".codex/audits/textbook-assets/candidate-05-final-review-renders/*"
+    ],
+    "originalSvgModified": false,
+    "candidateSvgModified": false,
+    "markdownModified": false,
+    "datasetJsonModified": false,
+    "componentsModified": false,
+    "cssModified": false,
+    "imageReferencesModified": false,
+    "worktreeCreated": false,
+    "tmpWritten": false,
+    "commitCreated": false,
+    "pushPerformed": false,
+    "preExistingDirtyState": "任务开始前工作树已有其他教材 JSON、组件、CSS、入口审计、候选 SVG 与渲染产物等状态；本次未编辑、覆盖、删除、移动或清理这些状态。"
+  },
+  "deterministicInventory": {
+    "command": "node /Users/minimax/.codex/skills/audit-408-textbook-assets-demo/scripts/audit-textbook-assets.mjs --project /Users/minimax/schedule/kaoyan-quiz --dataset app/data/textbook-data-structures.json --assets public/textbooks/data-structures --report /dev/null",
+    "reportPersisted": false,
+    "result": {
+      "files": 444,
+      "referenced": 274,
+      "missing": 0,
+      "unreferenced": 170,
+      "entries": 444
+    },
+    "targetedSvgDecode": {
+      "checked": 10,
+      "malformed": 0,
+      "sharpMetadataSucceeded": 10,
+      "note": "候选按本任务要求未接入 Markdown/JSON，因此作为未引用 sibling 出现在 unreferenced 中；这不构成 missing 或 malformed。"
+    },
+    "candidateReferencePolicy": "候选只读终审不修改既有图片引用；真实页仍展示原图是本任务范围的预期状态。"
+  },
+  "sourceContextEvidence": [
+    {
+      "figure": "fig-5-1",
+      "datasetLocator": "app/data/textbook-data-structures.json#pages[26].markdown",
+      "markdownLines": {
+        "image": 67,
+        "caption": 69
+      },
+      "generatedHtmlReference": "/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array.svg",
+      "alt": "图 5.1：矩阵形式、列向量和行向量形式下的二维数组",
+      "caption": "图 5.1　二位数组图例： (a) 矩阵形式表示；(b) 列向量的一维数组；(c) 行向量的一维数组。",
+      "before": "同理，一个 n 维数组类型可以定义为其数据元素为 n-1 维数组类型的一维数组类型。",
+      "after": "数组一旦被定义，它的维数和维界就不再改变。因此，除了结构的初始化和销毁之外，数组只有存取元素和修改元素值的操作。",
+      "imageMarkdown": "![图 5.1：矩阵形式、列向量和行向量形式下的二维数组](assets/py/fig-5-1-two-dimensional-array.svg)",
+      "sourceWasRead": [
+        "教材 JSON page[26] 的 markdown 与 html。",
+        "图像前后正文、caption、alt、原图引用和生成 HTML 引用。"
+      ],
+      "originalFinding": "全尺寸和正文探针中 A_(m×n)、a_(m−1,n−1) 等复合下标出现缺字方框或异常字形；这不是 CSS 高度裁切。"
+    },
+    {
+      "figure": "fig-5-2",
+      "datasetLocator": "app/data/textbook-data-structures.json#pages[27].markdown",
+      "markdownLines": {
+        "image": 8,
+        "caption": 10
+      },
+      "generatedHtmlReference": "/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders.svg",
+      "alt": "图 5.2：二维数组按列主序与按行主序的连续存储次序",
+      "caption": "图 5.2　二位数组的两种存储方式： (a) 以列序为主序；(b) 以行序为主序。",
+      "before": "由于存储单元是一维的结构，而数组是个多维的结构，则用一组连续存储单元存放数组的数据元素就有个次序约定问题。例如图 5.1(a) 的二维数组可以看成如图 5.1(c) 的一维数组，也可看成如图 5.1(b) 的一维数组。对应地，对二维数组可有两种存储方式：一种以列序为主序（column major order）的存储方式，如图 5.2(a) 所示；一种是以行序为主序（row major order）的存储方式，如图 5.2(b) 所示。在扩展 BASIC、PL/1、COBOL、PASCAL 和 C 语言中，用的都是以行序为主序的存储结构，而在 FORTRAN 语言中，用的是以列序为主序的存储结构。",
+      "after": "由此，对于数组，一旦规定了它的维数和各维的长度，便可为它分配存储空间。反之，只要给出一组下标便可求得相应数组元素的存储位置。下面仅以行序为主序的存储结构为例予以说明。",
+      "imageMarkdown": "![图 5.2：二维数组按列主序与按行主序的连续存储次序](assets/py/fig-5-2-storage-orders.svg)",
+      "sourceWasRead": [
+        "教材 JSON page[27] 的 markdown 与 html。",
+        "正文关于 column major order/row major order、图注、alt 和图片引用。"
+      ],
+      "originalFinding": "m−1、n−1 等下标显示为缺字方框或异常字形，列主序/行主序中的元素标记和 LOC 地址公式不能可靠读取；这不是 CSS 高度裁切。"
+    },
+    {
+      "figure": "fig-5-3",
+      "datasetLocator": "app/data/textbook-data-structures.json#pages[28].markdown",
+      "markdownLines": {
+        "image": 36,
+        "caption": null
+      },
+      "captionSource": "Markdown image alt and generated HTML img alt; no separate caption paragraph is present on this page.",
+      "generatedHtmlReference": "/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression.svg",
+      "alt": "图 5.3：对称矩阵下三角含对角线按行压缩到一维数组",
+      "caption": "图 5.3：对称矩阵下三角含对角线按行压缩到一维数组",
+      "before": "对于任意给定一组下标 (i,j)，均可在 sa 中找到矩阵元 a_(ij)；反之，对所有的 k=0,1,2,ldots,dfrac{n(n+1)}2-1，都能确定 sa[k] 中的元在矩阵中的位置 (i,j)。由此，称 sa[n(n+1)/2] 为 n 阶对称矩阵 A 的压缩存储。",
+      "after": "这种压缩存储的方法同样也适用于三角矩阵。所谓下（上）三角矩阵是指矩阵的上（下）三角（不包括对角线）中的元均为常数 c 或零的 n 阶矩阵。则除了和对称矩阵一样，只存储其下（上）三角中的元之外，再加一个存储常数 c 的存储空间即可。",
+      "imageMarkdown": "![图 5.3：对称矩阵下三角含对角线按行压缩到一维数组](assets/py/fig-5-3-symmetric-compression.svg)",
+      "sourceWasRead": [
+        "教材 JSON page[28] 的 markdown 与 html。",
+        "图注、alt、sa[k] 与 k 端点的图前正文和三角矩阵图后正文。"
+      ],
+      "originalFinding": "压缩序列末端矩阵项的复合下标出现缺字方框或拥挤，sa[k] 与矩阵项的精确对应关系不能完全确认；这不是 CSS 高度裁切。"
+    },
+    {
+      "figure": "fig-5-4",
+      "datasetLocator": "app/data/textbook-data-structures.json#pages[28].markdown",
+      "markdownLines": {
+        "image": 42,
+        "caption": null
+      },
+      "captionSource": "Markdown image alt and generated HTML img alt; no separate caption paragraph is present on this page.",
+      "generatedHtmlReference": "/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix.svg",
+      "alt": "图 5.4：一般带状对角矩阵及三对角矩阵",
+      "caption": "图 5.4：一般带状对角矩阵及三对角矩阵",
+      "before": "在数值分析中经常出现的还有另一类特殊矩阵是对角矩阵。在这种矩阵中，所有的非零元都集中在以主对角线为中心的带状区域中。即除了主对角线上和直接在对角线上、下方若干条对角线上的元之外，所有其他的元均为零。如图 5.4 所示。对这种矩阵，我们也可按某个原则（或以行为主，或以对角线的顺序）将其压缩存储到一维数组上。",
+      "after": "在所有这些我们统称为特殊矩阵的矩阵中，非零元的分布都有一个明显的规律，从而我们都可将其压缩存储到一维数组中，并找到每个非零元在一维数组中的对应关系。",
+      "imageMarkdown": "![图 5.4：一般带状对角矩阵及三对角矩阵](assets/py/fig-5-4-band-matrix.svg)",
+      "sourceWasRead": [
+        "教材 JSON page[28] 的 markdown 与 html。",
+        "一般带状矩阵/三对角矩阵的图前说明、caption、alt 和图后压缩存储说明。"
+      ],
+      "originalFinding": "三对角矩阵右下角复合下标缺字且拥挤，局部标签彼此干扰；这不是 CSS 高度裁切。"
+    },
+    {
+      "figure": "fig-5-5",
+      "datasetLocator": "app/data/textbook-data-structures.json#pages[28].markdown",
+      "markdownLines": {
+        "image": 96,
+        "caption": null
+      },
+      "captionSource": "Markdown image alt and generated HTML img alt; no separate caption paragraph is present on this page.",
+      "generatedHtmlReference": "/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose.svg",
+      "alt": "图 5.5：稀疏矩阵 M 与其转置矩阵 T",
+      "caption": "图 5.5：稀疏矩阵 M 与其转置矩阵 T",
+      "before": "加上 (6,7) 这一对行、列值便可作为图 5.5 中矩阵 M 的另一种描述。而由上述三元组表的不同表示方法可引出稀疏矩阵不同的压缩存储方法。",
+      "after": "### 1．三元组顺序表",
+      "imageMarkdown": "![图 5.5：稀疏矩阵 M 与其转置矩阵 T](assets/py/fig-5-5-sparse-matrix-and-transpose.svg)",
+      "additionalSourceFormula": "转置正文同时说明：对 m×n 矩阵 M，T 是 n×m，且 T(i,j)=M(j,i)；图 5.5 的 M 与 T 互为转置。",
+      "sourceWasRead": [
+        "教材 JSON page[28] 的 markdown 与 html。",
+        "图前 (6,7) 维度证据、caption、alt、图后“三元组顺序表”标题及转置定义。"
+      ],
+      "originalFinding": "英文标题压到转置矩阵 T 的底部边界/最后一行附近，标题与矩阵区域发生视觉侵入；这不是 CSS 高度裁切。"
+    }
+  ],
+  "svgComparison": [
+    {
+      "figure": "fig-5-1",
+      "old": {
+        "path": "public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array.svg",
+        "sha256": "e5003df83b6e8281d5ee46b65f6db5383331515255d26b02ecddf100636903b8",
+        "bytes": 5706,
+        "intrinsicSize": "1180x520",
+        "viewBox": "0 0 1180 520",
+        "svgSignals": {
+          "textCount": 43,
+          "rectCount": 32,
+          "pathCount": 0,
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false
+        }
+      },
+      "candidate": {
+        "path": "public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array-readable.svg",
+        "sha256": "587c1ce5231f4ed33b85235ed37113cfeee7d4d6066793f2972e0a4e710185f0",
+        "bytes": 7840,
+        "intrinsicSize": "1240x720",
+        "viewBox": "0 0 1240 720",
+        "svgSignals": {
+          "textCount": 44,
+          "tspanCount": 72,
+          "rectCount": 33,
+          "pathCount": 0,
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false,
+          "explicitTspanSubscript": true
+        }
+      },
+      "semanticTextInventoryEqual": true,
+      "repairScope": [
+        "将复合下标改为显式嵌套 tspan 文本。",
+        "重新排布三种表示和底部元组以消除局部拥挤。",
+        "未添加箭头、未删除矩阵单元、下标、维度或省略号。"
+      ]
+    },
+    {
+      "figure": "fig-5-2",
+      "old": {
+        "path": "public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders.svg",
+        "sha256": "ddf89abeaf2bce70bd3676f6a14f358d29addc0601a6359e35765308edfcf319",
+        "bytes": 5659,
+        "intrinsicSize": "1180x760",
+        "viewBox": "0 0 1180 760",
+        "svgSignals": {
+          "textCount": 43,
+          "rectCount": 24,
+          "pathCount": 6,
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false
+        }
+      },
+      "candidate": {
+        "path": "public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders-readable.svg",
+        "sha256": "d903a324e3f1cc8c8db0837d38914c441b93fcb578e163c636dc515ca6c95c1b",
+        "bytes": 8797,
+        "intrinsicSize": "1540x920",
+        "viewBox": "0 0 1540 920",
+        "svgSignals": {
+          "textCount": 43,
+          "tspanCount": 87,
+          "rectCount": 25,
+          "pathCount": 6,
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false,
+          "explicitTspanSubscriptAndSuperscript": true
+        }
+      },
+      "semanticTextInventoryEqual": true,
+      "repairScope": [
+        "将复合下标/上标改为显式 tspan。",
+        "重新拉开列主序、行主序、括号分组、六个 LOC 端点和两组向量公式的间距。",
+        "未添加箭头、未删除元素顺序、LOC 映射、端点或分组。"
+      ]
+    },
+    {
+      "figure": "fig-5-3",
+      "old": {
+        "path": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression.svg",
+        "sha256": "e1f664afef7542b6d158c6f7a6ed1d0a40161091a9f391a98b7e8608f13ad58c",
+        "bytes": 2135,
+        "intrinsicSize": "1030x320",
+        "viewBox": "0 0 1030 320",
+        "svgSignals": {
+          "textCount": 16,
+          "rectCount": 8,
+          "pathCount": 1,
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false
+        }
+      },
+      "candidate": {
+        "path": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression-readable.svg",
+        "sha256": "6c812df50cab7c8111e192cb927fa167cae27e5ff3b945a4037c4132060b6a73",
+        "bytes": 2626,
+        "intrinsicSize": "1220x390",
+        "viewBox": "0 0 1220 390",
+        "svgSignals": {
+          "textCount": 16,
+          "tspanCount": 6,
+          "rectCount": 9,
+          "pathCount": 0,
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false,
+          "explicitTspanSubscript": true
+        }
+      },
+      "semanticTextInventoryEqual": true,
+      "repairScope": [
+        "将末端复合下标改为显式 tspan并扩大端点索引间距。",
+        "保留 8 个序列格、6 个 k 端点和图注。",
+        "原图 path 是未使用 marker 的结构；候选没有添加箭头。"
+      ]
+    },
+    {
+      "figure": "fig-5-4",
+      "old": {
+        "path": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix.svg",
+        "sha256": "bf6bce8acc853817bf67cf02612012517d3e9b5de0cb37fed48fbda046ab914e",
+        "bytes": 3100,
+        "intrinsicSize": "920x370",
+        "viewBox": "0 0 920 370",
+        "svgSignals": {
+          "textCount": 13,
+          "rectCount": 17,
+          "lineCount": 10,
+          "pathCount": 1,
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false
+        }
+      },
+      "candidate": {
+        "path": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix-readable.svg",
+        "sha256": "bb3807aef94a6f4af5a29beafab8674490a874aa2d4f017f156b75ead1ff8d7f",
+        "bytes": 3826,
+        "intrinsicSize": "1260x660",
+        "viewBox": "0 0 1260 660",
+        "svgSignals": {
+          "textCount": 13,
+          "tspanCount": 8,
+          "rectCount": 18,
+          "lineCount": 10,
+          "pathCount": 0,
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false,
+          "explicitTspanSubscript": true
+        }
+      },
+      "semanticTextInventoryEqual": true,
+      "repairScope": [
+        "将三对角矩阵右下角复合下标改为显式 tspan并扩大网格/标题间距。",
+        "保留 10 条普通平行斜线、16 个网格单元、全部空白格和边界标签。",
+        "普通斜线不是箭头；候选没有添加方向箭头。"
+      ]
+    },
+    {
+      "figure": "fig-5-5",
+      "old": {
+        "path": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose.svg",
+        "sha256": "2b355dcb6f072e66e94bd3b01e48e530e44ff24a8b84df39e7be2f540839efa3",
+        "bytes": 10768,
+        "intrinsicSize": "900x380",
+        "viewBox": "0 0 900 380",
+        "svgSignals": {
+          "textCount": 87,
+          "rectCount": 84,
+          "pathCount": 1,
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false
+        }
+      },
+      "candidate": {
+        "path": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose-readable.svg",
+        "sha256": "c145e328dd5816e62762ddea1d69a00a2493b4222cd2c82d4f5ace44b7f99e71",
+        "bytes": 11538,
+        "intrinsicSize": "1240x700",
+        "viewBox": "0 0 1240 700",
+        "svgSignals": {
+          "textCount": 87,
+          "rectCount": 85,
+          "pathCount": 0,
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false
+        }
+      },
+      "semanticTextInventoryEqual": true,
+      "repairScope": [
+        "下移英文图注并重新分配矩阵/图注间距，消除标题侵入 T 底行。",
+        "保留 M 6×7、T 7×6 的全部 84 个单元及全部数值。",
+        "原图 path 是未使用 marker 的结构；候选没有添加箭头。"
+      ]
+    }
+  ],
+  "semanticInventory": [
+    {
+      "figure": "fig-5-1",
+      "candidateDecision": "candidate_approved",
+      "pageIntegrationDecision": "needs_followup",
+      "diagramMeaning": "同一 m×n 二维数组的矩阵、列向量和行向量/元组三种表示。",
+      "dimensionsAndAxes": [
+        "A_(m×n) 维度标签。",
+        "矩阵示例为 4 行 × 5 列的可视布局，行列端点用 m−1、n−1 表示。",
+        "列向量示例按 j=0、1、…、n−1 分组；每列按 i=0、1、…、m−1 展开。"
+      ],
+      "representationGroups": [
+        "(a) 矩阵形式。",
+        "(b) 列向量的一维数组形式。",
+        "(c) 行向量/元组形式。"
+      ],
+      "matrixRowsPreserved": [
+        "a00、a01、a02、…、a0,n−1",
+        "a10、a11、a12、…、a1,n−1",
+        "中间行省略号",
+        "a_(m−1,0)、a_(m−1,1)、a_(m−1,2)、…、a_(m−1,n−1)"
+      ],
+      "columnVectorContentsPreserved": [
+        "a0 列：a_(0,0)、a_(1,0)、⋮、a_(m−1,0)",
+        "a1 列：a_(0,1)、a_(1,1)、⋮、a_(m−1,1)",
+        "a_(n−1) 列：a_(0,n−1)、a_(1,n−1)、⋮、a_(m−1,n−1)",
+        "列向量标签 a0、a1、…、a_(n−1)"
+      ],
+      "rowTuplePreserved": "A_(m×n)=((a00 a01 … a0,n−1),(a10 a11 … a1,n−1),…,(a_(m−1,0) a_(m−1,1) … a_(m−1,n−1)))",
+      "arrows": {
+        "sourceVisibleArrowCount": 0,
+        "candidateVisibleArrowCount": 0,
+        "statement": "图中没有箭头；候选没有虚构箭头。"
+      },
+      "allValuesSubscriptsEllipsesAndLabelsPreserved": true,
+      "risk": "396px 等效宽度及真实页 322px 内容宽度下，底部长元组和复合下标偏小，建议放大阅读；没有缺字、碰撞或裁切。"
+    },
+    {
+      "figure": "fig-5-2",
+      "candidateDecision": "candidate_approved",
+      "pageIntegrationDecision": "needs_followup",
+      "diagramMeaning": "同一二维数组的列主序和行主序连续存储对照。",
+      "dimensionsAndAxes": [
+        "列主序按列 j=0、1、…、n−1 分组，每组按 i=0、1、…、m−1 展开。",
+        "行主序按行 i=0、1、…、m−1 分组，每组按 j=0、1、…、n−1 展开。",
+        "(a) 左侧列主序；(b) 右侧行主序。"
+      ],
+      "columnMajorSequence": [
+        "a00、a10、…、a_(m−1,0)",
+        "a01、a11、…、a_(m−1,1)",
+        "…",
+        "a_(0,n−1)、a_(1,n−1)、…、a_(m−1,n−1)"
+      ],
+      "rowMajorSequence": [
+        "a00、a01、…、a_(0,n−1)",
+        "a10、a11、…、a_(1,n−1)",
+        "…",
+        "a_(m−1,0)、a_(m−1,1)、…、a_(m−1,n−1)"
+      ],
+      "columnMajorGroupsAndMappings": [
+        "Ā_0^(1)、Ā_1^(1)、…、Ā_(n−1)^(1)",
+        "LOC(Ā_0^(1))=LOC(a00)",
+        "LOC(Ā_1^(1))=LOC(a01)",
+        "LOC(Ā_(n−1)^(1))=LOC(a_(0,n−1))",
+        "A^(2)=(Ā_0^(1),Ā_1^(1),…,Ā_(n−1)^(1))",
+        "Ā_j^(1)=(a_(0,j),a_(1,j),…,a_(m−1,j))"
+      ],
+      "rowMajorGroupsAndMappings": [
+        "A_0^(1)、A_1^(1)、…、A_(m−1)^(1)",
+        "LOC(A_0^(1))=LOC(a00)",
+        "LOC(A_1^(1))=LOC(a10)",
+        "LOC(A_(m−1)^(1))=LOC(a_(m−1,0))",
+        "A^(2)=(A_0^(1),A_1^(1),…,A_(m−1)^(1))",
+        "A_i^(1)=(a_(i,0),a_(i,1),…,a_(i,n−1))"
+      ],
+      "bracesGroupsAndLabels": [
+        "全部括号/大括号分组。",
+        "全部 LOC 地址标注。",
+        "(a)、(b) 及图注。"
+      ],
+      "arrows": {
+        "sourceVisibleArrowCount": 0,
+        "candidateVisibleArrowCount": 0,
+        "statement": "大括号/分组线不是箭头；候选没有增加方向箭头。"
+      },
+      "allOrderEndpointsMappingsAndFormulasPreserved": true,
+      "risk": "这是五张候选中 396px 等效宽度最密集的一张；LOC 和底部向量公式需要放大阅读，但序列、分组、公式没有碰撞、裁切或横向溢出。"
+    },
+    {
+      "figure": "fig-5-3",
+      "candidateDecision": "candidate_approved",
+      "pageIntegrationDecision": "needs_followup",
+      "diagramMeaning": "对称矩阵下三角含主对角线按行压缩到一维数组。",
+      "compressionDirection": "按行从左到右取下三角和主对角线。",
+      "sequenceCells": [
+        "a11",
+        "a21",
+        "a22",
+        "a31",
+        "…",
+        "a_(n1)",
+        "…",
+        "a_(nn)"
+      ],
+      "indexToMatrixMappings": [
+        "k=0 → a11",
+        "k=1 → a21",
+        "k=2 → a22",
+        "k=3 → a31",
+        "k=n(n−1)/2 → a_(n1)",
+        "k=n(n+1)/2−1 → a_(nn)"
+      ],
+      "exampleAndBounds": [
+        "一维序列共 8 个可视格，保留中间省略号。",
+        "保留 k=0、1、2、3 和两个 n 公式端点。",
+        "下标使用 1-based 矩阵记号；图注为 Fig. 5.3 Symmetric-matrix compressed storage。"
+      ],
+      "arrows": {
+        "sourceVisibleArrowCount": 0,
+        "candidateVisibleArrowCount": 0,
+        "statement": "原 SVG 的 marker 定义未形成可见箭头；候选没有虚构箭头。"
+      },
+      "allSequenceCellsIndicesAndEndpointFormulasPreserved": true,
+      "risk": "396px 等效宽度及真实页 322px 内容宽度下，端点公式字号偏小，需放大阅读；n、−1 和分母结构没有缺失或碰撞。"
+    },
+    {
+      "figure": "fig-5-4",
+      "candidateDecision": "candidate_approved",
+      "pageIntegrationDecision": "needs_followup",
+      "diagramMeaning": "一般带状对角矩阵与三对角矩阵的并列示意。",
+      "generalBandSubfigure": {
+        "label": "(a) general case",
+        "axisLabels": [
+          "aij main diagonal",
+          "m rows, n columns"
+        ],
+        "parallelLines": 10,
+        "lineMeaning": "10 条普通平行斜线表示主对角线周围的带状区域，不是方向箭头。"
+      },
+      "tridiagonalSubfigure": {
+        "label": "(b) tridiagonal matrix",
+        "gridDimensions": "4×4",
+        "gridCellCount": 16,
+        "labeledCellsOrMarkers": [
+          "a00",
+          "a01",
+          "a10",
+          "a11",
+          "a12",
+          "⋱",
+          "a_(n−1,n−2)",
+          "a_(n−1,n−1)"
+        ],
+        "blankCells": "其余 8 个网格单元保持空白，表示带外零/未标注位置；未以摘要矩阵替换。",
+        "caption": "Fig. 5.4 Nonzeros concentrated around main diagonal"
+      },
+      "arrows": {
+        "sourceVisibleArrowCount": 0,
+        "candidateVisibleArrowCount": 0,
+        "statement": "10 条 line 均无箭头端点；候选没有增加方向关系。"
+      },
+      "allLinesCellsLabelsBlanksAndGroupsPreserved": true,
+      "risk": "窄屏下 4×4 网格中的复合下标偏小，但边界下标、空白格、带状关系和主对角线标签均完整；没有标签相撞、裁切或越界。"
+    },
+    {
+      "figure": "fig-5-5",
+      "candidateDecision": "candidate_approved",
+      "pageIntegrationDecision": "needs_followup",
+      "diagramMeaning": "稀疏矩阵 M 与其转置矩阵 T 的数值和位置对照。",
+      "dimensionsAndAxes": [
+        "M 为 6×7；正文图前的 (6,7) 行列值证据保留。",
+        "T 为 7×6；转置正文定义 T 为 n×m，且 T(i,j)=M(j,i)。"
+      ],
+      "matrixM": [
+        "0 12 9 0 0 0 0",
+        "0 0 0 0 0 0 0",
+        "−3 0 0 0 0 14 0",
+        "0 0 24 0 0 0 0",
+        "0 18 0 0 0 0 0",
+        "15 0 0 −7 0 0 0"
+      ],
+      "matrixT": [
+        "0 0 −3 0 0 15",
+        "12 0 0 0 18 0",
+        "9 0 0 24 0 0",
+        "0 0 0 0 0 −7",
+        "0 0 0 0 0 0",
+        "0 0 14 0 0 0",
+        "0 0 0 0 0 0"
+      ],
+      "triplesAndPositions": [
+        "(1,2,12)",
+        "(1,3,9)",
+        "(3,1,−3)",
+        "(3,6,14)",
+        "(4,3,24)",
+        "(5,2,18)",
+        "(6,1,15)",
+        "(6,4,−7)",
+        "(6,7) dimension pair"
+      ],
+      "cellInventory": {
+        "matrixMCells": 42,
+        "matrixTCells": 42,
+        "totalCells": 84,
+        "nonZeroValues": [
+          "12",
+          "9",
+          "−3",
+          "14",
+          "24",
+          "18",
+          "15",
+          "−7"
+        ],
+        "allOtherCellsRemainZero": true
+      },
+      "arrows": {
+        "sourceVisibleArrowCount": 0,
+        "candidateVisibleArrowCount": 0,
+        "statement": "转置关系由矩阵布局和正文公式表达；原图没有可见映射箭头，候选没有添加虚构箭头。"
+      },
+      "allDimensionsValuesZerosNonZerosTriplesAndTransposeRelationPreserved": true,
+      "risk": "396px 等效宽度及真实页 322px 内容宽度下数值字号较小，需放大阅读；全部 84 个单元、非零值和 T 的底行仍在正确位置，没有图注侵入。"
+    }
+  ],
+  "renderValidation": {
+    "renderer": "sharp/libvips deterministic SVG-to-PNG rasterization with white background",
+    "renderDirectory": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders",
+    "specifiedWidths": [
+      "intrinsic",
+      "760px",
+      "578px",
+      "396px"
+    ],
+    "widthMeaning": {
+      "intrinsic": "按 SVG 自身 width/height 输出。",
+      "760px": "760px 等效桌面视口图像宽度。",
+      "578px": "760px 视口下教材正文的实际等效图像宽度。",
+      "396px": "396px 等效窄视口图像宽度；真实页进一步测得图像内容宽度约 322px。"
+    },
+    "globalCandidateChecks": {
+      "allFiveIntrinsic": {
+        "fontDegradation": false,
+        "matrixBorderTextCollision": false,
+        "clipping": false,
+        "horizontalOverflow": false,
+        "keyTextReadable": true
+      },
+      "allFive760px": {
+        "fontDegradation": false,
+        "matrixBorderTextCollision": false,
+        "clipping": false,
+        "horizontalOverflow": false,
+        "keyTextReadable": true
+      },
+      "allFive578px": {
+        "fontDegradation": false,
+        "matrixBorderTextCollision": false,
+        "clipping": false,
+        "horizontalOverflow": false,
+        "keyTextReadable": true
+      },
+      "allFive396px": {
+        "fontDegradation": false,
+        "matrixBorderTextCollision": false,
+        "clipping": false,
+        "horizontalOverflow": false,
+        "keyTextReadable": true,
+        "readingZoomRecommended": true
+      }
+    },
+    "renderSizesAndObservations": {
+      "fig-5-1": {
+        "original": {
+          "intrinsic": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-1-two-dimensional-array--original--intrinsic.png",
+            "outputSize": "1180x520",
+            "clipping": false,
+            "visibleOverlap": false,
+            "fontDegradation": true,
+            "observation": "全尺寸仍可见复合下标缺字方框/异常字形。"
+          },
+          "760px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-1-two-dimensional-array--original--760px.png",
+            "outputSize": "760x335",
+            "clipping": false,
+            "visibleOverlap": false,
+            "fontDegradation": true,
+            "observation": "等效正文宽度下复合下标不能可靠读取。"
+          },
+          "578px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-1-two-dimensional-array--original--578px.png",
+            "outputSize": "578x255",
+            "clipping": false,
+            "visibleOverlap": false,
+            "fontDegradation": true,
+            "observation": "缺字/异常字形持续存在；不是 viewport 高度裁切。"
+          },
+          "396px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-1-two-dimensional-array--original--396px.png",
+            "outputSize": "396x175",
+            "clipping": false,
+            "visibleOverlap": false,
+            "fontDegradation": true,
+            "observation": "窄宽度下端点复合下标更难辨认。"
+          }
+        },
+        "candidate": {
+          "intrinsic": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-1-two-dimensional-array--candidate--intrinsic.png",
+            "outputSize": "1240x720",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "760px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-1-two-dimensional-array--candidate--760px.png",
+            "outputSize": "760x441",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "578px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-1-two-dimensional-array--candidate--578px.png",
+            "outputSize": "578x336",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "396px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-1-two-dimensional-array--candidate--396px.png",
+            "outputSize": "396x230",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true,
+            "readingZoomRecommended": true
+          }
+        }
+      },
+      "fig-5-2": {
+        "original": {
+          "intrinsic": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-2-storage-orders--original--intrinsic.png",
+            "outputSize": "1180x760",
+            "clipping": false,
+            "visibleOverlap": false,
+            "fontDegradation": true,
+            "observation": "m−1、n−1 等下标和 LOC 公式存在缺字/异常字形。"
+          },
+          "760px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-2-storage-orders--original--760px.png",
+            "outputSize": "760x489",
+            "clipping": false,
+            "visibleOverlap": false,
+            "fontDegradation": true,
+            "observation": "两组存储序列端点和地址映射不能可靠核读。"
+          },
+          "578px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-2-storage-orders--original--578px.png",
+            "outputSize": "578x372",
+            "clipping": false,
+            "visibleOverlap": false,
+            "fontDegradation": true,
+            "observation": "复合下标缺字/异常；没有图框高度裁切。"
+          },
+          "396px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-2-storage-orders--original--396px.png",
+            "outputSize": "396x255",
+            "clipping": false,
+            "visibleOverlap": false,
+            "fontDegradation": true,
+            "observation": "LOC、端点和两组公式在窄宽度下更密集且不可靠。"
+          }
+        },
+        "candidate": {
+          "intrinsic": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-2-storage-orders--candidate--intrinsic.png",
+            "outputSize": "1540x920",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "760px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-2-storage-orders--candidate--760px.png",
+            "outputSize": "760x454",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "578px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-2-storage-orders--candidate--578px.png",
+            "outputSize": "578x345",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "396px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-2-storage-orders--candidate--396px.png",
+            "outputSize": "396x237",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true,
+            "readingZoomRecommended": true,
+            "observation": "五图中信息密度最高；LOC 与底部公式建议放大，但没有重叠或溢出。"
+          }
+        }
+      },
+      "fig-5-3": {
+        "original": {
+          "intrinsic": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-3-symmetric-compression--original--intrinsic.png",
+            "outputSize": "1030x320",
+            "clipping": false,
+            "visibleOverlap": false,
+            "fontDegradation": true,
+            "observation": "末端 a_(n1)、a_(nn) 等复合下标缺字/拥挤。"
+          },
+          "760px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-3-symmetric-compression--original--760px.png",
+            "outputSize": "760x236",
+            "clipping": false,
+            "visibleOverlap": false,
+            "fontDegradation": true,
+            "observation": "端点下标与 k 公式不能完全可靠核读。"
+          },
+          "578px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-3-symmetric-compression--original--578px.png",
+            "outputSize": "578x180",
+            "clipping": false,
+            "visibleOverlap": false,
+            "fontDegradation": true,
+            "observation": "端点字形问题持续存在；无 CSS 裁切。"
+          },
+          "396px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-3-symmetric-compression--original--396px.png",
+            "outputSize": "396x123",
+            "clipping": false,
+            "visibleOverlap": false,
+            "fontDegradation": true,
+            "observation": "窄宽度下端点关系更难读。"
+          }
+        },
+        "candidate": {
+          "intrinsic": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-3-symmetric-compression--candidate--intrinsic.png",
+            "outputSize": "1220x390",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "760px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-3-symmetric-compression--candidate--760px.png",
+            "outputSize": "760x243",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "578px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-3-symmetric-compression--candidate--578px.png",
+            "outputSize": "578x185",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "396px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-3-symmetric-compression--candidate--396px.png",
+            "outputSize": "396x127",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true,
+            "readingZoomRecommended": true
+          }
+        }
+      },
+      "fig-5-4": {
+        "original": {
+          "intrinsic": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-4-band-matrix--original--intrinsic.png",
+            "outputSize": "920x370",
+            "clipping": false,
+            "visibleOverlap": true,
+            "fontDegradation": true,
+            "observation": "三对角矩阵右下角复合下标局部堆叠/干扰。"
+          },
+          "760px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-4-band-matrix--original--760px.png",
+            "outputSize": "760x306",
+            "clipping": false,
+            "visibleOverlap": true,
+            "fontDegradation": true,
+            "observation": "右下角标签干扰在正文宽度仍存在。"
+          },
+          "578px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-4-band-matrix--original--578px.png",
+            "outputSize": "578x232",
+            "clipping": false,
+            "visibleOverlap": true,
+            "fontDegradation": true,
+            "observation": "局部碰撞持续；标题与矩阵边界未被 CSS 裁切。"
+          },
+          "396px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-4-band-matrix--original--396px.png",
+            "outputSize": "396x159",
+            "clipping": false,
+            "visibleOverlap": true,
+            "fontDegradation": true,
+            "observation": "窄宽度下右下角复合下标更拥挤。"
+          }
+        },
+        "candidate": {
+          "intrinsic": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-4-band-matrix--candidate--intrinsic.png",
+            "outputSize": "1260x660",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "760px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-4-band-matrix--candidate--760px.png",
+            "outputSize": "760x398",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "578px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-4-band-matrix--candidate--578px.png",
+            "outputSize": "578x303",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "396px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-4-band-matrix--candidate--396px.png",
+            "outputSize": "396x207",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true,
+            "readingZoomRecommended": true
+          }
+        }
+      },
+      "fig-5-5": {
+        "original": {
+          "intrinsic": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-5-sparse-matrix-and-transpose--original--intrinsic.png",
+            "outputSize": "900x380",
+            "clipping": false,
+            "visibleOverlap": true,
+            "fontDegradation": false,
+            "observation": "英文图注侵入 T 矩阵底部/最后一行附近。"
+          },
+          "760px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-5-sparse-matrix-and-transpose--original--760px.png",
+            "outputSize": "760x321",
+            "clipping": false,
+            "visibleOverlap": true,
+            "fontDegradation": false,
+            "observation": "标题与 T 底行仍有视觉侵入。"
+          },
+          "578px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-5-sparse-matrix-and-transpose--original--578px.png",
+            "outputSize": "578x244",
+            "clipping": false,
+            "visibleOverlap": true,
+            "fontDegradation": false,
+            "observation": "T 底行与标题间距不足。"
+          },
+          "396px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-5-sparse-matrix-and-transpose--original--396px.png",
+            "outputSize": "396x167",
+            "clipping": false,
+            "visibleOverlap": true,
+            "fontDegradation": false,
+            "observation": "窄宽度下标题继续贴近 T 底行。"
+          }
+        },
+        "candidate": {
+          "intrinsic": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-5-sparse-matrix-and-transpose--candidate--intrinsic.png",
+            "outputSize": "1240x700",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "760px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-5-sparse-matrix-and-transpose--candidate--760px.png",
+            "outputSize": "760x429",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "578px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-5-sparse-matrix-and-transpose--candidate--578px.png",
+            "outputSize": "578x326",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true
+          },
+          "396px": {
+            "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/fig-5-5-sparse-matrix-and-transpose--candidate--396px.png",
+            "outputSize": "396x224",
+            "clipping": false,
+            "visibleOverlap": false,
+            "horizontalOverflow": false,
+            "fontDegradation": false,
+            "textReadable": true,
+            "readingZoomRecommended": true
+          }
+        }
+      }
+    },
+    "realPageValidation": {
+      "pageServer": "http://localhost:3001",
+      "routes": [
+        "/textbook/data-structures/05-array-and-generalized-list/5-1-array-definition",
+        "/textbook/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation",
+        "/textbook/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage"
+      ],
+      "viewportChecks": [
+        {
+          "viewportWidth": 760,
+          "pageScrollWidth": 760,
+          "measuredImageContentWidth": 666,
+          "horizontalOverflow": false,
+          "candidateWired": false
+        },
+        {
+          "viewportWidth": 396,
+          "pageScrollWidth": 396,
+          "measuredImageContentWidth": 322,
+          "horizontalOverflow": false,
+          "candidateWired": false
+        }
+      ],
+      "currentReferenceState": {
+        "allFivePageImagesStillReferenceOriginalSvg": true,
+        "candidateReferencesAdded": false,
+        "altAndCaptionUntouched": true,
+        "note": "当前真实页展示原图；候选文件仅作为独立验证资产，正式接入需另行授权。"
+      },
+      "lazyLoadCheck": {
+        "page": "5-3-matrix-compressed-storage",
+        "behavior": "滚动三图进入视口后检查 img.complete=true。",
+        "fig-5-3": true,
+        "fig-5-4": true,
+        "fig-5-5": true,
+        "falsePositiveFromLazyLoading": false
+      },
+      "pageScreenshotEvidence": {
+        "5-1": [
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-1--760px.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-1--396px.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-1--760px-figure.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-1--396px-figure.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-1--760px-visible-5-1.jpg",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-1--396px-visible-5-1.jpg"
+        ],
+        "5-2": [
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-2--760px.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-2--396px.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-2--760px-figure.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-2--396px-figure.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-2--760px-visible-5-2.jpg",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-2--396px-visible-5-2.jpg"
+        ],
+        "5-3": [
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-3--760px.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-3--396px.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-3--760px-fig-5-3.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-3--396px-fig-5-3.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-3--760px-fig-5-4.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-3--396px-fig-5-4.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-3--760px-fig-5-5.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-3--396px-fig-5-5.png",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-3--760px-visible-5-3.jpg",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-3--396px-visible-5-3.jpg",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-3--760px-visible-5-4.jpg",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-3--396px-visible-5-4.jpg",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-3--760px-visible-5-5.jpg",
+          "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/real-page-5-3--396px-visible-5-5.jpg"
+        ]
+      }
+    },
+    "xmlAndStructureChecks": [
+      {
+        "command": "xmllint --noout old.svg candidate.svg",
+        "result": "五份原图与五份候选均为合法 XML。"
+      },
+      {
+        "command": "独立 SVG 结构和语义文本清单检查",
+        "result": "五对图均保留同一语义文本/数值/标签集合；候选增加的是显式 tspan、间距和安全画布，不是摘要化内容。"
+      },
+      {
+        "command": "SVG root/asset inspection",
+        "result": "候选均无 foreignObject、无嵌入位图、无 root overflow hidden；五图候选形状和描边均在 viewBox 内。"
+      }
+    ]
+  },
+  "oldToCandidateMappings": [
+    {
+      "figure": "fig-5-1",
+      "oldAsset": "public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array.svg",
+      "candidateAsset": "public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array-readable.svg",
+      "approved": true,
+      "oldIssue": "复合下标缺字/异常字形使矩阵、列向量和元组端点不能可靠读取。",
+      "candidateRepair": "显式 tspan 下标、重新排布三种表示和底部元组；保留 A_(m×n)、全部元素和省略号。",
+      "mappingBasis": "语义文本清单相同，四个等效宽度均无缺字、碰撞、裁切或横向溢出。"
+    },
+    {
+      "figure": "fig-5-2",
+      "oldAsset": "public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders.svg",
+      "candidateAsset": "public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders-readable.svg",
+      "approved": true,
+      "oldIssue": "列主序/行主序元素与 LOC 公式中的复合下标缺字或异常，端点映射不能可靠读取。",
+      "candidateRepair": "显式 tspan 下标/上标并拉开两组 13 项序列、分组、LOC 标签和向量公式；未删顺序或映射。",
+      "mappingBasis": "两组序列、六个 LOC 端点、括号分组和两组公式全部核对通过；四档候选渲染无碰撞/裁切/溢出。"
+    },
+    {
+      "figure": "fig-5-3",
+      "oldAsset": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression.svg",
+      "candidateAsset": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression-readable.svg",
+      "approved": true,
+      "oldIssue": "序列末端 a_(n1)、a_(nn) 及 k 端点公式的复合下标缺字/拥挤。",
+      "candidateRepair": "显式 tspan 下标、增大端点间距并保持 8 个序列格、6 个索引和图注。",
+      "mappingBasis": "k 到矩阵项的六条精确映射和所有序列项均保留；四档候选渲染通过。"
+    },
+    {
+      "figure": "fig-5-4",
+      "oldAsset": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix.svg",
+      "candidateAsset": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix-readable.svg",
+      "approved": true,
+      "oldIssue": "三对角矩阵右下角复合下标局部堆叠/碰撞，窄屏更严重。",
+      "candidateRepair": "显式 tspan 下标、扩大网格与标题间距；保留 10 条普通斜线、16 格、空白格、边界标签和两子图。",
+      "mappingBasis": "普通线条没有被改成箭头，4×4 网格和全部标签/空白格保留；四档候选渲染无碰撞/裁切/溢出。"
+    },
+    {
+      "figure": "fig-5-5",
+      "oldAsset": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose.svg",
+      "candidateAsset": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose-readable.svg",
+      "approved": true,
+      "oldIssue": "英文图注侵入 T 的底行/最后一行附近。",
+      "candidateRepair": "下移图注并重新分配矩阵与图注间距；保留 M 6×7、T 7×6、84 个单元、全部 0/非零值和转置关系。",
+      "mappingBasis": "M/T 全部行、三元组位置、(6,7) 维度证据与候选四档渲染均核对通过。"
+    }
+  ],
+  "mappingPolicy": "仅对候选本身 approved 的五项登记 old→candidate；candidate_rejected 为 0。因用户禁止修改图片引用，真实页面接入状态对五项统一另列为 needs_followup，不影响候选本身批准。",
+  "perFigureDecisionMatrix": [
+    {
+      "figure": "fig-5-1",
+      "candidate_approved": true,
+      "candidate_rejected": false,
+      "needs_followup": true,
+      "needsFollowupReason": "候选未接入真实页；正式替换需后续授权修改引用。"
+    },
+    {
+      "figure": "fig-5-2",
+      "candidate_approved": true,
+      "candidate_rejected": false,
+      "needs_followup": true,
+      "needsFollowupReason": "候选未接入真实页；正式替换需后续授权修改引用。"
+    },
+    {
+      "figure": "fig-5-3",
+      "candidate_approved": true,
+      "candidate_rejected": false,
+      "needs_followup": true,
+      "needsFollowupReason": "候选未接入真实页；正式替换需后续授权修改引用。"
+    },
+    {
+      "figure": "fig-5-4",
+      "candidate_approved": true,
+      "candidate_rejected": false,
+      "needs_followup": true,
+      "needsFollowupReason": "候选未接入真实页；正式替换需后续授权修改引用。"
+    },
+    {
+      "figure": "fig-5-5",
+      "candidate_approved": true,
+      "candidate_rejected": false,
+      "needs_followup": true,
+      "needsFollowupReason": "候选未接入真实页；正式替换需后续授权修改引用。"
+    }
+  ],
+  "finalDecision": {
+    "candidateApprovedCount": 5,
+    "candidateRejectedCount": 0,
+    "needsFollowupCount": 5,
+    "candidateVerdict": "candidate_approved",
+    "pageIntegrationVerdict": "needs_followup",
+    "reason": "五幅 readable 候选均只修复缺字、局部重叠或布局安全空间；所有维度、行列/下标、数组顺序、LOC 映射、k 映射、带状线条、矩阵数值、三元组和图注关系均保留，并在 intrinsic、760px、578px、396px 渲染通过。正式页面仍引用原图是只读范围的预期结果。"
+  },
+  "finalRiskSummary": [
+    "fig-5-2 是五图中窄宽度信息密度最高的一张；396px/真实页约 322px 图像宽度下 LOC 与底部公式需放大阅读。",
+    "fig-5-1、fig-5-3、fig-5-4 的窄屏复合下标相对偏小；未发现缺字、边线压字、标签碰撞、裁切或横向溢出。",
+    "fig-5-5 在窄屏数值字号较小但仍保留完整 M 6×7、T 7×6、84 个单元、全部零/非零值和三元组关系。",
+    "候选当前不是正式页面引用；下一步若获授权，只需进行引用接入并重新做真实页视觉回归。"
+  ],
+  "unchangedContentStatement": "未删除任何非重复知识内容。",
+  "filesWrittenByThisReview": [
+    "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review.json",
+    "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/*.png",
+    "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/candidate-05-final-review-renders/*.jpg"
+  ],
+  "filesNotModifiedByThisReview": [
+    "五份原始 SVG",
+    "五份 readable 候选 SVG",
+    "app/data/textbook-data-structures.json",
+    "五幅图片所在页的 Markdown/HTML 内容",
+    "所有图片引用、组件、CSS 和其他 JSON",
+    "/tmp 下的任何文件",
+    "worktree、提交和远端分支"
+  ]
+}

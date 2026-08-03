@@ -1,0 +1,57 @@
+{
+  "reviewedFile": "batch-03-trees-graph.json",
+  "reviewedIds": [
+    "book-ds-yan-06-06",
+    "book-ds-yan-06-61",
+    "book-ds-yan-06-63",
+    "book-ds-yan-06-64",
+    "book-ds-yan-06-67",
+    "book-ds-yan-06-68",
+    "book-ds-yan-06-69",
+    "book-ds-yan-06-71",
+    "book-ds-yan-06-72",
+    "book-ds-yan-06-74",
+    "book-ds-yan-06-75",
+    "book-ds-yan-06-76",
+    "book-ds-yan-06-08",
+    "book-ds-yan-06-09",
+    "ds-yan-weimin-exercises-07-graph-7-30",
+    "ds-yan-weimin-exercises-07-graph-7-31",
+    "ds-yan-weimin-exercises-07-graph-7-32",
+    "ds-yan-weimin-exercises-07-graph-7-34",
+    "ds-yan-weimin-exercises-07-graph-7-36"
+  ],
+  "passedIds": [
+    "book-ds-yan-06-06",
+    "book-ds-yan-06-61",
+    "book-ds-yan-06-63",
+    "book-ds-yan-06-64",
+    "book-ds-yan-06-67",
+    "book-ds-yan-06-69",
+    "book-ds-yan-06-71",
+    "book-ds-yan-06-72",
+    "book-ds-yan-06-74",
+    "book-ds-yan-06-75",
+    "book-ds-yan-06-76",
+    "book-ds-yan-06-08",
+    "book-ds-yan-06-09",
+    "ds-yan-weimin-exercises-07-graph-7-30",
+    "ds-yan-weimin-exercises-07-graph-7-31",
+    "ds-yan-weimin-exercises-07-graph-7-34",
+    "ds-yan-weimin-exercises-07-graph-7-36"
+  ],
+  "findings": [
+    {
+      "id": "book-ds-yan-06-68",
+      "severity": "warning",
+      "issue": "答案称 next==n 等价于所有结点被某个双亲恰好领取，但当前校验允许 next 落在已处理区。比如 n=4、degree=[0,1,1,1] 时，三个非根结点会各自成为自己的孩子，最终 next 仍为 n，算法却返回 OK；这不是树，也没有被“度数合法性”检查拒绝。",
+      "recommendedFix": "在处理第 i 个结点前，除 degree[i] 非负及 next+degree[i]<=n 外，还应要求 next>i（或等价地维护“当前结点已经由更早双亲领取”的队列不变量）。若失败则释放 node 数组并返回 ERROR；保留末尾 next==n 检查。这样才不会建立自环或孤立的伪树。"
+    },
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-32",
+      "severity": "warning",
+      "issue": "NewCSNode 失败时，代码调用 DestroyCSForest(*F) 后直接返回 OVERFLOW，却没有把 *F 置为 NULL。若此前已建立部分树，调用者得到的是指向已释放森林的悬空输出指针，和函数其他失败路径应返回无结果的语义不一致。",
+      "recommendedFix": "在该失败分支中先销毁已建森林，再执行 *F=NULL 后返回 OVERFLOW；若实现维护其他输出状态，也应一并复位。成功路径和 Prim 的选边逻辑无需改变。"
+    }
+  ]
+}

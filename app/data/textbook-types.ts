@@ -68,9 +68,15 @@ export type TextbookQuestion = {
   options: TextbookQuestionOption[];
   answer: {
     status: "provided" | "hint-only" | "missing" | "pending-review";
+    /** Status before a separately reviewed supplement was attached. */
+    originalStatus?: "provided" | "hint-only" | "missing" | "pending-review";
     origin: string;
     original: string;
     html: string;
+    /** Independently derived content; never replaces the transcribed book answer. */
+    verified?: string;
+    verifiedHtml?: string;
+    explanation?: string;
   };
   knowledgePoints: Array<{
     id: string;
@@ -92,6 +98,7 @@ export type TextbookQuestion = {
       status: string;
       pdfPages?: number[];
     }>;
+    notes?: string;
   };
   isExercise: boolean;
 };
@@ -115,6 +122,7 @@ export type TextbookDataset = {
     answersProvided: number;
     answersMissing: number;
     answersHintOnly: number;
+    answersVerified: number;
     openReviewFlags: number;
   };
   chapters: TextbookChapter[];
@@ -145,14 +153,14 @@ export type TextbookPageContent = Pick<TextbookPage, "id" | "slug" | "chapterId"
 
 export type TextbookQuestionSummary = Pick<TextbookQuestion, "id" | "number" | "type" | "chapterId" | "section" | "knowledgePoints"> & {
   prompt: Pick<TextbookQuestion["prompt"], "plain">;
-  answer: Pick<TextbookQuestion["answer"], "status">;
+  answer: Pick<TextbookQuestion["answer"], "status" | "originalStatus" | "origin"> & { hasVerified: boolean };
 };
 
 export type TextbookQuestionContent = Pick<TextbookQuestion, "id" | "number" | "type" | "chapterId"> & {
   section: Pick<TextbookQuestion["section"], "id" | "title">;
   prompt: Pick<TextbookQuestion["prompt"], "html">;
   options: Array<Pick<TextbookQuestionOption, "label" | "html">>;
-  answer: Pick<TextbookQuestion["answer"], "status" | "html">;
+  answer: Pick<TextbookQuestion["answer"], "status" | "originalStatus" | "origin" | "html" | "verifiedHtml" | "explanation">;
   knowledgePoints: Array<Pick<TextbookQuestion["knowledgePoints"][number], "id" | "title">>;
   source: {
     question?: Pick<NonNullable<TextbookQuestion["source"]["question"]>, "pdfPages" | "bookPages">;
@@ -178,7 +186,7 @@ export type TextbookPracticeLibraryPayload = {
   bookSlug: string;
   presentation: TextbookPresentation;
   book: Pick<TextbookDataset["book"], "id" | "title" | "author">;
-  stats: Pick<TextbookDataset["stats"], "exerciseQuestions" | "answersProvided" | "answersHintOnly">;
+  stats: Pick<TextbookDataset["stats"], "exerciseQuestions" | "answersProvided" | "answersHintOnly" | "answersVerified">;
   chapters: TextbookChapterSummary[];
   exerciseQuestions: TextbookQuestionSummary[];
 };

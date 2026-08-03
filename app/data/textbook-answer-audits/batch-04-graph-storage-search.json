@@ -1,0 +1,309 @@
+{
+  "schemaVersion": "textbook-answer-audit-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "07-graph",
+    "08-dynamic-storage",
+    "09-search"
+  ],
+  "updates": [
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-38",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设表达式 DAG 的弧由运算符顶点指向操作数顶点；每个运算符恰有两条出弧，邻接表顺序固定为左操作数、右操作数。根为唯一入度为 0 的顶点，原子顶点保存一个字母，运算符顶点保存四则运算符。\n\n~~~~c\nStatus EmitRPN(const ALGraph *G, int u) {\n    ArcNode *p = G->vertices[u].firstarc;\n    if (G->vertices[u].kind == ATOM) {\n        if (p != NULL) return ERROR;\n        PutChar(G->vertices[u].atom);\n        return OK;\n    }\n    if (p == NULL || p->nextarc == NULL || p->nextarc->nextarc != NULL)\n        return ERROR;\n    if (EmitRPN(G, p->adjvex) != OK) return ERROR;\n    if (EmitRPN(G, p->nextarc->adjvex) != OK) return ERROR;\n    PutChar(G->vertices[u].op);\n    return OK;\n}\n~~~~\n\n调用前可用三色 DFS 核验从根可达部分无环、原子无出弧、运算符恰有两条有序出弧。递归规则是左子式后缀式、右子式后缀式、运算符；对叶子和运算符作结构归纳可知输出正是整式的逆波兰表达式。\n\n输出时不能对顶点作永久访问标记：共享子式在每个被引用的位置都必须重新输出。设展开后输出记号数为 $L$，时间为 $\\Theta(L)$、递归栈为 $O(h)$；若图本身是树，$L=\\Theta(|V|+|E|)$，共享 DAG 的展开长度则可能大于图规模。",
+        "explanation": "明确了邻接表弧向、左右操作数顺序、共享子式语义和展开输出的真实复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书未给答案；已按表达式 DAG 的有序邻接表独立补写逆波兰输出算法。"
+      }
+    },
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-39",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n改用二叉链表后，左、右孩子指针直接保存两个操作数的位置，因此对根作后序遍历即可。允许多个父结点的孩子指针指向同一结点以表示公共子式；此时仍不能把第二次访问跳过。\n\n~~~~c\ntypedef enum { ATOM, OP } NodeKind;\ntypedef struct BiNode {\n    NodeKind kind;\n    union { char atom; char op; } data;\n    struct BiNode *lchild, *rchild;\n} BiNode, *Expr;\n\nStatus EmitRPN2(Expr p) {\n    if (p == NULL) return ERROR;\n    if (p->kind == ATOM) {\n        if (p->lchild != NULL || p->rchild != NULL) return ERROR;\n        PutChar(p->data.atom);\n        return OK;\n    }\n    if (p->lchild == NULL || p->rchild == NULL) return ERROR;\n    if (EmitRPN2(p->lchild) != OK || EmitRPN2(p->rchild) != OK)\n        return ERROR;\n    PutChar(p->data.op);\n    return OK;\n}\n~~~~\n\n叶子输出自身；运算符结点先输出左、右子式，再输出本运算符，故后序遍历归纳证明结果正确。题设保证无环；输入可能损坏时应另用三色 DFS 检验。设展开表达式长度为 $L$，输出时间为 $\\Theta(L)$、递归栈为 $O(h)$；无共享时为 $\\Theta(n)$ 时间。",
+        "explanation": "直接采用二叉链表的左右孩子字段，并保留 DAG 共享子式时应重复输出的语义。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书未给答案；已按二叉链表后序遍历独立补写。"
+      }
+    },
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-40",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n用顶点表区分整数原子和字符运算符；弧仍从运算符指向左右操作数，邻接表顺序为左、右。题目仅规定原子为整数，未说明除法结果域；以下明确采用带溢出检查的机器整数运算，除法向零截断并拒绝除零。若题设要求实数除法，把结果类型改为 double 即可，遍历策略不变。\n\n~~~~c\ntypedef enum { ATOM, OP } VKind;\ntypedef struct ArcNode {\n    int adjvex;\n    struct ArcNode *nextarc;\n} ArcNode;\ntypedef struct {\n    VKind kind;\n    union { long long value; char op; } data;\n    ArcNode *firstarc;\n} VNode;\ntypedef struct { VNode vertices[MAXV]; int vexnum; } ALGraph;\n\nStatus Eval(const ALGraph *G, int u, unsigned char state[],\n            long long memo[], long long *answer) {\n    ArcNode *a;\n    long long x, y, z;\n    if (u < 0 || u >= G->vexnum) return ERROR;\n    if (state[u] == 2) { *answer = memo[u]; return OK; }\n    if (state[u] == 1) return ERROR;\n    state[u] = 1;\n    a = G->vertices[u].firstarc;\n    if (G->vertices[u].kind == ATOM) {\n        if (a != NULL) return ERROR;\n        z = G->vertices[u].data.value;\n    } else {\n        if (a == NULL || a->nextarc == NULL || a->nextarc->nextarc != NULL)\n            return ERROR;\n        if (Eval(G, a->adjvex, state, memo, &x) != OK ||\n            Eval(G, a->nextarc->adjvex, state, memo, &y) != OK)\n            return ERROR;\n        if (CheckedBinary(G->vertices[u].data.op, x, y, &z) != OK)\n            return ERROR;\n    }\n    state[u] = 2;\n    memo[u] = z;\n    *answer = z;\n    return OK;\n}\n~~~~\n\nCheckedBinary 分别处理四则运算，并在未知运算符、整数溢出或除数为 0 时返回 ERROR。初始令 state 全为 0，从根调用 Eval。灰色结点表示当前递归路径，故能拒绝环；黑色结点已有唯一的纯表达式值，复用 memo 不会改变结果。按 DAG 的依赖关系归纳，每个缓存值就是相应子表达式值，所以根值正确。\n\n每个顶点和弧至多处理一次，时间为 $O(|V|+|E|)$；状态、缓存和递归栈共为 $O(|V|)$ 空间。",
+        "explanation": "给出邻接表顶点联合字段、左右弧顺序、共享子式记忆化，以及整数除法和环的边界。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书未给答案；已补充题设存储表示上的表达式求值算法。"
+      }
+    },
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-41",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n按教材的 AOE 网解释：弧表示活动，弧权为非负持续时间；source 是唯一源事件，sink 是唯一汇事件，所有事件均从源可达且能到达汇。邻接表弧结点含 adjvex 和 weight。下面先用 DFS 退出次序得到拓扑序，再在其正、逆序上计算事件的最早、最迟发生时间。\n\n~~~~c\nStatus DfsFinish(const ALGraph *G, int u, int color[],\n                 int finish[], int *nf) {\n    ArcNode *p;\n    color[u] = 1;\n    for (p = G->vertices[u].firstarc; p != NULL; p = p->nextarc) {\n        int v = p->adjvex;\n        if (color[v] == 1) return ERROR;\n        if (color[v] == 0 && DfsFinish(G, v, color, finish, nf) != OK)\n            return ERROR;\n    }\n    color[u] = 2;\n    finish[(*nf)++] = u;\n    return OK;\n}\n\nStatus CriticalPathByDFS(const ALGraph *G, int source, int sink) {\n    int color[MAXV] = {0}, finish[MAXV], ve[MAXV], vl[MAXV];\n    int n = G->vexnum, nf = 0, i, u, project;\n    ArcNode *p;\n    if (source < 0 || source >= n || sink < 0 || sink >= n) return ERROR;\n    if (DfsFinish(G, source, color, finish, &nf) != OK || nf != n)\n        return ERROR;\n    for (i = 0; i < n; ++i) ve[i] = 0;\n    for (i = n - 1; i >= 0; --i) {\n        u = finish[i];\n        for (p = G->vertices[u].firstarc; p; p = p->nextarc)\n            if (ve[u] + p->weight > ve[p->adjvex])\n                ve[p->adjvex] = ve[u] + p->weight;\n    }\n    project = ve[sink];\n    for (i = 0; i < n; ++i) vl[i] = project;\n    for (i = 0; i < n; ++i) {\n        u = finish[i];\n        for (p = G->vertices[u].firstarc; p; p = p->nextarc)\n            if (vl[p->adjvex] - p->weight < vl[u])\n                vl[u] = vl[p->adjvex] - p->weight;\n    }\n    for (u = 0; u < n; ++u)\n        for (p = G->vertices[u].firstarc; p; p = p->nextarc) {\n            int ee = ve[u], el = vl[p->adjvex] - p->weight;\n            if (ee == el) PrintCriticalActivity(u, p->adjvex, p->weight);\n        }\n    return OK;\n}\n~~~~\n\n无环图的 DFS 退出序逆序是拓扑序，所以第一轮处理弧 u 到 v 时，u 的所有前驱已处理，归纳得 ve[v] 为所有 ve[u]+weight(u,v) 的最大值；第二轮反向处理得 vl[u] 为所有 vl[v]-weight(u,v) 的最小值。活动的最早开工时间为 ve[u]，最迟开工时间为 vl[v]-weight(u,v)，二者相等当且仅当活动无时差，故输出恰为关键活动。要列出多条关键路径，可只沿零时差弧从 source 深度优先到 sink；枚举另加与输出总长度成正比的时间。\n\n不计路径枚举时，DFS、两次弧扫描和活动判定均为 $O(|V|+|E|)$，辅助数组和递归栈为 $O(|V|)$。",
+        "explanation": "以教材 AOE 网、邻接表弧权和 DFS 退出序为前提，完整给出环检测、ve/vl 递推和关键活动判定。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书未给答案；已用 DFS 退出序独立实现关键路径求解。"
+      }
+    },
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-42",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设带权有向图采用邻接表，弧结点含 adjvex、weight、nextarc。Dijkstra 的前提是所有弧权非负；dist[v] 是当前从源点到 v 的最短上界，prev[v] 记录最后一条松弛弧的前驱。以下版本采用教材的逐数组选择，同时只沿邻接表扫描真实出弧。\n\n~~~~c\nStatus DijkstraList(const ALGraph *G, int s, long long dist[], int prev[]) {\n    const long long INF = LLONG_MAX / 4;\n    bool final[MAXV] = {false};\n    int n = G->vexnum, i, u, v;\n    ArcNode *p;\n    if (s < 0 || s >= n) return ERROR;\n    for (i = 0; i < n; ++i) { dist[i] = INF; prev[i] = -1; }\n    dist[s] = 0;\n    for (i = 0; i < n; ++i) {\n        u = -1;\n        for (v = 0; v < n; ++v)\n            if (!final[v] && (u < 0 || dist[v] < dist[u])) u = v;\n        if (u < 0 || dist[u] == INF) break;\n        final[u] = true;\n        for (p = G->vertices[u].firstarc; p; p = p->nextarc) {\n            v = p->adjvex;\n            if (p->weight < 0) return ERROR;\n            if (!final[v] && dist[u] <= INF - p->weight &&\n                dist[u] + p->weight < dist[v]) {\n                dist[v] = dist[u] + p->weight;\n                prev[v] = u;\n            }\n        }\n    }\n    return OK;\n}\n~~~~\n\n对 dist 有限的终点，从终点反复沿 prev 回溯至源再反转，即得到一条最短路径；保持 INF 的顶点不可达。每轮选出的 u 是所有未确定顶点中当前距离最小者。因未松弛弧权非负，任何经未确定顶点绕行的路径不会更短，故 u 被置为 final 时距离已最终确定；松弛保持其余顶点的最短已知上界，归纳即得正确性。\n\n数组选最小值为 $O(|V|^2)$，每条邻接表弧最多松弛一次，故时间为 $O(|V|^2+|E|)=O(|V|^2)$，额外空间为 $O(|V|)$。用支持 decrease-key 的最小堆替换数组选择，可达 $O((|V|+|E|)\\log |V|)$。",
+        "explanation": "明确非负权前提、不可达顶点、溢出防护、前驱路径恢复和邻接表版本的复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书未给答案；已补充邻接表上的单源 Dijkstra 算法。"
+      }
+    },
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-6",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n教材 7.4.2 的算法是两遍 DFS：第一遍沿十字链表的出弧链搜索并按退出时间递增写入 finished；第二遍按 finished 的逆序沿入弧链搜索。沿入弧链等价于在转置图 $G^R$ 上沿出弧搜索，无须真的构造转置图。\n\n把每个强连通分量缩成一个结点，得到凝聚图 C。C 是 DAG。记分量 X 内任意顶点的最大第一遍完成时间为 F(X)。若 C 中有边 $X\\to Y$，则 $F(X)>F(Y)$：若 DFS 首先进入 X，它可经该边进入尚未访问的 Y，故 Y 先完成；若 Y 在进入 X 前已完成，其完成时间也更小。因而第一遍最大完成时间所在分量在当前未删除的凝聚图中没有入边，即为源分量。\n\n设当前逆序中第一个未访问顶点属于该源分量 S。在 $G^R$ 中，S 没有通向任何未访问其他分量的出边，因为那样的出边在 G 中会变成指向 S 的入边；指向先前输出分量的边会被访问标记跳过。另一方面，强连通分量内任意两点在 G 中互相可达，转置后仍互相可达。因此第二遍从该点作 DFS 能访问 S 的所有顶点，且不会访问别的未访问分量，得到的一棵树恰为 S。\n\n输出 S 后删去它，余下凝聚图仍为 DAG；对下一最大完成时间重复同一论证。归纳至所有顶点被访问，第二遍 DFS 树的顶点集恰好一次且完整地列出了所有强连通分量。两遍分别扫描每个顶点和弧常数次，时间为 $O(|V|+|E|)$，finished、访问标记和 DFS 栈为 $O(|V|)$。",
+        "explanation": "按教材的十字链表两遍 DFS，利用凝聚 DAG 的完成时间引理证明每棵逆向 DFS 树恰为一个强连通分量。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书未给答案；已独立给出 7.4.2 两遍 DFS 算法的正确性证明。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-10",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n按低地址向高地址紧缩，所有 tag=1 的占用块保持原相对次序。题表最后两列按同一块内的两个指针域解释，空白域保持空白。占用块的新首地址映射为：$0\\to0$，$10\\to5$，$15\\to10$，$40\\to20$，$45\\to25$，$65\\to35$，$85\\to40$，$90\\to45$。所以每个非空指针也按其所指块的映射改写。\n\n| 首地址 | 块大小 | 标志域 | 指针域 1 | 指针域 2 |\n| ---: | ---: | ---: | ---: | ---: |\n| 0  | 5  | 1 |  | 5  |\n| 5  | 5  | 1 | 10 | 20 |\n| 10 | 10 | 1 |  |  |\n| 20 | 5  | 1 | 25 | 35 |\n| 25 | 10 | 1 |  |  |\n| 35 | 5  | 1 | 40 |  |\n| 40 | 5  | 1 | 45 |  |\n| 45 | 10 | 1 |  |  |\n| 55 | 45 | 0 |  |  |\n\n占用块总大小为 $5+5+10+5+10+5+5+10=55$，原堆为地址 0 至 99 的 100 个单元，故末尾恰形成首地址 55、大小 45 的唯一连续空闲块。地址映射保持块内偏移不变，表中的指针目标仍指向原先逻辑对象，因而格局正确。若有 B 个物理块、P 个需改写的指针域，扫描、改写和迁移对堆大小及 P 均为线性时间。",
+        "explanation": "逐块计算新首地址，逐项改写题表中的指针目标，并以占用总量核验最终空闲块大小。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书答案缺失；已按题给块表独立完成紧缩后的地址和指针重定位。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-11",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n最后分配者最先释放时，已释放空间必与堆顶相邻，适合用栈式分配器，无须按大小维护可利用空间表。令 $[low,high)$ 是一个连续字节数组，top 为下一块首地址，last 为最近分配块的头。每个已分配块在用户区之前放块头，保存总长度和前一个块头。\n\n~~~~c\n#include <stddef.h>\n#include <stdint.h>\n#include <stdbool.h>\n\ntypedef unsigned char Byte;\ntypedef struct Header {\n    size_t total;\n    struct Header *prev;\n} Header;\ntypedef struct {\n    Byte *low, *high, *top;\n    Header *last;\n} LifoHeap;\n\nenum { ALIGN = _Alignof(max_align_t) };\n#define HDR (((sizeof(Header) + ALIGN - 1) / ALIGN) * ALIGN)\n\nstatic bool NeedFor(size_t n, size_t *need) {\n    size_t total, remainder;\n    if (n == 0 || n > SIZE_MAX - HDR) return false;\n    total = HDR + n;\n    remainder = total % ALIGN;\n    if (remainder != 0) {\n        if (total > SIZE_MAX - (ALIGN - remainder)) return false;\n        total += ALIGN - remainder;\n    }\n    *need = total;\n    return true;\n}\n\nvoid *AllocateLifo(LifoHeap *H, size_t n) {\n    size_t need;\n    Header *b;\n    if (H == NULL || H->low > H->top || H->top > H->high ||\n        !NeedFor(n, &need)) return NULL;\n    if (need > (size_t)(H->high - H->top)) return NULL;\n    b = (Header *)H->top;\n    b->total = need;\n    b->prev = H->last;\n    H->last = b;\n    H->top += need;\n    return (void *)((Byte *)b + HDR);\n}\n~~~~\n\n初始化为 top=low、last=NULL，并要求 low 已按最大对齐边界对齐；因每块总长均为 ALIGN 的倍数，之后的块头也保持对齐。NeedFor 拒绝零长度申请、总长度溢出和对齐进位溢出；成功时用户区恰有至少 n 字节且不越过 high。每次只移动堆顶并压入一个块头，故分配时间为 $O(1)$；除每块固定头部外不使用额外表空间，元数据总量为 $O(\\text{分配块数})$。",
+        "explanation": "利用严格 LIFO 释放规则设计栈式堆，明确块头、对齐、容量和溢出边界。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书答案缺失；已补充 LIFO 动态存储的结构和按请求大小分配算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-12",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n沿用 8.11 的 LifoHeap、Header 与 HDR。释放接口接受用户区指针 p，但只有它恰为最近一次分配返回的指针时才允许释放；其他顺序违反题设的 LIFO 约束，必须报告错误而不能制造中间空洞。\n\n~~~~c\nStatus ReleaseLifo(LifoHeap *H, void *p) {\n    Header *b;\n    if (H == NULL || H->last == NULL || p == NULL) return ERROR;\n    b = H->last;\n    if (p != (void *)((Byte *)b + HDR)) return ERROR;\n    if (b->total < HDR || (Byte *)b + b->total != H->top)\n        return ERROR;\n    H->top = (Byte *)b;\n    H->last = b->prev;\n    return OK;\n}\n~~~~\n\n恢复 top 到块头起始地址后，整块立即成为连续的堆顶可用空间；下次分配可覆盖其头部和用户区。空堆释放、空指针、非最近块和损坏长度均被拒绝。正确性来自不变式：last 总是区间 low 到 top 中最后一个块的头，且该块尾恰为 top；一次成功释放恢复前一块头，故不变式仍成立。时间为 $O(1)$，额外空间为 $O(1)$。",
+        "explanation": "严格复用 8.11 的栈式存储结构，覆盖空堆、非 LIFO 释放和块头损坏边界。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书答案缺失；已补充对应的严格 LIFO 回收算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-16",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n按 8.6 的四步完成紧缩：先计算每个占用块的新地址，再修改初始变量表和块中全部指针，随后迁移块，最后把尾部重建为一个空闲块。设堆是连续字节区 $[low,high)$；每个物理块的首部含总大小 size（含首部）和 tag，其中 tag=1 为占用、tag=0 为空闲。输入前提是所有非空根指针和对象内已登记的指针域都指向某个占用块内；对象的布局描述符能枚举这些指针域。没有这种字段约定，程序不能从任意字节中安全识别指针。\n\n~~~~c\n#include <string.h>\ntypedef unsigned char Byte;\ntypedef struct { size_t size; unsigned char tag; } BlockHeader;\ntypedef struct { Byte *old; size_t size; Byte *to; } Move;\ntypedef struct { Byte *low, *high, *avail; } Heap;\ntypedef Status (*SlotVisitor)(Byte **slot, const Move map[], int count);\n\nstatic Status RelocatePointer(Byte *q, const Move map[], int count,\n                              Byte **out) {\n    int i;\n    if (q == NULL) { *out = NULL; return OK; }\n    for (i = 0; i < count; ++i)\n        if (q >= map[i].old && q < map[i].old + map[i].size) {\n            *out = map[i].to + (q - map[i].old);\n            return OK;\n        }\n    return ERROR;\n}\n\nstatic Status RelocateSlot(Byte **slot, const Move map[], int count) {\n    Byte *newValue;\n    if (slot == NULL || RelocatePointer(*slot, map, count, &newValue) != OK)\n        return ERROR;\n    *slot = newValue;\n    return OK;\n}\n\n/* 由对象布局描述符实现：只枚举 payload 中真实的 Byte* 指针域。 */\nStatus ForEachPointerSlot(Byte *payload, size_t payloadBytes,\n                          SlotVisitor visit, const Move map[], int count);\n\nstatic void WriteFreeHeader(Byte *p, size_t size) {\n    BlockHeader *h = (BlockHeader *)p;\n    h->size = size;\n    h->tag = 0;\n}\n\nStatus Compact(Heap *H, Byte **roots, int rootCount) {\n    Move move[MAX_BLOCKS];\n    int b = 0, i;\n    Byte *p, *dst;\n    if (H == NULL || rootCount < 0 || (rootCount != 0 && roots == NULL))\n        return ERROR;\n\n    /* 第 1 步：按旧地址递增扫描，建立旧区间到新区间的映射。 */\n    for (p = H->low, dst = H->low; p < H->high; ) {\n        BlockHeader *h = (BlockHeader *)p;\n        if (h->size < sizeof *h || h->size > (size_t)(H->high - p) ||\n            (h->tag != 0 && h->tag != 1)) return ERROR;\n        if (h->tag == 1) {\n            if (b == MAX_BLOCKS) return ERROR;\n            move[b++] = (Move){ p, h->size, dst };\n            dst += h->size;\n        }\n        p += h->size;\n    }\n\n    /* 第 2 步：块尚未搬动，先改根指针和占用块 payload 的指针。 */\n    for (i = 0; i < rootCount; ++i)\n        if (RelocatePointer(roots[i], move, b, &roots[i]) != OK) return ERROR;\n    for (i = 0; i < b; ++i)\n        if (ForEachPointerSlot(move[i].old + sizeof(BlockHeader),\n              move[i].size - sizeof(BlockHeader), RelocateSlot, move, b) != OK)\n            return ERROR;\n\n    /* 第 3 步：目的地址不高于源地址，按旧地址递增移动。 */\n    for (i = 0; i < b; ++i)\n        memmove(move[i].to, move[i].old, move[i].size);\n\n    /* 第 4 步：占用块之后的全部空间合成一个空闲块。 */\n    if (dst < H->high) WriteFreeHeader(dst, (size_t)(H->high - dst));\n    H->avail = dst;\n    return OK;\n}\n~~~~\n\nRelocatePointer 保留空指针；对非空指针 q 在按旧首地址有序的 move 表中找到唯一满足 old≤q<old+size 的项，并令新值为 to+(q-old)，因而同时支持指向块首和指向块内偏移的指针，找不到即拒绝不满足前提的输入。第二步在迁移前完成，所以根和内部引用已变为新地址；第三步按地址递增移动时，每一目标块的起点不高于其源块起点、终点不越过该源块尾，故不会覆盖尚待读取的后继占用块；第四步保证所有碎片合并为尾部唯一空闲块。\n\n设物理块数为 B、占用单元总量为 L、根和内部指针域总数为 P。映射表二分定位时总时间为 $O(B+L+P\\log B)$，额外映射空间为 $O(B)$；若块头预留转发表且所有指针只指向块首，可把重定位降为每指针 $O(1)$。",
+        "explanation": "严格对应教材紧缩的地址计算、指针改写、迁移和堆指针更新四步，并说明为何移动不会破坏尚未处理块。",
+        "correction": {
+          "verified": "**独立参考解答（非原书摘录）**\n\n按 8.6 的四步完成紧缩：先计算每个占用块的新地址，再修改初始变量表和块中全部指针，随后迁移块，最后把尾部重建为一个空闲块。设堆是连续字节区 $[low,high)$；每个物理块的首部含总大小 size（含首部）和 tag，其中 tag=1 为占用、tag=0 为空闲。输入前提是所有非空根指针和对象内已登记的指针域都指向某个占用块内；对象的布局描述符能枚举这些指针域。没有这种字段约定，程序不能从任意字节中安全识别指针。\n\n~~~~c\n#include <stddef.h>\n#include <string.h>\ntypedef unsigned char Byte;\ntypedef struct { size_t size; unsigned char tag; } BlockHeader;\ntypedef struct { Byte *old; size_t size; Byte *to; } Move;\ntypedef struct { Byte *low, *high, *avail; } Heap;\ntypedef Status (*SlotVisitor)(Byte **slot, const Move map[], int count);\n\n/* map 按 old 首地址严格递增；二分定位 q 所在的旧占用块。 */\nstatic Status RelocatePointer(Byte *q, const Move map[], int count,\n                              Byte **out) {\n    int lo = 0, hi = count - 1;\n    if (q == NULL) { *out = NULL; return OK; }\n    while (lo <= hi) {\n        int mid = lo + (hi - lo) / 2;\n        Byte *start = map[mid].old;\n        Byte *end = start + map[mid].size;\n        if (q < start) hi = mid - 1;\n        else if (q >= end) lo = mid + 1;\n        else {\n            *out = map[mid].to + (q - start);\n            return OK;\n        }\n    }\n    return ERROR;\n}\n\nstatic Status RelocateSlot(Byte **slot, const Move map[], int count) {\n    Byte *newValue;\n    if (slot == NULL || RelocatePointer(*slot, map, count, &newValue) != OK)\n        return ERROR;\n    *slot = newValue;\n    return OK;\n}\n\n/* 由对象布局描述符实现：只枚举 payload 中真实的 Byte* 指针域。 */\nStatus ForEachPointerSlot(Byte *payload, size_t payloadBytes,\n                          SlotVisitor visit, const Move map[], int count);\n\nstatic void WriteFreeHeader(Byte *p, size_t size) {\n    BlockHeader *h = (BlockHeader *)p;\n    h->size = size;\n    h->tag = 0;\n}\n\nStatus Compact(Heap *H, Byte **roots, int rootCount) {\n    Move move[MAX_BLOCKS];\n    int b = 0, i;\n    Byte *p, *dst;\n    if (H == NULL || rootCount < 0 || (rootCount != 0 && roots == NULL))\n        return ERROR;\n\n    /* 第 1 步：按旧地址递增扫描，建立同样有序的旧区间到新区间映射。 */\n    for (p = H->low, dst = H->low; p < H->high; ) {\n        BlockHeader *h = (BlockHeader *)p;\n        if (h->size < sizeof *h || h->size > (size_t)(H->high - p) ||\n            (h->tag != 0 && h->tag != 1)) return ERROR;\n        if (h->tag == 1) {\n            if (b == MAX_BLOCKS) return ERROR;\n            move[b++] = (Move){ p, h->size, dst };\n            dst += h->size;\n        }\n        p += h->size;\n    }\n\n    /* 第 2 步：块尚未搬动，先改根指针和占用块 payload 的指针。 */\n    for (i = 0; i < rootCount; ++i)\n        if (RelocatePointer(roots[i], move, b, &roots[i]) != OK) return ERROR;\n    for (i = 0; i < b; ++i)\n        if (ForEachPointerSlot(move[i].old + sizeof(BlockHeader),\n              move[i].size - sizeof(BlockHeader), RelocateSlot, move, b) != OK)\n            return ERROR;\n\n    /* 第 3 步：目的地址不高于源地址，按旧地址递增移动。 */\n    for (i = 0; i < b; ++i)\n        memmove(move[i].to, move[i].old, move[i].size);\n\n    /* 第 4 步：占用块之后的全部空间合成一个空闲块。 */\n    if (dst < H->high) WriteFreeHeader(dst, (size_t)(H->high - dst));\n    H->avail = dst;\n    return OK;\n}\n~~~~\n\n第一步按物理旧地址扫描，因此 move 表中的 old 严格递增；RelocatePointer 的二分循环每次排除一半候选块。对非空指针 q，找到唯一满足 old≤q<old+size 的项后改写为 to+(q-old)，因而同时支持指向块首和指向块内偏移的指针，找不到即拒绝不满足前提的输入。第二步在迁移前完成，所以根和内部引用已变为新地址；第三步按地址递增移动时，每一目标块的起点不高于其源块起点、终点不越过该源块尾，故不会覆盖尚待读取的后继占用块；第四步保证所有碎片合并为尾部唯一空闲块。\n\n设物理块数为 B、占用单元总量为 L、根和内部指针域总数为 P。扫描建表为 $O(B)$，二分重定位每个指针为 $O(\\log B)$，搬迁为 $O(L)$，故总时间为 $O(B+L+P\\log B)$，额外映射空间为 $O(B)$；若块头预留转发表且所有指针只指向块首，可把重定位降为每指针 $O(1)$。",
+          "explanation": "映射表由地址递增扫描构成，修订版实际使用二分定位，因而代码、正确性说明与 O(B+L+P log B) 复杂度一致。",
+          "reason": "交叉复审发现原 verified 的 RelocatePointer 逐项线性扫描 move 表，却按二分定位给出 O(B+L+P log B) 的复杂度。已改为对按旧地址有序的映射表进行二分查找。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书答案缺失；已按 8.6 的堆块和指针重定位过程独立完成算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-04",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n图 8.4 的任意大小可利用空间表只把空闲块串成链，空闲块头通常只有 tag=0、size 和 link。释放一个已占用块时，要判断能否与物理相邻的前、后块合并，必须先找到这些相邻空闲块：若空闲表不是按地址组织，需扫描整张表；即使按地址有序，也要先线性定位插入位置。因此回收和合并的查找代价可为 $O(f)$，其中 f 是空闲块数。\n\n边界标志法在每个块的头、尾都写 tag，并在空闲块头、尾保留相互定位所需的大小或回链信息。释放块时，右邻块头就在当前块尾后，左邻块尾就在当前块头前；只读两个边界的 tag 就能判定四种情形：两邻均占用、仅左空闲、仅右空闲、两邻均空闲。已知邻块后，空闲双向链表的删入和合并均只改常数个指针，所以回收与相邻块合并为 $O(1)$。\n\n这不意味着首次适配的分配查找必为 $O(1)$：仍可能扫描空闲表寻找足够大的块。它提高的是释放、定位相邻块和消除外部碎片的效率；代价是每块增加边界标志和空闲链指针的空间开销。",
+        "explanation": "区分空闲块查找与分配查找，说明边界标志为何能在常数时间定位物理相邻块并完成合并。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书答案缺失；已独立比较图 8.4 空闲表与边界标志法的回收效率。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-01",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n以下比较次数只计给定值与记录关键字的比较，顺序表下标为 1 至 n。\n\n1. **查找失败。** 无序表为确认失败必须比较全部 n 个记录，故 ASL 恒为 $n$。有序表可在首次遇到大于 K 的关键字时停止。若通常地把 K 落在有序表的 n+1 个间隙视为等概率，则所需比较数依次为 $1,2,\\ldots,n,n$，从而\n\n$$ASL_{有序}=\\frac{1+2+\\cdots+n+n}{n+1}=\\frac{n(n+3)}{2(n+1)}<n\\quad(n>1).$$\n\n所以一般不相同。若只说失败而不给 K 在各间隙的概率，则有序表的数值 ASL 不能唯一确定，但它不超过 n；无序表仍为 n。\n\n2. **查找成功且唯一。** 若每个记录成为目标的概率均为 $1/n$，不论记录在表中是否有序，成功位置的比较次数为 $1,2,\\ldots,n$，故两者相同：\n\n$$ASL=\\frac{1+2+\\cdots+n}{n}=\\frac{n+1}{2}.$$\n\n3. **有重复且要求找全。** 无序表必须扫描全部 n 项，ASL 为 n。有序表中相同关键字连续；若某个被查关键字的一段重复记录位于 $[L_g,R_g]$，则需扫描至该段后的第一项来确认结束，比较数为 $c_g=\\min(R_g+1,n)$。若该关键字被查概率为 $p_g$，则\n\n$$ASL_{有序}=\\sum_g p_g c_g\\le n.$$\n\n若题意的等概率是每个记录等概率诱发一次查找，第 g 段长度为 $r_g$ 时取 $p_g=r_g/n$。除退化情形外有序表可在末段前停止，故一般也不相同。",
+        "explanation": "分别明确失败间隙分布、唯一成功位置和重复段概率，避免把信息不足的等概率口径混为一谈。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书答案缺失；已按顺序查找的比较次数和等概率口径独立分析三种情况。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-15",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n按 2-3 树的定义，所有叶子在同一层，每个非叶结点恰有 2 或 3 个孩子。令根为第 1 层，$N_i$ 为第 i 层的结点数，则 $N_1=1$，且对 $1\\le i<h$ 有\n\n$$2N_i\\le N_{i+1}\\le3N_i.$$\n\n由归纳法，$2^{i-1}\\le N_i\\le3^{i-1}$：i=1 时两端都是 1；若第 i 层满足不等式，乘以 2 或 3 后便得到第 i+1 层。第 h 层全为叶子，所以叶子数 $N_h$ 满足\n\n$$2^{h-1}\\le N_h\\le3^{h-1}.$$\n\n两端可分别由每个非叶结点都取 2 个孩子或都取 3 个孩子达到，故界限紧。h=1 时根本身为唯一叶子，也与两端均为 1 一致。",
+        "explanation": "以层结点数递推和归纳法给出紧的上下界，并核验高度为 1 的边界。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书答案缺失；已独立证明 2-3 树叶子数的上下界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-16",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设 $t=\\lceil m/2\\rceil$，并按教材约定把实际含关键字的根至最底层非终端结点的层数记为 h；其下一层外部叶结点只表示查找失败，不是实际存储结点。取最稀疏的 m 阶 B-树：根非叶时至少有 2 棵子树，其余非终端结点至少有 t 棵子树。因此第 h+1 层外部叶子至少有\n\n$$2t^{h-1}.$$\n\n含 n 个关键码的查找树恰有 n+1 个外部间隙，故\n\n$$n+1\\ge2t^{h-1},\\qquad h\\le1+\\log_t\\frac{n+1}{2}.$$\n\n所以成功查找最多访问的实际 B-树结点数为\n\n$$\\left\\lfloor1+\\log_{\\lceil m/2\\rceil}\\frac{n+1}{2}\\right\\rfloor.$$\n\n这里假定标准 B-树阶数 $m\\ge3$。失败查找也只访问同一路径上的这 h 个实际结点，随后遇到空指针；若把虚构外部叶也计为结点，才需在该数上再加 1。",
+        "explanation": "从 B-树最小分支数和 n+1 个外部间隙推导访问结点上界，并说明实际结点与外部失败叶的计数差异。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书答案缺失；已按教材 B-树层数和外部叶口径独立推导上界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-17",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n| 方面 | B-树 | B+树 |\n| --- | --- | --- |\n| 结点关键字 | 有 n 棵子树的非终端结点含 n-1 个分隔关键字；关键字通常只保存一份。 | 有 n 棵子树的非终端结点含 n 个关键字；内部关键字是子树最大值或最小值的索引副本。 |\n| 记录位置 | 关键字及其记录指针可在非终端结点中，也可在最底层实际结点中。 | 全部关键字和记录指针都在叶结点；内部结点只作索引。 |\n| 叶结点 | 教材模型的叶子是外部失败结点，不保存实际关键字。 | 实际叶结点保存全部关键字，并按关键字递增顺序链接成链。 |\n| 成功查找路径 | 命中内部关键字即可结束，访问层数可能不同。 | 即使内部索引命中也继续到叶，因此每次随机查找都走根到叶的同一层数。 |\n| 顺序与范围查找 | 需按树结构继续中序或另行定位后继。 | 找到首个叶结点后可沿叶链顺序扫描，特别适合范围查找和顺序文件访问。 |\n\n二者都是平衡多路查找树，插入、删除都可能引起分裂、合并或向兄弟借关键字。B+树内部结点不存记录指针且叶子相链，通常能以更高索引扇出换取较少外存访问；这是常见实现收益，不改变上述定义差异。",
+        "explanation": "按教材 9.2.2 的关键字数、记录位置、叶链和查找终止层次逐项比较。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书答案缺失；已独立整理 B+树和 B-树的结构与查找差异。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-18",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n从右向左每次取一个字母，五个关键字的取样串为：\n\n| 原关键字 | 从根向叶读取的字符 |\n| --- | --- |\n| program | m a r g o r p \\$ |\n| programmer | r e m m a r g o r p \\$ |\n| programming | g n i m m a r g o r p \\$ |\n| processor | r o s s e c o r p \\$ |\n| or | r o \\$ |\n\n其中 \\$ 是串结束标记。对应的逻辑 Trie 如下；一条箭头上的字符即本层所取的右端字符。\n\n~~~~text\nroot\n├─ g → n → i → m → m → a → r → g → o → r → p → \\$ : programming\n├─ m → a → r → g → o → r → p → \\$             : program\n└─ r\n   ├─ e → m → m → a → r → g → o → r → p → \\$ : programmer\n   └─ o\n      ├─ \\$                                   : or\n      └─ s → s → e → c → o → r → p → \\$     : processor\n~~~~\n\n若采用教材的压缩 Trie 表示，图中没有分叉的长链可压成一个叶结点，叶内保存完整关键字和记录指针；唯一必须保留的分叉是根的 g、m、r 以及 r 到 o 后的结束符与 s 两支。每条根到结束符的路径恰是相应关键字的逆序，故构造可核验。",
+        "explanation": "逐字反转核验全部五个路径，并保留结束符以区分 or 和以同一前缀继续的关键字。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书答案缺失；已按右向左取样独立构造并核验 Trie 路径。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-02",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n按有序顺序表的 1 基下标，初始 low=1、high=7，每次取 mid=floor((low+high)/2)。第一次均比较第 4 项 d。\n\n| 待查键 | 区间和中点的比较过程 | 比较次数 |\n| --- | --- | ---: |\n| e | [1,7] 的 d<e，转 [5,7]；第 6 项 f>e，转 [5,5]；第 5 项 e 成功 | 3 |\n| f | [1,7] 的 d<f，转 [5,7]；第 6 项 f 成功 | 2 |\n| g | [1,7] 的 d<g，转 [5,7]；第 6 项 f<g，转 [7,7]；第 7 项 g 成功 | 3 |\n\n对应的三条判定路径为：\n\n~~~~text\ne: d < e  →  f > e  →  e = e\nf: d < f  →  f = f\ng: d < g  →  f < g  →  g = g\n~~~~\n\n每次比较后都丢弃不可能含目标的半区，直到命中；因此三条过程均符合折半查找不变式。一般表长为 n 时，成功或失败查找的比较次数为 $O(\\log n)$，额外空间为 $O(1)$。",
+        "explanation": "明确下取整中点和 1 基区间，逐次给出 e、f、g 的实际缩小过程。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书答案缺失；已独立列出三次折半查找的区间和判定路径。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-20",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n给出一种可复核的构造。取表长 $m=16$，故装载因子为 $\\alpha=12/16=0.75$，满足题设。令字母 A 到 Z 的码分别为 1 到 26，采用\n\n$$H(K)=\\left(\\sum_{c\\in K}code(c)\\right)\\bmod16,$$\n\n并以链地址法处理冲突，同一桶按题给次序尾插。各关键字的字符码和及地址为：\n\n| 关键字 | 码和 | 地址 |\n| --- | ---: | ---: |\n| ZHAO | 50 | 2 |\n| QIAN | 41 | 9 |\n| SUN | 54 | 6 |\n| LI | 21 | 5 |\n| ZHOU | 70 | 6 |\n| WU | 44 | 12 |\n| ZHENG | 60 | 12 |\n| WANG | 45 | 13 |\n| CHANG | 33 | 1 |\n| CHAO | 27 | 11 |\n| YANG | 47 | 15 |\n| JIN | 33 | 1 |\n\n所得散列表为：\n\n~~~~text\n0: ∅                 8: ∅\n1: CHANG → JIN       9: QIAN\n2: ZHAO             10: ∅\n3: ∅                11: CHAO\n4: ∅                12: WU → ZHENG\n5: LI               13: WANG\n6: SUN → ZHOU       14: ∅\n7: ∅                15: YANG\n~~~~\n\n在每个关键字成功查找概率均为 $1/12$ 时，长度为 1 的桶各贡献 1 次比较，长度为 2 的桶各贡献 $1+2=3$ 次比较。9 个非空桶中有 3 个长度为 2、6 个长度为 1，故\n\n$$ASL_{成功}=\\frac{3\\times3+6\\times1}{12}=\\frac{15}{12}=1.25.$$\n\n这里 ASL 只计与记录关键字的比较，不计计算哈希函数和访问桶头指针；题目未给失败查找的概率，故不混入失败 ASL。",
+        "explanation": "明确自选的表长、字符哈希和链地址冲突规则，逐项列出地址并精确计算成功 ASL。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书答案缺失；已独立给出一张装载因子为 0.75 的散列表及其成功 ASL。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-29",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设单循环链表中关键字严格递增为 $k_1<\\cdots<k_n$，h 指向 $k_1$，星号 t 指向上一次成功结点。先比较 K 和星号 t 所指关键字；若 K 较小，只可能在 h 到 t 的左开区间中，若较大，只可能在 t 的后继到 h 的左开区间中。循环终止位置也覆盖失败查找，尽管题设的概率部分只讨论成功查找。\n\n~~~~c\ntypedef struct LNode { KeyType key; struct LNode *next; } LNode;\n\nLNode *SearchMoving(LNode *h, LNode **t, KeyType K) {\n    LNode *p, *stop;\n    int c;\n    if (h == NULL || t == NULL || *t == NULL) return NULL;\n    c = Compare(K, (*t)->key);\n    if (c == 0) return *t;\n    if (c < 0) { p = h;          stop = *t; }\n    else       { p = (*t)->next; stop = h;  }\n    while (p != stop) {\n        c = Compare(K, p->key);\n        if (c == 0) { *t = p; return p; }\n        if (c < 0) return NULL;\n        p = p->next;\n    }\n    return NULL;\n}\n~~~~\n\n若本次目标为 $k_i$、查找前 t 指向 $k_j$，判定树是以 $k_j$ 为根、向左从 $k_1$ 顺序比较到 $k_{j-1}$、向右从 $k_{j+1}$ 顺序比较到 $k_n$ 的两条链：\n\n~~~~text\n                         [K : k_j]\n                    = ────┴──── 命中 k_j\n                  < /             \\ >\n      [K:k_1] → ... → [K:k_{j-1}]  [K:k_{j+1}] → ... → [K:k_n]\n~~~~\n\n计入根处首次比较，成功比较次数为\n\n$$C(i,j)=\\begin{cases}1,&i=j;\\\\i+1,&i<j;\\\\i-j+1,&i>j.\\end{cases}$$\n\n按题设 i、j 各以概率 $1/n$ 出现且相互独立，则\n\n$$ASL=\\frac1{n^2}\\left[n+2\\sum_{i=1}^{n-1}(n-i)(i+1)\\right]\n=\\frac{n^2+3n-1}{3n}=\\frac n3+1-\\frac1{3n}.$$\n\n例如 n=1 时为 1。算法最坏比较和时间为 $O(n)$，除两个外部指针外额外空间为 $O(1)$；成功时更新星号 t，保持下一次查找的题设不变式。",
+        "explanation": "严格使用不带头结点的单循环链表、h/t 浮动策略，给出完整判定树族和双重等概率下的精确 ASL。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_NOT_PRESENT_IN_SOURCE"
+        ],
+        "notes": "原书答案缺失；已按题给 h/t 浮动策略补充查找算法、判定树和成功 ASL。"
+      }
+    }
+  ],
+  "unresolved": []
+}

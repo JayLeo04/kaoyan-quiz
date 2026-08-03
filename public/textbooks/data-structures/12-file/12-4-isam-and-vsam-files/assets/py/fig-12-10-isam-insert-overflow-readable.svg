@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500" role="img" aria-labelledby="title desc">
+  <title id="title">图 12.10：ISAM 插入 R₆₅、R₉₅、R₈₃ 时的基本区和溢出区变化</title>
+  <desc id="desc">四个状态分别显示插入前、插入 R₆₅ 时、插入 R₆₅ 后，以及相继插入 R₉₅ 和 R₈₃ 后的索引项、基本区、溢出区、记录移动和溢出链。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1d4ed8"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: "Noto Serif CJK SC", "Microsoft YaHei", serif; fill: #172033; }
+    .panel { fill: #f8fafc; stroke: #334155; stroke-width: 2.5; }
+    .box { fill: #ffffff; stroke: #334155; stroke-width: 2; }
+    .header { fill: #e8eef7; stroke: #334155; stroke-width: 2; }
+    .label { font-size: 24px; font-weight: 700; }
+    .section { font-size: 21px; font-weight: 700; }
+    .body { font-size: 22px; }
+    .small { font-size: 19px; }
+    .accent { fill: #1d4ed8; font-weight: 700; }
+    .move { stroke: #1d4ed8; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    .link { stroke: #1d4ed8; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    .rule { stroke: #94a3b8; stroke-width: 1.5; }
+  </style>
+
+  <!-- (a) -->
+  <g transform="translate(30 30)">
+    <rect class="panel" x="0" y="0" width="550" height="650" rx="16"/>
+    <text class="label" x="26" y="42">（a）插入前</text>
+    <text class="section" x="26" y="88">索引项（关键字 | 指针）</text>
+    <rect class="box" x="26" y="104" width="498" height="78" rx="6"/>
+    <text class="body" x="48" y="137">90 | T₂′₁</text>
+    <text class="body" x="286" y="137">145 | T₃′₁</text>
+    <line class="rule" x1="26" y1="143" x2="524" y2="143"/>
+    <text class="small" x="48" y="168">基本区的两道按关键字递增存放</text>
+
+    <text class="section" x="26" y="220">基本区（顺序结构）</text>
+    <rect class="box" x="26" y="236" width="498" height="154" rx="6"/>
+    <text class="small" x="48" y="268">第 2 道</text>
+    <text class="body" x="48" y="306">R₅₀  R₆₀  R₇₀  R₈₀  R₉₀</text>
+    <line class="rule" x1="44" y1="322" x2="506" y2="322"/>
+    <text class="small" x="48" y="350">第 3 道</text>
+    <text class="body" x="48" y="378">R₁₀₀  R₁₂₀  R₁₃₀  R₁₃₆  R₁₄₅</text>
+
+    <text class="section" x="26" y="432">溢出区（链表）</text>
+    <rect class="box" x="26" y="448" width="498" height="66" rx="6"/>
+    <text class="body" x="48" y="489">空</text>
+    <text class="small" x="26" y="558">第二道与第三道尚无溢出记录。</text>
+  </g>
+
+  <!-- (b) -->
+  <g transform="translate(620 30)">
+    <rect class="panel" x="0" y="0" width="550" height="650" rx="16"/>
+    <text class="label" x="26" y="42">（b）插入 R₆₅ 时</text>
+    <text class="section" x="26" y="88">索引项（移动完成前保持不变）</text>
+    <rect class="box" x="26" y="104" width="498" height="78" rx="6"/>
+    <text class="body" x="48" y="137">90 | T₂′₁</text>
+    <text class="body" x="286" y="137">145 | T₃′₁</text>
+    <line class="rule" x1="26" y1="143" x2="524" y2="143"/>
+    <text class="small" x="48" y="168">第二道中关键字大于 65 的记录顺次后移</text>
+
+    <text class="section" x="26" y="220">基本区（记录移动）</text>
+    <rect class="box" x="26" y="236" width="498" height="154" rx="6"/>
+    <text class="small" x="48" y="268">移动前：第 2 道</text>
+    <text class="body" x="48" y="304">R₅₀  R₆₀  R₇₀  R₈₀  R₉₀</text>
+    <path class="move" d="M 250 311 C 300 325, 336 325, 392 311"/>
+    <text class="small accent" x="48" y="342">插入后：R₅₀  R₆₀  R₆₅  R₇₀  R₈₀</text>
+    <line class="rule" x1="44" y1="354" x2="506" y2="354"/>
+    <text class="small" x="48" y="380">第 3 道不变：R₁₀₀  R₁₂₀  R₁₃₀  R₁₃₆  R₁₄₅</text>
+
+    <text class="section" x="26" y="432">溢出区（链表）</text>
+    <rect class="box" x="26" y="448" width="498" height="66" rx="6"/>
+    <text class="body accent" x="48" y="489">R₉₀</text>
+    <path class="link" d="M 176 480 C 212 468, 246 468, 280 480"/>
+    <text class="small" x="300" y="489">R₉₀ 从第二道溢出</text>
+    <text class="small" x="26" y="558">R₆₅ 写入原有顺序位置；R₇₀、R₈₀ 后移，R₉₀ 移至溢出区。</text>
+  </g>
+
+  <!-- (c) -->
+  <g transform="translate(30 730)">
+    <rect class="panel" x="0" y="0" width="550" height="650" rx="16"/>
+    <text class="label" x="26" y="42">（c）插入 R₆₅ 后</text>
+    <text class="section" x="26" y="88">更新后的索引项（关键字 | 指针）</text>
+    <rect class="box" x="26" y="104" width="498" height="110" rx="6"/>
+    <text class="body" x="48" y="136">80 | T₂′₁</text>
+    <text class="body" x="286" y="136">90 | T₄′₁ → R₉₀</text>
+    <line class="rule" x1="26" y1="148" x2="524" y2="148"/>
+    <text class="body" x="48" y="181">145 | T₃′₁</text>
+    <text class="small" x="48" y="204">第二道基本项改为 80；溢出项改为 90</text>
+
+    <text class="section" x="26" y="252">基本区（顺序结构）</text>
+    <rect class="box" x="26" y="268" width="498" height="154" rx="6"/>
+    <text class="small" x="48" y="300">第 2 道</text>
+    <text class="body accent" x="48" y="338">R₅₀  R₆₀  R₆₅  R₇₀  R₈₀</text>
+    <line class="rule" x1="44" y1="354" x2="506" y2="354"/>
+    <text class="small" x="48" y="382">第 3 道</text>
+    <text class="body" x="48" y="410">R₁₀₀  R₁₂₀  R₁₃₀  R₁₃₆  R₁₄₅</text>
+
+    <text class="section" x="26" y="464">溢出区（链表）</text>
+    <rect class="box" x="26" y="480" width="498" height="66" rx="6"/>
+    <text class="body accent" x="48" y="521">R₉₀</text>
+    <path class="link" d="M 176 512 C 214 500, 248 500, 280 512"/>
+    <text class="small" x="300" y="521">T₄′₁ → 第 4 道首记录</text>
+    <text class="small" x="26" y="590">R₆₅ 已进入第二道；R₉₀ 保留在溢出区。</text>
+  </g>
+
+  <!-- (d) -->
+  <g transform="translate(620 730)">
+    <rect class="panel" x="0" y="0" width="550" height="650" rx="16"/>
+    <text class="label" x="26" y="42">（d）再插入 R₉₅、R₈₃ 后</text>
+    <text class="section" x="26" y="88">更新后的索引项（关键字 | 指针）</text>
+    <rect class="box" x="26" y="104" width="498" height="142" rx="6"/>
+    <text class="body" x="48" y="134">80 | T₂′₁</text>
+    <text class="body" x="286" y="134">90 | T₄′₃ → R₈₃</text>
+    <line class="rule" x1="26" y1="146" x2="524" y2="146"/>
+    <text class="body" x="48" y="176">136 | T₃′₁</text>
+    <text class="body" x="286" y="176">145 | T₄′₂ → R₁₄₅</text>
+    <line class="rule" x1="26" y1="188" x2="524" y2="188"/>
+    <text class="small" x="48" y="216">R₉₅ → 第 3 道首位；R₁₄₅ 溢出</text>
+    <text class="small" x="48" y="238">R₈₃ 成为第二道溢出链首项</text>
+
+    <text class="section" x="26" y="282">基本区（顺序结构）</text>
+    <rect class="box" x="26" y="298" width="498" height="154" rx="6"/>
+    <text class="small" x="48" y="330">第 2 道</text>
+    <text class="body" x="48" y="368">R₅₀  R₆₀  R₆₅  R₇₀  R₈₀</text>
+    <line class="rule" x1="44" y1="384" x2="506" y2="384"/>
+    <text class="small" x="48" y="412">第 3 道（首位为 R₉₅）</text>
+    <text class="body accent" x="48" y="440">R₉₅  R₁₀₀  R₁₂₀  R₁₃₀  R₁₃₆</text>
+
+    <text class="section" x="26" y="494">溢出区（链表）</text>
+    <rect class="box" x="26" y="510" width="498" height="82" rx="6"/>
+    <text class="body accent" x="48" y="545">R₈₃</text>
+    <path class="link" d="M 115 536 C 160 520, 196 520, 246 536"/>
+    <text class="body" x="270" y="545">R₉₀</text>
+    <text class="body" x="48" y="578">R₁₄₅</text>
+    <text class="small" x="172" y="578">（另一条溢出链）</text>
+    <text class="small" x="26" y="628">80&lt;83&lt;90；指针更新为 T₄′₃ → R₈₃ → R₉₀。</text>
+  </g>
+</svg>

@@ -1,0 +1,338 @@
+{
+  "audit": "draft-06-redraw",
+  "status": "candidate-redraw-validated",
+  "generatedOn": "2026-08-03",
+  "project": "/Users/minimax/schedule/kaoyan-quiz",
+  "skill": "audit-408-textbook-assets-demo",
+  "scope": {
+    "dataset": "app/data/textbook-data-structures.json",
+    "chapter": "06-tree-and-binary-tree",
+    "onlyReviewedAssets": [
+      "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process.svg",
+      "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees.svg"
+    ],
+    "writePolicy": {
+      "newFilesOnly": true,
+      "originalsPreserved": true,
+      "markdownJsonComponentsCssNotTouchedByThisTask": true,
+      "worktreeCreated": false,
+      "tmpWritten": false
+    },
+    "preExistingWorktreeChanges": [
+      {
+        "file": "app/globals.css",
+        "status": "modified-before-this-task",
+        "diffStat": "9 insertions, 0 deletions",
+        "handling": "保留原有改动；本任务未编辑、覆盖或依赖该改动。"
+      }
+    ]
+  },
+  "readOnlySemanticReview": {
+    "agentId": "019fc5dd-44b6-7480-9fec-03508a81e08d",
+    "readOnly": true,
+    "result": "completed",
+    "reviewedDatasetPages": [
+      {
+        "zeroBasedPageIndex": 36,
+        "slug": "06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree",
+        "sourcePath": "06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/index.md"
+      },
+      {
+        "zeroBasedPageIndex": 39,
+        "slug": "06-tree-and-binary-tree/6-6-huffman-tree-and-applications",
+        "sourcePath": "06-tree-and-binary-tree/6-6-huffman-tree-and-applications/index.md"
+      }
+    ],
+    "conclusion": "两张图均为语义内容缺失，不能只做放大或字体修补。"
+  },
+  "inventory": {
+    "command": "node /Users/minimax/.codex/skills/audit-408-textbook-assets-demo/scripts/audit-textbook-assets.mjs --project /Users/minimax/schedule/kaoyan-quiz --dataset app/data/textbook-data-structures.json --assets public/textbooks/data-structures --report /dev/null",
+    "reportOutput": "/dev/null",
+    "files": 421,
+    "referenced": 274,
+    "missing": 0,
+    "unreferenced": 147,
+    "entries": 421,
+    "note": "按用户要求不写 /tmp；完整清单由技能脚本生成并以 stdout 汇总，未产生额外持久化审计文件。"
+  },
+  "sourcePageEvidence": [
+    {
+      "asset": "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process.svg",
+      "candidate": "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process-readable.svg",
+      "datasetPage": {
+        "zeroBasedPageIndex": 36,
+        "id": "textbook-ds:06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree",
+        "route": "/textbook/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree",
+        "title": "6.3　遍历二叉树和线索二叉树",
+        "sourceMarker": "<!-- luna:source pdf_pages=\"138-144\" book_pages=\"128-134\" -->",
+        "figureReference": "/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process.svg",
+        "alt": "三种遍历的递归过程",
+        "caption": "图 6.10　三种遍历的递归执行过程（下行箭头表示递归调用，上行箭头表示返回；重绘示意图）。"
+      },
+      "markdownContext": [
+        "先序（根序）遍历 DLR：访问根，先序遍历左子树，再先序遍历右子树；",
+        "中序（根序）遍历 LDR：中序遍历左子树，访问根，再中序遍历右子树；",
+        "后序（根序）遍历 LRD：后序遍历左子树，后序遍历右子树，访问根。",
+        "三种算法的差别只在于访问根结点与递归遍历左右子树的先后关系。",
+        "PreOrderTraverse 的正文顺序是 Visit(T->data)、PreOrderTraverse(T->lchild, Visit)、PreOrderTraverse(T->rchild, Visit)；正文说明将 Visit 移到两次递归调用之间或之后即可得到中序或后序。"
+      ],
+      "originalSvgEvidence": {
+        "viewBox": "0 0 427.32 202.896",
+        "naturalSizeFromPage": "570x271",
+        "titleAndLabelsPresent": [
+          "图 6.10　三种遍历过程示意",
+          "先序：根-左-右",
+          "中序：左-根-右",
+          "后序：左-右-根"
+        ],
+        "visibleProcessContent": "仅有三根从上向下的箭头；没有上行返回箭头、递归层次或调用—返回闭环。",
+        "relevantSvgLines": "箭头路径位于原 SVG 约第 930-955 行，均从 y≈94 指向 y≈145。"
+      },
+      "semanticChecklist": {
+        "mustPreserve": [
+          "图内标题",
+          "先序：根-左-右",
+          "中序：左-根-右",
+          "后序：左-右-根",
+          "先序 DLR、中序 LDR、后序 LRD 的对应关系",
+          "先序：访问根→遍历左子树→遍历右子树",
+          "中序：遍历左子树→访问根→遍历右子树",
+          "后序：遍历左子树→遍历右子树→访问根",
+          "下行箭头表示递归调用",
+          "上行箭头表示返回",
+          "左、右子树递归调用与返回当前结点的关系"
+        ],
+        "notInvented": [
+          "没有添加源文未给出的具体示例树结点值",
+          "没有把图改成栈或动画-only 摘要"
+        ]
+      },
+      "replacementPlan": "用三个并列过程列保留三种顺序；每列显式画出当前结点 T、T->lchild、T->rchild，蓝色实线下行调用与橙色虚线上行返回形成闭环，并以两行序列说明避免 578px 宽时越界。"
+    },
+    {
+      "asset": "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees.svg",
+      "candidate": "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees-readable.svg",
+      "datasetPage": {
+        "zeroBasedPageIndex": 39,
+        "id": "textbook-ds:06-tree-and-binary-tree/6-6-huffman-tree-and-applications",
+        "route": "/textbook/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications",
+        "title": "6.6 哈夫曼树及其应用",
+        "sourceMarker": "<!-- luna:source pdf_pages=\"154-158\" book_pages=\"144-148\" -->",
+        "figureReference": "/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees.svg",
+        "alt": "不同带权路径长度的二叉树",
+        "caption": "图 6.22　具有不同带权路径长度的二叉树"
+      },
+      "markdownContext": [
+        "图 6.22 中三棵二叉树均有 4 个带权叶子 (a,b,c,d)，权值分别为 7、5、2、4。",
+        "(a) WPL=7×2+5×2+2×2+4×2=36。",
+        "(b) WPL=7×3+5×3+2×1+4×2=46。",
+        "(c) WPL=7×1+5×2+2×3+4×3=35。",
+        "其中 (c) 的 WPL 最小，因此它是这组权值的哈夫曼树。",
+        "WPL=Σ(w_i l_i)，其中 l_i 是从根到叶子结点的路径长度。"
+      ],
+      "originalSvgEvidence": {
+        "viewBox": "0 0 427.32 202.896",
+        "naturalSizeFromPage": "570x271",
+        "visibleContent": "除白色背景外只有图题和三个 WPL 标签，没有树边、内部结点、叶标签或权值。",
+        "relevantSvgLines": "原 SVG 的三个 WPL 标签在约第 779、962、1028 行；没有树结构元素。"
+      },
+      "semanticChecklist": {
+        "mustPreserve": [
+          "图题：图 6.22　具有不同带权路径长度的二叉树",
+          "三个面板 (a) WPL=36、(b) WPL=46、(c) WPL=35",
+          "每个面板均有叶子 a、b、c、d",
+          "权值对应 a=7、b=5、c=2、d=4",
+          "父子边、根到叶层级和叶深度",
+          "三组完整 WPL 等式",
+          "(c) WPL 最小且为这组权值的哈夫曼树"
+        ],
+        "derivedLeafDepths": {
+          "(a)": { "a": 2, "b": 2, "c": 2, "d": 2 },
+          "(b)": { "a": 3, "b": 3, "c": 1, "d": 2 },
+          "(c)": { "a": 1, "b": 2, "c": 3, "d": 3 }
+        },
+        "orientationNote": "源文等式唯一确定各叶深度与 WPL；原 SVG 本身没有可核对的树拓扑或左右镜像。候选采用直接可核验的 canonical 拓扑：(a) (a,b)|(c,d)，(b) c|d|(a,b)，(c) a|b|(c,d)。镜像不改变源文的路径长度、WPL 或教学含义；未添加合并步骤，因此没有混入图 6.24 的内容。"
+      },
+      "replacementPlan": "使用三个并列树面板显式画内部结点、父子边和带权叶子；按照三组等式的叶深度布置叶子，并把完整计算式放在对应面板底部，578px 时仍保持可读。"
+    }
+  ],
+  "oldToCandidateMappings": [
+    {
+      "old": "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process.svg",
+      "candidate": "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process-readable.svg",
+      "preserved": [
+        "title",
+        "three traversal headers",
+        "downward direction",
+        "original figure context"
+      ],
+      "restoredOrMadeExplicit": [
+        "upward return direction",
+        "recursive call/return loop",
+        "T->lchild and T->rchild relation",
+        "root-visit placement for pre/in/post order",
+        "caption-required arrow legend"
+      ]
+    },
+    {
+      "old": "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees.svg",
+      "candidate": "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees-readable.svg",
+      "preserved": [
+        "title",
+        "three panel labels and WPL totals",
+        "a=7, b=5, c=2, d=4",
+        "all parent-child relations needed by the three depth assignments",
+        "all three source equations"
+      ],
+      "restoredOrMadeExplicit": [
+        "internal nodes and edges",
+        "leaf labels and weights",
+        "leaf depth evidence",
+        "c is the minimum-WPL Huffman tree"
+      ]
+    }
+  ],
+  "mathematicalVerification": {
+    "leafWeights": { "a": 7, "b": 5, "c": 2, "d": 4 },
+    "trees": [
+      {
+        "panel": "(a)",
+        "leafDepths": { "a": 2, "b": 2, "c": 2, "d": 2 },
+        "contributions": [14, 10, 4, 8],
+        "equation": "7×2+5×2+2×2+4×2=36",
+        "sum": 36,
+        "verified": true
+      },
+      {
+        "panel": "(b)",
+        "leafDepths": { "a": 3, "b": 3, "c": 1, "d": 2 },
+        "contributions": [21, 15, 2, 8],
+        "equation": "7×3+5×3+2×1+4×2=46",
+        "sum": 46,
+        "verified": true
+      },
+      {
+        "panel": "(c)",
+        "leafDepths": { "a": 1, "b": 2, "c": 3, "d": 3 },
+        "contributions": [7, 10, 6, 12],
+        "equation": "7×1+5×2+2×3+4×3=35",
+        "sum": 35,
+        "verified": true
+      }
+    ],
+    "minimumCheck": "35 < 36 < 46; (c) is the minimum-WPL tree and is labeled as the Huffman tree.",
+    "verified": true
+  },
+  "currentPageRenderEvidence": [
+    {
+      "asset": "fig-6-10-traversal-process.svg",
+      "pageUrl": "http://127.0.0.1:3001/textbook/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree",
+      "viewport": "1280x720",
+      "imageNaturalSize": "570x271",
+      "imageCssBoxAtReadingWidth": "578x275.484375",
+      "observedAtReadingWidth": "578px",
+      "observation": "当前页面中图框只有标题、三种顺序标题和三根下行箭头；下方递归过程、上行返回和调用关系为空白，属于语义缺失。"
+    },
+    {
+      "asset": "fig-6-22-weighted-trees.svg",
+      "pageUrl": "http://127.0.0.1:3001/textbook/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications",
+      "viewport": "1280x720",
+      "imageNaturalSize": "570x271",
+      "imageCssBoxAtReadingWidth": "578x275.484375",
+      "observedAtReadingWidth": "578px",
+      "observation": "当前页面中三组 WPL 标签与图题在上方压叠，三棵树、节点、叶标签和权值完全不可见；页面正文仍显示三组等式和 (c) 最小结论。"
+    }
+  ],
+  "candidateRenderValidation": [
+    {
+      "candidate": "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process-readable.svg",
+      "renderer": "sharp/libvips in-memory PNG render",
+      "svgMetadata": {
+        "format": "svg",
+        "viewBox": "0 0 1080 620",
+        "fullSize": "1080x620",
+        "foreignObject": false,
+        "embeddedImage": false,
+        "rootOverflowHidden": false
+      },
+      "fullSize": {
+        "width": 1080,
+        "height": 620,
+        "rendered": true,
+        "clippingObserved": false,
+        "overlapObserved": false,
+        "observedContent": "标题、先序/中序/后序、蓝色下行递归调用、橙色上行返回、T 到左右子树的调用—返回关系及三种根访问顺序均可见。"
+      },
+      "narrow578px": {
+        "width": 578,
+        "height": 332,
+        "rendered": true,
+        "clippingObserved": false,
+        "overlapObserved": false,
+        "observedContent": "三列顺序说明已拆为两行，标签和上下行图例在约 578px 宽度下仍在画布内且可辨。"
+      },
+      "verified": true
+    },
+    {
+      "candidate": "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees-readable.svg",
+      "renderer": "sharp/libvips in-memory PNG render",
+      "svgMetadata": {
+        "format": "svg",
+        "viewBox": "0 0 1080 660",
+        "fullSize": "1080x660",
+        "foreignObject": false,
+        "embeddedImage": false,
+        "rootOverflowHidden": false
+      },
+      "fullSize": {
+        "width": 1080,
+        "height": 660,
+        "rendered": true,
+        "clippingObserved": false,
+        "overlapObserved": false,
+        "observedContent": "三棵树的父子边、内部节点、四个带权叶子和三组完整 WPL 等式均可见；(c) 的最小 WPL 说明位于面板底部，不遮挡树。"
+      },
+      "narrow578px": {
+        "width": 578,
+        "height": 353,
+        "rendered": true,
+        "clippingObserved": false,
+        "overlapObserved": false,
+        "observedContent": "三面板、a=7/b=5/c=2/d=4、WPL=36/46/35 和等式在约 578px 宽度下仍在画布内；图中文字明显小于全尺寸但没有被截断。"
+      },
+      "verified": true
+    }
+  ],
+  "validationCommands": [
+    {
+      "command": "node /Users/minimax/.codex/skills/audit-408-textbook-assets-demo/scripts/audit-textbook-assets.mjs --project /Users/minimax/schedule/kaoyan-quiz --dataset app/data/textbook-data-structures.json --assets public/textbooks/data-structures --report /dev/null",
+      "result": "files=421, referenced=274, missing=0, unreferenced=147, entries=421"
+    },
+    {
+      "command": "sharp/libvips metadata and in-memory PNG rendering for both candidates at native size and width=578",
+      "result": "both candidates rendered successfully at full size and 578px width"
+    },
+    {
+      "command": "browser current-page render inspection at http://127.0.0.1:3001",
+      "result": "both original assets measured at CSS width 578px; missing semantic content confirmed visually"
+    }
+  ],
+  "filesWrittenByThisTask": [
+    "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process-readable.svg",
+    "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees-readable.svg",
+    ".codex/audits/textbook-assets/draft-06-redraw.json"
+  ],
+  "filesVerifiedUnchanged": [
+    "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process.svg",
+    "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees.svg",
+    "app/data/textbook-data-structures.json"
+  ],
+  "filesWithPreExistingChangesPreserved": [
+    "app/globals.css"
+  ],
+  "unresolvedRisks": [
+    "页面仍引用原图，因为本任务明确禁止修改 Markdown、JSON、组件或 CSS；候选文件等待后续审阅/接入决定。",
+    "≤318px 的更窄移动端会进一步缩小技术文字，若后续接入需再做窄屏页面级审阅。",
+    "未删除任何非重复知识内容。"
+  ]
+}

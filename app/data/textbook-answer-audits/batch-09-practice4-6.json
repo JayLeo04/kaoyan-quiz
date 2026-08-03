@@ -1,0 +1,325 @@
+{
+  "schemaVersion": "textbook-answer-audit-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "practice-4",
+    "practice-5",
+    "practice-6"
+  ],
+  "updates": [
+    {
+      "id": "ds-yan-practice-4-1",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n采用行、列均从 1 开始的带行逻辑链接三元组顺序表。输入三元组必须按行优先严格递增、坐标在矩阵范围内且值非零；rpos[i] 是第 i 行首项，rpos[mu+1]=tu+1。\n\n~~~~c\n#define MAXRC 20\n#define MAXTERM (MAXRC*MAXRC)\ntypedef struct { int i,j,e; } Triple;\ntypedef struct { Triple data[MAXTERM+1]; int mu,nu,tu,rpos[MAXRC+2]; } RLSMatrix;\nvoid BuildRpos(RLSMatrix *M) {\n  int p=1;\n  for (int i=1;i<=M->mu;++i) { M->rpos[i]=p; while (p<=M->tu && M->data[p].i==i) ++p; }\n  M->rpos[M->mu+1]=M->tu+1;\n}\n~~~~\n\n加、减法先检查同型，然后归并两个已排序三元组表：较小坐标直接写入 C；相同坐标写入 A.e 加 sign 乘 B.e，结果为零则省略。C 必须重新生成而不能修改 A 或 B。乘法先检查 A.nu 等于 B.mu；逐行处理 A，令长度 B.nu 的临时数组 temp 清零。对 A 行中的每项 (i,k,a)，只枚举 B 的第 k 行并做 temp[j] 加等于 a 乘 B[k,j]，最后把 temp 的非零项按 j 递增写入 C。每次写入检查 MAXTERM，乘加使用足够宽的整数并检查溢出。\n\n~~~~text\nAddSub: p=q=1，C.tu=0；按 (i,j) 归并，必要时 Append(C,i,j,value)；BuildRpos(C)。\nMultiply: 对 i=1..A.mu：temp[1..B.nu]=0；\n          对 p=A.rpos[i]..A.rpos[i+1)-1：\n             k=A.data[p].j；对 q=B.rpos[k]..B.rpos[k+1)-1：\n                 temp[B.data[q].j]+=A.data[p].e*B.data[q].e；\n          把本行 temp 的非零项 Append 到 C；最后 BuildRpos(C)。\n~~~~\n\n归并不变式说明 C 的已写前缀正是已处理坐标的和或差；内层累积恰为每个 C[i,j] 的点积。加减时间 O(tuA+tuB)、额外工作空间 O(1)；乘法时间为 O(A.mu*B.nu 加上 A 的每个非零项所对应的 B 行非零数之和)，临时空间 O(B.nu)，结果空间 O(tuC)。\n\n题列第三个乘法样例左上项应为 4 乘 3 加 (-3) 乘 (-4) 加 1 乘 0，结果 24。因此独立核验的第一行为 [24,-6,0]，并非题面印出的 [0,-6,0]；其余三行是 [8,0,0]、[0,1,0]、[0,0,0]。这只说明核验结果，不改写原题数据。",
+        "explanation": "严格使用带行逻辑链接的三元组顺序表，覆盖维度、容量、零项、复杂度和乘法样例不一致。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "PRACTICE_4_ANSWER_MISSING"
+        ],
+        "notes": "已补入独立算法并明确标注可核验的样例不一致。"
+      }
+    },
+    {
+      "id": "ds-yan-practice-4-2",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n用行优先映像实现不超过 MaxDim 维的整型数组。创建时读入每维 lower[d]、upper[d]，要求 lower[d] 不大于 upper[d]；len[d]=upper[d]-lower[d]+1。常量表从后向前计算：constants[dim-1]=1，constants[d]=constants[d+1] 乘 len[d+1]；总元素数为所有 len 的乘积，乘法前检查溢出。\n\n~~~~c\nStatus Locate(const NArray *a, const int sub[], size_t *off) {\n  size_t x=0;\n  for (int d=0; d<a->dim; ++d) {\n    if (sub[d]<a->lower[d] || sub[d]>a->upper[d]) return ERROR;\n    x += (size_t)(sub[d]-a->lower[d])*a->constants[d];\n  }\n  *off=x; return OK;\n}\nStatus InitNArray(NArray *a,int dim,const int lo[],const int hi[]) {\n  if (dim<1 || dim>MaxDim) return ERROR;\n  a->dim=dim; a->num=1;\n  for (int d=0; d<dim; ++d) {\n    if (lo[d]>hi[d]) return ERROR;\n    a->lower[d]=lo[d]; a->upper[d]=hi[d];\n    size_t len=(size_t)(hi[d]-lo[d]+1);\n    if (a->num>SIZE_MAX/len) return OVERFLOW;\n    a->num*=len;\n  }\n  a->constants[dim-1]=1;\n  for (int d=dim-2; d>=0; --d) a->constants[d]=a->constants[d+1]*(a->upper[d+1]-a->lower[d+1]+1);\n  a->elem=calloc(a->num,sizeof *a->elem); return a->elem?OK:OVERFLOW;\n}\n~~~~\n\nGet、Set 先 Locate 再访问 elem[off]，所以越界不会解引用。完整数组赋值要求维数及每维上下界都相同，随后复制 num 项。子数组赋值接收源、目的及每维闭区间；先检查各区间在界内且对应长度相等，令 P 为元素数。对 t=0 到 P-1 用混合进制解码得到各维相对坐标并分别 Locate；必须先把 P 个右值读入临时缓冲，再按同一顺序写入目的。这样一维前移、后移以及任意多维重叠矩形赋值都等价于先求完整右值后赋左值。\n\nLocate 是合法下标笛卡儿积到 0 到 num-1 的一一映射，临时缓冲保留了重叠赋值前的右值。初始化 O(dim)，单元素访问 O(dim)，完整赋值 O(num)，子数组赋值 O(P*dim) 时间和 O(P) 临时空间；数组大小是 num，元素存储为 num 乘 ElemType 大小。",
+        "explanation": "给出任意起始下标的映像、范围检查、同类型赋值以及重叠安全的子数组赋值。",
+        "correction": {
+          "verified": "**独立审校修正（非原书摘录）**\n\n必须按题设把类型记录和数组对象分开：NArray 只保存 dim、lower、upper、constants；NArrayType 才保存 elem、num、TypeRecord。以下实现以行优先顺序存储，维数为 1 到 MaxDim；每维的整数下标闭区间均允许从任意整数开始。\n\n~~~~c\ntypedef int *BoundPtr;\ntypedef size_t *ConstPtr;\ntypedef struct {\n  int dim;\n  BoundPtr lower, upper;\n  ConstPtr constants;\n} NArray, *NArrayPtr;\ntypedef struct {\n  ElemType *elem;\n  int num;\n  NArrayPtr TypeRecord;\n} NArrayType;\n\nStatus Locate(const NArrayType *a, const int sub[], size_t *off) {\n  const NArray *r = a ? a->TypeRecord : NULL;\n  if (!r || !sub || !off) return ERROR;\n  size_t k = 0;\n  for (int d = 0; d < r->dim; ++d) {\n    if (sub[d] < r->lower[d] || sub[d] > r->upper[d]) return ERROR;\n    k += (size_t)((int64_t)sub[d] - (int64_t)r->lower[d]) * r->constants[d];\n  }\n  if (k >= (size_t)a->num) return ERROR;\n  *off = k;\n  return OK;\n}\n~~~~\n\nInitNArray 的目标对象须是新建或已清空对象。先分配一个 NArray 记录，再分别分配 dim 个 lower、upper、constants 表项；任一步失败都释放已分配的临时对象并保持调用者对象不变。对每维计算 span = hi[d] - lo[d] + 1，要求 span 正且 lo[d] 不大于 hi[d]；将各 span 相乘前同时检查 SIZE_MAX 和 INT_MAX，因题设的 num 为 int。令 constants[dim-1]=1，再从后向前令 constants[d]=constants[d+1] 乘 span[d+1]。最后分配 num 个 ElemType 并一次性把 elem、num、TypeRecord 交给数组对象。DestroyNArray 则依次释放 elem、TypeRecord 的 lower、upper、constants 和 TypeRecord 本身，并把三个对象字段清零或置空。\n\nGet 和 Set 均先调用 Locate，再读写 elem[off]，故越界下标不会解引用元素存储。完整数组赋值先比较两个 TypeRecord 的 dim、每维 lower 与 upper，并确认 num 相同；同型时用 memmove 复制 num 个元素，非同型报错。\n\n子数组赋值接收源、目的数组及各维闭区间 srcLo..srcHi、dstLo..dstHi。先要求两数组维数相同，所有端点都经范围检查，并要求每维 srcHi-srcLo 等于 dstHi-dstLo。设各维长度为 len[d]、P 为其乘积（同样检查乘法与分配溢出）。对 p 从 0 到 P-1，自最后一维向前以混合进制除取余得到相对坐标 rel[d]，构造 srcLo[d]+rel[d] 与 dstLo[d]+rel[d]；第一遍 Locate 源坐标并把右值写入长度 P 的临时 ElemType 缓冲，第二遍 Locate 目的坐标再写回。即使源、目的为同一数组且区域交叠，也严格等价于先取得完整右值再赋给左值，因而同时覆盖题示的一维前移、后移和多维矩形交叠。\n\n正确性要点是 constants 给出的偏移正是每个下标之前跨过的完整后缀块数，故 Locate 将合法下标笛卡儿积一一映到 0 到 num-1；完整复制只允许相同形状；临时缓冲保持赋值前的全部右值。初始化时间和类型表空间为 O(dim)，单元素访问 O(dim)，完整赋值 O(num)，子数组赋值 O(P 乘 dim) 时间、O(P+dim) 额外空间。数组大小为 num，元素区占 num 乘 sizeof(ElemType) 字节。",
+          "explanation": "修订为题设的 NArray 类型记录与 NArrayType 数组对象分离的接口，并补齐三张类型表的分配、释放和经 TypeRecord 的映像访问。",
+          "reason": "原补充答案将 num、elem 错放在 NArray 上，且未分配 lower、upper、constants 三张指针表，无法按题设定义直接实现。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "PRACTICE_4_ANSWER_MISSING"
+        ],
+        "notes": "已按题设多维数组和连续区间补入可执行设计。"
+      }
+    },
+    {
+      "id": "ds-yan-practice-4-3",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n采用头尾链表结点：空表用 NULL；原子结点保存完整字母数字串；表结点保存 hp（第一项）和 tp（去掉第一项后的表）。输入可跨行，逐字符滤掉空白并计数括号；计数不能为负，最外层括号闭合才结束，最终不平衡或原子含非字母数字均报告语法错误。\n\n~~~~c\ntypedef enum { ATOM, LIST } Tag;\ntypedef struct GLNode {\n  Tag tag;\n  union { char *atom; struct { struct GLNode *hp,*tp; } ptr; } u;\n} GLNode,*GList;\n~~~~\n\n对无最外层括号的逗号序列 s，test(s) 分别在空、纯原子、其他时返回 N、E、O。hsub 从左扫描并维护括号深度，在深度零的首个逗号处截取前缀；tsub 取该逗号后缀；strip 仅在首尾是一对覆盖整个串的括号时去掉它们。ParseExpr 对空括号返回 NULL、对原子建 ATOM、对其他括号式调用 ParseSeq(strip(s))；ParseSeq 在空 s 返回 NULL，否则新建 LIST，令 hp=ParseExpr(hsub(s))、tp=ParseSeq(tsub(s))。实现用原串的起止下标；实际建表时让一次 NextItem 扫描同时产出 hsub 和 tsub 的两个边界，再递归解析该项，避免在深层嵌套中反复扫描同一片段。\n\n执行操作串时，h 或 t 都要求当前对象为非空 LIST；h 令当前对象为 hp，t 令其为 tp，其他字符或对原子、空表取头尾都报错。递归 Print 原样输出原子，并从 hp、tp 重构括号和逗号。题给 ((),(e1),(abc,(e2,c,dd))) 经 tth 后为 (abc,(e2,c,dd))。\n\n解析递归与头尾分解逐层对应，h/t 也正是广义表定义的头/尾。使用上述共享边界扫描时，设过滤后长度 L、操作串长度 q，建立时间和结构空间 O(L)，操作 O(q)，打印 O(结果长度)，递归深度最坏为嵌套深度。",
+        "explanation": "严格使用头尾分解的广义表结构，覆盖多行输入、语法、非法操作与给定测试结果。",
+        "correction": {
+          "verified": "**独立审校修正（非原书摘录）**\n\n采用图 5.8 的头尾表示：NULL 表示空广义表；ATOM 结点保存一段完整的字母数字原子串；LIST 结点的 hp 指向第一项、tp 指向去掉第一项后的广义表。每个非空表恰由一串 LIST 结点连接，因而空表既可作为某项的 hp，也可作为单项表的 tp。\n\n~~~~c\ntypedef enum { ATOM, LIST } Tag;\ntypedef struct GLNode {\n  Tag tag;\n  union {\n    char *atom;\n    struct { struct GLNode *hp, *tp; } ptr;\n  } u;\n} GLNode, *GList;\ntypedef struct { const char *s; size_t pos, n; bool ok; } Parser;\n~~~~\n\n读入阶段可跨行：忽略全部空白并把非空白字符追加到动态串；从最外层左括号开始计数，计数不得为负，回到 0 时本表输入结束。随后解析器仍须验证完整语法，不能只依赖括号计数。语法为 List = 左括号、可选的 Item 逗号分隔序列、右括号，Item = List 或一个以上字母数字。因而空项、连续逗号、逗号后直接右括号、非字母数字原子、未闭合括号和尾随字符都报错并释放已建结点。\n\n建立时使用唯一的前向字符游标，不调用 hsub 或 tsub 来预扫描某个嵌套首项。ParseList 读入左括号；若下一字符为右括号则消耗它并返回 NULL。否则反复调用 ParseItem：ParseItem 见左括号就递归 ParseList，见字母数字就从当前 pos 连续读到第一个非字母数字字符并建立一个 ATOM。每取得一项 x 就立即创建 cell = NewList(x,NULL)，将它接在当前尾 cell 的 tp 上；下一字符只能是逗号或右括号。逗号只前进一个字符后继续，右括号只前进一个字符后返回已连好的 head。最外层调用完成后必须恰好到达串尾。这个算法从不先找完整子串边界再对同一子串递归，因此每个输入字符至多被前向读取和复制常数次。\n\n题示的四个字符串操作仍可独立提供：test(s) 对空串、全为字母数字的串、其余形式分别返回 N、E、O；strip(s,r) 仅当首尾括号是覆盖整个 s 的一对时返回内部串，否则返回空串；hsub(s,h) 在序列 s 从左到右维护深度，取深度为 0 的第一个逗号前的项，空序列返回空 h；tsub(s,t) 取该逗号之后的后缀，无逗号时返回空 t。这些操作适合演示和字符串接口，但建表走上述单游标 ParseList，避免 hsub 或 tsub 对深层嵌套的重复扫描。\n\n对建立后的当前对象执行操作串时，只接受 h 或 t。h 要求当前对象为非空 LIST，令当前对象为 hp；t 同样要求非空 LIST，令当前对象为 tp；对原子或空表取头尾、或出现其他字符，立即报告非法操作而不伪造结果。PrintValue 对 NULL 输出空表括号，对原子输出其原子串，对 LIST 沿 hp、tp 输出括号、逗号和各项。题给 ((),(e1),(abc,(e2,c,dd))) 经 t、t、h 后，结果为 (abc,(e2,c,dd))。\n\n对语法作结构归纳：ParseItem 分别构造原子或其递归子表；ParseList 每读一项就新接一个头尾 cell，故返回值恰是读入项序列的头尾分解。过滤后长度为 L、操作串长度为 q 时，建立时间为 O(L)，结点和原子串空间为 O(L)，递归栈为 O(嵌套深度)；执行 h 或 t 为 O(1)，整个操作串为 O(q)，打印为 O(输出长度)。",
+          "explanation": "改用直接构造 hp、tp 的单前向游标递归下降解析器；保留 hsub、tsub 作为独立字符串操作，而不让它们重复扫描嵌套子串。",
+          "reason": "原补充答案先扫描嵌套首项边界再递归解析该首项，深度单元素嵌套时会重复跨越同一字符，最坏不是所称的 O(L)。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "PRACTICE_4_ANSWER_MISSING"
+        ],
+        "notes": "已补入广义表建立、头尾操作和输出的独立解答。"
+      }
+    },
+    {
+      "id": "ds-yan-practice-4-4",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n基本题文法为 Expr := digit 或 ( + Expr Expr)，digit 仅为 0 到 9，空白可出现在任意记号之间。递归下降时先跳过空白：读到数字即返回；读到左括号后必须依次读到加号、两个 Expr 和右括号；任一缺失、额外右括号或行尾尚有非空白字符均为语法错误。\n\n~~~~c\nStatus ParseExpr(const char **p,long long *v) {\n  SkipSpace(p);\n  if (**p>='0' && **p<='9') { *v=**p-'0'; ++*p; return OK; }\n  if (**p!='(') return ERROR;\n  ++*p; SkipSpace(p); if (**p!='+') return ERROR; ++*p;\n  long long a,b;\n  if (ParseExpr(p,&a)!=OK || ParseExpr(p,&b)!=OK) return ERROR;\n  SkipSpace(p);\n  if (**p!=')' || AddWouldOverflow(a,b)) return ERROR;\n  ++*p; *v=a+b; return OK;\n}\nStatus EvaluateLine(const char *line,int *ans) {\n  const char *p=line; long long v;\n  if (ParseExpr(&p,&v)!=OK) return ERROR;\n  SkipSpace(&p);\n  if (*p!='\\0' || v<INT_MIN || v>INT_MAX) return ERROR;\n  *ans=(int)v; return OK;\n}\n~~~~\n\nEvaluate(FILE 指针) 应逐行读入动态缓冲，调用 EvaluateLine；成功返回值，失败通过状态或错误标志报告行号，不能把错误当作 0。测试式的值依次为 6、9、15、15、36。数字基例正确；归纳地，括号式只在两个子表达式正确后相加，恰符合文法语义。每字符常数次处理，时间 O(L)，递归栈 O(depth)，最坏 O(L)，并保留加法溢出检查。多位整数或四则运算是选做扩展，必须另行修改词法和文法。",
+        "explanation": "给出单数字加法文法一致的递归求值、整行校验、语法错误和整数溢出处理。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "PRACTICE_4_ANSWER_MISSING"
+        ],
+        "notes": "已按题给 Evaluate 接口补入安全的递归求值设计。"
+      }
+    },
+    {
+      "id": "ds-yan-practice-5-1",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n先删除空白并按优先级建立语法树，而不是按字符直接求值。递归下降文法可写为 Or := And { | And }，And := Not { & Not }，Not := ～ Not 或 Primary，Primary := A 到 Z 或 ( Or )；可额外接受 ASCII 波浪号作为非号。解析时记录变量的首次出现顺序；变量数超过 20、括号不配对或仍有残余字符均拒绝。\n\n对 k 个变量枚举 mask=0 到 2^k-1。mask 第 i 位给第 i 个变量赋 0/1，随后按后序递归求 AST：变量查值，非结点取反，与结点取逻辑与，或结点取逻辑或。维护 allTrue、allFalse 和首个真赋值；枚举结束后，allTrue 输出 True forever，allFalse 输出 False forever，否则输出 Satisfiable、变量名序列并进入交互赋值。交互输入必须恰有 k 个 0/1 值，再复用同一 AST 求值。\n\n题给六式的分类依次为：重言式、矛盾式、重言式、矛盾式、可满足但非重言式、可满足但非重言式。第五式等价于 A；第六式为异或，按 A、B 的 00、01、10、11 取值结果为 0、1、1、0。\n\n对 AST 的结构归纳说明 Eval 与逻辑运算的语义一致；枚举覆盖全部 2^k 个赋值，故三类结论完整且互斥。设表达式长度 L，建树 O(L) 时间和空间；分类 O(2^k*L) 时间，递归栈 O(L)，k 不超过 20 时最多枚举 1,048,576 组。",
+        "explanation": "覆盖题给优先级、括号、变量上限、真值表穷举、分类和交互赋值。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入逻辑表达式建树、完整枚举和分类的独立解答。"
+      }
+    },
+    {
+      "id": "ds-yan-practice-5-2",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n初始化 I 读取 n 个互异字符及正权值，n 小于 2、字符重复或权值非正均报错；用最小堆反复取出两个最小权结点，合成新父结点，直到只余根。相同权值以字符序号和创建序号打破平局，保证同一输入可复现。深度优先时左边记 0、右边记 1，得到字符到码字的表；若 n 为 1，约定唯一字符的码为单个 0。\n\nhfmTree 不能只保存码字，应以前序拓扑格式保存：内部结点记 I，叶结点记 L 加字符字节值，读入时递归重建；这能无歧义保存任意字符。E 在内存无树时先读取 hfmTree，再逐字符查码表，把位流紧凑写入 CodeFile，并在文件头记录有效位数或最后字节有效位数。D 沿 0/1 走左右孩子，到叶就输出字符并回根；读完时若不在根、走到空孩子或有效位数不符即报告损坏。P 将同一位流每行恰印 50 位并写入 CodePrin；T 以树形或凹入表显示并写入 TreePrint。菜单只接受 I、E、D、P、T、Q；一次会话中首次成功加载后缓存树，文件错误不破坏已有树。\n\n用题给频度表建立树后，对 THIS PROGRAM IS MY FAVORITE 编码再译码，输出必须逐字节等于原报文；具体位串会随并列权值的确定规则变化，不能脱离该规则声称唯一。哈夫曼贪心合并满足最优前缀码的交换论证；译码每次到叶输出并复位，故恰恢复一个码字序列。建树 O(n log n)，码表 O(n*h)，报文编码 O(总码长)、译码 O(位数)，树与码表空间 O(n)。",
+        "explanation": "明确可复现建树、可逆文件格式、位流边界、单符号特例与编译码回归验证。",
+        "correction": {
+          "verified": "**独立审校修正（非原书摘录）**\n\n菜单提供 I、E、D、P、T、Q。I 读取字符集大小 n、n 个互异字符和正权值；只在 n 小于 1、字符重复或权值非正时拒绝。用带稳定平局规则的最小堆反复取两个最小权结点合成父结点，直到只余一棵根树；平局按叶字符值及创建序号比较，使相同输入可复现。n 等于 1 时根本身就是叶，不做合并，并约定该唯一字符的码字为单个 0。\n\nhfmTree 保存树的二进制拓扑而不是只保存码表：写入魔数和版本后以前序写结点，内部结点写 I，叶结点写 L 加一个字符字节；读入时递归重建并验证恰有一棵树、叶字符不重复且文件无多余结点。首次 I 成功后把树写入 hfmTree 并缓存；E、D、P、T 需要树而缓存为空时，先把文件读入临时树，完全验证成功后再替换缓存，所以损坏文件不会破坏已有可用树。\n\nE 对树作深度优先，左分支追加 0、右分支追加 1，建立字符到位串的查表；单叶根明确产生 0。逐字节读取 ToBeTran，遇到不在字符集内的字节报告位置和失败；否则将码位从高位到低位紧凑写入 CodeFile。CodeFile 的头含魔数、有效位数 B，随后恰有向上取整 B 除以 8 个字节的载荷，最后一个字节的未用填充位写 0。于是单字符文本的每个字符恰写一个 0，空文本则 B 为 0。\n\nD 先验证 CodeFile 的头、载荷长度、B 与填充位。若根是内部结点，从根按每一有效位走左或右孩子，走到空孩子即报损坏；到叶即输出该字符并回到根；读完仍未回根说明码流在一个码字中途截断。若根是单叶，则不走孩子：每读取一个有效位，只有位 0 合法并输出根字符一次；读到位 1 立即报损坏。这样 n 等于 1 时编码和译码仍是一一对应，并且译码严格只消费 B 个有效位。\n\nP 读取并校验 CodeFile 后把 B 个有效位逐位显示，每行恰 50 位，并把同样的字符表示写入 CodePrin。T 对内存树作带缩进的先序或侧向输出，并写入 TreePrint；单叶树也应显示其字符和码 0。对题给频度表（其中空格也属于字符集）建立树后，将 THIS PROGRAM IS MY FAVORITE 编码再译码，TextFile 必须逐字节等于输入。并列权值下的具体位串取决于已声明的平局规则，不能脱离该规则声称唯一。\n\n哈夫曼贪心合并满足最优前缀码的交换论证；对内部树，叶结点复位使每段恰是一个前缀码字；对单叶树，0 与该叶的重复显式对应。建树时间 O(n log n)，序列化 O(n)，生成码表 O(n 乘 h)，其中 h 为树高；编码时间 O(输入字节数加总码长)，译码 O(B)，树和码表空间 O(n 乘 h) 的最坏上界，位流空间为 O(B)。",
+          "explanation": "统一把 n=1 视为合法字符集：编码为一个 0，译码逐个有效 0 输出根叶字符，并保留普通树的文件、边界和错误处理。",
+          "reason": "原补充答案一面把 n 小于 2 判为非法，一面又规定 n 等于 1 的码字，且其通用译码路径不能处理单叶根。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入完整哈夫曼编译码器的独立设计与核验方法。"
+      }
+    },
+    {
+      "id": "ds-yan-practice-5-3",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n按题设用邻接多重表保存连通无向图。每条无向边只分配一个 EBox(ivex,jvex,ilink,jlink)，并同时链接到两个端点的 firstedge 链；从顶点 v 沿边 e 的后继为 e 的 ivex 等于 v 时 ilink，否则 jlink。输入顶点编号须为 1 到 n，n 不超过 30；拒绝自环、重复边和不存在端点。将每个邻接链按另一端编号升序插入，输出序列就不依赖输入边顺序。\n\n~~~~c\nvoid DFS(const AMLGraph *G,int v) {\n  visited[v]=true; PrintVertex(v);\n  for (EBox *e=G->v[v].firstedge; e; e=NextAt(e,v)) {\n    int w=OtherEnd(e,v);\n    if (!visited[w]) { PrintTreeEdge(v,w); DFS(G,w); }\n  }\n}\nvoid BFS(const AMLGraph *G,int s) {\n  InitQueue(&Q); visited[s]=true; EnQueue(&Q,s);\n  while (!QueueEmpty(Q)) {\n    int v; DeQueue(&Q,&v); PrintVertex(v);\n    for (EBox *e=G->v[v].firstedge; e; e=NextAt(e,v)) {\n      int w=OtherEnd(e,v);\n      if (!visited[w]) { visited[w]=true; PrintTreeEdge(v,w); EnQueue(&Q,w); }\n    }\n  }\n}\n~~~~\n\n每次开始一种遍历都清空 visited，检查用户起点合法后执行。树边必须在首次发现 w 时按 (v,w) 输出，方向是父到子，不能按无向边的存储端点颠倒。DFS 的递归调用和 BFS 的入队标记均保证每个顶点只发现一次；连通性保证访问 n 个顶点并输出 n-1 条树边。每条边从两个端点各检查一次，时间 O(n+m)，visited、递归栈或队列额外空间 O(n)，图空间 O(n+m)。",
+        "explanation": "严格采用邻接多重表，明确树边方向、确定性邻接顺序、入队标记和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入无向图 DFS、BFS 和生成树边集的独立实现。"
+      }
+    },
+    {
+      "id": "ds-yan-practice-5-4",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n将课程号映射为 0 到 n-1 的内部下标，记录学分、后继表和直接先修表。读入时检查课程号为三个字母数字字符、学分为正、先修课程存在且不重复；某课程学分大于单学期上限 C，或总学分大于 T 乘 C 时立即无解。对先修图做 Kahn 拓扑检查；若不能输出全部 n 门课，存在环而无解。\n\n为避免贪心策略把暂时装不下误报为全局无解，按学期作精确回溯。状态为已完成集合 done、当前学期 s 和前 s-1 学期负担。可选集 A 是所有先修课均在 done 中的未排课程；枚举 A 的所有非空子集 S，只保留总学分不超过 C 的候选，下一状态为 done 并 S。若 s 大于 T 仍有未排课程则失败；若剩余学分除以 C 向上取整大于剩余学期数则剪枝。所有课程排完即输出每学期课程号、课程名、学分和合计。尚有课程时空学期不会帮助先修关系或容量约束，故不枚举。\n\n均衡策略在所有成功计划中最小化各学期负担对平均负担的平方偏差和，以较早安排作平局；集中策略按 (load1,load2,...,loadT) 字典序最大化。候选组合被完整枚举，故未找到才报告无解。用分支上界和状态记忆化加速；一般带容量先序调度是 NP 困难，最坏时间指数级，图、状态和输出空间 O(n+T)。不变量是已排课各先修课均在更早学期、每期总学分不超 C；任一合法计划都对应一个 S 分支，因而算法不漏解也不输出违规计划。",
+        "explanation": "给出课程图校验、两种策略的明确定义，以及不会将贪心失败误报为无解的完整搜索。",
+        "correction": {
+          "verified": "**独立审校修正（非原书摘录）**\n\n先把每个三位字母数字课程号映射为内部下标 0 到 n-1，保存学分、直接先修集合和后继表。输入时检查课程号唯一、学分为正、每个先修号存在且不重复；若某课学分大于每学期上限 C、总学分大于 T 乘 C，立即报告无解。对先修图作 Kahn 拓扑检验；不能输出全部 n 门课即存在环，也报告无解。图和输入记录占 O(n+m) 空间，其中 m 是先修边数。\n\n用精确回溯而非一次贪心排课。状态 Search(s, done, load[1..s-1]) 表示前 s-1 个学期已经确定，done 是已完成课程集合。候选 A 是所有未完成且其全部直接先修课均在 done 内的课程；枚举 A 的每个非空子集 S，只保留学分和不超过 C 的 S，并递归到 Search(s+1, done 并 S, load 与 credit(S))。若全部课程完成，后续学期为空并按当前计划评价；若 s 大于 T 或剩余总学分至少需要的学期数大于剩余学期数，则失败或剪枝。尚有课程时不枚举空 S：空学期不改变 done，只会占用一个学期；删除该空学期并将其后的课程整体前移不会破坏严格先修关系或学分上限，且不损失均衡目标的负担多重集，也不会劣化前置集中目标。\n\n均衡策略在所有可行计划中最小化 F = 所有学期的 (load[i] - W/T) 平方和，其中 W 为总学分；这明确了负担尽量均匀。集中策略按 (load[1],load[2],...,load[T]) 的字典序最大化，先比较更早学期，因而在可行前提下尽量把学分放到前面。课程号在每个学期内升序输出；如需在目标完全相同的计划间固定输出，可按整个学期课程号序列作字典序平局规则。记录最优的完整计划并写入用户指定文件，包含学期、课程号、学分及学期合计。\n\n无记忆化的深度优先版本只保留一份可回退的 done、当前各学期负担、当前计划和当前候选集；不计已存图，其活动递归和输出空间为 O(n+T)，但搜索树时间指数级。它枚举每个合法学期子集，因此不会把某个局部装载失败误报为全局无解：每个合法计划按学期的课程集合都对应一条搜索分支，反之每条成功分支都满足先修课在严格更早学期和每期学分不超 C。\n\n若使用记忆化，绝不能只用 done 和 s 作键，因为均衡和集中目标均依赖此前的负担。安全的精确键为 K = (s, done 位集, load[1],...,load[s-1])；缓存值保存该状态是否可完成、最优后缀的目标信息和用于恢复后缀的前驱或选择。不同负担向量不合并；相同 K 的未来可选课与已累计目标完全相同，故可复用。设实际存储的状态数为 M，单个状态及其前驱表示为 O(n+T)，则记忆表空间为 O(M 乘 (n+T))，另加图和最终输出；若每个状态检查的可行子集总数上界为 B，朴素生成与比较时间为 O(M 乘 B 乘 (n+T))。M 本身可达指数级，粗略上界为 T 乘 2 的 n 次方乘 (C+1) 的 T 次方，所以不能把完整记忆化版本写成 O(n+T) 空间。\n\n正确性不变量是：done 中每门课程均只被安排一次，其先修课已在更早学期完成，且每期负担不超 C。候选定义维持该不变量；任意合法计划的每期集合都会被枚举，故搜索完成且未找到计划时才可报告无解。该带容量的先序调度在一般情形为 NP 困难，指数最坏时间是预期边界而非算法错误。",
+          "explanation": "区分无记忆化 DFS 的线性活动空间与记忆化搜索的指数状态表，并以学期、已完成集合和负担向量作为不丢失目标历史的缓存键。",
+          "reason": "原补充答案同时建议记忆化、却把状态图空间写成 O(n+T)，且只说明 done 与学期不足以安全合并依赖负担历史的优化状态。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入带先修关系和学分上限的精确教学计划编制方案。"
+      }
+    },
+    {
+      "id": "ds-yan-practice-5-5",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n建立无向带权校园图。顶点记录 code、name、introduction，边记录 to、length、roadType、scenery；代码唯一，长度必须为正。可先录入至少十个景点，例如主校门、图书馆、教学楼、实验楼、食堂、宿舍、体育馆、校医院、行政楼、湖畔；道路在两个端点的邻接表中各存一条。按代码建立哈希索引，景点信息查询为索引定位后输出名称、简介和相邻道路。\n\n问路时检查起点、终点存在；相同则返回零长度、零边路径。对正权无向网运行带最小堆的 Dijkstra：dist[s]=0，每次取未确定且 dist 最小的 u；对每条 (u,v,w)，若 dist[u]+w 小于 dist[v] 则更新 dist 和 prev[v]=u。相等距离可按顶点 code 保留较小前驱。终点不可达时报无路；否则从终点沿 prev 回溯到起点后逆置，输出一条最短路径、总长度和逐段道路。边长为正且每次松弛使距离严格增大，prev 链没有环，所得路径是简单路径。\n\nDijkstra 的已确定顶点满足最短距离不再可能改善，非负边权保证该贪心性质。信息查询平均 O(1)；问路 O((V+E) log V)，附加空间 O(V)，图空间 O(V+E)。若增删景点或道路，须同步维护双向边、索引和正权约束；删除景点时删除所有关联边。",
+        "explanation": "覆盖不少于十个景点、无向网、信息查询、不可达和一条最短简单路径。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入校园导游的图模型和最短路查询独立方案。"
+      }
+    },
+    {
+      "id": "ds-yan-practice-5-6",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n按题意把通信网建成无向网的边数组 Edge(u,v,w)，顶点数不超过 30，权为小于 100 的整数。输入时检查端点存在、u 不等于 v、权值合法；平行边可保留，克鲁斯卡尔会自然选择合适者。MFSet 严格采用教材 6.5 节的双亲表表示，即 PTree：S.nodes[1..S.n] 的 parent 为负时保存集合大小，为正时保存双亲下标。\n\n~~~~c\nint Find(MFSet *S,int x) {\n  if (x<1 || x>S->n) return -1;\n  int r=x;\n  while (S->nodes[r].parent>0) r=S->nodes[r].parent;\n  while (x!=r) { int p=S->nodes[x].parent; S->nodes[x].parent=r; x=p; }\n  return r;\n}\nStatus Merge(MFSet *S,int i,int j) {  /* i、j 必须是不同集合的根 */\n  if (i<1 || i>S->n || j<1 || j>S->n || i==j) return ERROR;\n  if (S->nodes[i].parent>S->nodes[j].parent) { int t=i; i=j; j=t; }\n  S->nodes[i].parent+=S->nodes[j].parent;\n  S->nodes[j].parent=i; return OK;\n}\nStatus Kruskal(Edge e[],int m,int n) {\n  Initial(&S,n,1,2,...,n); SortByWeightThenEndpoints(e,m); int count=0;\n  for (int k=0;k<m && count<n-1;++k) {\n    int a=Find(&S,e[k].u), b=Find(&S,e[k].v);\n    if (a!=b) { Print(e[k].u,e[k].v,e[k].w); Merge(&S,a,b); ++count; }\n  }\n  return count==n-1 ? OK : ERROR;\n}\n~~~~\n\nn 为 0 视为非法，n 为 1 的最小生成树为空且成功；循环结束不足 n-1 条边说明图不连通，应报告无生成树而非把森林当答案。每次选中边连接不同分量，是当前跨某割的最轻可选边，满足割性质；最终选 n-1 条无环边即为最小生成树。排序 O(m log m)，按大小合并加路径压缩的并查集操作总计 O(m alpha(n))，空间 O(m+n)；若选作使用堆排序，排序项仍为 O(m log m)。",
+        "explanation": "严格使用边数组和 MFSet，处理连通性、平行边、单顶点和最小生成树输出。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入克鲁斯卡尔算法与并查集的独立解答。"
+      }
+    },
+    {
+      "id": "ds-yan-practice-5-7",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\nExpression 采用二叉树：叶为单个数字 0 到 9 或变量 a 到 z，内部结点为二元运算符 +、-、*、/、^。ReadExpr 从前缀串当前位置递归读取：叶读一个字符；遇运算符则先建结点，再依次读取左、右子树；忽略空白并要求最终恰读完整串。因此 -91 解析为 (9-1)，+a*bc 解析为 (a+(b*c))。变量表 value[26] 初值全为 0，Assign 仅接受合法变量并更新对应单元。\n\n~~~~c\nNode *ReadExpr(const char **p) {\n  SkipSpace(p); if (**p=='\\0') return NULL;\n  char c=*(*p)++;\n  if (c>='0' && c<='9') return NewConst(c-'0');\n  if (c>='a' && c<='z') return NewVar(c);\n  if (!IsOp(c)) return NULL;\n  Node *l=ReadExpr(p),*r=ReadExpr(p);\n  return l && r ? NewOp(c,l,r) : NULL;\n}\ndouble Value(Node *x) {\n  if (x->tag==CONST) return x->number;\n  if (x->tag==VAR) return value[x->name-'a'];\n  double a=Value(x->left),b=Value(x->right);\n  if (x->op=='/' && b==0) Error();\n  if (x->op=='^' && a==0 && b<=0) Error();\n  return Apply(x->op,a,b);\n}\n~~~~\n\nWriteExpr 对叶直接输出，对内部结点输出左括号、左子树、运算符、右子树、右括号；全括号形式语义唯一。Value 是后根求值，除零和零的非正幂报错。CompoundExpr 先验证运算符，再用 Clone(E1)、Clone(E2) 建新根，避免新树与原树共享可释放结点；若改为移交所有权，必须在接口中明示。读入、输出和求值均 O(N) 时间，树空间 O(N)，递归栈 O(height)。结构归纳说明每个子树求得其对应前缀子式的值，故根值正确。",
+        "explanation": "覆盖前缀解析、全括号中缀输出、变量赋值、后根求值、异常与复合表达式所有权。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入二叉表达式类型全部基本操作的独立解答。"
+      }
+    },
+    {
+      "id": "ds-yan-practice-5-8",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n题面要求计算中转等待时间，却没有显式给出查询出发时刻；程序界面必须增加 t0（出发日期时间）和查询截止时刻 H，否则最快没有唯一含义。城市表以唯一代码索引；每条班次/车次记录为 id、from、to、mode、depart、arrive、fare，时间使用绝对日期时间并要求 arrive 大于 depart、fare 非负。火车的每一区段建成一条有发到时刻和票价的服务边；编辑可从文件或键盘新增、删除城市和服务，删除城市时先删关联服务。\n\n对一次查询先按用户选定交通工具过滤服务，并构造 t0 到 H 的时间扩展邻接表：每个 (城市,事件时刻) 为顶点；同城相邻事件以等待边相连，时间代价为时间差、金钱代价为 0；每个班次以乘坐边连接发车、到达事件，时间代价为 arrive-depart、金钱代价为 fare；源点连到起点 t0 后的首个事件。若时刻表每日循环，先在 [t0,H] 展开相应日期的班次，不能无限展开。\n\n最快查询在该图上以时间代价运行 Dijkstra，终点城市最小标签减 t0 即总耗时，等待边自动计入中转等待。最省钱查询在同一图上以金钱代价运行 Dijkstra，等待边为零；这避免把便宜但到得太晚、赶不上后续班次的前缀误判为可行最优路径。保存 predecessor，回溯后按时间输出每段的出发时刻、车航班号、到达城市和时刻；无终点事件或超过 H 则报告无可行行程。只保留选定 mode，满足全程单一交通工具。\n\n两种权值非负，Dijkstra 正确；时间扩展图把等待显式化，使可行路径与实际行程一一对应。若扩展图有 Vt 个事件、Et 条边，查询时间 O((Vt+Et) log Vt)，空间 O(Vt+Et)。",
+        "explanation": "补足最快咨询必要的出发时刻和时域，并正确处理等待、最早到达、最省钱和单一交通工具限制。",
+        "correction": {
+          "verified": "**独立审校修正（非原书摘录）**\n\n城市表以唯一城市代码索引。每条服务记录为 id、from、to、mode、depart、arrive、fare；mode 只能是 train 或 plane，arrive 必须晚于 depart，fare 非负。火车按题意把每个路段登记为一条有发到时刻、票价和同一车次号的服务边；飞机按航班登记。编辑功能同时支持文件和键盘输入；删除城市时删除其所有关联服务，新增或删除服务后重新校验端点和时间。底层可用邻接表按出发城市保存服务记录。\n\n一次咨询除了起点、终点、目标和交通工具外，必须明确出发绝对时刻 t0；还指定最晚到达时刻 H，用来界定可查询时域和展开循环时刻表，要求 H 不早于 t0。查询先只保留用户选定 mode 的服务，故任意结果全程只使用一种交通工具。若时刻表按日循环，先把每条服务展开为所有满足 t0 到 H 的具体日期实例，跨日到达也按绝对日期时间计算；不在时域内的实例不入图。\n\n构造时间扩展图时，对每个服务的出发和到达时刻建立事件顶点 (city,time)，并在起点城市额外加入源事件 (start,t0)。把同一城市的事件时刻按非降序排列，在每对相邻时刻之间加入等待边，时间代价为后一时刻减前一时刻、金钱代价为 0；超级源若单列，只以零代价连到 (start,t0)。每项服务加入一条从 (from,depart) 到 (to,arrive) 的乘坐边，时间代价为 arrive 减 depart、金钱代价为 fare，并保留服务 id。这样源事件到起点第一班或第一到达事件之间也必须经过等待边，初始等待为 firstTime 减 t0，绝不会被漏算。相同时刻可合并为一个城市时刻顶点，零等待换乘合法。\n\n最快到达在该图上以时间为非负边权运行 Dijkstra，从所有终点城市事件中取最小标签；其值就是从 t0 起的总耗时，含初始等待、中转等待和乘坐时间。最省钱以金钱为主关键字运行 Dijkstra，等待边权为 0；为输出稳定结果可用 (钱数、总时间) 的非负字典序权重作平局，仍先保证钱数最小。起点等于终点直接返回零时间、零费用、空行程；若终点无可达事件或所有到达均晚于 H，则报告在该模式和时域内无可行行程。\n\n每次松弛保存 predecessor 顶点和服务指针。回溯终点到源后逆置路径，跳过或显示等待边，并按时间输出每一段的出发城市和时刻、车次或航班号、到达城市和时刻、票价；因而用户可核对每次换乘的等待。任一实际可行行程从 (start,t0) 起依次走等待边和乘坐边，得到同代价图路径；反之每条图路径的时间单调不减且服务时刻相容，得到真实行程。所有权值非负，故 Dijkstra 返回相应目标的最优路径。\n\n若展开后有 Vt 个事件顶点、Et 条等待和乘坐边，单次查询的时间为 O((Vt+Et) log Vt)，空间为 O(Vt+Et)；保存的前驱和输出行程至多为该路径长度。",
+          "explanation": "将 (start,t0) 显式纳入起点城市事件链，使源到首个可乘事件的等待以时间边计入总耗时。",
+          "reason": "原补充答案把源点连到 t0 之后的首个事件却未定义该边的时间代价，默认零权时会漏掉初始等候时间。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入带时刻表、等待时间和单一交通工具限制的可执行咨询方案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-6.1",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n以 m=5 管理 32 个 cell。为避免命令 -0 与结束命令 0 无法区分，交互界面对外公布地址 1 到 32，内部数组偏移为 publicAddress-1；归还命令 -a 因而可归还任意块。avail[k] 是长度为 2^k 的空闲块表，块头保存 kvalue 和内部 blkstart；allocated 用 rlink 链接已分配块，并保存实际分配阶而非仅保存用户申请量。初态仅有 avail[5] 的 start 0 块，allocated 为空，space 数组不存业务数据。\n\n申请 n 时，n 大于 32 失败且状态不变。求最小 k=ceil(log2 n)，从 k 到 m 找首个非空 avail 表；若无则失败。取出阶 l 块，反复分裂成左半和右半，右半插入 avail[l-1]，左半继续分裂，直到 l=k；左半块头进入 allocated 并显示全表。归还 -a 时先换算内部地址并在 allocated 精确查找起始地址；找不到、地址在块内但非块首均报错。摘下该块后令 buddy=base XOR 2^k；只要同阶空闲表中存在这个伙伴，就摘下伙伴、令 base 为较小起址、k 加一，直到无伙伴，再把合并块插入 avail[k]。各表按起址排序显示占用块的始址和长度，以及每个空闲阶的始址和长度。\n\n分裂保持每个 cell 恰属于一个块；合并只发生在同阶、相邻且同一父块的伙伴之间，故不重叠也不丢失空间。若空闲表按题给链表线性查找伙伴，单次操作为 O(m+F)，F 为扫描块头数，最坏 O(2^m)；若另建按 (k,start) 索引则为 O(m)。块头、空闲表、占用表总空间 O(2^m)，m=5 时为常数。最后的申请 40 必须失败且状态不变。",
+        "explanation": "严格遵循伙伴分裂、伙伴合并和题给表结构，并处理 -0 与结束命令的接口歧义。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入伙伴存储分配、回收、状态显示和地址边界的独立设计。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-6.2",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n把姓名规范为大写 ASCII 拼音并删除分隔空格、连字符；空串、超过 19 字符或重复姓名拒绝。选容量为素数 M，例如先取 101，使 30 个记录装填因子约为 0.297。先将字符码按折叠多项式累积，再作除留余数 home=fold(name) mod M。为满足伪随机探测且保证不漏槽，在建表时用固定种子 Fisher-Yates 生成 perm[0..M-1] 的随机排列，perm[0]=0；第 i 次探测为 (home+perm[i]) mod M。同一表保存同一 perm，查询才能重现插入路径。\n\n~~~~c\nint FindSlot(Table *T,const char *name,bool *found,int *probes) {\n  int h=Hash(name,T->M);\n  for (int i=0;i<T->M;++i) {\n    int p=(h+T->perm[i])%T->M; ++*probes;\n    if (T->a[p].state==EMPTY) { *found=false; return p; }\n    if (T->a[p].state==USED && Equal(T->a[p].name,name)) { *found=true; return p; }\n  }\n  return -1;\n}\n~~~~\n\nInsert 用 FindSlot 找到空位后写入，成功查找的 probes 即该记录的查找长度。建完 30 人后计算 ASL 为所有成功查找 probes 之和除以 30，只有 ASL 不大于 2 才接受该表；否则换下一个更大素数容量或新的固定种子重建，并记录最终 M、种子和 ASL。这样不会仅凭期望值声称满足上限。排列探测覆盖全部槽，所以表未满时查找或插入必终止；同一规范名沿同一路径命中。均匀散列假设下平均查找 O(1)，最坏 O(M)，空间 O(M)。",
+        "explanation": "使用除留余数与可复现的伪随机全排列探测，并以实际成功查找长度验证 ASL 上限。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入姓名规范化、建表、查表、冲突处理和 ASL 验证。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-6.3",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n以 2-3 树索引书号。每个结点含 1 或 2 个有序键及 0、2 或 3 个孩子；键指向 Book(no,title,author,total,available,loans)，借阅记录挂在对应 Book 后。Search 按键区间下降，直到命中或叶空位。入库命中时 total 和 available 同时增加；否则把新 Book 插入叶。叶已有两键时，把两旧键和新键排序，保留最小键在原结点、新建右兄弟存最大键，中键连同两个结点向父提升；父满则同样分裂直至新根。内结点分裂还须按顺序分配四个孩子给左右结点。\n\n清除库存先查找书号；若有未归还记录或 available 不等于 total 则拒绝注销，避免悬空借阅。若键在内结点，用左子树最大键或右子树最小键的 Book 指针替换，再在叶删除该键。叶删后若仍有一键结束；若下溢，优先向有两键的相邻兄弟借键，经父分隔键旋转一个键和相应孩子；两兄弟都仅一键时，与一侧兄弟及父分隔键合并成两键结点，并在父中删分隔键和一个孩子，必要时向上修复。根变为零键时将唯一孩子升为新根，或成为空树。借阅先 Search，现存量为零失败，否则 available 减一并登记证号、到期日；归还必须找到该书该证的未归还记录，删除登记后 available 加一且不得超过 total。\n\n显示使用 Print(node,depth)：打印 depth 级缩进和一或两书号，再从左到右递归孩子。每次插入题给序列及删除 45、90、50、22、42 后检查：非根结点有 1 或 2 键、孩子数为键数加一、键区间正确、叶同深度、中序有序且无重复。高度 O(log B)，查找、入库、清除 O(log B)；若 loans 是链表，单书归还定位 O(该书借阅数)，证号散列表可平均 O(1)。总空间 O(B+L)。",
+        "explanation": "覆盖 2-3 树插入分裂、删除下溢修复、库存一致性、借还与凹入表验证。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入基于 2-3 树的图书管理基本业务的独立设计。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-6.4",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n结点保存 key、左右孩子和 height，约定空树高为 0、叶高为 1，平衡因子 bf=height(left)-height(right)。查找按二叉查找树规则下降；重复关键字按接口约定拒绝或维护计数，不能再插入同 key 结点。插入或删除递归返回时先更新高度，再按 bf 作 LL、LR、RR、RL 旋转。\n\n~~~~c\nNode *Balance(Node *x) {\n  UpdateHeight(x);\n  if (BF(x)==2) { if (BF(x->left)<0) x->left=RotateLeft(x->left); return RotateRight(x); }\n  if (BF(x)==-2) { if (BF(x->right)>0) x->right=RotateRight(x->right); return RotateLeft(x); }\n  return x;\n}\nNode *Delete(Node *x,Key k) {\n  if (!x) return NULL;\n  if (k<x->key) x->left=Delete(x->left,k);\n  else if (k>x->key) x->right=Delete(x->right,k);\n  else if (!x->left || !x->right) { Node *c=x->left?x->left:x->right; Free(x); return c; }\n  else { Node *p=MinNode(x->right); x->key=p->key; x->record=p->record; x->right=Delete(x->right,p->key); }\n  return Balance(x);\n}\n~~~~\n\n删除含两个孩子结点时用右子树最小值替换，再把实际删除传到至多一个孩子的结点，符合题意；回溯 Balance 正是子树变矮后的平衡处理。找不到 key 时不改变树。每次插删后以凹入表显示，并校验中序严格有序、height 正确、所有 bf 属于 -1、0、1。旋转保持中序序列，Balance 恢复高度差，故操作后仍为 AVL。查找、插入、删除 O(log n)，递归栈 O(log n)，结点空间 O(n)。",
+        "explanation": "给出可直接实现的 AVL 删除和四种旋转，覆盖空树、找不到键、替换结点与平衡校验。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入动态 AVL 查找表三项基本操作的独立解答。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-6.5",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n采用不限定层数的字符 Trie。根和普通前缀结点含 27 条孩子指针：a 到 z 的 26 条及终止符美元符号；普通结点不存完整词，终止符孩子是叶结点，叶中恰存一个 Entry(word,phonetic,meaning)。因此 car 与 cart 分别在 c-a-r 的终止叶和 c-a-r-t 的终止叶存储，仍满足每个叶只含一个关键字。输入先统一为小写字母，空词和非字母拒绝。\n\n~~~~text\nInsert(word,e): 沿 word 的字符创建或进入普通前缀结点；若终止孩子已存在则报告重复或更新释义；否则挂一个只含 e 的叶。\nFind(word): 沿字符下降，最后检查终止孩子；存在则返回该叶。\nDelete(word): 保存路径；删除末尾终止叶后自底向上删除没有任何孩子的普通结点，根永不删除。\nPrefix(p): 沿 p 下降；从该结点 DFS 所有终止叶，按 a 到 z 次序输出完整 Entry。\n~~~~\n\nPrefix 结果包括恰好等于前缀的单词；路径不存在时返回空结果。删除 car 不会删除 cart 仍需的 c-a-r 前缀，因为其还有 t 孩子。每个词按字符唯一地到达终止叶，故完整查询、插入、删除正确；前缀 DFS 恰枚举以 p 开头的全部词。设词长 L，完整操作 O(L)，前缀查询 O(|p| 加输出字符数)，空间 O(全部不同前缀字符数加词条数)。",
+        "explanation": "采用终止符叶来同时满足单词前缀关系和每个叶仅存一个关键字的题设。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入无限层 Trie 的插入、删除、完整查询和前缀查询。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-6.6",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n先固定可比较的实现版本：带提前结束的起泡、直接插入、简单选择、中间元素枢轴的快速、声明明确增量序列的希尔、最大堆堆排。所有排序从同一份基准数组副本开始，复制基准数组不计入指标；所有关键字比较只能经 Less(x,y)，每调用一次比较数加一；所有关键字赋值经 Move(dst,src)，移动数加一；交换必须由三次 Move 构成，固定计三次移动。临时关键字的保存和写回必须统一，本实现计入，避免低估插入排序。\n\n~~~~text\nfor each dataset D:\n  base=D\n  for each of six algorithms A:\n    work=copy(base); counters=(0,0); A(work,counters)\n    assert work nondecreasing and Multiset(work)==Multiset(base)\n    record dataset-name, algorithm, comparisons, moves\n~~~~\n\n表长取不少于 100，至少测试正序、逆序、两个固定种子的随机排列和一个近乎有序排列；可加高重复关键字组。记录 n、随机数发生器、种子、枢轴规则、希尔增量和编译环境，才能复现。通常选择排序比较数恒为 n(n-1)/2、移动较少；起泡和插入在正序或近序接近 O(n)，在逆序或乱序趋于 O(n^2)；快速平均 O(n log n) 但最坏 O(n^2)；希尔取决于增量；堆排 O(n log n) 且对初始次序较不敏感。各算法工作数组 O(1)，快速排序递归栈平均 O(log n)、最坏 O(n)。\n\n排序性与排列守卫分别发现顺序错误和元素丢失或重复；统一包装比较、移动使统计和算法动作一一对应。六种算法对 g 组长度 n 数据的总时间为各自运行时间之和，基准和工作数组空间 O(n)。",
+        "explanation": "提供统一计数口径、可复现实验组、排序与排列验证，以及六算法的复杂度解释。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入内部排序比较实验的独立、可复现方案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-6.7",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设每条记录有 q（不超过 5）个 0 到 100 的关键字，用户给出从最高到最低优先级的无重复字段序列 p[0..r-1]；默认字段升序，若支持降序则把每一优先级方向一并记录。LSD 的正确顺序是从 p[r-1] 到 p[0] 依次作稳定排序，不能从最高优先级先排。\n\n策略一对当前全表按一个字段执行稳定归并排序：合并时键相等先取左半，保持原有次序。策略二对同一字段准备 101 个队列 head[0..100]、tail[0..100]，按当前顺序把记录分配到对应队尾，再从 0 到 100 收集；每轮重置队头尾。两种策略的外层均为：从 i=r-1 递减至 0，对 records 按 p[i] 进行稳定排序或分配收集。输入 n 不得超过 1000，字段值越界、优先级重复或字段号非法均拒绝。\n\n归纳地，在处理第 i 字段前，序列已按较低优先级后缀有序；对第 i 字段的稳定排序不破坏同值记录的后缀顺序，因此最终按完整优先级序列字典序有序。对 5 到 8 组同一随机记录测试两策略，计时包含每轮排序或分配收集、排除生成和打印，并取多次重复的中位数；再用直接字典序比较器校验两输出完全相同。稳定归并策略 O(r*n log n) 时间、O(n) 辅助空间；分配收集 O(r*(n+101)) 时间、O(n+101) 空间，在键域固定时为 O(r*n)。",
+        "explanation": "明确 LSD 处理方向、两种稳定策略、101 桶、输入边界和可比较实验。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入多关键字 LSD 排序的两种策略及综合比较方案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-report-6.6",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n这是实习报告示例而非有唯一数值答案的编程题；独立核验应给出可复现实验结论，不能把示例表中的随机数结果当作通用标准。报告至少写明表长和测试组数、每组数据构造和随机种子、六种排序的精确版本、比较和移动的计数口径、每种算法前从同一基准副本恢复、排序性和排列守卫，以及汇总表和解释。\n\n示例中可直接核验的量包括：n=400 时简单选择排序的比较次数恒为 400 乘 399 再除以 2，即 79800；带提前结束的起泡排序在正序上应为 399 次比较、0 次交换；若插入排序把暂存和写回均计移动，正序的 399 次插入给出 798 次移动。这些与表中对应数字一致。快速、希尔、堆的具体计数取决于枢轴、增量、堆的子结点选择、随机序列和是否计临时赋值，未声明这些条件不能从理论推导唯一数字。\n\n可执行的报告基线是：Less 是唯一关键字比较入口并递增 comparison；Move 是唯一关键字赋值入口并递增 move；Swap 由三次 Move 组成；每组数据分别运行六种排序并在每次运行前恢复基准数组。最大堆下滤必须选择两个孩子中较大的一个，再与暂存根比较；完成后验证数组非降且元素多重集未变。解释要区分算法阶与输入敏感性：选择比较固定，起泡和插入对逆序、乱序高度敏感，快速平均较少但有 O(n^2) 最坏，希尔依赖增量，堆为 O(n log n) 且波动较小。六算法原地工作空间通常 O(1)，快速另有递归栈。\n\n若要复现示例，必须补充伪随机发生器、种子、编译器和所有排序细节；否则只能核验上述不变量和趋势，不能安全断言每个随机相关数字为唯一正确值。",
+        "explanation": "按可复现实验标准核验报告示例，区分可由不变量验证的数值与依赖未给定随机或实现细节的数值。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入实习报告示例的独立核验口径与可复现结论。"
+      }
+    }
+  ],
+  "unresolved": []
+}

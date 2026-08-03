@@ -13,6 +13,25 @@ const exercisePublicRoot = path.join(textbookPublicRoot, "exercises");
 const exercisePublicBase = `${textbookPublicBase}/exercises`;
 const skippedDirectories = new Set(["assets", "audits", "tmp", "work", "__page_review", "review"]);
 const mediaExtension = /\.(?:svg|png|jpe?g|gif|webp)$/i;
+const visualTypes = new Set([
+  "growth-curves",
+  "algorithm-trace",
+  "memory-scale",
+  "process-flow",
+  "state-machine",
+  "timeline",
+  "comparison",
+  "address-fields",
+  "banker-simulator",
+  "resource-allocation-graph",
+  "semaphore-lab",
+  "scheduler-queue",
+  "concurrency-lab",
+]);
+const visualMarkerPattern = /<!--\s*knowledge-visual:([a-z0-9]+(?:-[a-z0-9]+)*)\s*-->/g;
+const visualMarkerExactPattern = /^<!--\s*knowledge-visual:([a-z0-9]+(?:-[a-z0-9]+)*)\s*-->$/;
+const visualIdPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const forbiddenVisualKey = /^(html|script|style|src|url|href|onclick|onchange|oninput)$/i;
 
 function asPosix(value) {
   return value.split(path.sep).join("/");
@@ -107,6 +126,115 @@ function sourceMetadata(markdown) {
     attributes: source ? extractAttributes(source[2]) : {},
     pageMarkers: comments.filter((comment) => comment[1] === "page").map((comment) => extractAttributes(comment[2])),
   };
+}
+
+function assertSafeVisualConfig(value, manifestPath, trail = []) {
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => assertSafeVisualConfig(item, manifestPath, [...trail, String(index)]));
+    return;
+  }
+  if (!value || typeof value !== "object") return;
+  for (const [key, child] of Object.entries(value)) {
+    const nextTrail = [...trail, key];
+    if (forbiddenVisualKey.test(key) || /^on[A-Z]/.test(key)) {
+      throw new Error(`${manifestPath}: 可视化配置字段 ${nextTrail.join(".")} 不允许包含渲染代码或事件处理器`);
+    }
+    if (key === "autoPlay" && child === true) {
+      throw new Error(`${manifestPath}: 可视化不得默认自动播放`);
+    }
+    if (typeof child === "string" && /https?:\/\//i.test(child)) {
+      throw new Error(`${manifestPath}: 可视化配置字段 ${nextTrail.join(".")} 不允许包含外部 URL`);
+    }
+    assertSafeVisualConfig(child, manifestPath, nextTrail);
+  }
+}
+
+function assertTextbookTraceSpec(spec, manifestPath) {
+  if (spec.type !== "algorithm-trace") return;
+  const config = spec.config;
+  const steps = Array.isArray(config.steps) ? config.steps : [];
+  if (steps.length < 2 || steps.some((step) => !step || typeof step !== "object" || !String(step.label || "").trim() || !String(step.note || "").trim())) {
+    throw new Error(`${manifestPath}: ${spec.id} 的每个动画步骤都必须有 label 和 note`);
+  }
+  if (config.variant === "hanoi-recursion") {
+    const pegs = Array.isArray(config.pegs) ? config.pegs : [];
+    const pegIds = pegs.map((peg) => peg?.id);
+    if (pegIds.join(",") !== "a,b,c") throw new Error(`${manifestPath}: ${spec.id} 必须声明 a、b、c 三根柱`);
+    for (const step of steps) {
+      const towers = step.towers;
+      const stack = step.stack;
+      if (!Array.isArray(stack) || !towers || typeof towers !== "object" || ["a", "b", "c"].some((peg) => !Array.isArray(towers[peg]))) {
+        throw new Error(`${manifestPath}: ${spec.id} 的每一步必须完整给出工作栈与三根柱状态`);
+      }
+      const disks = ["a", "b", "c"].flatMap((peg) => towers[peg]);
+      if (disks.length !== 3 || disks.some((disk) => !Number.isInteger(disk)) || new Set(disks).size !== 3 || ![1, 2, 3].every((disk) => disks.includes(disk))) {
+        throw new Error(`${manifestPath}: ${spec.id} 的每一步必须完整保留 1、2、3 号圆盘`);
+      }
+    }
+    return;
+  }
+  if (config.variant === "bank-event-queue") {
+    for (const step of steps) {
+      const queues = step.queues;
+      if (!Array.isArray(step.eventList) || !queues || typeof queues !== "object" || ["q1", "q2", "q3", "q4"].some((queue) => !Array.isArray(queues[queue]))) {
+        throw new Error(`${manifestPath}: ${spec.id} 的每一步必须完整给出事件表与四个窗口队列`);
+      }
+    }
+    return;
+  }
+  if (config.variant === "kmp-next-fallback") {
+    const main = config.main;
+    const pattern = config.pattern;
+    const nextValues = config.next;
+    if (typeof main !== "string" || !main.length || typeof pattern !== "string" || !pattern.length || !Array.isArray(nextValues) || nextValues.length !== pattern.length) {
+      throw new Error(`${manifestPath}: ${spec.id} 必须完整给出主串、模式串和等长的 next 表`);
+    }
+    if (nextValues.some((value, index) => !Number.isInteger(value) || value < 0 || value > index) || nextValues[0] !== 0) {
+      throw new Error(`${manifestPath}: ${spec.id} 的 next 表必须是从 0 开始的合法回退位置`);
+    }
+    for (const step of steps) {
+      const { i, j, patternStart, matched, nextJump } = step;
+      if (!Number.isInteger(i) || i < 1 || i > main.length || !Number.isInteger(j) || j < 0 || j > pattern.length + 1 || !Number.isInteger(patternStart) || patternStart < 1 || patternStart > main.length || !Number.isInteger(matched) || matched < 0 || matched > pattern.length || (nextJump !== null && !Number.isInteger(nextJump))) {
+        throw new Error(`${manifestPath}: ${spec.id} 的每一步必须给出范围合法的 i、j、对齐位置、已匹配长度与回退位置`);
+      }
+    }
+    return;
+  }
+  throw new Error(`${manifestPath}: ${spec.id} 的 algorithm-trace 必须声明受支持的教材动画 variant`);
+}
+
+function loadTextbookVisualManifest(sourceRoot) {
+  const manifestPath = path.join(sourceRoot, "_visualizations.json");
+  if (!fs.existsSync(manifestPath)) return { manifestPath, byRoute: new Map(), ids: new Set() };
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+  if (manifest.version !== 1 || manifest.subject !== "ds" || !Array.isArray(manifest.visualizations)) {
+    throw new Error(`${manifestPath}: 教材可视化清单顶层格式无效`);
+  }
+  const byRoute = new Map();
+  const ids = new Set();
+  for (const candidate of manifest.visualizations) {
+    if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) throw new Error(`${manifestPath}: 可视化 spec 必须为对象`);
+    const spec = { ...candidate, sourceLatex: candidate.sourceLatex || [] };
+    if (!visualIdPattern.test(spec.id || "") || !spec.id.startsWith("ds-") || ids.has(spec.id)) {
+      throw new Error(`${manifestPath}: 可视化 ID ${JSON.stringify(spec.id)} 无效或重复`);
+    }
+    if (typeof spec.route !== "string" || path.isAbsolute(spec.route) || spec.route.split(/[\\/]/).includes("..")) {
+      throw new Error(`${manifestPath}: ${spec.id} 的 route 不安全`);
+    }
+    if (!visualTypes.has(spec.type) || typeof spec.title !== "string" || !spec.title.trim() || typeof spec.summary !== "string" || !spec.summary.trim() || !spec.config || typeof spec.config !== "object" || Array.isArray(spec.config)) {
+      throw new Error(`${manifestPath}: ${spec.id} 的通用字段无效`);
+    }
+    if (!Array.isArray(spec.sourceLatex) || spec.sourceLatex.some((item) => typeof item !== "string")) {
+      throw new Error(`${manifestPath}: ${spec.id}.sourceLatex 必须为字符串数组`);
+    }
+    assertSafeVisualConfig(spec.config, manifestPath);
+    assertTextbookTraceSpec(spec, manifestPath);
+    const formulaHtml = Object.fromEntries(spec.sourceLatex.map((latex) => [latex, katex.renderToString(latex, { throwOnError: false, strict: "ignore" })]));
+    const enriched = { ...spec, formulaHtml };
+    ids.add(spec.id);
+    byRoute.set(spec.route, [...(byRoute.get(spec.route) || []), enriched]);
+  }
+  return { manifestPath, byRoute, ids };
 }
 
 function cleanForRender(markdown) {
@@ -250,7 +378,13 @@ function prepareMath(markdown) {
 function renderMarkdown(markdown, { sourcePath, pagesByPath, publicBase, rootAssetFallback = false }) {
   const prepared = prepareMath(expandFootnotes(cleanForRender(markdown)));
   const renderer = new Renderer();
-  renderer.html = ({ text }) => text.startsWith("<!--") ? "" : escapeHtml(text);
+  renderer.html = ({ text }) => {
+    const trimmed = text.trim();
+    // The reader hydrates only approved visual markers into React components;
+    // all other raw HTML remains escaped or removed as before.
+    if (visualMarkerExactPattern.test(trimmed)) return trimmed;
+    return text.startsWith("<!--") ? "" : escapeHtml(text);
+  };
   renderer.link = function link({ href, title, tokens }) {
     const safe = localPageHref(href, sourcePath, pagesByPath, publicBase, rootAssetFallback);
     const label = this.parser.parseInline(tokens);
@@ -271,6 +405,116 @@ function renderMarkdown(markdown, { sourcePath, pagesByPath, publicBase, rootAss
 
 function findInlineImageNames(markdown) {
   return new Set([...String(markdown || "").matchAll(/!\[[^\]]*\]\(([^)]+)\)/g)].map((match) => path.posix.basename(splitHref(match[1]).pathname)));
+}
+
+function sectionNumberFromHeading(markdown) {
+  return String(markdown || "").match(/^#\s+(\d+\.\d+)(?:\s|　)/m)?.[1] || null;
+}
+
+function pageShell(markdown) {
+  const title = String(markdown || "").match(/^#\s+.+$/m);
+  if (!title || title.index === undefined) return String(markdown || "").trimEnd();
+  const preamble = markdown.slice(0, title.index).trimEnd();
+  return `${preamble}${preamble ? "\n" : ""}${title[0]}`;
+}
+
+function figureImages(markdown) {
+  const byNumber = new Map();
+  const unnamed = [];
+  for (const match of String(markdown || "").matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)) {
+    const alt = match[1].trim();
+    const image = `![${alt}](${match[2].trim()})`;
+    const figureNumber = alt.match(/图\s*(\d+(?:\.\d+)+)/)?.[1];
+    if (figureNumber) {
+      byNumber.set(figureNumber, image);
+    } else {
+      unnamed.push(image);
+    }
+  }
+  return { byNumber, unnamed };
+}
+
+function cleanFigurePlaceholderText(value) {
+  return String(value || "")
+    .replace(/^\[|\]$/g, "")
+    .replaceAll("占位，", "，")
+    .replaceAll("占位：", "：")
+    .replaceAll("占位", "")
+    .replace(/后续应据此重绘。?$/, "")
+    .replace(/此图应按原图重绘(?:为[^。]*)?。?$/, "")
+    .replace(/应按原图重绘。?$/, "")
+    .trim();
+}
+
+function figurePlaceholderNote(attributes) {
+  const { figure, pdf_page: pdfPage, book_page: bookPage, structure } = extractAttributes(attributes);
+  const pages = [pdfPage && `PDF p${pdfPage}`, bookPage && `书内 p${bookPage}`].filter(Boolean).join("，");
+  const label = figure ? `图 ${figure}` : "结构示意图";
+  return `> **${label}${pages ? `（${pages}）` : ""}**${structure ? `：${structure}` : ""}`;
+}
+
+/**
+ * Page-segment transcriptions are deliberately kept out of the navigation tree,
+ * but some legacy OCR batches left a chapter's only full text in work/sections.
+ * Reassemble those source-verified segments into their canonical section pages
+ * during import so the public reader never turns a chapter into an outline.
+ */
+function workSectionBodies(sourceRoot) {
+  const bodies = new Map();
+  for (const chapter of fs.readdirSync(sourceRoot, { withFileTypes: true })) {
+    if (!chapter.isDirectory()) continue;
+    const sectionsRoot = path.join(sourceRoot, chapter.name, "work", "sections");
+    if (!fs.existsSync(sectionsRoot)) continue;
+    const segmentFiles = fs.readdirSync(sectionsRoot, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() && fs.existsSync(path.join(sectionsRoot, entry.name, "index.md")))
+      .sort((left, right) => left.name.localeCompare(right.name, "en", { numeric: true }))
+      .map((entry) => path.join(sectionsRoot, entry.name, "index.md"));
+    const combined = segmentFiles.map((file) => fs.readFileSync(file, "utf8")
+      // The section page already supplies the one public chapter title.
+      .replace(/^#\s+.+\r?\n?/m, "").trim()).join("\n\n");
+    // A continuation batch can restart a chapter/section at H1, while true
+    // children such as 8.3.2 remain H1 in legacy OCR. Split only on a two-part
+    // section number and retain the deeper headings inside its parent section.
+    const headings = [...combined.matchAll(/^#+\s+(\d+\.\d+)(?!\.)(?:\s|　).+$/gm)];
+    for (let index = 0; index < headings.length; index += 1) {
+      const current = headings[index];
+      const next = headings[index + 1];
+      const start = (current.index || 0) + current[0].length;
+      const body = combined.slice(start, next?.index).trim()
+        .replace(/^#\s+(\d+\.\d+\.\d+)(?:\s|　)/gm, "### $1 ");
+      if (!body) continue;
+      const key = `${chapter.name}:${current[1]}`;
+      const existing = bodies.get(key);
+      bodies.set(key, existing ? `${existing}\n\n${body}` : body);
+    }
+  }
+  return bodies;
+}
+
+function injectWorkFigureImages(markdown, canonicalMarkdown) {
+  const images = figureImages(canonicalMarkdown);
+  let unnamedIndex = 0;
+  const imageFor = (figureNumber) => figureNumber ? images.byNumber.get(figureNumber) : images.unnamed[unnamedIndex++];
+  const withCommentFigures = String(markdown || "").replace(/<!--\s*luna:figure-placeholder\s+([\s\S]*?)-->/g, (placeholder, attributes) => {
+    const image = imageFor(extractAttributes(attributes).figure);
+    return image ? `${image}\n\n${figurePlaceholderNote(attributes)}` : figurePlaceholderNote(attributes);
+  });
+  const withQuotedFigures = withCommentFigures.replace(/^>\s+\*\*图\s*(\d+(?:\.\d+)+)[^\r\n]*占位[^\r\n]*$/gm, (placeholder, figureNumber) => {
+    const image = imageFor(figureNumber);
+    const note = cleanFigurePlaceholderText(placeholder);
+    return image ? `${image}\n\n${note}` : note;
+  });
+  return withQuotedFigures
+    .replace(/\[图\s*(\d+(?:\.\d+)+)\s*占位[^\]]*\]/g, (placeholder, figureNumber) => {
+      const image = imageFor(figureNumber);
+      const note = `> ${cleanFigurePlaceholderText(placeholder)}`;
+      return image ? `${image}\n\n${note}` : note;
+    })
+    .replace(/\[结构示意图占位[^\]]*\]/g, (placeholder) => {
+      const image = imageFor();
+      const note = `> ${cleanFigurePlaceholderText(placeholder)}`;
+      return image ? `${image}\n\n${note}` : note;
+    });
 }
 
 function sortPages(left, right, chapterOrder) {
@@ -316,16 +560,57 @@ const rawPages = sourceFiles.map((sourceFile) => {
     markdown,
   };
 });
-const pagesByPath = new Map(rawPages.map((page) => [page.sourcePath, page]));
-const pages = rawPages.map((page) => {
+const segmentedBodies = workSectionBodies(textbookSourceRoot);
+const canonicalPages = rawPages.map((page) => {
+  const sectionNumber = sectionNumberFromHeading(page.markdown);
+  const workBody = sectionNumber ? segmentedBodies.get(`${page.chapterId}:${sectionNumber}`) : null;
+  if (!workBody) return page;
+  const markdown = `${pageShell(page.markdown)}\n\n${injectWorkFigureImages(workBody, page.markdown).trim()}\n`;
+  return {
+    ...page,
+    headings: [...markdown.matchAll(/^#{2,4}\s+(.+)$/gm)].map((match) => cleanText(match[1])).filter(Boolean),
+    source: sourceMetadata(markdown),
+    markdown,
+  };
+});
+const visualManifest = loadTextbookVisualManifest(textbookSourceRoot);
+for (const route of visualManifest.byRoute.keys()) {
+  if (!canonicalPages.some((page) => page.slug === route)) {
+    throw new Error(`${visualManifest.manifestPath}: 可视化 route ${route || "."} 不存在对应教材页`);
+  }
+}
+const pagesByPath = new Map(canonicalPages.map((page) => [page.sourcePath, page]));
+const resolvedVisualIds = new Set();
+const pages = canonicalPages.map((page) => {
+  const declaredVisualizations = visualManifest.byRoute.get(page.slug) || [];
+  const pageMarkers = [...page.markdown.matchAll(visualMarkerPattern)].map((match) => match[1]);
+  const expectedIds = new Set(declaredVisualizations.map((spec) => spec.id));
+  if (pageMarkers.length !== new Set(pageMarkers).size) {
+    throw new Error(`${page.sourcePath}: 可视化标记不可重复`);
+  }
+  for (const markerId of pageMarkers) {
+    if (!expectedIds.has(markerId)) throw new Error(`${page.sourcePath}: ${markerId} 没有匹配当前页面的可视化 spec`);
+  }
+  for (const spec of declaredVisualizations) {
+    if (pageMarkers.filter((id) => id === spec.id).length !== 1) {
+      throw new Error(`${visualManifest.manifestPath}: ${spec.id} 必须在目标 Markdown 中恰好出现一次`);
+    }
+    resolvedVisualIds.add(spec.id);
+  }
+  const visualById = new Map(declaredVisualizations.map((spec) => [spec.id, spec]));
+  const pageVisualizations = pageMarkers.map((markerId) => visualById.get(markerId));
   const rendered = renderMarkdown(page.markdown, { sourcePath: page.sourcePath, pagesByPath, publicBase: textbookPublicBase });
   return {
     ...page,
     summary: firstSummary(page.markdown, page.title),
-    sourceLatex: rendered.sourceLatex,
+    sourceLatex: [...new Set([...rendered.sourceLatex, ...pageVisualizations.flatMap((spec) => spec.sourceLatex || [])])],
+    visualizations: pageVisualizations,
     html: rendered.html,
   };
 }).sort((left, right) => sortPages(left, right, chapterOrder));
+if (resolvedVisualIds.size !== visualManifest.ids.size) {
+  throw new Error(`${visualManifest.manifestPath}: 有可视化 spec 未被解析到对应教材页`);
+}
 
 const chapters = exerciseCatalog.chapters.map((chapter) => ({
   id: chapter.id,

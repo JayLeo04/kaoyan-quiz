@@ -1,3 +1,5 @@
+import type { KnowledgeVisualizationSpec } from "@/app/components/knowledge-visuals/types";
+
 export type TextbookPage = {
   id: string;
   slug: string;
@@ -10,6 +12,8 @@ export type TextbookPage = {
   parentSlug: string | null;
   headings: string[];
   sourceLatex: string[];
+  /** Optional while older generated textbook datasets are still supported. */
+  visualizations?: KnowledgeVisualizationSpec[];
   source: {
     attributes: Record<string, string>;
     pageMarkers: Array<Record<string, string>>;
@@ -149,7 +153,7 @@ export type TextbookChapterSummary = Pick<TextbookChapter, "id" | "title" | "que
 
 export type TextbookPageSummary = Pick<TextbookPage, "id" | "slug" | "chapterId" | "title" | "summary" | "depth" | "headings">;
 
-export type TextbookPageContent = Pick<TextbookPage, "id" | "slug" | "chapterId" | "title" | "headings" | "sourceLatex" | "source" | "html">;
+export type TextbookPageContent = Pick<TextbookPage, "id" | "slug" | "chapterId" | "title" | "headings" | "sourceLatex" | "visualizations" | "source" | "html">;
 
 export type TextbookQuestionSummary = Pick<TextbookQuestion, "id" | "number" | "type" | "chapterId" | "section" | "knowledgePoints"> & {
   prompt: Pick<TextbookQuestion["prompt"], "plain">;

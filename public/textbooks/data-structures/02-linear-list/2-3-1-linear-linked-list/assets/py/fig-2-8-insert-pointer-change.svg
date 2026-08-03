@@ -8,7 +8,7 @@
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
     <dc:title>图 2.8 在单链表中插入结点时指针变化状况</dc:title>
-    <dc:date>2026-08-02T19:45:45.143646</dc:date>
+    <dc:date>2026-08-03T16:08:17.355295</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -37,7 +37,7 @@ L 130.33944 89.2512
 L 130.33944 58.482
 L 72.486 58.482
 z
-" clip-path="url(#pd5ed016215)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
     <path d="M 130.33944 89.2512
@@ -45,7 +45,7 @@ L 152.838 89.2512
 L 152.838 58.482
 L 130.33944 58.482
 z
-" clip-path="url(#pd5ed016215)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 193.014 89.2512
@@ -53,7 +53,7 @@ L 250.86744 89.2512
 L 250.86744 58.482
 L 193.014 58.482
 z
-" clip-path="url(#pd5ed016215)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
     <path d="M 250.86744 89.2512
@@ -61,17 +61,17 @@ L 273.366 89.2512
 L 273.366 58.482
 L 250.86744 58.482
 z
-" clip-path="url(#pd5ed016215)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
     <path d="M 154.838034 73.8666
 Q 171.671358 73.8666 187.274845 73.8666
-" clip-path="url(#pd5ed016215)" style="fill: none; stroke: #4d4d5c; stroke-width: 1.1; stroke-linecap: round"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: none; stroke: #4d4d5c; stroke-width: 1.1; stroke-linecap: round"/>
     <path d="M 182.474845 71.4666
 L 187.274845 73.8666
 L 182.474845 76.2666
 z
-" clip-path="url(#pd5ed016215)" style="fill: #4d4d5c; stroke: #4d4d5c; stroke-width: 1.1; stroke-linecap: round"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: #4d4d5c; stroke: #4d4d5c; stroke-width: 1.1; stroke-linecap: round"/>
    </g>
    <g id="patch_7">
     <path d="M 72.486 171.3024
@@ -79,7 +79,7 @@ L 123.10776 171.3024
 L 123.10776 140.5332
 L 72.486 140.5332
 z
-" clip-path="url(#pd5ed016215)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_8">
     <path d="M 123.10776 171.3024
@@ -87,7 +87,7 @@ L 142.794 171.3024
 L 142.794 140.5332
 L 123.10776 140.5332
 z
-" clip-path="url(#pd5ed016215)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_9">
     <path d="M 162.882 171.3024
@@ -95,7 +95,7 @@ L 213.50376 171.3024
 L 213.50376 140.5332
 L 162.882 140.5332
 z
-" clip-path="url(#pd5ed016215)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_10">
     <path d="M 213.50376 171.3024
@@ -103,7 +103,7 @@ L 233.19 171.3024
 L 233.19 140.5332
 L 213.50376 140.5332
 z
-" clip-path="url(#pd5ed016215)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_11">
     <path d="M 253.278 171.3024
@@ -111,7 +111,7 @@ L 303.89976 171.3024
 L 303.89976 140.5332
 L 253.278 140.5332
 z
-" clip-path="url(#pd5ed016215)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_12">
     <path d="M 303.89976 171.3024
@@ -119,27 +119,27 @@ L 323.586 171.3024
 L 323.586 140.5332
 L 303.89976 140.5332
 z
-" clip-path="url(#pd5ed016215)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_13">
     <path d="M 144.798018 155.9178
 Q 151.582683 155.9178 157.13751 155.9178
-" clip-path="url(#pd5ed016215)" style="fill: none; stroke: #4d4d5c; stroke-width: 1.1; stroke-linecap: round"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: none; stroke: #4d4d5c; stroke-width: 1.1; stroke-linecap: round"/>
     <path d="M 152.33751 153.5178
 L 157.13751 155.9178
 L 152.33751 158.3178
 z
-" clip-path="url(#pd5ed016215)" style="fill: #4d4d5c; stroke: #4d4d5c; stroke-width: 1.1; stroke-linecap: round"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: #4d4d5c; stroke: #4d4d5c; stroke-width: 1.1; stroke-linecap: round"/>
    </g>
    <g id="patch_14">
     <path d="M 235.194018 155.9178
 Q 241.978683 155.9178 247.53351 155.9178
-" clip-path="url(#pd5ed016215)" style="fill: none; stroke: #4d4d5c; stroke-width: 1.1; stroke-linecap: round"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: none; stroke: #4d4d5c; stroke-width: 1.1; stroke-linecap: round"/>
     <path d="M 242.73351 153.5178
 L 247.53351 155.9178
 L 242.73351 158.3178
 z
-" clip-path="url(#pd5ed016215)" style="fill: #4d4d5c; stroke: #4d4d5c; stroke-width: 1.1; stroke-linecap: round"/>
+" clip-path="url(#p82bcfc45eb)" style="fill: #4d4d5c; stroke: #4d4d5c; stroke-width: 1.1; stroke-linecap: round"/>
    </g>
    <g id="text_1">
     <!-- 图 2.8  在单链表中插入结点时指针变化状况 -->
@@ -1645,7 +1645,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="pd5ed016215">
+  <clipPath id="p82bcfc45eb">
    <rect x="7.2" y="7.2" width="502.2" height="205.128"/>
   </clipPath>
  </defs>

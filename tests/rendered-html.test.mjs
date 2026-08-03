@@ -205,6 +205,40 @@ test("keeps generated textbook data and local images publishable", () => {
   ].filter((value) => value.startsWith("/textbooks/"));
   assert.ok(assetReferences.length >= 400);
   assert.ok(assetReferences.every((asset) => fs.existsSync(path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public", asset.replace(/^\//, "")))));
+
+  const dynamicStorage = textbook.pages.find((page) => page.slug === "08-dynamic-storage/8-3-boundary-tag-method");
+  assert.ok(dynamicStorage, "dynamic storage chapter should include the boundary-tag section");
+  assert.match(dynamicStorage.markdown, /typedef struct WORD/);
+  assert.match(dynamicStorage.html, /fig-boundary-tag-node\.svg/);
+  assert.match(dynamicStorage.html, /fig-8-6\.svg/);
+  assert.match(dynamicStorage.html, /算法 8\.1/);
+  assert.doesNotMatch(dynamicStorage.html, /完整逐页正文、图题和表项见连续页段转写/);
+
+  const buddySystem = textbook.pages.find((page) => page.slug === "08-dynamic-storage/8-4-buddy-system");
+  const garbageCollection = textbook.pages.find((page) => page.slug === "08-dynamic-storage/8-5-garbage-collection");
+  assert.match(buddySystem.markdown, /2\^m/);
+  assert.match(buddySystem.html, /fig-8-8\.svg/);
+  assert.match(garbageCollection.markdown, /void MarkList/);
+  assert.doesNotMatch(dynamicStorage.markdown, /# 8\.4 伙伴系统/);
+
+  const chapterIndex = textbook.pages.find((page) => page.slug === "08-dynamic-storage");
+  assert.doesNotMatch(chapterIndex.html, /work\/sections/);
+  const dynamicStorageCoverage = [
+    ["8-1-overview", /PDP-11\/03/, /fig-8-1\.svg/],
+    ["8-2-available-space-table-and-allocation", /最差拟合法/, /fig-8-5\.svg/],
+    ["8-3-boundary-tag-method", /AllocBoundTag/, /fig-8-7\.svg/],
+    ["8-4-buddy-system", /AllocBuddy/, /fig-8-8\.svg/],
+    ["8-5-garbage-collection", /MarkList/, /fig-8-11\.svg/],
+    ["8-6-storage-compaction", /4 步操作/, /fig-8-13\.svg/],
+  ];
+  for (const [sectionSlug, bodyEvidence, imageEvidence] of dynamicStorageCoverage) {
+    const page = textbook.pages.find((entry) => entry.slug === `08-dynamic-storage/${sectionSlug}`);
+    assert.match(page.markdown, bodyEvidence);
+    assert.match(page.html, imageEvidence);
+    assert.doesNotMatch(page.html, /textbook-missing-image/);
+    assert.doesNotMatch(page.markdown, /占位|luna:figure-placeholder/);
+    assert.doesNotMatch(page.html, /占位|luna:figure-placeholder/);
+  }
 });
 
 test("mounts structured knowledge visuals at their semantic markers", async () => {

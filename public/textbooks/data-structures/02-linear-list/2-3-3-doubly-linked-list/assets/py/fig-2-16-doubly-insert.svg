@@ -8,7 +8,7 @@
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
     <dc:title>图 2.16 双向链表插入结点时的指针变化</dc:title>
-    <dc:date>2026-08-02T19:50:33.192551</dc:date>
+    <dc:date>2026-08-03T16:06:34.120797</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -37,7 +37,7 @@ L 142.47036 75.9456
 L 142.47036 50.166
 L 125.775 50.166
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p8af674d18e)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
     <path d="M 142.47036 75.9456
@@ -45,7 +45,7 @@ L 184.96764 75.9456
 L 184.96764 50.166
 L 142.47036 50.166
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p8af674d18e)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 184.96764 75.9456
@@ -53,7 +53,7 @@ L 201.663 75.9456
 L 201.663 50.166
 L 184.96764 50.166
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p8af674d18e)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
     <path d="M 296.523 75.9456
@@ -61,7 +61,7 @@ L 313.21836 75.9456
 L 313.21836 50.166
 L 296.523 50.166
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p8af674d18e)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
     <path d="M 313.21836 75.9456
@@ -69,7 +69,7 @@ L 355.71564 75.9456
 L 355.71564 50.166
 L 313.21836 50.166
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p8af674d18e)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_7">
     <path d="M 355.71564 75.9456
@@ -77,27 +77,27 @@ L 372.411 75.9456
 L 372.411 50.166
 L 355.71564 50.166
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p8af674d18e)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_8">
     <path d="M 203.663374 56.696832
 Q 249.094255 56.696832 293.407101 56.696832
-" clip-path="url(#p279fe0d1c7)" style="fill: none; stroke: #555555; stroke-linecap: round"/>
+" clip-path="url(#p8af674d18e)" style="fill: none; stroke: #555555; stroke-linecap: round"/>
     <path d="M 289.407101 54.696832
 L 293.407101 56.696832
 L 289.407101 58.696832
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #555555; stroke: #555555; stroke-linecap: round"/>
+" clip-path="url(#p8af674d18e)" style="fill: #555555; stroke: #555555; stroke-linecap: round"/>
    </g>
    <g id="patch_9">
     <path d="M 294.522626 69.414768
 Q 249.091745 69.414768 204.778899 69.414768
-" clip-path="url(#p279fe0d1c7)" style="fill: none; stroke: #777777; stroke-linecap: round"/>
+" clip-path="url(#p8af674d18e)" style="fill: none; stroke: #777777; stroke-linecap: round"/>
     <path d="M 208.778899 71.414768
 L 204.778899 69.414768
 L 208.778899 67.414768
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #777777; stroke: #777777; stroke-linecap: round"/>
+" clip-path="url(#p8af674d18e)" style="fill: #777777; stroke: #777777; stroke-linecap: round"/>
    </g>
    <g id="patch_10">
     <path d="M 211.149 148.12848
@@ -105,7 +105,7 @@ L 227.84436 148.12848
 L 227.84436 122.34888
 L 211.149 122.34888
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p8af674d18e)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_11">
     <path d="M 227.84436 148.12848
@@ -113,7 +113,7 @@ L 270.34164 148.12848
 L 270.34164 122.34888
 L 227.84436 122.34888
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p8af674d18e)" style="fill: #f7f7fa; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_12">
     <path d="M 270.34164 148.12848
@@ -121,47 +121,47 @@ L 287.037 148.12848
 L 287.037 122.34888
 L 270.34164 122.34888
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
+" clip-path="url(#p8af674d18e)" style="fill: #e9e6ff; stroke: #333333; stroke-linejoin: miter"/>
    </g>
    <g id="patch_13">
     <path d="M 203.090184 77.34189
 Q 225.37701 99.146271 246.864663 120.16878
-" clip-path="url(#p279fe0d1c7)" style="fill: none; stroke: #7a5b9b; stroke-linecap: round"/>
+" clip-path="url(#p8af674d18e)" style="fill: none; stroke: #7a5b9b; stroke-linecap: round"/>
     <path d="M 245.404114 115.941867
 L 246.864663 120.16878
 L 242.606803 118.801071
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #7a5b9b; stroke: #7a5b9b; stroke-linecap: round"/>
+" clip-path="url(#p8af674d18e)" style="fill: #7a5b9b; stroke: #7a5b9b; stroke-linecap: round"/>
    </g>
    <g id="patch_14">
     <path d="M 285.770193 77.494831
 Q 268.064 99.148462 251.06554 119.93658
-" clip-path="url(#p279fe0d1c7)" style="fill: none; stroke: #7a5b9b; stroke-linecap: round"/>
+" clip-path="url(#p8af674d18e)" style="fill: none; stroke: #7a5b9b; stroke-linecap: round"/>
     <path d="M 255.145878 118.10605
 L 251.06554 119.93658
 L 252.049319 115.573991
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #7a5b9b; stroke: #7a5b9b; stroke-linecap: round"/>
+" clip-path="url(#p8af674d18e)" style="fill: #7a5b9b; stroke: #7a5b9b; stroke-linecap: round"/>
    </g>
    <g id="patch_15">
     <path d="M 201.663 120.346492
 Q 201.663 99.147397 201.663 79.066335
-" clip-path="url(#p279fe0d1c7)" style="fill: none; stroke: #7a5b9b; stroke-linecap: round"/>
+" clip-path="url(#p8af674d18e)" style="fill: none; stroke: #7a5b9b; stroke-linecap: round"/>
     <path d="M 199.663 83.066335
 L 201.663 79.066335
 L 203.663 83.066335
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #7a5b9b; stroke: #7a5b9b; stroke-linecap: round"/>
+" clip-path="url(#p8af674d18e)" style="fill: #7a5b9b; stroke: #7a5b9b; stroke-linecap: round"/>
    </g>
    <g id="patch_16">
     <path d="M 287.037 120.346492
 Q 287.037 99.147397 287.037 79.066335
-" clip-path="url(#p279fe0d1c7)" style="fill: none; stroke: #7a5b9b; stroke-linecap: round"/>
+" clip-path="url(#p8af674d18e)" style="fill: none; stroke: #7a5b9b; stroke-linecap: round"/>
     <path d="M 285.037 83.066335
 L 287.037 79.066335
 L 289.037 83.066335
 z
-" clip-path="url(#p279fe0d1c7)" style="fill: #7a5b9b; stroke: #7a5b9b; stroke-linecap: round"/>
+" clip-path="url(#p8af674d18e)" style="fill: #7a5b9b; stroke: #7a5b9b; stroke-linecap: round"/>
    </g>
    <g id="text_1">
     <!-- 图 2.16  在双向链表中插入一个结点时指针变化状况 -->
@@ -1405,7 +1405,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p279fe0d1c7">
+  <clipPath id="p8af674d18e">
    <rect x="7.2" y="7.2" width="474.3" height="171.864"/>
   </clipPath>
  </defs>

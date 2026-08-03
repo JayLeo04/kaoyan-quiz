@@ -97,6 +97,12 @@ function pageContent(page: TextbookDataset["pages"][number]): TextbookPageConten
       attributes: { ...page.source.attributes },
       pageMarkers: page.source.pageMarkers.map((marker) => ({ ...marker })),
     },
+    visualizations: (page.visualizations || []).map((visualization) => ({
+      ...visualization,
+      sourceLatex: [...(visualization.sourceLatex || [])],
+      formulaHtml: { ...(visualization.formulaHtml || {}) },
+      config: { ...(visualization.config || {}) },
+    })),
     html: applyDataStructuresImageOverrides(page.html),
   };
 }

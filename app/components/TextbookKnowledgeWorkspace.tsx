@@ -3,9 +3,12 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { AppHeader } from "@/app/components/AppHeader";
+import { KnowledgeVisual } from "@/app/components/knowledge-visuals/KnowledgeVisual";
 import { textbookHref, textbookPracticeHref } from "@/app/data/textbook-registry";
 import type { TextbookPageContent, TextbookPageSummary, TextbookReaderPayload } from "@/app/data/textbook-types";
 import { readTextbookProgress } from "@/app/lib/textbook-progress";
+
+const knowledgeVisualMarker = /<!--\s*knowledge-visual:([a-z0-9]+(?:-[a-z0-9]+)*)\s*-->/g;
 
 function sourceLabel(page: TextbookPageContent) {
   const parts = [];
@@ -18,6 +21,37 @@ function matchesPage(page: TextbookPageSummary, query: string) {
   const value = query.trim().toLocaleLowerCase();
   if (!value) return true;
   return `${page.title} ${page.summary} ${page.headings.join(" ")}`.toLocaleLowerCase().includes(value);
+}
+
+function TextbookArticleContent({ page }: { page: TextbookPageContent }) {
+  const specsById = new Map((page.visualizations || []).map((spec) => [spec.id, spec]));
+  const pieces: Array<{ kind: "html"; html: string } | { kind: "visual"; id: string }> = [];
+  let cursor = 0;
+
+  for (const match of page.html.matchAll(knowledgeVisualMarker)) {
+    if (match.index !== undefined && match.index > cursor) {
+      pieces.push({ kind: "html", html: page.html.slice(cursor, match.index) });
+    }
+    if (specsById.has(match[1])) pieces.push({ kind: "visual", id: match[1] });
+    cursor = (match.index || 0) + match[0].length;
+  }
+  if (cursor < page.html.length) pieces.push({ kind: "html", html: page.html.slice(cursor) });
+
+  return (
+    <>
+      {pieces.map((piece, index) => {
+        if (piece.kind === "html") {
+          return <div key={`textbook-html-${index}`} className="textbook-article-html" dangerouslySetInnerHTML={{ __html: piece.html }} />;
+        }
+        const spec = specsById.get(piece.id);
+        return spec ? (
+          <div key={spec.id} className="textbook-article-html local-markdown textbook-visual-host">
+            <KnowledgeVisual spec={spec} />
+          </div>
+        ) : null;
+      })}
+    </>
+  );
 }
 
 export function TextbookKnowledgeWorkspace({ reader }: { reader: TextbookReaderPayload }) {
@@ -130,7 +164,7 @@ export function TextbookKnowledgeWorkspace({ reader }: { reader: TextbookReaderP
               </div>
               {chapter ? <Link className="textbook-inline-practice" href={practiceHref}>本章练习 <b>{chapter.questionCount}</b> →</Link> : null}
             </header>
-            <div className="textbook-article-html" dangerouslySetInnerHTML={{ __html: currentPage.html }} />
+            <TextbookArticleContent page={currentPage} />
             <nav className="textbook-page-pagination" aria-label="教材上下篇">
               {previousPage ? <Link href={textbookHref(textbook, previousPage.slug)}><span>上一篇</span><strong>← {previousPage.title}</strong></Link> : <span />}
               {nextPage ? <Link href={textbookHref(textbook, nextPage.slug)}><span>下一篇</span><strong>{nextPage.title} →</strong></Link> : <span />}

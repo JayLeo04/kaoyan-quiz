@@ -199,6 +199,113 @@ function StandardAlgorithmTrace({ spec }: { spec: KnowledgeVisualizationSpec }) 
   );
 }
 
+function HanoiRecursionTrace({ spec }: { spec: KnowledgeVisualizationSpec }) {
+  const pegs = records(spec.config.pegs);
+  const steps = records(spec.config.steps);
+  const [stepIndex, setStepIndex] = useState(0);
+  const step = steps[stepIndex] || {};
+  const towers = record(step.towers);
+  const stack = Array.isArray(step.stack) ? step.stack.map((frame) => text(frame)).filter(Boolean) : [];
+
+  return (
+    <div className="knowledge-hanoi-trace">
+      <div className="knowledge-hanoi-meta" aria-label="当前递归位置">
+        <span>DEPTH <b>{number(step.depth)}</b></span>
+        <span>LINE <b>{text(step.lines, "—")}</b></span>
+        <span>TOP <b>{stack.length ? "栈顶在前" : "栈空"}</b></span>
+      </div>
+      <div className="knowledge-hanoi-board">
+        <section className="knowledge-hanoi-stack" aria-label="递归工作栈，栈顶在前">
+          <header><span>CALL STACK</span><strong>工作记录</strong><small>返回地址，n，x，y，z</small></header>
+          <div className="knowledge-hanoi-frames">
+            {stack.length ? stack.map((frame, index) => (
+              <div key={frame + "-" + index} className={index === 0 ? "is-active" : ""}>
+                <i>{index === 0 ? "TOP" : "#" + (stack.length - index)}</i>
+                <b>{frame}</b>
+              </div>
+            )) : <p>递归工作栈已清空</p>}
+          </div>
+        </section>
+        <section className="knowledge-hanoi-towers" aria-label="三根柱与圆盘状态">
+          {pegs.map((peg, index) => {
+            const id = text(peg.id, String(index));
+            const disks = Array.isArray(towers[id]) ? towers[id].filter((disk): disk is number => Number.isInteger(disk)) : [];
+            const label = text(peg.label, id);
+            return (
+              <section className="knowledge-hanoi-peg" key={id} aria-label={label + "：" + (disks.length ? "圆盘 " + disks.join("、") : "无圆盘")}>
+                <strong>{label}</strong>
+                <div className="knowledge-hanoi-rod" aria-hidden="true">
+                  <div className="knowledge-hanoi-disks">
+                    {disks.map((disk) => <span key={disk} className={"disk-" + disk}>盘 {disk}</span>)}
+                  </div>
+                </div>
+                <small>{disks.length ? "底 → 顶：" + disks.join("、") : "空柱"}</small>
+              </section>
+            );
+          })}
+        </section>
+      </div>
+      <StepControls steps={steps} stepIndex={stepIndex} setStepIndex={setStepIndex} label="Hanoi 递归工作栈步骤" />
+      <div className="knowledge-visual-observation" aria-live="polite"><span>{String(stepIndex + 1).padStart(2, "0")}</span><p><strong>{text(step.label)}</strong>{text(step.note)}</p></div>
+    </div>
+  );
+}
+
+function BankEventQueueTrace({ spec }: { spec: KnowledgeVisualizationSpec }) {
+  const windows = records(spec.config.windows);
+  const steps = records(spec.config.steps);
+  const [stepIndex, setStepIndex] = useState(0);
+  const step = steps[stepIndex] || {};
+  const previous = steps[Math.max(0, stepIndex - 1)] || {};
+  const queues = record(step.queues);
+  const previousQueues = record(previous.queues);
+  const eventList = Array.isArray(step.eventList) ? step.eventList.map((event) => text(event)).filter(Boolean) : [];
+  const previousEventList = new Set(Array.isArray(previous.eventList) ? previous.eventList.map((event) => text(event)) : []);
+
+  return (
+    <div className="knowledge-bank-trace">
+      <div className="knowledge-bank-meta" aria-label="当前处理事件">
+        <span>TIME <b>t={number(step.time)}</b></span>
+        <span>处理 <b>{text(step.currentEvent, "—")}</b></span>
+        <span>随机数 <b>{text(step.random, "—")}</b></span>
+      </div>
+      <div className="knowledge-bank-board">
+        <section className="knowledge-bank-events" aria-label="有序事件表">
+          <header><div><span>EVENT LIST</span><strong>按发生时刻有序</strong></div><small>ev.first ↓</small></header>
+          <ol>
+            {eventList.map((event, index) => <li key={event + "-" + index} className={[
+              index === 0 ? "is-first" : "",
+              stepIndex > 0 && !previousEventList.has(event) ? "is-added" : "",
+            ].filter(Boolean).join(" ")}>
+              <b>{"(" + event + ")"}</b><small>{index === 0 ? "下一个事件" : "待处理"}</small>
+            </li>)}
+          </ol>
+        </section>
+        <section className="knowledge-bank-queues" aria-label="四个客户队列">
+          {windows.map((window, index) => {
+            const id = text(window.id, "q" + (index + 1));
+            const customers = Array.isArray(queues[id]) ? queues[id].map((customer) => text(customer)).filter(Boolean) : [];
+            const prior = Array.isArray(previousQueues[id]) ? previousQueues[id].map((customer) => text(customer)).filter(Boolean) : [];
+            const changed = stepIndex > 0 && customers.join("|") !== prior.join("|");
+            const label = text(window.label, id);
+            return (
+              <section key={id} className={"knowledge-bank-queue" + (changed ? " is-changed" : "")} aria-label={label + "：" + (customers.length ? customers.map((customer) => "客户 " + customer).join("；") : "空")}>
+                <header><span>{id.toUpperCase()}</span><strong>{label}</strong><small>{customers.length ? customers.length + " 人" : "空"}</small></header>
+                <div>
+                  {customers.length ? customers.map((customer, customerIndex) => <b key={customer + "-" + customerIndex} className={customerIndex === 0 ? "is-front" : ""}>{"(" + customer + ")"}{customerIndex === 0 ? <small>队头</small> : null}</b>) : <em>空队列</em>}
+                </div>
+              </section>
+            );
+          })}
+        </section>
+      </div>
+      <p className="knowledge-bank-rule"><strong>队列规则：</strong>到达客户进入当前最短队列；若并列，选择编号最小的窗口。事件（t,0）为到达，（t,1…4）为对应窗口离开。</p>
+      <StepControls steps={steps} stepIndex={stepIndex} setStepIndex={setStepIndex} label="银行离散事件模拟步骤" />
+      <div className="knowledge-visual-observation" aria-live="polite"><span>{"T=" + number(step.time)}</span><p><strong>{text(step.label)}</strong>{text(step.note)}</p></div>
+    </div>
+  );
+}
+
 function LoadingTrace({ spec }: { spec: KnowledgeVisualizationSpec }) {
   const lanes = records(spec.config.lanes);
   const steps = records(spec.config.steps);
@@ -231,7 +338,77 @@ function LoadingTrace({ spec }: { spec: KnowledgeVisualizationSpec }) {
   );
 }
 
+function KmpNextTrace({ spec }: { spec: KnowledgeVisualizationSpec }) {
+  const main = Array.from(text(spec.config.main));
+  const pattern = Array.from(text(spec.config.pattern));
+  const nextValues = Array.isArray(spec.config.next) ? spec.config.next.map((value) => number(value)) : [];
+  const steps = records(spec.config.steps);
+  const [stepIndex, setStepIndex] = useState(0);
+  const step = steps[stepIndex] || {};
+  const i = Math.max(1, Math.round(number(step.i, 1)));
+  const j = Math.max(0, Math.round(number(step.j, 0)));
+  const patternStart = Math.max(1, Math.round(number(step.patternStart, 1)));
+  const matched = Math.max(0, Math.min(pattern.length, Math.round(number(step.matched, 0))));
+  const knownPrefix = Math.max(0, Math.min(pattern.length, Math.round(number(step.knownPrefix, 0))));
+  const nextJump = typeof step.nextJump === "number" ? step.nextJump : null;
+  const activePatternIndex = j >= 1 && j <= pattern.length ? j - 1 : -1;
+  const boardStyle = frameStyle("--kmp-columns", String(Math.max(1, main.length)));
+
+  return (
+    <div className="knowledge-kmp-trace">
+      <div className="knowledge-kmp-meta" aria-label="当前 KMP 指针状态">
+        <span>ROUND <b>{text(step.round, String(stepIndex + 1))}</b></span>
+        <span>主串指针 <b>i={i}</b></span>
+        <span>模式指针 <b>j={j}</b></span>
+        <span><Latex source={"\\operatorname{next}[j]"} spec={spec} /> <b>{nextJump === null ? "—" : "=" + nextJump}</b></span>
+        <span className={text(step.status) === "匹配成功" ? "is-success" : ""}>{text(step.status, "比较中")}</span>
+      </div>
+
+      <div className="knowledge-kmp-board" role="img" aria-label={`第 ${stepIndex + 1} 步：主串指针 i 为 ${i}，模式指针 j 为 ${j}，状态为 ${text(step.status, "比较中")}`}>
+        <section className="knowledge-kmp-string">
+          <header><span>MAIN STRING</span><strong>主串 S</strong><small>紫色单元是 i 当前停留的位置</small></header>
+          <div className="knowledge-kmp-cells" style={boardStyle}>
+            {main.map((character, index) => {
+              const position = index + 1;
+              const inAlignment = position >= patternStart && position < patternStart + pattern.length;
+              return <span key={`${character}-${position}`} className={`${inAlignment ? "is-aligned" : ""} ${position === i ? "is-active" : ""}`}><small>{position}</small><b>{character}</b>{position === i ? <i>i</i> : null}</span>;
+            })}
+          </div>
+        </section>
+        <section className="knowledge-kmp-string knowledge-kmp-pattern">
+          <header><span>PATTERN</span><strong>模式 T</strong><small>与主串按当前起点对齐；绿色为已知相等的前缀</small></header>
+          <div className="knowledge-kmp-cells knowledge-kmp-pattern-cells" style={boardStyle}>
+            {pattern.map((character, index) => {
+              const position = patternStart + index;
+              const className = [
+                index < matched ? "is-matched" : "",
+                index === activePatternIndex ? "is-active" : "",
+                index < knownPrefix ? "is-known-prefix" : "",
+              ].filter(Boolean).join(" ");
+              return <span key={`${character}-${index}`} className={className} style={{ gridColumnStart: position }}><small>p{index + 1}</small><b>{character}</b>{index === activePatternIndex ? <i>j</i> : null}</span>;
+            })}
+          </div>
+        </section>
+      </div>
+
+      <div className="knowledge-kmp-next-table" aria-label="模式串 next 函数表">
+        <header><span>FALLBACK TABLE</span><strong><Latex source={"\\operatorname{next}[j]"} spec={spec} /> 的回退位置</strong></header>
+        <div>
+          {nextValues.map((value, index) => <span key={`${value}-${index}`} className={index === activePatternIndex ? "is-active" : ""}><small>j={index + 1}</small><b>{value}</b></span>)}
+        </div>
+      </div>
+
+      <p className="knowledge-kmp-rule"><strong>回退规则：</strong>失配时 i 不动、j 变为 <Latex source={"\\operatorname{next}[j]"} spec={spec} />；仅当 j=0，i 与 j 才同时增 1。{knownPrefix ? ` 当前已保留 p₁…p${knownPrefix} 的已知相等前缀。` : ""}</p>
+      <StepControls steps={steps} stepIndex={stepIndex} setStepIndex={setStepIndex} label="KMP next 回退步骤" />
+      <div className="knowledge-visual-observation" aria-live="polite"><span>{String(stepIndex + 1).padStart(2, "0")}</span><p><strong>{text(step.label)}</strong>{text(step.note)}</p></div>
+    </div>
+  );
+}
+
 function AlgorithmTrace({ spec }: { spec: KnowledgeVisualizationSpec }) {
+  if (text(spec.config.variant) === "hanoi-recursion") return <HanoiRecursionTrace spec={spec} />;
+  if (text(spec.config.variant) === "bank-event-queue") return <BankEventQueueTrace spec={spec} />;
+  if (text(spec.config.variant) === "kmp-next-fallback") return <KmpNextTrace spec={spec} />;
   if (text(spec.config.layout) === "loading-trace") return <LoadingTrace spec={spec} />;
   return <StandardAlgorithmTrace spec={spec} />;
 }

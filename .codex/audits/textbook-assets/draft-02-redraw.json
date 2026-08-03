@@ -1,0 +1,870 @@
+{
+  "schemaVersion": "draft-02-redraw.v1",
+  "generatedAt": "2026-08-03T13:23:41+08:00",
+  "reportType": "deterministic-svg-redraw-candidates",
+  "title": "02 线性表教材图候选重绘",
+  "project": {
+    "root": "/Users/minimax/schedule/kaoyan-quiz",
+    "dataset": "app/data/textbook-data-structures.json",
+    "authoritativeAdjudication": ".codex/audits/textbook-assets/review-01-04-adjudication.json",
+    "report": ".codex/audits/textbook-assets/draft-02-redraw.json",
+    "skill": "/Users/minimax/.codex/skills/audit-408-textbook-assets-demo/SKILL.md"
+  },
+  "method": {
+    "skillReadCompletely": true,
+    "readOnlySubagent": {
+      "agentId": "019fc604-1797-7ff1-b06f-922c3025cb28",
+      "status": "completed",
+      "readOnly": true,
+      "scope": "权威裁决 JSON、pages[8–10] 的 Markdown/html、5 张原 SVG 及 fig-3-1-stack 的状态复核",
+      "conclusion": "逐图复核了 alt、caption、前后正文和原始 SVG 标签；未编辑、创建、删除或移动文件，未写入 /tmp，未执行 Git 写操作。"
+    },
+    "mainAuditorAction": "只在指定的 5 个原 SVG 同目录新增 -readable.svg 候选，并新增本任务专用渲染证据及本报告；未覆盖、删除或移动原图。",
+    "renderMatrix": {
+      "intrinsic": "候选 SVG 的 intrinsic 尺寸 PNG",
+      "bodyWidth760": "约 760 px 正文宽度 PNG",
+      "narrowWidth396": "约 396 px 窄屏 PNG",
+      "renderer": "Sharp SVG rasterization",
+      "visualReview": "每张候选均检查文字、箭头、节点/单元、值、方向、(a)/(b) 子图和边界留白。"
+    },
+    "labelStrategy": "原图的关键数学字形被固化为路径且在裁决中呈方框；候选使用显式 UTF-8/ASCII 文本（a_1、a_i、A_n 等）和可读的 ⋮/…，避免依赖路径化字形或字体 fallback。"
+  },
+  "scope": {
+    "allowedAssets": [
+      "public/textbooks/data-structures/02-linear-list/2-2-sequential-representation-and-implementation/assets/py/fig-2-2-sequential-layout.svg",
+      "public/textbooks/data-structures/02-linear-list/2-3-1-linear-linked-list/assets/py/fig-2-7-headed-singly-list.svg",
+      "public/textbooks/data-structures/02-linear-list/2-3-1-linear-linked-list/assets/py/fig-2-8-insert-pointer-change.svg",
+      "public/textbooks/data-structures/02-linear-list/2-3-2-circular-linked-list/assets/py/fig-2-12-circular-list.svg",
+      "public/textbooks/data-structures/02-linear-list/2-3-2-circular-linked-list/assets/py/fig-2-13-circular-tail-merge.svg"
+    ],
+    "candidateCount": 5,
+    "excludedAndUntouched": [
+      {
+        "asset": "public/textbooks/data-structures/03-stack-and-queue/3-1-stack/assets/py/fig-3-1-stack.svg",
+        "authoritativeVerdict": "clear",
+        "action": "未触碰；没有生成候选。"
+      }
+    ],
+    "boundaries": {
+      "markdownChanged": false,
+      "datasetChanged": false,
+      "sharedComponentsChanged": false,
+      "cssChanged": false,
+      "referencesChanged": false,
+      "otherAuditArtifactsChanged": false,
+      "worktreeCreated": false,
+      "tmpWritten": false,
+      "commitOrPush": false
+    }
+  },
+  "redraws": [
+    {
+      "oldAsset": "public/textbooks/data-structures/02-linear-list/2-2-sequential-representation-and-implementation/assets/py/fig-2-2-sequential-layout.svg",
+      "candidateAsset": "public/textbooks/data-structures/02-linear-list/2-2-sequential-representation-and-implementation/assets/py/fig-2-2-sequential-layout-readable.svg",
+      "status": "candidate-only",
+      "adjudication": {
+        "verdict": "issue",
+        "severity": "medium",
+        "primaryCategory": "unreadable-glyph",
+        "finding": "a_i 与竖向省略号在原生白底、intrinsic、760 px 和 396 px 中均呈不可稳定辨认的矩形路径；地址、状态和位序关系仍需保留。"
+      },
+      "sourceEvidence": {
+        "datasetPointer": "#/pages/8/markdown",
+        "sourcePath": "02-linear-list/2-2-sequential-representation-and-implementation/index.md",
+        "sourceLine": 23,
+        "route": "/textbook/data-structures/02-linear-list/2-2-sequential-representation-and-implementation",
+        "alt": "存储地址、内存状态和线性表位序对应关系，展示顺序表中已用元素与空闲空间",
+        "caption": "图 2.2　线性表的顺序存储结构示意图",
+        "precedingContextEvidence": [
+          "线性表的顺序表示指的是用一组地址连续的存储单元依次存储线性表的数据元素。",
+          "LOC(a_{i+1})=LOC(a_i)+l。",
+          "LOC(a_i)=LOC(a_1)+(i-1)×l；LOC(a_1) 是第一个数据元素的存储位置或基地址。",
+          "相邻元素 a_i 和 a_{i+1} 具有相邻存储位置，确定起始位置后任一数据元素都可随机存取。"
+        ],
+        "followingContextEvidence": [
+          "图 2.2 线性表的顺序存储结构示意图。",
+          "后文说明通常用数组描述顺序存储结构，并用 elem、length、listsize 表示基址、当前长度和分配容量。"
+        ]
+      },
+      "originalSvg": {
+        "viewBox": "0 0 494.28 358.128",
+        "width": 494.28,
+        "height": 358.128,
+        "textCount": 0,
+        "pathCount": 60,
+        "clipPathCount": 1,
+        "sourceLabelComments": [
+          "图 2.2  线性表的顺序存储结构示意图",
+          "存储地址",
+          "内存状态",
+          "数据元素在线性",
+          "表中的位序",
+          "a₁",
+          "b",
+          "1",
+          "a₂",
+          "b+l",
+          "2",
+          "⋮",
+          "aᵢ",
+          "b+(i−1)l",
+          "i",
+          "aₙ",
+          "b+(n−1)l",
+          "n",
+          "b+nl",
+          "b+(maxlen−1)l",
+          "空闲"
+        ]
+      },
+      "semanticPreservationChecklist": [
+        "LOC(a_i) 与连续存储地址序列",
+        "内存状态中的已用单元与空闲空间",
+        "线性表中的位序与 a_1、a_2、a_i、a_n",
+        "竖向省略号/占位关系",
+        "空闲空间括号与基地址关系"
+      ],
+      "deterministicSvgRedrawSpec": {
+        "required": true,
+        "viewBox": "0 0 760 430",
+        "canvas": {
+          "width": 760,
+          "height": 430,
+          "margin": 24
+        },
+        "layout": [
+          "标题与图形之间留出空白；地址、内存状态、位序三条语义带分开。",
+          "已用单元与空闲单元按原顺序对齐；已用空间和空闲空间括号不覆盖单元标签。",
+          "关键标签 bounding box 不相交；竖向省略号使用可辨认的 UTF-8 ⋮。"
+        ],
+        "explicitLabels": [
+          "LOC(a_1)",
+          "LOC(a_i)",
+          "a_1",
+          "a_2",
+          "⋮",
+          "a_n",
+          "1、2、…、n",
+          "已用空间",
+          "空闲空间"
+        ],
+        "preserve": [
+          "不改变元素次序、地址递推关系、已用/空闲状态、位序和图题语义。"
+        ],
+        "guards": [
+          "语义内容不贴近 viewBox 边界；候选不使用 clipPath 裁切。",
+          "关键标签使用显式文本；不得用空心矩形代替字符；候选提供 title/desc/aria-labelledby。"
+        ]
+      },
+      "candidateImplementation": {
+        "viewBox": "0 0 760 430",
+        "preserved": [
+          "b、b+l、⋮、b+(i−1)l、⋮、b+(n−1)l、b+nl、⋮、b+(maxlen−1)l 地址列",
+          "a_1、a_2、⋮、a_i、⋮、a_n 与九个对齐内存单元",
+          "1、2、⋮、i、⋮、n 位序列",
+          "已用空间/空闲空间括号及 LOC(a_1)、LOC(a_i) 基地址关系"
+        ]
+      },
+      "renderFiles": {
+        "intrinsic": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-2-sequential-layout-readable--intrinsic.png",
+        "bodyWidth760": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-2-sequential-layout-readable--760.png",
+        "narrowWidth396": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-2-sequential-layout-readable--396.png"
+      },
+      "renderQA": {
+        "intrinsic": {
+          "size": "760x430",
+          "nonWhiteBBox": [149, 15, 697, 410],
+          "margins": {
+            "left": 149,
+            "top": 15,
+            "right": 62,
+            "bottom": 19
+          },
+          "status": "pass"
+        },
+        "bodyWidth760": {
+          "size": "760x430",
+          "status": "pass",
+          "checks": [
+            "a_1、a_2、a_i、a_n 和 ⋮ 逐项可辨。",
+            "九个内存单元、地址列、位序列和两组状态括号均在画布内且无碰撞。"
+          ]
+        },
+        "narrowWidth396": {
+          "size": "396x224",
+          "nonWhiteBBox": [78, 8, 363, 213],
+          "margins": {
+            "left": 78,
+            "top": 8,
+            "right": 32,
+            "bottom": 10
+          },
+          "status": "pass",
+          "checks": [
+            "缩放后没有新增裁切；地址、状态、位序的三带仍分离。",
+            "关键下标采用 ASCII 文本，未出现路径方框。"
+          ]
+        },
+        "summary": "三档渲染通过；正文内容未压缩为摘要。"
+      },
+      "unresolvedRisks": [
+        "候选用 ASCII 下标形式 a_i 代替原路径化 Unicode 下标，语义等价且更稳定，但最终页面字体仍可由宿主环境决定。"
+      ]
+    },
+    {
+      "oldAsset": "public/textbooks/data-structures/02-linear-list/2-3-1-linear-linked-list/assets/py/fig-2-7-headed-singly-list.svg",
+      "candidateAsset": "public/textbooks/data-structures/02-linear-list/2-3-1-linear-linked-list/assets/py/fig-2-7-headed-singly-list-readable.svg",
+      "status": "candidate-only",
+      "adjudication": {
+        "verdict": "issue",
+        "severity": "medium",
+        "primaryCategory": "overlap",
+        "secondaryCategories": [
+          "unreadable-glyph"
+        ],
+        "finding": "空表分支 NULL 与结点/指针域实际压叠，a_i 路径字形不稳定；intrinsic、760 px 和 396 px 均复现。"
+      },
+      "sourceEvidence": {
+        "datasetPointer": "#/pages/9/markdown",
+        "sourcePath": "02-linear-list/2-3-1-linear-linked-list/index.md",
+        "sourceLine": 47,
+        "route": "/textbook/data-structures/02-linear-list/2-3-1-linear-linked-list",
+        "alt": "带头结点的非空单链表和空单链表",
+        "caption": "图 2.7　带头结点的单链表",
+        "precedingContextEvidence": [
+          "L 为单链表的头指针；若 L= NULL，则所表示的线性表为空表，长度 n 为零。",
+          "第一个数据元素之前附设头结点；头结点的数据域可不存储信息，指针域存储指向第一个数据元素的指针。",
+          "图 2.7(a) 中头指针指向头结点；图 2.7(b) 空表时头结点指针域为“空”。"
+        ],
+        "followingContextEvidence": [
+          "图 2.7　带头结点的单链表；(a) 非空表；(b) 空表。",
+          "p→next 是指向第 i+1 个数据元素 a_{i+1} 的指针；p→data=a_i 时，p→next→data=a_{i+1}。"
+        ]
+      },
+      "originalSvg": {
+        "viewBox": "0 0 483.12 175.176",
+        "width": 483.12,
+        "height": 175.176,
+        "textCount": 0,
+        "pathCount": 53,
+        "clipPathCount": 1,
+        "sourceLabelComments": [
+          "图 2.7  带头结点的单链表",
+          "next",
+          "L",
+          "a₁",
+          "next",
+          "a₂",
+          "next",
+          "…",
+          "next",
+          "aₙ",
+          "next",
+          "(a) 非空表",
+          "next",
+          "L",
+          "NULL",
+          "(b) 空表"
+        ]
+      },
+      "semanticPreservationChecklist": [
+        "L 指向头结点",
+        "非空表与空表两种状态",
+        "头结点的数据域/指针域",
+        "next 方向与 NULL",
+        "a_i 数据标记",
+        "(a)/(b) 子图标签"
+      ],
+      "deterministicSvgRedrawSpec": {
+        "required": true,
+        "viewBox": "0 0 780 300",
+        "canvas": {
+          "width": 780,
+          "height": 300,
+          "margin": 24
+        },
+        "layout": [
+          "上下两面板明确标出 (a) 非空表、(b) 空表；面板间留出超过 28 px 的空白。",
+          "(b) 的 NULL 放在最后一个指针域之外，距结点边界超过 24 px；箭头不穿过 NULL。",
+          "头结点、数据结点和箭头各占独立水平带，a_i 文本置于数据域中心。"
+        ],
+        "explicitLabels": [
+          "L",
+          "a_1",
+          "a_i",
+          "a_n",
+          "NULL",
+          "(a) 非空表",
+          "(b) 空表",
+          "next"
+        ],
+        "preserve": [
+          "头指针指向头结点、两种表状态、全部 next 方向和 NULL 语义。"
+        ],
+        "guards": [
+          "标签与节点/箭头 bounding box 不相交；箭头端点在 viewBox 内；不使用透明遮盖解决重叠。"
+        ]
+      },
+      "candidateImplementation": {
+        "viewBox": "0 0 780 300",
+        "preserved": [
+          "上排头结点→a_1→a_2→…→a_i→a_n 的 next 方向",
+          "下排空表头结点、L、next 和 NULL",
+          "(a) 非空表、(b) 空表两幅状态"
+        ]
+      },
+      "renderFiles": {
+        "intrinsic": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-7-headed-singly-list-readable--intrinsic.png",
+        "bodyWidth760": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-7-headed-singly-list-readable--760.png",
+        "narrowWidth396": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-7-headed-singly-list-readable--396.png"
+      },
+      "renderQA": {
+        "intrinsic": {
+          "size": "780x300",
+          "nonWhiteBBox": [36, 13, 715, 272],
+          "margins": {
+            "left": 36,
+            "top": 13,
+            "right": 64,
+            "bottom": 27
+          },
+          "status": "pass"
+        },
+        "bodyWidth760": {
+          "size": "760x292",
+          "status": "pass",
+          "checks": [
+            "非空链表和空表分成上下两排，NULL 与指针域之间有独立空白。",
+            "L、a_1、a_2、a_i、a_n、next、箭头方向和 (a)/(b) 均可读。"
+          ]
+        },
+        "narrowWidth396": {
+          "size": "396x152",
+          "nonWhiteBBox": [18, 7, 363, 138],
+          "margins": {
+            "left": 18,
+            "top": 7,
+            "right": 32,
+            "bottom": 13
+          },
+          "status": "pass",
+          "checks": [
+            "上下状态仍可区分；NULL 不被箭头或节点覆盖。",
+            "缩放未引入边界裁切。"
+          ]
+        },
+        "summary": "三档渲染通过；空表冲突已通过重新排版解决。"
+      },
+      "unresolvedRisks": [
+        "候选将原本重叠的两个状态改为上下排列，逻辑状态未变；最终正文 CSS 若强制异常宽高比仍需回归。"
+      ]
+    },
+    {
+      "oldAsset": "public/textbooks/data-structures/02-linear-list/2-3-1-linear-linked-list/assets/py/fig-2-8-insert-pointer-change.svg",
+      "candidateAsset": "public/textbooks/data-structures/02-linear-list/2-3-1-linear-linked-list/assets/py/fig-2-8-insert-pointer-change-readable.svg",
+      "status": "candidate-only",
+      "adjudication": {
+        "verdict": "issue",
+        "severity": "medium",
+        "primaryCategory": "overlap",
+        "finding": "(a)/(b) 状态标签、下排结点和箭头实际压叠，插入前后两组状态不能稳定逐步复核。"
+      },
+      "sourceEvidence": {
+        "datasetPointer": "#/pages/9/markdown",
+        "sourcePath": "02-linear-list/2-3-1-linear-linked-list/index.md",
+        "sourceLine": 83,
+        "route": "/textbook/data-structures/02-linear-list/2-3-1-linear-linked-list",
+        "alt": "单链表插入结点前后及指针变化",
+        "caption": "图 2.8　在单链表中插入结点时指针变化状况",
+        "precedingContextEvidence": [
+          "在数据元素 a 和 b 之间插入数据元素 x；p 为指向结点 a 的指针。",
+          "插入后结点 a 的指针域指向 x，结点 x 的指针域指向 b，形成 a、x、b 的逻辑关系。",
+          "指针修改语句为 s→next=p→next；p→next=s。"
+        ],
+        "followingContextEvidence": [
+          "图 2.8　在单链表中插入结点时指针变化状况；(a) 插入前；(b) 插入后。",
+          "后文图 2.9 说明删除结点时前驱指针越过被删结点。"
+        ]
+      },
+      "originalSvg": {
+        "viewBox": "0 0 516.6 219.528",
+        "width": 516.6,
+        "height": 219.528,
+        "textCount": 0,
+        "pathCount": 55,
+        "clipPathCount": 1,
+        "sourceLabelComments": [
+          "图 2.8  在单链表中插入结点时指针变化状况",
+          "a",
+          "next",
+          "b",
+          "next",
+          "p",
+          "(a) 插入前",
+          "a",
+          "next",
+          "x",
+          "next",
+          "b",
+          "next",
+          "p",
+          "s",
+          "s→next = p→next",
+          "p→next = s",
+          "(b) 插入后"
+        ]
+      },
+      "semanticPreservationChecklist": [
+        "a、b、x 三个数据结点",
+        "p、s 指针",
+        "next 字段与箭头方向",
+        "s→next=p→next",
+        "p→next=s",
+        "插入前/后两组状态及 (a)/(b) 标签"
+      ],
+      "deterministicSvgRedrawSpec": {
+        "required": true,
+        "viewBox": "0 0 820 320",
+        "canvas": {
+          "width": 820,
+          "height": 320,
+          "margin": 24
+        },
+        "layout": [
+          "上排固定为 (a) 插入前，下排固定为 (b) 插入后；两排中心线相隔超过 96 px。",
+          "状态标签置于图形外；两条赋值语句单独放在底部说明带。",
+          "插入结点 x 与 a、b 等距；箭头端点落在指针域中心，不穿过标签。"
+        ],
+        "explicitLabels": [
+          "(a) 插入前",
+          "(b) 插入后",
+          "a",
+          "b",
+          "x",
+          "p",
+          "s",
+          "s→next = p→next",
+          "p→next = s"
+        ],
+        "preserve": [
+          "全部结点、指针、两条赋值语句、箭头方向和插入前后关系。"
+        ],
+        "guards": [
+          "状态标签与图形至少留出 16 px；公式不被节点或箭头覆盖。"
+        ]
+      },
+      "candidateImplementation": {
+        "viewBox": "0 0 820 320",
+        "preserved": [
+          "上排 p→a→b 的插入前状态",
+          "下排 p→a→x→b、s 指向 x 的插入后状态",
+          "s→next = p→next 与 p→next = s 两条公式"
+        ]
+      },
+      "renderFiles": {
+        "intrinsic": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-8-insert-pointer-change-readable--intrinsic.png",
+        "bodyWidth760": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-8-insert-pointer-change-readable--760.png",
+        "narrowWidth396": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-8-insert-pointer-change-readable--396.png"
+      },
+      "renderQA": {
+        "intrinsic": {
+          "size": "820x320",
+          "nonWhiteBBox": [38, 13, 689, 303],
+          "margins": {
+            "left": 38,
+            "top": 13,
+            "right": 130,
+            "bottom": 16
+          },
+          "status": "pass"
+        },
+        "bodyWidth760": {
+          "size": "760x297",
+          "status": "pass",
+          "checks": [
+            "上下两排节点和箭头分离；p、s 标签位于各自图形外。",
+            "两条赋值语句完整可读且没有被图形覆盖。"
+          ]
+        },
+        "narrowWidth396": {
+          "size": "396x155",
+          "nonWhiteBBox": [18, 6, 332, 146],
+          "margins": {
+            "left": 18,
+            "top": 6,
+            "right": 63,
+            "bottom": 8
+          },
+          "status": "pass",
+          "checks": [
+            "插入前/后仍按上下顺序可追踪；x 与 a、b 的位置关系未丢失。",
+            "公式和箭头均在 viewBox 内。"
+          ]
+        },
+        "summary": "三档渲染通过；原有状态标签碰撞已消除。"
+      },
+      "unresolvedRisks": [
+        "窄屏下图整体缩小，next 字段字号相对较小，但没有与节点或箭头碰撞；候选保留了静态两步状态。"
+      ]
+    },
+    {
+      "oldAsset": "public/textbooks/data-structures/02-linear-list/2-3-2-circular-linked-list/assets/py/fig-2-12-circular-list.svg",
+      "candidateAsset": "public/textbooks/data-structures/02-linear-list/2-3-2-circular-linked-list/assets/py/fig-2-12-circular-list-readable.svg",
+      "status": "candidate-only",
+      "adjudication": {
+        "verdict": "issue",
+        "severity": "high",
+        "primaryCategory": "overlap",
+        "secondaryCategories": [
+          "unreadable-glyph"
+        ],
+        "finding": "外层循环箭头穿入标题区域，空表结点与回指箭头过密，a_i 路径化字形不清；不能删除回指关系换取清晰。"
+      },
+      "sourceEvidence": {
+        "datasetPointer": "#/pages/10/markdown",
+        "sourcePath": "02-linear-list/2-3-2-circular-linked-list/index.md",
+        "sourceLine": 8,
+        "route": "/textbook/data-structures/02-linear-list/2-3-2-circular-linked-list",
+        "alt": "单循环链表的非空表和空表，尾结点指回头结点",
+        "caption": "图 2.12　单循环链表",
+        "precedingContextEvidence": [
+          "循环链表的特点是表中最后一个结点的指针域指向头结点，整个链表形成一个环。",
+          "从表中任一结点出发均可找到表中其他结点；图 2.12 为单链的循环链表。"
+        ],
+        "followingContextEvidence": [
+          "图 2.12　单循环链表；(a) 非空表；(b) 空表。",
+          "循环条件不是 p 或 p→next 是否为空，而是它们是否等于头指针；后文转入仅设尾指针的图 2.13。"
+        ]
+      },
+      "originalSvg": {
+        "viewBox": "0 0 488.7 180.72",
+        "width": 488.7,
+        "height": 180.72,
+        "textCount": 0,
+        "pathCount": 44,
+        "clipPathCount": 1,
+        "sourceLabelComments": [
+          "图 2.12  单循环链表",
+          "a₁",
+          "a₂",
+          "…",
+          "aₙ",
+          "H",
+          "(a) 非空表",
+          "H",
+          "(b) 空表"
+        ]
+      },
+      "semanticPreservationChecklist": [
+        "H 头指针",
+        "非空表与空表",
+        "尾结点回指头结点",
+        "next 方向",
+        "数据项与 a_i 标签",
+        "NULL",
+        "(a)/(b) 子图"
+      ],
+      "deterministicSvgRedrawSpec": {
+        "required": true,
+        "viewBox": "0 0 820 320",
+        "canvas": {
+          "width": 820,
+          "height": 320,
+          "margin": 24
+        },
+        "layout": [
+          "标题置于顶部；所有环箭头从 y≥72 开始，标题安全区 y=0..56 不放路径。",
+          "(a)/(b) 面板分置在约 x=40 与 x=440；空表回指箭头使用独立外侧路径。",
+          "H、数据节点、next 箭头和 a_i 标签 bounding box 不相交；回指箭头保留并绕开文字。"
+        ],
+        "explicitLabels": [
+          "图 2.12 单循环链表",
+          "H",
+          "a_1",
+          "a_i",
+          "a_n",
+          "NULL",
+          "(a) 非空表",
+          "(b) 空表",
+          "next"
+        ],
+        "preserve": [
+          "单循环链表的非空/空表、H 头指针、尾结点回指头结点和 next 方向。"
+        ],
+        "guards": [
+          "标题安全区 y=0..56 不放路径；内容不依赖 clipPath 裁切。",
+          "不能通过删掉回指箭头来换取清晰。"
+        ]
+      },
+      "candidateImplementation": {
+        "viewBox": "0 0 820 320",
+        "preserved": [
+          "非空表 H→a_1→a_2→…→a_n 及各结点 next 箭头",
+          "a_n 的外侧回指箭头回到 a_1",
+          "空表 H、NULL 数据域、next 字段和独立自环箭头",
+          "(a) 非空表、(b) 空表"
+        ]
+      },
+      "renderFiles": {
+        "intrinsic": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-12-circular-list-readable--intrinsic.png",
+        "bodyWidth760": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-12-circular-list-readable--760.png",
+        "narrowWidth396": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-12-circular-list-readable--396.png"
+      },
+      "renderQA": {
+        "intrinsic": {
+          "size": "820x320",
+          "nonWhiteBBox": [35, 11, 683, 179],
+          "margins": {
+            "left": 35,
+            "top": 11,
+            "right": 136,
+            "bottom": 140
+          },
+          "status": "pass"
+        },
+        "bodyWidth760": {
+          "size": "760x297",
+          "status": "pass",
+          "checks": [
+            "环箭头最低 y 在标题安全区之外，没有穿过标题。",
+            "非空尾结点回指、空表自环、H、NULL、next 和 a_i 均不与文字相撞。"
+          ]
+        },
+        "narrowWidth396": {
+          "size": "396x155",
+          "nonWhiteBBox": [17, 6, 330, 86],
+          "margins": {
+            "left": 17,
+            "top": 6,
+            "right": 65,
+            "bottom": 68
+          },
+          "status": "pass",
+          "checks": [
+            "标题、两面板和两条回指关系仍在画布内。",
+            "缩放没有使回指箭头穿入标题或结点文字。"
+          ]
+        },
+        "summary": "三档渲染通过；循环拓扑关系完整保留。"
+      },
+      "unresolvedRisks": [
+        "权威 deterministicSvgRedrawSpec 的 explicitLabels 明确列出 NULL，而原始 SVG 的 label comment 列表未单独列出 NULL；候选按权威规格在空表数据域显式保留 NULL，同时保留原图的空表自环，建议接受候选时由教材语义负责人复核该记号。"
+      ]
+    },
+    {
+      "oldAsset": "public/textbooks/data-structures/02-linear-list/2-3-2-circular-linked-list/assets/py/fig-2-13-circular-tail-merge.svg",
+      "candidateAsset": "public/textbooks/data-structures/02-linear-list/2-3-2-circular-linked-list/assets/py/fig-2-13-circular-tail-merge-readable.svg",
+      "status": "candidate-only",
+      "adjudication": {
+        "verdict": "issue",
+        "severity": "medium",
+        "primaryCategory": "clipped",
+        "secondaryCategories": [
+          "unreadable-glyph"
+        ],
+        "finding": "原图最右侧路径使用 x=605.2644，超过 viewBox 最大 x=592.142165；合并后节点/括号/B0 被截断，B0 与节点路径字形也不清。"
+      },
+      "sourceEvidence": {
+        "datasetPointer": "#/pages/10/markdown",
+        "sourcePath": "02-linear-list/2-3-2-circular-linked-list/index.md",
+        "sourceLine": 16,
+        "route": "/textbook/data-structures/02-linear-list/2-3-2-circular-linked-list",
+        "alt": "仅设尾指针的两个循环链表及其合并结果",
+        "caption": "图 2.13　仅设尾指针的循环链表",
+        "precedingContextEvidence": [
+          "在循环链表中设立尾指针而不设头指针，可使某些操作简化。",
+          "将两个线性表合并成一个表时，仅需将一个表的表尾和另一个表的表头相接。",
+          "该操作仅需改变两个指针值，运算时间为 O(1)；合并后的表如图 2.13(b) 所示。"
+        ],
+        "followingContextEvidence": [
+          "图 2.13　仅设尾指针的循环链表；(a) 两个链表；(b) 合并后的表。"
+        ]
+      },
+      "originalSvg": {
+        "viewBox": "0 0 592.142165 247.248",
+        "width": 592.142165,
+        "height": 247.248,
+        "textCount": 0,
+        "pathCount": 96,
+        "clipPathCount": 1,
+        "sourceLabelComments": [
+          "图 2.13  仅设尾指针的循环链表",
+          "A₁",
+          "A₂",
+          "…",
+          "Aₙ",
+          "B₁",
+          "B₂",
+          "…",
+          "Bₘ",
+          "A",
+          "B",
+          "(a) 两个链表",
+          "A₁",
+          "…",
+          "Aₙ",
+          "B₁",
+          "…",
+          "Bₘ",
+          "(b) 合并后的表（只需改变两个尾指针）"
+        ]
+      },
+      "semanticPreservationChecklist": [
+        "A/B 两个循环链表",
+        "A0/B0 与尾指针",
+        "合并后的结点顺序",
+        "两条仅改变尾指针的连接关系",
+        "(a)/(b) 子图",
+        "合并后完整最右节点/括号"
+      ],
+      "deterministicSvgRedrawSpec": {
+        "required": true,
+        "viewBox": "0 0 760 330",
+        "canvas": {
+          "width": 760,
+          "height": 330,
+          "margin": 24
+        },
+        "layout": [
+          "(a) 两个循环链表与 (b) 合并结果分成独立区域；合并结果右端预留至少 24 px。",
+          "所有节点、括号、A0/B0、尾指针和重接线边界满足 maxX≤736、maxY≤306。",
+          "回指箭头绕过文字，节点边界与 B0 标记至少留出 16 px。"
+        ],
+        "explicitLabels": [
+          "A0",
+          "B0",
+          "(a) 两个链表",
+          "(b) 合并后的表",
+          "尾指针",
+          "A0/B0 重接后的顺序"
+        ],
+        "preserve": [
+          "两条循环链表、尾指针表示、合并后的节点顺序、两条改变尾指针的关系和 B0 标记。"
+        ],
+        "guards": [
+          "禁止任何 path/marker/text 超出 viewBox；不依赖 clipPath 隐藏右端。",
+          "对最右端做白边检查，完整保留合并后的最右节点和括号。"
+        ]
+      },
+      "candidateImplementation": {
+        "viewBox": "0 0 760 330",
+        "preserved": [
+          "上方 A_1、A_2、A_i、A_n 与 B_1、B_2、B_i、B_m 两条循环链表",
+          "A / A0、B / B0 尾指针标识和循环回指",
+          "下方 A_1→A_i→A_n→B_1→B_i→B_m 的合并顺序",
+          "合并后的最右 B0 标记与括号",
+          "A_n.next → B_1、B_m.next → A_1 两条尾指针重接关系"
+        ]
+      },
+      "renderFiles": {
+        "intrinsic": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-13-circular-tail-merge-readable--intrinsic.png",
+        "bodyWidth760": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-13-circular-tail-merge-readable--760.png",
+        "narrowWidth396": ".codex/audits/textbook-assets/draft-02-redraw-renders/fig-2-13-circular-tail-merge-readable--396.png"
+      },
+      "renderQA": {
+        "intrinsic": {
+          "size": "760x330",
+          "nonWhiteBBox": [49, 11, 685, 304],
+          "margins": {
+            "left": 49,
+            "top": 11,
+            "right": 74,
+            "bottom": 25
+          },
+          "rightEdgeCheck": "pass; B0、括号和最后一个 B_m 节点均完整可见。"
+        },
+        "bodyWidth760": {
+          "size": "760x330",
+          "status": "pass",
+          "checks": [
+            "合并结果最右侧距 viewBox 右边界保留 74 px 非白色边界外余量。",
+            "A/B 两个输入循环链表、合并顺序和两条尾指针重接关系均可追踪。"
+          ]
+        },
+        "narrowWidth396": {
+          "size": "396x172",
+          "nonWhiteBBox": [25, 6, 357, 158],
+          "margins": {
+            "left": 25,
+            "top": 6,
+            "right": 38,
+            "bottom": 13
+          },
+          "status": "pass",
+          "checks": [
+            "最右 B0 与括号仍在画布内，没有右端截断。",
+            "节点顺序、尾指针标识、回指方向和重接说明均保留。"
+          ]
+        },
+        "summary": "三档渲染通过；原图右端 overflow/clipping 已消除。"
+      },
+      "unresolvedRisks": [
+        "候选把原路径化 A/B 下标显式写为 ASCII A_1、A_n、B_m 和 A0/B0；语义保留但字形样式与原图不完全相同。",
+        "紫色虚线只用于强调两条重接关系，方向和文字同时提供，不依赖颜色单独传达语义。"
+      ]
+    }
+  ],
+  "validation": {
+    "candidateFiles": [
+      "public/textbooks/data-structures/02-linear-list/2-2-sequential-representation-and-implementation/assets/py/fig-2-2-sequential-layout-readable.svg",
+      "public/textbooks/data-structures/02-linear-list/2-3-1-linear-linked-list/assets/py/fig-2-7-headed-singly-list-readable.svg",
+      "public/textbooks/data-structures/02-linear-list/2-3-1-linear-linked-list/assets/py/fig-2-8-insert-pointer-change-readable.svg",
+      "public/textbooks/data-structures/02-linear-list/2-3-2-circular-linked-list/assets/py/fig-2-12-circular-list-readable.svg",
+      "public/textbooks/data-structures/02-linear-list/2-3-2-circular-linked-list/assets/py/fig-2-13-circular-tail-merge-readable.svg"
+    ],
+    "xmlWellFormed": {
+      "status": "pass",
+      "command": "xmllint --noout <each candidate>",
+      "count": 5
+    },
+    "assetInventory": {
+      "command": "node /Users/minimax/.codex/skills/audit-408-textbook-assets-demo/scripts/audit-textbook-assets.mjs --project /Users/minimax/schedule/kaoyan-quiz --dataset app/data/textbook-data-structures.json --assets public/textbooks/data-structures --report /dev/null",
+      "files": 444,
+      "referenced": 274,
+      "missing": 0,
+      "malformed": 0,
+      "unreferenced": 170,
+      "note": "新增候选未被 Markdown 引用，故计入 unreferenced；本任务不改引用。"
+    },
+    "semanticTokenCheck": {
+      "status": "pass",
+      "method": "逐候选检查 explicitLabels、原文关键标签、箭头/公式和子图标签均存在于候选 SVG 的显式文本或 desc 中。",
+      "missingTokens": []
+    },
+    "sourceIntegrity": {
+      "trackedDiffForFiveOriginals": [],
+      "trackedDiffForFig31Stack": [],
+      "modifiedMarkdownFiles": [],
+      "modifiedDatasetFiles": [],
+      "modifiedComponentFiles": [],
+      "modifiedCssFiles": [],
+      "modifiedReferenceFiles": [],
+      "deletedFiles": [],
+      "movedFiles": []
+    },
+    "renderDirectory": ".codex/audits/textbook-assets/draft-02-redraw-renders",
+    "renderFileCount": 15,
+    "renderMatrixPassed": true,
+    "allSemanticContentInsideViewBox": true,
+    "visibleCollisionReview": "pass",
+    "contentChangeNote": "未删除任何非重复知识内容。"
+  },
+  "unresolvedRisks": [
+    {
+      "asset": "public/textbooks/data-structures/02-linear-list/2-3-2-circular-linked-list/assets/py/fig-2-12-circular-list-readable.svg",
+      "risk": "权威规格要求显式 NULL，但原始图的 comment label inventory 未单列 NULL；候选按权威规格保留 NULL 并保留空表 next 自环，接受前应由语义负责人确认该组合记号。"
+    },
+    {
+      "asset": "all five candidates",
+      "risk": "本轮使用 Sharp 做 intrinsic/760/396 SVG 栅格 QA；未修改页面引用，因此尚未进行真实本地页面替换后的 CSS 回归。候选本身显式设置 width/height/viewBox，三档渲染均无裁切或可见碰撞。"
+    }
+  ],
+  "handoff": {
+    "addedCandidateCount": 5,
+    "addedCandidatesOnlyBesideOriginals": true,
+    "originalAssetsRetained": true,
+    "fig31StackUntouched": true,
+    "reportReadyForReview": true,
+    "requiredStatement": "未删除任何非重复知识内容"
+  }
+}

@@ -1,0 +1,315 @@
+{
+  "schemaVersion": "textbook-answer-audit-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "06-tree-and-binary-tree",
+    "07-graph"
+  ],
+  "updates": [
+    {
+      "id": "book-ds-yan-06-06",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设度为 \\(k\\) 的分支结点数为 \\(n_1\\)，叶子数为 \\(n_0\\)。题设给出 \\(n=n_0+n_1\\)。树的边数一方面为 \\(n-1\\)，另一方面等于所有结点度数之和，故\n\n$$\nn-1=k n_1.\n$$\n\n于是 \\(n_1=(n-1)/k\\)，从而\n\n$$\n\\boxed{n_0=n-\\frac{n-1}{k}=\\frac{(k-1)n+1}{k}}.\n$$\n\n这里 \\(k\\ge1\\)、\\(n\\ge1\\)，且可构成这种树时必须有 \\(n-1\\) 能被 \\(k\\) 整除。特别地，\\(k=1\\) 时结果为 \\(n_0=1\\)，即一条链只有末端一个叶子。",
+        "explanation": "以边数的两种计数方式独立推导，并说明了可行性整除条件及 k=1 边界。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书未列答案；已按题设完成独立的边数计数推导。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-61",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n采用题设的孩子—兄弟结点：\\(firstchild\\) 指向第一个孩子，\\(nextsibling\\) 只连接同一双亲的兄弟。树的度是任一结点孩子数的最大值，不能把 \\(nextsibling\\) 当作二叉树的右孩子来计数。\n\n~~~~c\ntypedef struct CSNode {\n    char data;\n    struct CSNode *firstchild, *nextsibling;\n} CSNode, *CSTree;\n\nstatic void ScanForestForDegree(CSTree p, int *best) {\n    for (; p != NULL; p = p->nextsibling) {\n        int d = 0;\n        for (CSTree c = p->firstchild; c != NULL; c = c->nextsibling)\n            ++d;\n        if (d > *best) *best = d;\n        ScanForestForDegree(p->firstchild, best);\n    }\n}\n\nint TreeDegree(CSTree T) {\n    int best = 0;\n    ScanForestForDegree(T, &best);\n    return best;\n}\n~~~~\n\n空树返回 \\(0\\)，单结点树也返回 \\(0\\)。外层循环恰访问当前森林中的每个根，递归再访问其孩子森林；因此每个树结点恰被检查一次，且 \\(d\\) 正是该结点的孩子数，\\(best\\) 即全树最大度。各孩子链至多额外扫描一次，时间为 \\(O(n)\\)；兄弟用循环而非递归逐个展开，递归辅助空间为 \\(O(h)\\)，其中 \\(h\\) 为树的层数。",
+        "explanation": "明确区分孩子指针与兄弟指针，覆盖空树和单结点树，并给出线性扫描的不变量与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书未列答案；已按孩子—兄弟链表的实际链接语义独立实现。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-63",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设孩子链表表示为：每个 \\(nodes[u]\\) 有数据域和指向其孩子链的 \\(firstchild\\)，孩子链结点保存孩子在结点表中的下标 \\(child\\)。\\(root\\) 是根下标。输入前提是该表确为无环、每个非根结点恰有一个双亲的树。\n\n~~~~c\ntypedef struct ChildNode {\n    int child;\n    struct ChildNode *next;\n} ChildNode, *ChildPtr;\n\ntypedef struct { char data; ChildPtr firstchild; } CTBox;\ntypedef struct {\n    CTBox nodes[MAX_TREE_SIZE];\n    int n, root;\n} CTree;\n\nstatic int DepthAt(const CTree *T, int u) {\n    int deepestChild = 0;\n    for (ChildPtr p = T->nodes[u].firstchild; p != NULL; p = p->next) {\n        int d = DepthAt(T, p->child);\n        if (d > deepestChild) deepestChild = d;\n    }\n    return deepestChild + 1;\n}\n\nint TreeDepth(const CTree *T) {\n    if (T == NULL || T->n == 0) return 0;\n    return DepthAt(T, T->root);\n}\n~~~~\n\n叶结点的孩子链为空，故返回 \\(1\\)；任一非叶结点返回所有孩子子树深度的最大值加 \\(1\\)，正是以该结点为根的树深度。由此递归式归纳可知根调用给出全树深度。空树返回 \\(0\\)。每个结点和每条孩子链接各处理一次，时间 \\(O(n)\\)，递归辅助空间 \\(O(h)\\)。",
+        "explanation": "按孩子链表中的孩子下标递归，而非假定二叉表示；给出叶子、空树、正确性和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书未列答案；已给出与孩子链表字段一致的深度递归。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-64",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n双亲表的 \\(parent\\) 域给出双亲下标，根以 \\(-1\\) 标记。下面用记忆化递归计算每个结点到根的层数，避免对每个结点重复沿双亲链回溯。\\(mark=1\\) 还能拒绝含环的错误输入；正常树只有一个 \\(parent=-1\\) 的根。\n\n~~~~c\ntypedef struct { char data; int parent; } PTNode;\ntypedef struct { PTNode nodes[MAX_TREE_SIZE]; int n; } PTree;\n\nstatic Status FillLevel(const PTree *T, int u, int level[], int mark[]) {\n    if (mark[u] == 2) return OK;\n    if (mark[u] == 1) return ERROR;              /* 双亲链成环 */\n    mark[u] = 1;\n    int p = T->nodes[u].parent;\n    if (p == -1) {\n        level[u] = 1;\n    } else {\n        if (p < 0 || p >= T->n || FillLevel(T, p, level, mark) == ERROR)\n            return ERROR;\n        level[u] = level[p] + 1;\n    }\n    mark[u] = 2;\n    return OK;\n}\n\nStatus TreeDepth(const PTree *T, int *H) {\n    int level[MAX_TREE_SIZE] = {0};\n    int mark[MAX_TREE_SIZE] = {0};\n    int roots = 0;\n    if (T == NULL || H == NULL || T->n < 0 || T->n > MAX_TREE_SIZE)\n        return ERROR;\n    if (T->n == 0) { *H = 0; return OK; }\n    for (int i = 0; i < T->n; ++i)\n        if (T->nodes[i].parent == -1) ++roots;\n    if (roots != 1) return ERROR;\n\n    *H = 0;\n    for (int i = 0; i < T->n; ++i) {\n        if (FillLevel(T, i, level, mark) == ERROR) return ERROR;\n        if (level[i] > *H) *H = level[i];\n    }\n    return OK;\n}\n~~~~\n\n对根，层数为 \\(1\\)；对非根，层数恰为其双亲层数加 \\(1\\)。记忆化后每个表项只完成一次，所以最终最大层数就是树深度。空表输出 \\(0\\)，父下标越界、多个根或双亲环返回错误。时间 \\(O(n)\\)，\\(level\\)、\\(mark\\) 辅助空间 \\(O(n)\\)，递归栈 \\(O(h)\\)。",
+        "explanation": "使用双亲表特有的 parent 域进行记忆化回溯，并显式处理空表和损坏双亲链。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书未列答案；已给出线性时间的双亲表深度算法及输入一致性检查。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-67",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n以下以单字符标识为例，\\(byName\\) 把已出现的标识映射到其孩子—兄弟结点，\\(lastChild\\) 保留每个双亲当前最后一个孩子。题设中 \\(C\\) 按层次出现，因而读到非根二元组 \\((F,C)\\) 时 \\(F\\) 已经出现；同一双亲的多条边不必连续，仍可用 \\(lastChild\\) 追加并保持输入中的从左到右次序。\n\n~~~~c\ntypedef struct CSNode {\n    char data;\n    struct CSNode *firstchild, *nextsibling;\n} CSNode, *CSTree;\n\nStatus BuildCSFromPairs(CSTree *T) {\n    CSTree byName[256] = {0}, lastChild[256] = {0};\n    int rootSeen = 0;\n    *T = NULL;\n\n    for (;;) {\n        unsigned char F, C;\n        if (ReadPair(&F, &C) == ERROR) goto bad;\n        if (F == '^' && C == '^') break;\n        if (C == '^') goto bad;\n\n        if (F == '^') {\n            if (rootSeen || byName[C] != NULL) goto bad;\n            *T = NewCSNode(C);\n            if (*T == NULL) goto overflow;\n            byName[C] = *T;\n            rootSeen = 1;\n        } else {\n            CSTree p = byName[F], q;\n            if (p == NULL || byName[C] != NULL) goto bad;\n            q = NewCSNode(C);\n            if (q == NULL) goto overflow;\n            byName[C] = q;\n            if (p->firstchild == NULL) p->firstchild = q;\n            else lastChild[F]->nextsibling = q;\n            lastChild[F] = q;\n        }\n    }\n    if (!rootSeen) goto bad;\n    return OK;\n\noverflow:\n    DestroyCSTree(*T);\n    *T = NULL;\n    return OVERFLOW;\nbad:\n    DestroyCSTree(*T);\n    *T = NULL;\n    return ERROR;\n}\n~~~~\n\n\\(NewCSNode\\) 必须把两个链接域初始化为 \\(NULL\\)，\\(DestroyCSTree\\) 释放已建子树。算法拒绝重复标识、第二个根、未出现的双亲和缺少根；题设的合法输入以 \\(\\texttt{^^}\\) 结束。每个结点只分配一次、每条边只链接一次，直接索引标识表时建树时间 \\(O(n)\\)，辅助表空间 \\(O(|\\Sigma|)\\)；若标识不是字节字符，可改用字典，空间为 \\(O(n)\\)。",
+        "explanation": "利用层次输入保证双亲已建立，并用每个双亲的尾指针正确连接不相邻出现的孩子。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书未列答案；已补充从二元组序列建立孩子—兄弟链表的独立算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-68",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设 \\(data[0..n-1]\\) 和 \\(degree[0..n-1]\\) 已按层次、同层从左至右给出。先按该顺序为每个结点分配孩子—兄弟结点；扫描到第 \\(i\\) 个结点时，尚未归属的下一个结点恰是它的第一个孩子，随后 \\(degree[i]-1\\) 个结点依次为其余孩子。\n\n~~~~c\nStatus BuildCSByLevel(const char data[], const int degree[], int n, CSTree *T) {\n    CSTree node[MAX_TREE_SIZE];\n    int next = 1;\n    if (T == NULL || n < 0 || n > MAX_TREE_SIZE) return ERROR;\n    *T = NULL;\n    if (n == 0) return OK;\n\n    for (int i = 0; i < n; ++i) {\n        node[i] = NewCSNode(data[i]);            /* 两链接域均置 NULL */\n        if (node[i] == NULL) { FreeNodeArray(node, i); return OVERFLOW; }\n    }\n    for (int i = 0; i < n; ++i) {\n        CSTree last = NULL;\n        if (degree[i] < 0 || next + degree[i] > n) {\n            FreeNodeArray(node, n); return ERROR;\n        }\n        for (int j = 0; j < degree[i]; ++j) {\n            CSTree child = node[next++];\n            if (last == NULL) node[i]->firstchild = child;\n            else last->nextsibling = child;\n            last = child;\n        }\n    }\n    if (next != n) { FreeNodeArray(node, n); return ERROR; }\n    *T = node[0];\n    return OK;\n}\n~~~~\n\n\\(FreeNodeArray\\) 仅逐个释放该辅助数组中已分配的结点，适用于建造失败时的清理。空序列产生空树；对非空合法输入，循环结束时 \\(next=n\\) 等价于所有结点恰被某个双亲领取一次，也蕴含 \\(\\sum degree[i]=n-1\\)。归纳扫描下标 \\(i\\) 可知，已链接部分始终是正确的层序前缀，所以最终得到原树且孩子次序不变。时间 \\(O(n)\\)，辅助指针数组 \\(O(n)\\)，成品树空间 \\(O(n)\\)。",
+        "explanation": "用层序数组的未消费指针分配连续孩子段，检查度数合法性和所有结点恰被消费的边界。",
+        "correction": {
+          "verified": "**独立审校修正（非原书摘录）**\n\n设 \\(data[0..n-1]\\) 和 \\(degree[0..n-1]\\) 按层次、同层从左到右给出。\\(next\\) 始终是尚未领取的第一个结点下标；因此在处理第 \\(i\\) 个结点前，除了度数非负且剩余结点够用，还必须有 \\(next>i\\)。这保证 \\(i\\)（根 \\(0\\) 除外）已由某个更早的双亲领取，不能把自己或未领取的后继接成孩子。\n\n~~~~c\nStatus BuildCSByLevel(const char data[], const int degree[], int n, CSTree *T) {\n    CSTree node[MAX_TREE_SIZE];\n    int next = 1;\n    if (T == NULL || n < 0 || n > MAX_TREE_SIZE ||\n        (n > 0 && (data == NULL || degree == NULL))) return ERROR;\n    *T = NULL;\n    if (n == 0) return OK;\n\n    for (int i = 0; i < n; ++i) {\n        node[i] = NewCSNode(data[i]);            /* 两链接域均置 NULL */\n        if (node[i] == NULL) { FreeNodeArray(node, i); return OVERFLOW; }\n    }\n    for (int i = 0; i < n; ++i) {\n        CSTree last = NULL;\n        if (degree[i] < 0 || next <= i || degree[i] > n - next) {\n            FreeNodeArray(node, n); return ERROR;\n        }\n        for (int j = 0; j < degree[i]; ++j) {\n            CSTree child = node[next++];\n            if (last == NULL) node[i]->firstchild = child;\n            else last->nextsibling = child;\n            last = child;\n        }\n    }\n    if (next != n) { FreeNodeArray(node, n); return ERROR; }\n    *T = node[0];\n    return OK;\n}\n~~~~\n\n\\(FreeNodeArray\\) 在失败时逐个释放辅助数组中的已分配结点。循环开始时，\\(1..next-1\\) 恰为已经由更早结点领取的非根结点，\\(next\\) 是第一个未领取下标；\\(next>i\\) 因而保证当前 \\(i\\) 已有双亲或就是根。把 \\(next..next+degree[i]-1\\) 依次接为 \\(i\\) 的孩子后，该不变式对下一轮仍成立。最终 \\(next=n\\) 表示每个非根结点恰有一个双亲；孩子下标总大于双亲下标，故无自环、无环路，所得结构恰为输入层序所表示的树。空序列返回空树。时间 \\(O(n)\\)，辅助指针数组 \\(O(n)\\)，成品树空间 \\(O(n)\\)。",
+          "explanation": "补入 next>i 的层序领取不变式，并以不溢出的 degree[i]>n-next 检查保证不会自环、孤立或越界。",
+          "reason": "交叉复审发现原末尾的 next==n 检查不足以保证当前结点已被更早双亲领取，可能接受自环或孤立结点构成的伪树。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书未列答案；已补充与层次输入和孩子—兄弟表示一致的构造算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-69",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n将二叉树横向显示：先打印右子树，再打印根，最后打印左子树；每深入一层多输出固定数目的空格。于是右子树位于根的上方，左子树位于根的下方，正与题图的示例方向一致。\n\n~~~~c\ntypedef struct BiTNode {\n    char data;\n    struct BiTNode *lchild, *rchild;\n} BiTNode, *BiTree;\n\nstatic void Indent(int level) {\n    for (int i = 0; i < 4 * level; ++i) putchar(' ');\n}\n\nvoid PrintBiTreeSideways(BiTree T, int level) {\n    if (T == NULL) return;\n    PrintBiTreeSideways(T->rchild, level + 1);\n    Indent(level);\n    putchar(T->data);\n    putchar(10);\n    PrintBiTreeSideways(T->lchild, level + 1);\n}\n\n/* 调用：PrintBiTreeSideways(T, 0); */\n~~~~\n\n空树不输出。对任一结点，递归调用已分别把右、左子树按相同规则完整打印；根恰在两者之间且缩进量等于其深度，故归纳可得整体树状布局正确。结点访问时间为 \\(O(n)\\)，递归栈 \\(O(h)\\)；若把实际输出的缩进空格也计入 I/O，最坏会输出 \\(O(nh)\\) 个字符。",
+        "explanation": "通过右—根—左的逆中序输出得到题示横向方向，并说明了输出字符量与结构遍历成本。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书未列答案；已给出二叉链表的树状打印算法及空树、复杂度说明。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-71",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n孩子—兄弟链表中，同层兄弟由 \\(nextsibling\\) 串成链，因此必须在同一缩进层用循环输出它们；每个结点的 \\(firstchild\\) 则递归到下一缩进层。\n\n~~~~c\nstatic void Indent(int level) {\n    for (int i = 0; i < 4 * level; ++i) putchar(' ');\n}\n\nstatic void PrintCSForest(CSTree p, int level) {\n    for (; p != NULL; p = p->nextsibling) {\n        Indent(level);\n        putchar(p->data);\n        putchar(10);\n        PrintCSForest(p->firstchild, level + 1);\n    }\n}\n\nvoid PrintCSTree(CSTree T) {\n    PrintCSForest(T, 0);\n}\n~~~~\n\n对根调用时树根通常没有兄弟，\\(PrintCSForest\\) 仍可正确处理一片森林。空树不输出。循环保证同双亲的孩子按兄弟链次序、在相同层级输出；递归保证每个孩子的全部后代紧随其后且恰多一级缩进，故得到凹入表。结点访问 \\(O(n)\\)，递归栈 \\(O(h)\\)；计入缩进字符时输出量最坏为 \\(O(nh)\\)。",
+        "explanation": "算法直接遵循 firstchild 向下一层、nextsibling 留在同层的表示语义。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书未列答案；已按孩子—兄弟链表的层级关系补充凹入表打印。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-72",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n孩子链表没有 \\(nextsibling\\) 域；同一双亲的孩子由该双亲 \\(firstchild\\) 所指的孩子链结点顺序给出。因此在输出当前结点后，沿这条孩子链依次递归每个孩子。\n\n~~~~c\ntypedef struct ChildNode {\n    int child;\n    struct ChildNode *next;\n} ChildNode, *ChildPtr;\n\ntypedef struct { char data; ChildPtr firstchild; } CTBox;\ntypedef struct {\n    CTBox nodes[MAX_TREE_SIZE];\n    int n, root;\n} CTree;\n\nstatic void Indent(int level) {\n    for (int i = 0; i < 4 * level; ++i) putchar(' ');\n}\n\nstatic void PrintChildTree(const CTree *T, int u, int level) {\n    Indent(level);\n    putchar(T->nodes[u].data);\n    putchar(10);\n    for (ChildPtr p = T->nodes[u].firstchild; p != NULL; p = p->next)\n        PrintChildTree(T, p->child, level + 1);\n}\n\nvoid PrintCTree(const CTree *T) {\n    if (T != NULL && T->n != 0) PrintChildTree(T, T->root, 0);\n}\n~~~~\n\n输入前提是孩子下标有效且结构为树；空树不输出。归纳地说，当前调用先输出唯一的根行，再按孩子链的从左到右顺序完整输出各子树，且每一层多一档缩进，所以正是题 6.71 的凹入表。每个结点和孩子链结点各访问一次，结构处理时间 \\(O(n)\\)，栈 \\(O(h)\\)；连同空格输出的字符数最坏为 \\(O(nh)\\)。",
+        "explanation": "改用孩子链的 next 字段枚举同层孩子，避免将孩子链表误当作孩子—兄弟结点。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书未列答案；已依题意将 6.71 改写为孩子链表版本。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-74",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n按 6.73 的语法，单棵树输出为“结点标识”后可选地跟一对括号；括号内是其孩子构成的森林，森林中的相邻树用逗号分隔。孩子—兄弟链表刚好以 \\(firstchild\\) 指向该森林首根、以 \\(nextsibling\\) 串起后续根。\n\n~~~~c\nstatic void PrintGeneralTree(CSTree T) {\n    putchar(T->data);\n    if (T->firstchild != NULL) {\n        putchar('(');\n        for (CSTree c = T->firstchild; c != NULL; c = c->nextsibling) {\n            PrintGeneralTree(c);\n            if (c->nextsibling != NULL) putchar(',');\n        }\n        putchar(')');\n    }\n}\n\nvoid OutputGeneralList(CSTree T) {\n    if (T != NULL) PrintGeneralTree(T);\n}\n~~~~\n\n空树输出空串；叶结点只输出自己的标识。对非叶结点，循环恰好按孩子的兄弟次序输出每棵子树，并且只在相邻子树之间输出一个逗号，外层括号正好包住整个孩子森林。由结构归纳，输出符合 6.73 的带标号广义表语法。每个结点和链接访问常数次，时间 \\(O(n)\\)，递归栈 \\(O(h)\\)。",
+        "explanation": "将孩子—兄弟表示的 firstchild/nextsibling 精确映射为广义表的孩子森林及逗号分隔。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书未列答案；已独立实现孩子—兄弟链表到 6.73 广义表的递归输出。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-75",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n采用 6.73 的语法：树为一个大写字母，后面可选一个由逗号分隔的非空孩子森林。孩子链表版本把孩子存为 \\(ChildNode\\) 链，而不是把兄弟结点链接在树结点中。下面的递归下降算法允许空白字符；成功时必须刚好读完整个字符串。\n\n~~~~c\ntypedef struct ChildNode {\n    int child;\n    struct ChildNode *next;\n} ChildNode, *ChildPtr;\ntypedef struct { char data; ChildPtr firstchild; } CTBox;\ntypedef struct { CTBox nodes[MAX_TREE_SIZE]; int n, root; } CTree;\n\ntypedef struct { const char *s; int pos; CTree *T; int ok; } Parser;\n\nstatic void SkipSpace(Parser *P) {\n    while (P->s[P->pos] == ' ' || P->s[P->pos] == 10 || P->s[P->pos] == 9)\n        ++P->pos;\n}\n\nstatic int NewVertex(Parser *P, char x) {\n    if (P->T->n == MAX_TREE_SIZE) { P->ok = 0; return -1; }\n    int u = P->T->n++;\n    P->T->nodes[u].data = x;\n    P->T->nodes[u].firstchild = NULL;\n    return u;\n}\n\nstatic int ParseTree(Parser *P) {\n    SkipSpace(P);\n    char x = P->s[P->pos];\n    if (x < 'A' || x > 'Z') { P->ok = 0; return -1; }\n    ++P->pos;\n    int u = NewVertex(P, x);\n    if (!P->ok) return -1;\n\n    SkipSpace(P);\n    if (P->s[P->pos] != '(') return u;           /* 叶子 */\n    ++P->pos;\n    ChildPtr *tail = &P->T->nodes[u].firstchild;\n    for (;;) {\n        int v = ParseTree(P);                     /* 空括号不是合法森林 */\n        if (!P->ok) return -1;\n        ChildPtr e = malloc(sizeof *e);\n        if (e == NULL) { P->ok = 0; return -1; }\n        e->child = v; e->next = NULL;\n        *tail = e; tail = &e->next;\n\n        SkipSpace(P);\n        if (P->s[P->pos] == ',') { ++P->pos; continue; }\n        if (P->s[P->pos] == ')') { ++P->pos; return u; }\n        P->ok = 0;\n        return -1;\n    }\n}\n\nStatus CreateChildListFromGL(const char *s, CTree *T) {\n    Parser P = {s, 0, T, 1};\n    if (s == NULL || T == NULL) return ERROR;\n    T->n = 0; T->root = -1;\n    int r = ParseTree(&P);\n    SkipSpace(&P);\n    if (!P.ok || r < 0 || s[P.pos] != '\\\\0') {\n        DestroyCTree(T);                          /* 释放已分配孩子链 */\n        return ERROR;\n    }\n    T->root = r;\n    return OK;\n}\n~~~~\n\n\\(ParseTree\\) 成功返回时恰消费一棵树，读入位置停在逗号、右括号或串尾；它把每个递归返回的根下标追加到当前结点的孩子链尾部。因此按语法结构归纳，构成的孩子次序与字符序列完全一致。空串、空括号、非大写标识、括号或逗号不配对、超容量和分配失败返回错误；空树不属于 6.73 的非空树语法。设输入长度为 \\(L\\)、结点数为 \\(n\\)，时间 \\(O(L)\\)（结构部分为 \\(O(n)\\)），递归栈 \\(O(h)\\)，成品树空间 \\(O(n)\\)。",
+        "explanation": "用递归下降直接对应 6.73 文法，并针对孩子链表追加 child 索引而非设置兄弟指针。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书未列答案；已给出广义表到孩子链表的可验证递归构造。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-76",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n沿孩子链表输出 6.73 的广义表。根结点先输出标识；如果有孩子，则在括号中依次递归输出孩子链的每一项，并只在相邻项之间输出逗号。\n\n~~~~c\nstatic void PrintChildListTree(const CTree *T, int u) {\n    putchar(T->nodes[u].data);\n    ChildPtr p = T->nodes[u].firstchild;\n    if (p != NULL) {\n        putchar('(');\n        for (; p != NULL; p = p->next) {\n            PrintChildListTree(T, p->child);\n            if (p->next != NULL) putchar(',');\n        }\n        putchar(')');\n    }\n}\n\nvoid OutputChildListGeneralList(const CTree *T) {\n    if (T != NULL && T->n != 0) PrintChildListTree(T, T->root);\n}\n~~~~\n\n空树输出空串，叶结点只输出一个字母。每个非叶结点的孩子链恰对应其括号内的森林，链中的 \\(next\\) 次序恰对应逗号分隔的从左到右次序；对每棵孩子子树递归应用同一论证即可证明输出满足 6.73 语法并表示原树。每个结点和孩子链结点处理一次，时间 \\(O(n)\\)，递归辅助空间 \\(O(h)\\)。",
+        "explanation": "按孩子链表的 child 索引和 next 链逐项输出，保留广义表的孩子顺序和括号边界。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书未列答案；已独立实现孩子链表到 6.73 广义表的递归输出。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-08",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n满 \\(k\\) 叉树指每个非叶结点恰有 \\(k\\) 个孩子。设叶子数为 \\(n_0\\)，非叶结点数为 \\(n_1\\)。全树结点数为 \\(n_0+n_1\\)，所以边数为 \\(n_0+n_1-1\\)；另一方面，每个非叶结点贡献 \\(k\\) 条指向孩子的边，边数又为 \\(k n_1\\)。两式相等：\n\n$$\nn_0+n_1-1=k n_1.\n$$\n\n移项即得\n\n$$\n\\boxed{n_0=(k-1)n_1+1}.\n$$\n\n\\(k\\ge1\\)。当 \\(n_1=0\\) 时树只有根一个叶子，等式给出 \\(n_0=1\\)；当 \\(k=1\\) 时同样得到一条链只有一个叶子，均与结论一致。",
+        "explanation": "以满 k 叉树的边数双重计数完成证明，包含单结点树和 k=1 边界。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书未列答案；已完成独立的边数双重计数证明。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-09",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n以下深度 \\(H\\) 按层数计，且树非空。完全二叉树的第 \\(1\\) 至 \\(H-1\\) 层满，故\n\n$$\n2^{H-1}\\le n\\le2^H-1,\n\\qquad\\boxed{H=\\lfloor\\log_2 n\\rfloor+1}.\n$$\n\n再设叶子数为 \\(n_0\\)。顺序编号的完全二叉树中，下标 \\(\\lfloor n/2\\rfloor+1\\) 至 \\(n\\) 的结点没有孩子，因而\n\n$$\nn_0=n-\\lfloor n/2\\rfloor=\\lceil n/2\\rceil.\n$$\n\n所以仅给 \\(n_0\\) 时，\\(n\\) 可能是 \\(2n_0-1\\) 或 \\(2n_0\\)，相应深度为\n\n$$\nH\\in\\left\\{\n\\lfloor\\log_2(2n_0-1)\\rfloor+1,\n\\ \\lfloor\\log_2(2n_0)\\rfloor+1\n\\right\\}.\n$$\n\n这两值在 \\(n_0\\) 不是 2 的幂时相同，均为 \\(\\lfloor\\log_2 n_0\\rfloor+2\\)；当 \\(n_0=2^p\\) 时分别为 \\(p+1\\) 与 \\(p+2\\)，故叶子数本身不能唯一确定深度。例如 \\(n_0=2\\) 时，\\(n=3\\) 的完全二叉树深度为 2，而 \\(n=4\\) 的完全二叉树深度为 3。若另给 \\(n\\) 的奇偶性即可在上述两个值中唯一选定。若约定深度按边数计，以上结果均减 1。",
+        "explanation": "先由完全性推导 n 的精确深度，再由 n0=ceil(n/2) 给出 n0 单独不足以唯一确定 H 的完整分情形结论。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "原书未列答案；已独立推导，并明确题干只给叶子数时存在的幂次边界歧义。"
+      }
+    },
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-30",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n以下以邻接表存储、顶点下标为 \\(0..n-1\\) 的简单有向图为例。对每个起点 \\(s\\)，深度优先搜索只允许走到下标不小于 \\(s\\) 的顶点；\\(inPath\\) 禁止当前路径重复顶点。这样一条回路只会在其最小下标顶点作为起点时输出一次。\n\n~~~~c\nstatic int path[MAXV], pathLen;\nstatic int inPath[MAXV];\n\nstatic void EnumerateFrom(const ALGraph *G, int s, int u) {\n    for (ArcNode *a = G->vertices[u].firstarc; a != NULL; a = a->nextarc) {\n        int v = a->adjvex;\n        if (v == s) {\n            if (pathLen > 1) OutputCircuit(path, pathLen, s);\n        } else if (v > s && !inPath[v]) {\n            inPath[v] = 1;\n            path[pathLen++] = v;\n            EnumerateFrom(G, s, v);\n            --pathLen;\n            inPath[v] = 0;\n        }\n    }\n}\n\nvoid AllSimpleCircuits(const ALGraph *G) {\n    for (int s = 0; s < G->vexnum; ++s) {\n        for (int i = 0; i < G->vexnum; ++i) inPath[i] = 0;\n        path[0] = s;\n        pathLen = 1;\n        inPath[s] = 1;\n        EnumerateFrom(G, s, s);\n    }\n}\n~~~~\n\n\\(OutputCircuit(path,pathLen,s)\\) 输出 \\(path[0],\\ldots,path[pathLen-1],s\\)。默认简单有向图无自环，且“简单回路”长度至少为 2；若课程把自环也计为简单回路，在 \\(v=s\\) 时另对 \\(pathLen=1\\) 输出即可。若邻接表允许重弧，应先去重，否则同一顶点序列会被重复报告。\n\n任一输出回路的顶点在当前 \\(path\\) 中互异，闭合弧只回到 \\(s\\)，故它是简单回路；反之，任一简单回路有唯一最小下标顶点 \\(s\\)，从该 \\(s\\) 沿回路方向的分支不会被下标限制剪掉，必被搜索到，且不会由其他起点再次输出。工作空间为 \\(O(n)\\)。设 \\(P\\) 为搜索到的部分简单路径数，运行时间与这些路径末端被扫描的出弧数及输出量成正比；在稠密图中为指数级，最坏 \\(O(n!)\\)，这与“所有回路”本身可有阶乘级输出相一致。",
+        "explanation": "用最小顶点作唯一锚点的 DFS 枚举所有简单回路，说明自环、重弧、去重正确性与输出敏感复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书未列答案；已补充邻接表上的全部简单有向回路枚举。"
+      }
+    },
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-31",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n用两次深度优先搜索完成强连通分量分解。第一次在 \\(G\\) 上按完成时刻压栈，第二次在逆图 \\(G^T\\) 上按出栈次序搜索；每次第二遍 DFS 所得到的顶点集合即输出为一个强连通分量。\n\n~~~~c\nstatic void DFSFinish(const ALGraph *G, int u, int seen[], Stack *S) {\n    seen[u] = 1;\n    for (ArcNode *a = G->vertices[u].firstarc; a != NULL; a = a->nextarc)\n        if (!seen[a->adjvex]) DFSFinish(G, a->adjvex, seen, S);\n    Push(S, u);\n}\n\nstatic void DFSCollect(const ALGraph *GT, int u, int seen[], Vector *C) {\n    seen[u] = 1;\n    VectorPush(C, u);\n    for (ArcNode *a = GT->vertices[u].firstarc; a != NULL; a = a->nextarc)\n        if (!seen[a->adjvex]) DFSCollect(GT, a->adjvex, seen, C);\n}\n\nStatus StronglyConnectedComponents(const ALGraph *G) {\n    ALGraph GT;\n    Stack S;\n    int seen[MAXV] = {0};\n    if (BuildTranspose(G, &GT) == ERROR) return ERROR;\n    InitStack(&S);\n    for (int u = 0; u < G->vexnum; ++u)\n        if (!seen[u]) DFSFinish(G, u, seen, &S);\n\n    for (int u = 0; u < G->vexnum; ++u) seen[u] = 0;\n    while (!StackEmpty(S)) {\n        int u;\n        Pop(&S, &u);\n        if (!seen[u]) {\n            Vector C; InitVector(&C);\n            DFSCollect(&GT, u, seen, &C);\n            OutputComponent(&C);\n            DestroyVector(&C);\n        }\n    }\n    DestroyStack(&S);\n    DestroyGraph(&GT);\n    return OK;\n}\n~~~~\n\n\\(BuildTranspose\\) 在线性扫描原邻接表时把每条弧 \\(u\\to v\\) 改挂为 \\(v\\to u\\)。第一次 DFS 的完成顺序对应强连通分量缩点 DAG 的拓扑后序；按其逆序在 \\(G^T\\) 搜索不会越过当前尚未输出的分量，因此恰收集一个强连通分量。孤立顶点会作为单元素分量输出，图不连通也由外层循环覆盖。两次 DFS、建逆图均处理每个顶点和弧常数次，时间 \\(O(|V|+|E|)\\)；若逆表需新建，额外空间 \\(O(|V|+|E|)\\)，已有逆邻接表时工作空间为 \\(O(|V|)\\)。",
+        "explanation": "完整给出 Kosaraju 两遍 DFS、逆图建立、孤立/非连通边界和线性复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书未列答案；已补充有向图强连通分量的完整邻接表算法。"
+      }
+    },
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-32",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设输入为带权无向图的邻接表（每条无向边在两端各出现一次），边权均为有限值。对每个尚未纳入的顶点启动一次 Prim；该次 Prim 结束时正好得到一个连通分量的最小生成树。被选中顶点 \\(u\\) 的 \\(parent[u]\\) 已在树中，故把 \\(u\\) 追加为它的孩子；没有双亲的起点则追加到森林根的兄弟链。\n\n~~~~c\ntypedef struct CSNode {\n    VertexType data;\n    struct CSNode *firstchild, *nextsibling;\n} CSNode, *CSForest;\n\nStatus PrimMinimumSpanningForest(const ALGraph *G, CSForest *F) {\n    int in[MAXV] = {0}, parent[MAXV];\n    Weight low[MAXV];\n    CSNode *node[MAXV] = {0}, *lastChild[MAXV] = {0}, *lastRoot = NULL;\n    const Weight INF = InfinityWeight();\n    *F = NULL;\n    for (int v = 0; v < G->vexnum; ++v) {\n        low[v] = INF;\n        parent[v] = -1;\n    }\n\n    for (int s = 0; s < G->vexnum; ++s) {\n        if (in[s]) continue;\n        low[s] = 0;\n        for (;;) {\n            int u = -1;\n            for (int v = 0; v < G->vexnum; ++v)\n                if (!in[v] && (u == -1 || low[v] < low[u])) u = v;\n            if (u == -1 || low[u] == INF) break; /* 当前分量已完成 */\n\n            in[u] = 1;\n            node[u] = NewCSNode(G->vertices[u].data);\n            if (node[u] == NULL) { DestroyCSForest(*F); return OVERFLOW; }\n            if (parent[u] == -1) {\n                if (*F == NULL) *F = node[u];\n                else lastRoot->nextsibling = node[u];\n                lastRoot = node[u];\n            } else {\n                CSNode *p = node[parent[u]];\n                if (p->firstchild == NULL) p->firstchild = node[u];\n                else lastChild[parent[u]]->nextsibling = node[u];\n                lastChild[parent[u]] = node[u];\n            }\n            for (ArcNode *a = G->vertices[u].firstarc; a != NULL; a = a->nextarc) {\n                int v = a->adjvex;\n                if (!in[v] && a->weight < low[v]) {\n                    low[v] = a->weight;\n                    parent[v] = u;\n                }\n            }\n        }\n    }\n    return OK;\n}\n~~~~\n\n空图返回空森林；孤立顶点以单结点树加入根兄弟链。每次选择的 \\(u\\) 都由当前已选集合与未选集合之间的最轻边连接（分量起点除外），由割性质可安全加入；一轮结束后覆盖且仅覆盖一个连通分量，因此所有轮次合起来是最小生成森林。每个选择线性扫描 \\(|V|\\) 个候选，所有邻接边扫描一次，时间 \\(O(|V|^2+|E|)\\)，对简单图为 \\(O(|V|^2)\\)；辅助数组 \\(O(|V|)\\)，输出森林 \\(O(|V|)\\)。相等边权的任选规则可能产生不同但同样最优的森林。",
+        "explanation": "按邻接表改写 Prim，并将 parent 选边即时编码为孩子—兄弟森林，覆盖断连和孤立顶点。",
+        "correction": {
+          "verified": "**独立审校修正（非原书摘录）**\n\n设输入为带权无向图的邻接表，每条无向边在两个端点的表中各出现一次，且边权有限。对每个尚未纳入的顶点启动一次 Prim；一次结束恰得到一个连通分量的最小生成树。被选中顶点 \\(u\\) 的 \\(parent[u]\\) 已在树中，故把 \\(u\\) 追加为该双亲的孩子；没有双亲的起点追加到森林根的兄弟链。若建结点失败，输出参数必须恢复为空，不能留下指向已释放部分森林的悬空指针。\n\n~~~~c\ntypedef struct CSNode {\n    VertexType data;\n    struct CSNode *firstchild, *nextsibling;\n} CSNode, *CSForest;\n\nStatus PrimMinimumSpanningForest(const ALGraph *G, CSForest *F) {\n    int in[MAXV] = {0}, parent[MAXV];\n    Weight low[MAXV];\n    CSNode *node[MAXV] = {0}, *lastChild[MAXV] = {0}, *lastRoot = NULL;\n    const Weight INF = InfinityWeight();\n    if (G == NULL || F == NULL || G->vexnum < 0 || G->vexnum > MAXV) return ERROR;\n    *F = NULL;\n    for (int v = 0; v < G->vexnum; ++v) {\n        low[v] = INF;\n        parent[v] = -1;\n    }\n\n    for (int s = 0; s < G->vexnum; ++s) {\n        if (in[s]) continue;\n        low[s] = 0;\n        for (;;) {\n            int u = -1;\n            for (int v = 0; v < G->vexnum; ++v)\n                if (!in[v] && (u == -1 || low[v] < low[u])) u = v;\n            if (u == -1 || low[u] == INF) break; /* 当前分量已完成 */\n\n            in[u] = 1;\n            node[u] = NewCSNode(G->vertices[u].data);\n            if (node[u] == NULL) {\n                DestroyCSForest(*F);\n                *F = NULL;\n                return OVERFLOW;\n            }\n            if (parent[u] == -1) {\n                if (*F == NULL) *F = node[u];\n                else lastRoot->nextsibling = node[u];\n                lastRoot = node[u];\n            } else {\n                CSNode *p = node[parent[u]];\n                if (p->firstchild == NULL) p->firstchild = node[u];\n                else lastChild[parent[u]]->nextsibling = node[u];\n                lastChild[parent[u]] = node[u];\n            }\n            for (ArcNode *a = G->vertices[u].firstarc; a != NULL; a = a->nextarc) {\n                int v = a->adjvex;\n                if (!in[v] && a->weight < low[v]) {\n                    low[v] = a->weight;\n                    parent[v] = u;\n                }\n            }\n        }\n    }\n    return OK;\n}\n~~~~\n\n空图返回空森林，孤立顶点以单结点树加入根兄弟链。对每个分量，非起点 \\(u\\) 由已选集合与未选集合之间的最轻边连接，按割性质该边可安全加入；所有起点轮次合起来因此是最小生成森林。失败时部分森林先被销毁且 \\(F\\) 被置空，调用者不会持有已释放内存。每个顶点选择线性扫描 \\(|V|\\) 个候选，所有邻接边扫描一次，时间 \\(O(|V|^2+|E|)\\)，对简单图为 \\(O(|V|^2)\\)；辅助数组 \\(O(|V|)\\)，成功输出森林 \\(O(|V|)\\)。相等权边可产生不同但同样最优的森林。",
+          "explanation": "补入分配失败后的 DestroyCSForest 与 *F=NULL 复位，并保留邻接表 Prim、断连处理和复杂度分析。",
+          "reason": "交叉复审发现原分配失败分支销毁部分森林后未清空输出指针，会把悬空指针返回给调用者。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书未列答案；已补充邻接表 Prim 的最小生成森林算法和孩子—兄弟输出表示。"
+      }
+    },
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-34",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n这正是有向无环图的拓扑编号。先统计每个顶点入度，把所有入度为零的顶点入队；每取出一个顶点就赋下一个编号，并删除它的出弧。这里 \\(number[u]\\) 是新赋的编号，不是顶点在邻接表中的原下标。\n\n~~~~c\nStatus TopologicalNumber(ALGraph *G) {\n    int indegree[MAXV] = {0};\n    Queue Q;\n    int nextNumber = 1;\n    InitQueue(&Q);\n\n    for (int u = 0; u < G->vexnum; ++u)\n        for (ArcNode *a = G->vertices[u].firstarc; a != NULL; a = a->nextarc)\n            ++indegree[a->adjvex];\n    for (int u = 0; u < G->vexnum; ++u)\n        if (indegree[u] == 0) EnQueue(&Q, u);\n\n    while (!QueueEmpty(Q)) {\n        int u;\n        DeQueue(&Q, &u);\n        G->vertices[u].number = nextNumber++;\n        for (ArcNode *a = G->vertices[u].firstarc; a != NULL; a = a->nextarc) {\n            int v = a->adjvex;\n            if (--indegree[v] == 0) EnQueue(&Q, v);\n        }\n    }\n    return nextNumber == G->vexnum + 1 ? OK : ERROR;\n}\n~~~~\n\nDAG 的任一非空子图都存在入度为零的顶点，故循环可为每个顶点赋号。对任一弧 \\(u\\to v\\)，\\(v\\) 的入度至少包含该弧，只有 \\(u\\) 已出队并删除该弧后 \\(v\\) 才可能入队；因此 \\(number[u]<number[v]\\)。空图成功但不写入编号；若实际输入含环，队列提前空而返回错误。入度统计和删边各扫描每条弧一次，时间 \\(O(|V|+|E|)\\)，队列与入度数组空间 \\(O(|V|)\\)。",
+        "explanation": "以 Kahn 拓扑排序生成新编号，给出每条弧编号有序的证明及环检测边界。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书未列答案；已补充 DAG 拓扑编号算法与线性复杂度。"
+      }
+    },
+    {
+      "id": "ds-yan-weimin-exercises-07-graph-7-36",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n路径长度按弧数计。先用拓扑排序得到 \\(order[0..n-1]\\)，其中任一弧 \\(u\\to v\\) 都满足 \\(u\\) 在 \\(v\\) 前；再逆序处理顶点。处理 \\(u\\) 时，它的所有后继 \\(v\\) 的最长路径长度已在 \\(MPL[v]\\) 中。\n\n~~~~c\nStatus FillMaximumPathLengths(ALGraph *G) {\n    int order[MAXV], n;\n    if (TopologicalOrder(G, order, &n) == ERROR) return ERROR;\n\n    for (int k = n - 1; k >= 0; --k) {\n        int u = order[k];\n        G->vertices[u].MPL = 0;                  /* 汇点或暂定最长长度 */\n        for (ArcNode *a = G->vertices[u].firstarc; a != NULL; a = a->nextarc) {\n            int v = a->adjvex;\n            int candidate = G->vertices[v].MPL + 1;\n            if (candidate > G->vertices[u].MPL)\n                G->vertices[u].MPL = candidate;\n        }\n    }\n    return OK;\n}\n~~~~\n\n汇点没有出弧，循环后保持 \\(MPL=0\\)。对非汇点，任何从 \\(u\\) 出发的最长路径必先取某条 \\(u\\to v\\)，其余部分最长为 \\(MPL[v]\\)，故递推式\n\n$$\nMPL[u]=\\max_{(u,v)\\in E}\\{1+MPL[v]\\}\n$$\n\n给出正确值；逆拓扑序保证右侧均已求出。空图成功且无字段可填，若图并非 DAG 则拓扑排序返回错误。拓扑排序、逆序初始化和所有邻接表扫描共需 \\(O(|V|+|E|)\\) 时间，除题设的 \\(MPL\\) 域外，\\(order\\)、入度和队列占 \\(O(|V|)\\) 辅助空间。",
+        "explanation": "以逆拓扑序动态规划计算每个顶点的最长出发路径，明确长度单位、汇点和非 DAG 处理。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书未列答案；已补充邻接表 DAG 最长路径长度的线性时间算法。"
+      }
+    }
+  ],
+  "unresolved": []
+}

@@ -1,0 +1,318 @@
+{
+  "schemaVersion": "textbook-answer-audit-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "04-string",
+    "06-tree-and-binary-tree"
+  ],
+  "updates": [
+    {
+      "id": "book-ds-yan-04-20",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：采用 ADT String 中与 Replace 一致的逐次、从左至右的不重叠删除语义：找到一次 T 后删掉它，再从该位置继续查找；因此删除使两端新相邻后若又形成 T，也会在下一轮被删除。T 不能为空串，否则没有有限的删除过程。以下按教材的堆串 HString（非空串的 ch[0..length-1] 为连续字符，空串 ch 为 NULL）以及基本操作 Index、StrDelete 编写；若 T 与 S 共享同一块存储，须先用 StrCopy 复制 T 到独立临时串 pat。\n\n~~~c\nStatus DeleteAll(HString &S, HString T) {\n    if (T.length == 0) return ERROR;\n    int pos = 1;\n    while (pos <= S.length - T.length + 1) {\n        int q = Index(S, T, pos);       // 找从 pos 起的第一次出现\n        if (q == 0) break;\n        if (StrDelete(S, q, T.length) != OK) return ERROR;\n        pos = q;                        // 空替换：检查删除后移到 q 的字符\n    }\n    return OK;\n}\n~~~\n\n循环不变式是：当前位置 pos 之前已经不存在按该逐次语义尚需删除的出现；每次删除一个长度为 |T| 的出现，串长严格减少，故必终止。空串 S 直接返回 OK。设删除次数为 q、过程中的最大串长为 L；教材的朴素 Index 每次候选比较要复制并比较至多 |T| 个字符，删除还需移动 O(L) 个字符，故安全的最坏时间上界为 O(qL|T|)。额外空间为 O(1)（不计为别名保护复制的 |T| 空间）。",
+        "explanation": "明确采用教材 Replace 的不重叠、逐次语义，并处理空模式、别名和删除后新相邻字符。",
+        "correction": {
+          "verified": "独立参考解答（非原书摘录）：采用 ADT String 中与 Replace 一致的逐次、从左至右的不重叠删除语义：找到一次 T 后删掉它，再从该位置继续查找；删除使两端新相邻后若又形成 T，也会在下一轮删除。T 不能为空串，否则没有有限的删除过程。以下按教材的堆串 HString（非空串的 ch[0..length-1] 为连续字符，空串 ch 为 NULL）和基本操作 Index、StrDelete 编写；若 T 与 S 共享存储，须先用 StrCopy 把 T 复制到独立临时串 pat。\n\n~~~c\nStatus DeleteAll(HString &S, HString T) {\n    int pos = 1;\n    if (T.length == 0) return ERROR;\n    while (pos <= S.length - T.length + 1) {\n        int hit = Index(S, T, pos);  // 从 pos 起的最左出现\n        if (hit == 0) break;\n        if (StrDelete(S, hit, T.length) != OK) return ERROR;\n        pos = hit;                   // 重查删除后在接合处形成的出现\n    }\n    return OK;\n}\n~~~\n\n循环不变式是 pos 之前已经不存在按该逐次语义尚需删除的出现。每次成功迭代删去一个长度为 |T| 的子串，故串长严格减少而必然终止；空主串或 |T| 大于当前串长时循环直接结束。\n\n设 q 为实际删除次数，L 为过程中的最大串长。Index 最多调用 q+1 次：q 次成功定位，外加至多一次最终未命中定位；每次朴素定位最坏为 O(L|T|)，每次 StrDelete 的移动为 O(L)。总时间因此为 O((q+1)L|T|+qL)=O((q+1)L|T|)，其中 |T|>=1。特别地，q=0 时仍可能有一次 O(L|T|) 的失败扫描。额外工作空间为 O(1)（不计别名保护所需的 O(|T|) 临时空间）。",
+          "reason": "交叉复审指出原复杂度只按 q 次成功删除计数，漏掉了 q=0 时仍会执行的一次失败 Index 扫描；现改为显式计入至多 q+1 次定位。",
+          "explanation": "保留原有逐次删除、接合处重查、空模式和别名处理，只修正零次匹配边界下的时间上界。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已按 HString 与教材基本串操作给出独立、可执行的删除算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-24",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：HString 的非空串以 ch[0..length-1] 保存，空串以 ch==NULL、length==0 表示。先分配新缓冲区并复制两个源串，最后才释放 T 的旧缓冲区；这样 T 与 S1 或 S2 为同一个串时也安全。长度和必须先检查整数溢出。\n\n~~~c\nStatus Concat(HString &T, HString S1, HString S2) {\n    if (S1.length < 0 || S2.length < 0 ||\n        S1.length > INT_MAX - S2.length) return ERROR;\n    int n = S1.length + S2.length;\n    char *buf = NULL;\n    if (n > 0) {\n        buf = (char *)malloc((size_t)n * sizeof(char));\n        if (buf == NULL) return OVERFLOW;\n        for (int i = 0; i < S1.length; ++i) buf[i] = S1.ch[i];\n        for (int j = 0; j < S2.length; ++j) buf[S1.length + j] = S2.ch[j];\n    }\n    if (T.ch != NULL) free(T.ch);\n    T.ch = buf;\n    T.length = n;\n    return OK;\n}\n~~~\n\n复制完成前不改变 T，故分配失败时 T 保持原值；两个源串都空时正确得到空串。结果前 |S1| 个字符来自 S1，随后 |S2| 个字符来自 S2，正是联接定义。时间 O(|S1|+|S2|)，新结果所需额外空间 O(|S1|+|S2|)。",
+        "explanation": "采用教材 HString 的连续堆存储表示，并额外保证结果串与源串别名时不发生悬空访问。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入堆串联接的独立实现，含空串、溢出和别名边界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-25",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：教材中 Replace(&S,T,V) 的语义是用 V 逐次替换 S 中所有与 T 相等的不重叠子串。T 必须非空；每次置换后，从插入的 V 之后继续寻找，因而不会再次置换刚插入的 V，也保证已处理的各次出现互不重叠。以下直接使用 HString 的 Index、StrDelete、StrInsert。T、V 应是不会被 S 的重新分配影响的独立串；若可能与 S 别名，先以 StrCopy 取得临时副本。\n\n~~~c\nStatus Replace(HString &S, HString T, HString V) {\n    if (T.length == 0) return ERROR;\n    int pos = 1;\n    while (pos <= S.length - T.length + 1) {\n        int q = Index(S, T, pos);\n        if (q == 0) break;\n        if (StrDelete(S, q, T.length) != OK) return ERROR;\n        if (StrInsert(S, q, V) != OK) return OVERFLOW;\n        pos = q + V.length;\n    }\n    return OK;\n}\n~~~\n\n每轮 q 都是尚未处理后缀中的最左匹配，删除其 T 再插入 V 后，pos 指向 V 后的首个待检位置；这保持了“不重叠”的不变式。V 为空时 pos 保持为 q，恰好继续检查删除后在该处新相邻的字符。空主串或 T 比 S 长时循环不进入。设 q 为替换次数、L 为中间串最大长度；朴素 Index 的候选比较和每次堆串插删的移动均至多与 L 成正比，故安全的最坏时间上界为 O(qL(|T|+1))，即 O(qL|T|)（|T|>=1）。额外工作空间 O(1)（不计别名保护副本）。",
+        "explanation": "严格采用题中 Replace 的不重叠定义，并说明空模式、空替换、别名与堆存储重分配。",
+        "correction": {
+          "verified": "独立参考解答（非原书摘录）：教材 Replace(&S,T,V) 的语义是用 V 逐次替换 S 中所有与 T 相等的不重叠子串。T 必须非空；每次置换后从插入 V 之后继续寻找，因此不会再次置换刚插入的 V，且各次处理的原匹配互不重叠。以下直接使用 HString 的 Index、StrDelete、StrInsert。T、V 必须在 S 可能重分配时仍有效；若二者可能与 S 别名，先以 StrCopy 取得独立临时副本。\n\n~~~c\nStatus Replace(HString &S, HString T, HString V) {\n    int pos = 1;\n    if (T.length == 0) return ERROR;\n    while (pos <= S.length - T.length + 1) {\n        int hit = Index(S, T, pos);\n        if (hit == 0) break;\n        if (StrDelete(S, hit, T.length) != OK) return ERROR;\n        if (StrInsert(S, hit, V) != OK) return OVERFLOW;\n        pos = hit + V.length;        // 跳过刚插入的 V\n    }\n    return OK;\n}\n~~~\n\n每轮 hit 都是未处理后缀中的最左匹配；删除 T 再插入 V 后，pos 指向 V 后的首个待检位置，保持不重叠不变式。V 为空时 pos 保持为 hit，恰好重新检查删除后形成的接合处。空主串或 T 比 S 长时循环不进入。\n\n设 q 为实际替换次数，L 为初始串和所有中间串的最大长度。Index 至多调用 q+1 次，其中最后一次可以是失败定位；每次最坏为 O(L|T|)。q 次删除和插入的移动总成本为 O(q(L+|V|))；当 q>0 时 |V|<=L，而 q=0 时该项为 0。因此总时间为 O((q+1)L|T|+q(L+|V|))，可安全写成 O((q+1)L(|T|+1))（|T|>=1）。这包含 q=0 时仍可能发生的 O(L|T|) 未命中扫描。额外工作空间为 O(1)（不计别名保护副本）。",
+          "reason": "交叉复审指出原复杂度只随 q 次成功替换增长，遗漏零次替换仍可能进行的一次失败 Index 扫描；现将定位次数改为至多 q+1 次。",
+          "explanation": "保留原有不重叠推进、空 V 的接合处检查及别名保护，并将插入 V 的移动成本和最终未命中定位一并纳入复杂度。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已按教材 ADT String 的 Replace 定义补入独立实现。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-26",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：按 HString 的 0 基 ch 数组实现，而题目位置 pos 仍采用 ADT 规定的 1 基语义：在 S 的第 pos 个字符之前插入 T，故 1<=pos<=S.length+1。分配独立的新缓冲区而非直接 realloc，可同时处理 T 与 S 别名并在分配失败时保持 S 不变。\n\n~~~c\nStatus StrInsert(HString &S, int pos, HString T) {\n    if (pos < 1 || pos > S.length + 1 || T.length < 0 ||\n        S.length > INT_MAX - T.length) return ERROR;\n    if (T.length == 0) return OK;\n\n    int left = pos - 1;\n    int n = S.length + T.length;\n    char *buf = (char *)malloc((size_t)n * sizeof(char));\n    if (buf == NULL) return OVERFLOW;\n\n    for (int i = 0; i < left; ++i) buf[i] = S.ch[i];\n    for (int i = 0; i < T.length; ++i) buf[left + i] = T.ch[i];\n    for (int i = left; i < S.length; ++i)\n        buf[T.length + i] = S.ch[i];\n\n    if (S.ch != NULL) free(S.ch);\n    S.ch = buf;\n    S.length = n;\n    return OK;\n}\n~~~\n\n三个复制区间依次是 S 的前缀、T 和 S 的后缀，覆盖且只覆盖新串的全部位置；因而结果正是在 pos 前插入 T。pos=1、pos=S.length+1、空 S、空 T 和长度溢出均已处理。时间 O(|S|+|T|)，额外空间 O(|S|+|T|)。",
+        "explanation": "遵循教材的 HString 表示和 1 基 pos 定义，并避免直接重分配在别名时覆盖源字符。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补入堆串插入操作的独立实现与边界说明。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-06",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：以下位置均按串的 1 基位置计。先在不改动 s 的情况下取出五个子串：\n\n| 临时串 | 操作 | 值 |\n| --- | --- | --- |\n| a | SubString(a,s,1,2) | (X |\n| b | SubString(b,s,6,1) | + |\n| c | SubString(c,s,4,2) | Z) |\n| d | SubString(d,s,7,1) | * |\n| e | SubString(e,s,3,1) | Y |\n\n再按顺序联接：u=Concat(a,b) 得 (X+；v=Concat(u,c) 得 (X+Z)；u=Concat(v,d) 得 (X+Z)*；最后 t=Concat(u,e) 得\n\n$$\n t=\\text{'(X+Z)*Y'}.\n$$\n\n所有 SubString 的起点和长度都落在原串 s 的长度 7 内，故满足其前置条件。若要求就地把变量 s 改为目标值，可在所有临时串取得后执行 StrCopy(&s,t) 或以 s 作为最后一次 Concat 的输出。固定实例只复制常数个字符；一般地，所列操作的时间与被复制字符总数成正比，为 O(|s|)，临时串总空间也为 O(|s|)。",
+        "explanation": "逐项列出 1 基子串位置与联接顺序，可直接反算得到目标串。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已用教材规定的求子串与联接基本操作独立核验变换。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-08",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：采用教材 KMP 的 1 基下标约定：失配时 j=nextval[j]，当 j=0 时主串指针 i 前进并令 j 回到 1。模式 pat=ADABBADADA 的 nextval 为：\n\n| j | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |\n| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |\n| pat[j] | A | D | A | B | B | A | D | A | D | A |\n| nextval[j] | 0 | 1 | 0 | 2 | 1 | 0 | 1 | 0 | 4 | 0 |\n\n匹配轨迹可压缩为下列关键比较（区间表示各位置逐个相等）：\n\n| 主串 i | 模式 j | 结果与下一状态 |\n| --- | --- | --- |\n| 1,2 | 1,2 | A、D 均匹配，至 (3,3) |\n| 3 | 3 | B 不等于 A，j=nextval[3]=0；随后消耗 s[3]，至 (4,1) |\n| 4..9 | 1..6 | 六个字符均匹配，至 (10,7) |\n| 10 | 7 | A 不等于 D，j=nextval[7]=1 |\n| 10 | 1 | A 匹配，至 (11,2) |\n| 11 | 2 | B 不等于 D，j=nextval[2]=1 |\n| 11 | 1 | B 不等于 A，j=0；随后消耗 s[11]，至 (12,1) |\n| 12..21 | 1..10 | ADABBADADA 全部匹配，j 变为 11 |\n\n结束时 i=22、j=11，故第一次成功位置为 i-|pat|=22-10=12，即 s 的第 12 个字符开始。nextval 的每一项都来自最长可复用相等前后缀；例如第 9 位失配后可复用长度 4 的前缀，故 nextval[9]=4。预处理时间和额外空间分别为 O(|pat|)，本次匹配时间 O(|s|)，KMP 总时间 O(|s|+|pat|)。",
+        "explanation": "按教材的 1 基 nextval 与 j=0 约定逐步复算，已核对成功起点为第 12 位。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已独立重算 nextval 和完整的首次 KMP 匹配过程。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-38",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：沿用 6.37 的普通二叉链表 BiTree 和栈的基本操作。栈元素同时保存结点指针及返回阶段：stage=0 表示左子树刚完成、尚未处理右子树；stage=1 表示右子树也已完成、现在应访问根。\n\n~~~c\ntypedef struct { BiTree p; unsigned char stage; } Frame;\n\nvoid PostOrder_NonRecursive(BiTree T) {\n    Stack S; InitStack(&S);              // 栈元素类型为 Frame\n    BiTree p = T;\n    while (p != NULL || !StackEmpty(S)) {\n        while (p != NULL) {\n            Push(&S, (Frame){p, 0});     // 进入左子树前的返回点\n            p = p->lchild;\n        }\n        Frame f; Pop(&S, &f);\n        if (f.stage == 0) {\n            f.stage = 1;\n            Push(&S, f);                 // 右子树完成后才访问根\n            p = f.p->rchild;\n        } else {\n            Visit(f.p->data);\n            p = NULL;\n        }\n    }\n}\n~~~\n\n栈中的 stage=0 帧恰表示“左子树已遍历、右子树未遍历”，stage=1 帧恰表示“两棵子树均已遍历”；因此访问顺序为左、右、根。空树不入栈。每个结点至多两次入栈、两次出栈，时间 O(n)，辅助栈空间 O(h)，其中 h 为树高。",
+        "explanation": "显式把后序遍历的两种返回点与题目要求的标志一同压栈。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "已按 6.37 的二叉链表与栈操作条件补入独立后序非递归算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-40",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：可以不设栈。对普通二叉链表增加 parent 域，并保证根的 parent 为 NULL、每条孩子边的反向 parent 正确。用 prev 记住刚离开的结点，就能判定当前是从双亲下来、从左子树回来还是从右子树回来；prev 和 cur 只是常数个工作指针，不构成栈。\n\n~~~c\ntypedef struct BiPNode {\n    TElemType data;\n    struct BiPNode *lchild, *rchild, *parent;\n} BiPNode, *BiPTree;\n\nStatus InOrder_ByParent(BiPTree root) {\n    BiPTree prev = NULL, cur = root, next;\n    while (cur != NULL) {\n        if (prev == cur->parent) {             // 从双亲第一次到达 cur\n            if (cur->lchild != NULL) next = cur->lchild;\n            else {\n                if (!Visit(cur->data)) return ERROR;\n                next = cur->rchild ? cur->rchild : cur->parent;\n            }\n        } else if (prev == cur->lchild) {      // 左子树已完成\n            if (!Visit(cur->data)) return ERROR;\n            next = cur->rchild ? cur->rchild : cur->parent;\n        } else {                                // 从右子树返回\n            next = cur->parent;\n        }\n        prev = cur;\n        cur = next;\n    }\n    return OK;\n}\n~~~\n\n第一次到达结点时先尽量向左，左子树返回时访问结点再向右，右子树返回时向上，正是中序的左、根、右规则。空树立即返回。每条父子边只作常数次来回，时间 O(n)，额外空间 O(1)。",
+        "explanation": "只利用新增的 parent 域和两个移动指针辨别返回方向，不修改树也不使用递归栈。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "已按仅增设双亲域的条件补入无栈中序遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-41",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：令 k 为可修改的剩余访问次数，且输入时 k>=1。先序访问一个非空结点时先将 k 减一；恰减到 0 的结点就是所求。返回结点指针可明确区分“未找到”和结点值本身。\n\n~~~c\nBiTree PreOrderKth(BiTree T, int *k) {\n    if (T == NULL || *k <= 0) return NULL;\n    if (--(*k) == 0) return T;            // 先序先访问根\n    BiTree q = PreOrderKth(T->lchild, k);\n    if (q != NULL) return q;\n    return PreOrderKth(T->rchild, k);\n}\n\nStatus GetPreOrderKth(BiTree T, int k, TElemType *e) {\n    if (k < 1 || e == NULL) return ERROR;\n    BiTree q = PreOrderKth(T, &k);\n    if (q == NULL) return ERROR;          // k 大于结点数或空树\n    *e = q->data;\n    return OK;\n}\n~~~\n\n递归调用的顺序严格为根、左、右，每个已访问结点恰使 k 减一，因此 k 首次为 0 时正好是原先序序列第 k 个结点。找到后立即向上返回，时间 O(min(k,n))，最坏 O(n)，递归辅助空间 O(h)。",
+        "explanation": "以剩余序号作为递归状态，覆盖空树、非法 k 和 k 超出结点数。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "已按先序根左规则补入独立递归算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-42",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：空树没有叶子；非空且左右孩子都为空的结点恰为一个叶子；其余结点的叶子数是两棵子树叶子数之和。\n\n~~~c\nint LeafCount(BiTree T) {\n    if (T == NULL) return 0;\n    if (T->lchild == NULL && T->rchild == NULL) return 1;\n    return LeafCount(T->lchild) + LeafCount(T->rchild);\n}\n~~~\n\n三个分支分别对应空子树、叶结点和内部结点，递归子问题互不重叠，故归纳可得返回值正是该子树的叶子数。每个结点访问一次，时间 O(n)，递归辅助空间 O(h)。",
+        "explanation": "明确给出空树和叶结点的基例，以及内部结点的可加递归关系。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "已补入叶结点计数的独立递归解答。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-43",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：对每个非空结点先交换它的左右孩子指针，再递归处理交换后的两棵子树；交换前后对子树递归都等价，因为两棵子树都会被处理一次。\n\n~~~c\nvoid ExchangeLeftRight(BiTree T) {\n    if (T == NULL) return;\n    BiTree tmp = T->lchild;\n    T->lchild = T->rchild;\n    T->rchild = tmp;\n    ExchangeLeftRight(T->lchild);\n    ExchangeLeftRight(T->rchild);\n}\n~~~\n\n空树不作操作；每个非空结点恰交换一次，故最终每个结点的左、右子树均互换且没有丢失结点。时间 O(n)，递归辅助空间 O(h)，原地修改不另建树。",
+        "explanation": "以结点级交换配合对子树的完整递归，覆盖空树并保持所有结点。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "已补入左右子树交换的独立递归算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-44",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：树高按“空树为 0、叶子为 1”计。题目未说明元素值是否唯一；以下在值重复时规定取先序遇到的第一个 x。若课程语境保证结点值唯一，该规定不影响结果；若需要指定另一个重复结点，应改为传入结点指针。\n\n~~~c\nint Height(BiTree T) {\n    if (T == NULL) return 0;\n    int hl = Height(T->lchild), hr = Height(T->rchild);\n    return 1 + (hl > hr ? hl : hr);\n}\n\nBiTree FindFirstPre(BiTree T, TElemType x) {\n    if (T == NULL) return NULL;\n    if (T->data == x) return T;\n    BiTree q = FindFirstPre(T->lchild, x);\n    return q != NULL ? q : FindFirstPre(T->rchild, x);\n}\n\nint SubtreeDepthByValue(BiTree T, TElemType x) {\n    BiTree q = FindFirstPre(T, x);\n    return q == NULL ? -1 : Height(q);    // -1 表示未找到\n}\n~~~\n\nFindFirstPre 找到后停止，且按根、左、右的确定顺序选择目标；Height 恰按定义返回该结点为根的子树深度。空树或 x 不存在返回 -1，避免与合法的叶子高度 1 混淆。查找和高度计算覆盖的结点总数至多为常数倍 n，时间 O(n)，递归辅助空间 O(h)。",
+        "explanation": "显式处理题干未说明的重复值，以先序第一个匹配给出可复现选择，并区分未找到。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "已补入以目标结点子树为单位的深度算法，含重复值和未找到边界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-46",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：显式栈保存“源结点、对应新结点”对。新结点由 NewNode 建立并把 lchild、rchild 初始化为 NULL；每发现源结点的一条孩子边，就建立对应孩子、接到新树并把这一对压栈。\n\n~~~c\ntypedef struct { BiTree from, to; } Pair;\n\nStatus CopyBiTree_NonRecursive(BiTree T, BiTree *U) {\n    if (U == NULL) return ERROR;\n    *U = NULL;\n    if (T == NULL) return OK;\n\n    *U = NewNode(T->data);\n    if (*U == NULL) return OVERFLOW;\n    Stack S; InitStack(&S);               // 元素类型为 Pair\n    if (!TryPush(&S, (Pair){T, *U})) goto fail;\n\n    while (!StackEmpty(S)) {\n        Pair a; Pop(&S, &a);\n        if (a.from->lchild != NULL) {\n            a.to->lchild = NewNode(a.from->lchild->data);\n            if (a.to->lchild == NULL ||\n                !TryPush(&S, (Pair){a.from->lchild, a.to->lchild})) goto fail;\n        }\n        if (a.from->rchild != NULL) {\n            a.to->rchild = NewNode(a.from->rchild->data);\n            if (a.to->rchild == NULL ||\n                !TryPush(&S, (Pair){a.from->rchild, a.to->rchild})) goto fail;\n        }\n    }\n    DestroyStack(&S);\n    return OK;\n\nfail:\n    DestroyStack(&S);\n    DestroyBiTree(*U); *U = NULL;\n    return OVERFLOW;\n}\n~~~\n\n栈中每一对始终代表已建立数据域相同的对应结点；处理该对时按源树的左右方向补齐孩子，所以终止后新树与源树的形状和值都相同且不共享结点。空树正确复制为空树，分配或压栈失败会释放已建部分。时间 O(n)，显式栈空间 O(h)，复制出的结果树占 O(n) 空间。",
+        "explanation": "通过结点对栈保留源树到新树的对应关系，避免递归并处理失败时的已分配结点清理。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "已补入二叉链表的非递归复制算法，含空树与分配失败边界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-52",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：按层次遍历时，某轮队列中的结点数正好是该层结点数。累计层数 h，维护最大层宽 maxWidth，最后返回 maxWidth*h；空树的高度和最大层宽均取 0，繁茂度为 0。\n\n~~~c\nlong long Luxuriance(BiTree T) {\n    if (T == NULL) return 0;\n    Queue Q; InitQueue(&Q); EnQueue(&Q, T);\n    long long h = 0, maxWidth = 0;\n    while (!QueueEmpty(Q)) {\n        int width = QueueLength(Q);\n        if (width > maxWidth) maxWidth = width;\n        ++h;\n        for (int i = 0; i < width; ++i) {\n            BiTree p; DeQueue(&Q, &p);\n            if (p->lchild != NULL) EnQueue(&Q, p->lchild);\n            if (p->rchild != NULL) EnQueue(&Q, p->rchild);\n        }\n    }\n    return maxWidth * h;\n}\n~~~\n\n每轮只弹出当前层已有的 width 个结点，再把下一层入队，因而不会混层；h 是树高，maxWidth 是各层结点数的最大值。实际实现应在乘法前检查结果类型溢出。每个结点入、出队各一次，时间 O(n)；队列最大长度为最大层宽 w，额外空间 O(w)，最坏 O(n)。",
+        "explanation": "利用层序队列长度同时得到树高和最大层宽，并处理空树与乘法溢出风险。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "已补入繁茂度的层序计算算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-53",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：先求树高 H，再按左、右顺序深度优先寻找深度恰为 H-1 的第一个叶子。由于左子树在右子树之前被完整搜索，该叶子就是最左的最深叶子；path[0..H-1] 同时就是所需根到叶路径。调用者须提供容量至少为 H 的 path 数组。\n\n~~~c\nint Height(BiTree T) {\n    if (T == NULL) return 0;\n    int a = Height(T->lchild), b = Height(T->rchild);\n    return 1 + (a > b ? a : b);\n}\n\nBoolean FindFirstLeafAtDepth(BiTree T, int dep, int target,\n                             BiTree path[]) {\n    if (T == NULL) return FALSE;\n    path[dep] = T;\n    if (T->lchild == NULL && T->rchild == NULL)\n        return dep == target;\n    if (FindFirstLeafAtDepth(T->lchild, dep + 1, target, path)) return TRUE;\n    return FindFirstLeafAtDepth(T->rchild, dep + 1, target, path);\n}\n\nStatus LeftmostDeepestPath(BiTree T, BiTree path[], int capacity, int *len) {\n    if (len == NULL) return ERROR;\n    int h = Height(T);\n    if (h == 0) { *len = 0; return ERROR; }\n    if (capacity < h) return OVERFLOW;\n    if (!FindFirstLeafAtDepth(T, 0, h - 1, path)) return ERROR;\n    *len = h;                              // 输出 path[0..h-1] 的 data\n    return OK;\n}\n~~~\n\nHeight 给出的 H 是结点层数，所以目标叶的边数路径长度正是 H-1。第二趟搜索一旦找到目标即停止，path 中保留完整路径。空树无满足条件的叶子。两趟各至多访问所有结点一次，时间 O(n)，递归辅助空间 O(h)，输出路径空间 O(h)。",
+        "explanation": "先确定树深再以左优先搜索，保证输出的是最左的最深叶路径而非任意最长路径。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "已补入最左最深叶路径的完整算法与路径长度核对。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-55",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：后序计算每棵子树的结点总数。对结点 T，其左、右子树的总节点数分别为 left、right，则严格子孙数为 left+right；向双亲返回的本子树总数为 left+right+1。\n\n~~~c\nint SetDescNum(BiTree T) {\n    if (T == NULL) return 0;\n    int left = SetDescNum(T->lchild);\n    int right = SetDescNum(T->rchild);\n    T->DescNum = left + right;\n    return T->DescNum + 1;\n}\n~~~\n\n空子树返回 0，叶结点的 DescNum 因而为 0。归纳地，子调用返回各子树完整结点数，当前赋值排除了根本身，正好是所有严格后代数。每个结点仅访问一次，时间 O(n)，递归辅助空间 O(h)。",
+        "explanation": "将返回值定义为子树总节点数、DescNum 定义为严格子孙数，避免是否计入自身的歧义。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "已补入所有结点子孙数的后序递归算法和复杂度。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-56",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：先序中某结点的后继优先是其真实左孩子；若无左孩子则是其真实右孩子；两者都没有时才是保存的后继线索。因根指针未知，算法不能回到祖先寻找后继，所以必须把“无真实右孩子时的先序后继”直接保存在 rchild 中，并用 LTag、RTag 区分孩子指针和线索；最后一个结点的后继约定为 NULL（使用头结点时可改为头结点）。\n\n~~~c\ntypedef enum { Link, Thread } PointerTag;\ntypedef struct PreThrNode {\n    TElemType data;\n    struct PreThrNode *lchild, *rchild;\n    PointerTag LTag, RTag;\n} PreThrNode, *PreThrTree;\n\nPreThrTree PreSuccessor(PreThrTree p) {\n    if (p == NULL) return NULL;\n    if (p->LTag == Link) return p->lchild;\n    if (p->RTag == Link) return p->rchild;\n    return p->rchild;                    // RTag==Thread：直接后继或 NULL\n}\n~~~\n\nLTag=Link 时先序定义要求先进入左子树；否则若 RTag=Link 则右孩子是下一个；再否则 p 无真实孩子，rchild 的后继线索正是答案。每种情况只检查常数个域，时间和额外空间都是 O(1)。没有标签时，非空指针无法判定它是孩子还是线索，算法不成立。",
+        "explanation": "说明根未知时所需的后继线索和标签约定，并把三种先序后继情形分开。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "已按先序后继线索表示补入 O(1) 后继查找及存储要求。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-57",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：后序后继线索只在没有真实右孩子时可直接放入 rchild；若 p 有真实右孩子，rchild 不能再保存外部后继，必须借助 parent 找到双亲。每个结点因此需要 parent、LTag、RTag；根可由 parent==NULL 识别，不需要另给根指针。最后一个结点的后继约定为 NULL。\n\n~~~c\ntypedef enum { Link, Thread } PointerTag;\ntypedef struct PostThrNode {\n    TElemType data;\n    struct PostThrNode *lchild, *rchild, *parent;\n    PointerTag LTag, RTag;\n} PostThrNode, *PostThrTree;\n\nPostThrTree FirstPost(PostThrTree q) {\n    while (q->LTag == Link || q->RTag == Link) {\n        if (q->LTag == Link) q = q->lchild;\n        else q = q->rchild;\n    }\n    return q;\n}\n\nPostThrTree PostSuccessor(PostThrTree p) {\n    if (p == NULL) return NULL;\n    if (p->RTag == Thread) return p->rchild;\n\n    PostThrTree q = p->parent;\n    if (q == NULL) return NULL;           // p 为根，后序最后访问\n    if (q->RTag == Thread || q->rchild == p) return q;\n    return FirstPost(q->rchild);           // p 是有右子树双亲的左孩子\n}\n~~~\n\n若 p 的 rchild 是线索，它已直接给出答案。否则 p 有真实右孩子：若 p 是双亲右孩子，或双亲没有真实右子树，后继为双亲；其余情形必须先完成双亲右子树，后继是该右子树的最左优先后序首结点 FirstPost。FirstPost 沿真实左边优先、否则真实右边下降，故正确。除最后一种外查询时间为 O(1)，最后一种最坏 O(h)，额外空间始终 O(1)。",
+        "explanation": "按后序后继的三种结构情形给出算法，并明确根未知时 parent 域是必要的。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "已补入后序后继线索树的后继算法，含 parent 和标签要求。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-58",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立参考解答（非原书摘录）：题述重连要求 x 成为 p 的左子树，若 p 原来已有真实左子树则会无处保存它；故 p 无真实左子树（p->LTag==Thread）是必要前提，下面遇到违背此前提的输入返回 ERROR。x 也必须确为“只有左子树”的独立中序全线索树，即 x->RTag==Thread。采用无头结点、首元前驱和末元后继均为 NULL 的约定；若使用头结点，只需把端点 NULL 换为头结点。\n\n设 pred 为 p 原来的中序前驱，R 为 p 原来的真实右子树（可空），succ 为 p 原来整棵子树之后的中序后继。重连后的局部中序次序为 pred, First(x), ..., x, First(R), ..., Last(R), p, succ；当 R 为空时 x 直接在 p 前。因此只更新这四个边界线索及相应孩子链接。\n\n~~~c\ntypedef enum { Link, Thread } PointerTag;\ntypedef struct BiThrNode {\n    TElemType data;\n    struct BiThrNode *lchild, *rchild;\n    PointerTag LTag, RTag;\n} BiThrNode, *BiThrTree;\n\nBiThrTree FirstIn(BiThrTree q) {\n    while (q->LTag == Link) q = q->lchild;\n    return q;\n}\nBiThrTree LastIn(BiThrTree q) {\n    while (q->RTag == Link) q = q->rchild;\n    return q;\n}\n\nStatus InsertAsLeft(BiThrTree p, BiThrTree x) {\n    if (p == NULL || x == NULL ||\n        p->LTag != Thread || x->RTag != Thread) return ERROR;\n\n    BiThrTree pred = p->lchild;            // p 原来没有左孩子，故为前驱线索\n    BiThrTree R = (p->RTag == Link) ? p->rchild : NULL;\n    BiThrTree succ;\n    if (R != NULL) succ = LastIn(R)->rchild; // LastIn(R) 的后继线索\n    else succ = p->rchild;                 // p 原来的后继线索\n\n    BiThrTree firstX = FirstIn(x);\n    firstX->lchild = pred; firstX->LTag = Thread;\n    if (pred != NULL && pred->RTag == Thread) pred->rchild = firstX;\n\n    p->lchild = x; p->LTag = Link;\n    if (R != NULL) {\n        BiThrTree firstR = FirstIn(R);\n        BiThrTree lastR = LastIn(R);\n        x->rchild = R; x->RTag = Link;\n        firstR->lchild = x; firstR->LTag = Thread;\n        lastR->rchild = p; lastR->RTag = Thread;\n    } else {\n        x->rchild = p; x->RTag = Thread;\n    }\n    p->rchild = succ; p->RTag = Thread;\n    return OK;\n}\n~~~\n\nFirstIn、LastIn 均只沿 Link 下降，绝不误把线索当孩子。firstX 的前驱更新为 pred；若 pred 的右域本来就是线索，再把该线索改指 firstX。R 非空时，firstR 的前驱由原 p 改为 x、lastR 的后继改为 p；R 为空时 x 的后继直接为 p。最后 p 无右孩子，其后继恢复为 succ，故局部所有空链域仍准确指向中序前驱或后继。时间为 O(hx+hR)，即相关两棵树高度的线性量，额外空间 O(1)。",
+        "explanation": "显式校验 p 原无左子树这一必要前提，并逐一修复接合边界的中序前驱、后继线索。",
+        "correction": {
+          "verified": "独立参考解答（非原书摘录）：以下明确采用教材的带头结点中序全线索表示。head 的 LTag 为 Link、lchild 指向整棵树的根；RTag 为 Thread、rchild 始终指向全树中序最后一个数据结点；中序第一个数据结点的前驱线索和最后一个数据结点的后继线索均指向 head。p 是该树中的数据结点。题述操作若 p 原已有真实左子树会丢失它，故 p->LTag==Thread 是必要前提；x 与目标树的结点互不相交，且是没有独立活动头结点的、只有左子树的中序全线索树，即 x->RTag==Thread。x 的最左端前驱线索和 x 的后继线索会在接合时重写。\n\n设 pred 为 p 原来的中序前驱，R 为 p 原来的真实右子树，succ 为 R 的最后结点的原后继（R 为空时即 p 的原后继）。重连前后局部中序次序为\n\n~~~text\npred, p, First(R), ..., Last(R), succ\npred, First(x), ..., x, First(R), ..., Last(R), p, succ\n~~~\n\n其中 R 为空时第二行省去 R 段。\n\n~~~c\ntypedef enum { Link, Thread } PointerTag;\ntypedef struct BiThrNode {\n    TElemType data;\n    struct BiThrNode *lchild, *rchild;\n    PointerTag LTag, RTag;\n} BiThrNode, *BiThrTree;\n\nBiThrTree FirstIn(BiThrTree q) {\n    while (q->LTag == Link) q = q->lchild;\n    return q;\n}\nBiThrTree LastIn(BiThrTree q) {\n    while (q->RTag == Link) q = q->rchild;\n    return q;\n}\n\nStatus InsertAsLeftWithHead(BiThrTree head, BiThrTree p, BiThrTree x) {\n    BiThrTree pred, R, succ, firstX, firstR, lastR;\n    if (head == NULL || p == NULL || x == NULL ||\n        p == head || x == head || x == p ||\n        head->LTag != Link || head->RTag != Thread ||\n        p->LTag != Thread || x->RTag != Thread) return ERROR;\n    if (p->RTag == Link && p->rchild == NULL) return ERROR;\n\n    pred = p->lchild;\n    if (pred == NULL || (pred != head && pred->RTag != Thread))\n        return ERROR;\n    R = (p->RTag == Link) ? p->rchild : NULL;\n    firstX = FirstIn(x);\n    if (firstX->LTag != Thread) return ERROR;\n\n    if (R != NULL) {\n        firstR = FirstIn(R);\n        lastR = LastIn(R);\n        if (firstR->LTag != Thread || lastR->RTag != Thread)\n            return ERROR;\n        succ = lastR->rchild;\n    } else {\n        succ = p->rchild;\n    }\n    if (succ == NULL) return ERROR;\n\n    firstX->lchild = pred; firstX->LTag = Thread;\n    if (pred != head) {\n        pred->rchild = firstX; pred->RTag = Thread;\n    }\n\n    p->lchild = x; p->LTag = Link;\n    if (R != NULL) {\n        firstR->lchild = x; firstR->LTag = Thread;\n        x->rchild = R; x->RTag = Link;\n        lastR->rchild = p; lastR->RTag = Thread;\n    } else {\n        x->rchild = p; x->RTag = Thread;\n    }\n    p->rchild = succ; p->RTag = Thread;\n\n    /* pred==head 时绝不能把 head->rchild 改成 firstX。 */\n    /* succ==head 时 p 成为新的中序最后结点。 */\n    if (succ == head) head->rchild = p;\n    return OK;\n}\n~~~\n\nFirstIn、LastIn 只沿 Link 下降，因此不会把线索误作孩子。firstX 的前驱改为 pred；当 pred 是数据结点时，它原来指向 p 的后继线索改为 firstX。若 pred==head，则仅令 firstX 的前驱线索指向 head，head->rchild 仍保留尾指针语义，绝不改成 firstX。R 非空时，firstR 的前驱由 p 改为 x，lastR 的后继由 succ 改为 p；R 为空时 x 的后继直接为 p。p 最终无右孩子，其后继恢复为 succ。若 succ==head，p 在重连后成为全树最后一个结点，故同步令 head->rchild=p；head->lchild 仍指向原根。由上述局部中序序列可知所有空链域仍准确表示前驱或后继，且头结点约定保持不变。时间为 O(h_x+h_R)，即相关两棵树高度的线性量，额外空间为 O(1)。",
+          "reason": "交叉复审指出上一版把带头结点简单等同于把端点 NULL 换为头结点：当 pred 是头结点时会错误覆盖 head->rchild 的尾指针；上一版也未在原右子树末结点后继为 head 时把新尾结点更新为 p。",
+          "explanation": "修订版显式传入 head，区分头结点的尾指针与普通后继线索，并在 succ==head 时更新新的中序尾结点。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "answer-missing"
+        ],
+        "notes": "已补入全线索树插入算法；题干隐含的 p 无真实左子树条件已作为安全前提明确。"
+      }
+    }
+  ],
+  "unresolved": []
+}

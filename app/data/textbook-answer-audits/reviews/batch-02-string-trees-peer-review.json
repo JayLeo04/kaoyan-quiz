@@ -1,0 +1,62 @@
+{
+  "reviewedFile": "batch-02-string-trees.json",
+  "reviewedIds": [
+    "book-ds-yan-04-20",
+    "book-ds-yan-04-24",
+    "book-ds-yan-04-25",
+    "book-ds-yan-04-26",
+    "book-ds-yan-04-06",
+    "book-ds-yan-04-08",
+    "book-ds-yan-06-38",
+    "book-ds-yan-06-40",
+    "book-ds-yan-06-41",
+    "book-ds-yan-06-42",
+    "book-ds-yan-06-43",
+    "book-ds-yan-06-44",
+    "book-ds-yan-06-46",
+    "book-ds-yan-06-52",
+    "book-ds-yan-06-53",
+    "book-ds-yan-06-55",
+    "book-ds-yan-06-56",
+    "book-ds-yan-06-57",
+    "book-ds-yan-06-58"
+  ],
+  "passedIds": [
+    "book-ds-yan-04-24",
+    "book-ds-yan-04-26",
+    "book-ds-yan-04-06",
+    "book-ds-yan-04-08",
+    "book-ds-yan-06-38",
+    "book-ds-yan-06-40",
+    "book-ds-yan-06-41",
+    "book-ds-yan-06-42",
+    "book-ds-yan-06-43",
+    "book-ds-yan-06-44",
+    "book-ds-yan-06-46",
+    "book-ds-yan-06-52",
+    "book-ds-yan-06-53",
+    "book-ds-yan-06-55",
+    "book-ds-yan-06-56",
+    "book-ds-yan-06-57"
+  ],
+  "findings": [
+    {
+      "id": "book-ds-yan-04-20",
+      "severity": "warning",
+      "issue": "答案把 q 定义为实际删除次数，却将总时间写为 O(qL|T|)。当主串非空、长度足够但根本不含 T 时 q=0，算法仍会调用一次朴素 Index 并进行 O(L|T|) 的扫描；因此该上界在零次删除的合法边界下不成立。删除逻辑本身正确。",
+      "recommendedFix": "把复杂度改为 O((q+1)L|T|)（更细致地可另加 q 次 O(L) 删除），或明确另行计入最终一次未命中的定位扫描；保留现有逐次删除与重新检查接合处的算法。"
+    },
+    {
+      "id": "book-ds-yan-04-25",
+      "severity": "warning",
+      "issue": "同样地，q 被定义为替换次数而时间写成 O(qL(|T|+1))。若 S 足够长但不存在 T，q=0 时仍需进行一次失败的 Index 扫描，最坏为 O(L|T|)，不能由现有表达式覆盖。替换位置推进和空 V 的处理正确。",
+      "recommendedFix": "将总复杂度改为 O((q+1)L(|T|+1))（在 |T|≥1 时亦可写 O((q+1)L|T|)），以包含最终未命中的定位；其余实现和不重叠语义无需改动。"
+    },
+    {
+      "id": "book-ds-yan-06-58",
+      "severity": "warning",
+      "issue": "无头结点约定下的主体重连正确，但答案称“使用头结点，只需把端点 NULL 换为头结点”并不成立。若 p 是中序第一个结点，pred 就是头结点；现有 `pred->RTag==Thread` 分支会把头结点的 rchild 改为 firstX。教材的带头结点约定中该域应始终指向中序最后一个结点，故 p 不是最后一个结点时会破坏头结点。",
+      "recommendedFix": "将答案明确限定为无头结点表示，或另给带头结点分支并传入头结点：当 pred==head 时只令 firstX 的前驱线索指向 head，不改 head->rchild；同时保留 head 的 lchild/root 和 rchild/最后结点约定，并把外端线索正确指向 head。"
+    }
+  ]
+}

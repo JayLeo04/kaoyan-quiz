@@ -1,0 +1,359 @@
+{
+  "reportVersion": "draft-07-08-redraw-v1",
+  "generatedOn": "2026-08-03",
+  "project": "/Users/minimax/schedule/kaoyan-quiz",
+  "skill": "audit-408-textbook-assets-demo",
+  "status": "candidate-redraw-validated",
+  "scope": {
+    "chapterDirectories": [
+      "public/textbooks/data-structures/07-graph/07-02-graph-storage",
+      "public/textbooks/data-structures/08-dynamic-storage/8-2-available-space-table-and-allocation"
+    ],
+    "onlyReviewedAssets": [
+      "public/textbooks/data-structures/07-graph/07-02-graph-storage/assets/py/fig-7-12-adjacency-multilist.svg",
+      "public/textbooks/data-structures/08-dynamic-storage/8-2-available-space-table-and-allocation/assets/py/fig-8-5.svg"
+    ],
+    "dataset": "app/data/textbook-data-structures.json",
+    "authoritativeAdjudication": ".codex/audits/textbook-assets/review-05-08-adjudication.json",
+    "outOfScope": [
+      "所有其他章节、其他图片、Markdown、教材 JSON、组件、CSS、图片引用和审计文件"
+    ]
+  },
+  "reviewers": {
+    "primary": {
+      "role": "主审阅者",
+      "session": "Luna",
+      "mode": "read-write only in the two assigned asset directories and this draft report"
+    },
+    "readOnlySubagent": {
+      "agentId": "019fc605-3c54-7581-915a-77a362627438",
+      "mode": "read-only",
+      "result": "completed",
+      "changedFiles": [],
+      "reviewed": [
+        "相邻正文、caption、source marker、权威终审条目和两幅原图"
+      ],
+      "conclusion": "两图均为 candidate_needed；图 7.12 可按 G₂ 定义安全重绘，图 8.5 只能忠实重排已有表格，不能补造未提供的列含义、指针或状态。"
+    }
+  },
+  "writePolicy": {
+    "newFilesThisTask": [
+      "public/textbooks/data-structures/07-graph/07-02-graph-storage/assets/py/fig-7-12-adjacency-multilist-readable.svg",
+      "public/textbooks/data-structures/08-dynamic-storage/8-2-available-space-table-and-allocation/assets/py/fig-8-5-readable.svg",
+      ".codex/audits/textbook-assets/draft-07-08-redraw.json"
+    ],
+    "originalsPreserved": true,
+    "markdownJsonComponentsCssAndReferencesChangedByThisTask": false,
+    "worktreeCreated": false,
+    "tmpWritten": false,
+    "otherSharedWorktreeChanges": "工作区同时存在其他章节和应用文件的既有/并行改动；本任务未编辑、覆盖、删除或回滚这些改动。"
+  },
+  "inventory": {
+    "command": "node /Users/minimax/.codex/skills/audit-408-textbook-assets-demo/scripts/audit-textbook-assets.mjs --project /Users/minimax/schedule/kaoyan-quiz --dataset app/data/textbook-data-structures.json --assets public/textbooks/data-structures --report /dev/null",
+    "beforeCandidates": {
+      "files": 421,
+      "referenced": 274,
+      "missing": 0,
+      "unreferenced": 147,
+      "report": "/dev/null",
+      "note": "这是执行本任务前的共享工作区快照，包含其他任务已存在的候选资产。"
+    },
+    "afterCandidates": {
+      "files": 444,
+      "referenced": 274,
+      "missing": 0,
+      "unreferenced": 170,
+      "report": "/dev/null",
+      "contactSheets": 0,
+      "note": "总数包含共享工作区在本任务期间出现的其他章节候选；本范围内未产生 missing 或 malformed。"
+    }
+  },
+  "figures": [
+    {
+      "id": "fig-7-12-adjacency-multilist",
+      "oldAsset": "public/textbooks/data-structures/07-graph/07-02-graph-storage/assets/py/fig-7-12-adjacency-multilist.svg",
+      "candidateAsset": "public/textbooks/data-structures/07-graph/07-02-graph-storage/assets/py/fig-7-12-adjacency-multilist-readable.svg",
+      "verdict": "candidate_redraw_validated",
+      "adjudication": {
+        "candidate_needed": true,
+        "candidate_not_needed": false,
+        "candidate_not_safe": false,
+        "severity": "high",
+        "category": "semantic-mismatch"
+      },
+      "oldToCandidate": {
+        "old": "public/textbooks/data-structures/07-graph/07-02-graph-storage/assets/py/fig-7-12-adjacency-multilist.svg",
+        "candidate": "public/textbooks/data-structures/07-graph/07-02-graph-storage/assets/py/fig-7-12-adjacency-multilist-readable.svg"
+      },
+      "sourceContextEvidence": {
+        "datasetPage": {
+          "id": "textbook-ds:07-graph/07-02-graph-storage/07-02-04-adjacency-multilist",
+          "sourcePath": "07-graph/07-02-graph-storage/07-02-04-adjacency-multilist.md",
+          "bookPages": "166-167",
+          "pdfPages": "176-177",
+          "sourceMarker": "/Users/minimax/schedule/kaoyan-quiz/app/data/textbook-data-structures.json:2870-2875"
+        },
+        "contextWindow": {
+          "before": "正文先定义顶点表 data/firstedge 和边结点的 mark、ivex、jvex、ilink、jlink、info 六个域，并说明 ilink/jlink 各自指向对应顶点链的下一条边。",
+          "caption": "图 7.12 无向图 G₂ 的邻接多重表；正文说明每条边只有一个边结点，同时链接在两个顶点链表中。",
+          "after": "后文紧接无向图的邻接多重表 C 结构定义，包含 EBox、VexBox、firstedge 和 info。",
+          "locations": [
+            "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/review-05-08-adjudication.json:6584-6616",
+            "/Users/minimax/schedule/kaoyan-quiz/app/data/textbook-data-structures.json:2875"
+          ]
+        },
+        "crossReferencedG2Definition": "权威终审 :6615-6616 将 G₂ 的无向边定义为 (v₁,v₂)、(v₁,v₄)、(v₂,v₃)、(v₂,v₅)、(v₃,v₄)、(v₃,v₅)，按 0-based 索引即 (0,1)、(0,3)、(1,2)、(1,4)、(2,3)、(2,4)。"
+      },
+      "confirmedProblem": {
+        "originalReadableIssue": "原图顶部“顶点表（data，firstedge）”与“边结点（ivex，jvex，指向两条顶点链）”说明文字相撞。",
+        "originalSemanticIssue": "原图缺少 V5 的依附链，出现 (1,3) 而不是 (1,4)，并以错误/反向重复条目替代 G₂ 的完整六边集合；问题在正文宽度和窄屏均存在，不是缩放造成。",
+        "originalEvidence": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/07-graph/07-02-graph-storage/assets/py/fig-7-12-adjacency-multilist.svg:3"
+      },
+      "semanticInventory": {
+        "vertexTable": [
+          "data / index: 0 V1",
+          "data / index: 1 V2",
+          "data / index: 2 V3",
+          "data / index: 3 V4",
+          "data / index: 4 V5",
+          "firstedge 指向每个顶点链的第一条依附边"
+        ],
+        "edgeTable": {
+          "fields": [
+            "mark（访问标记，正文枚举为 unvisited / visited）",
+            "ivex",
+            "ilink",
+            "jvex",
+            "jlink",
+            "info（边信息指针）"
+          ],
+          "uniqueEBoxes": [
+            {"id": "E01", "edge": "(0,1)"},
+            {"id": "E02", "edge": "(0,3)"},
+            {"id": "E03", "edge": "(1,2)"},
+            {"id": "E04", "edge": "(1,4)"},
+            {"id": "E05", "edge": "(2,3)"},
+            {"id": "E06", "edge": "(2,4)"}
+          ],
+          "pointerTargets": {
+            "E01": {"ivex": 0, "ilink": "E02", "jvex": 1, "jlink": "E03"},
+            "E02": {"ivex": 0, "ilink": "NULL", "jvex": 3, "jlink": "E05"},
+            "E03": {"ivex": 1, "ilink": "E04", "jvex": 2, "jlink": "E05"},
+            "E04": {"ivex": 1, "ilink": "NULL", "jvex": 4, "jlink": "E06"},
+            "E05": {"ivex": 2, "ilink": "E06", "jvex": 3, "jlink": "NULL"},
+            "E06": {"ivex": 2, "ilink": "NULL", "jvex": 4, "jlink": "NULL"}
+          }
+        },
+        "topologyAndChains": [
+          "G₂ 拓扑显示六条无向边 E01–E06。",
+          "V1 (0): firstedge → E01 —ilink→ E02 —ilink→ NULL",
+          "V2 (1): firstedge → E01 —jlink→ E03 —ilink→ E04 —ilink→ NULL",
+          "V3 (2): firstedge → E03 —jlink→ E05 —ilink→ E06 —ilink→ NULL",
+          "V4 (3): firstedge → E02 —jlink→ E05 —jlink→ NULL",
+          "V5 (4): firstedge → E04 —jlink→ E06 —jlink→ NULL",
+          "每个唯一 EBox 恰好出现在两个顶点链中；没有把一条无向边复制成两个邻接表结点。"
+        ],
+        "unknownsPreservedAsUnknown": [
+          "原文和原图未提供每个 EBox 的实际 mark 状态，因此候选用 — 保留字段而不假定 unvisited/visited。",
+          "原文和原图未提供实际 info 指针值，因此候选用 — 保留字段而不臆造地址或对象。",
+          "源文未规定各顶点链的唯一排列；候选采用 E01–E06 升序的确定性链序，依附关系和两条链接方向不变。"
+        ]
+      },
+      "candidateDesign": {
+        "deterministic": true,
+        "preserved": [
+          "顶点表、边表、V1–V5 和 0-based 顶点索引",
+          "G₂ 的完整六边集合",
+          "每条边唯一 EBox、mark、ivex、jvex、ilink、jlink、info",
+          "firstedge、ilink/jlink 目标、箭头方向和顶点链拓扑",
+          "图题与正文对邻接多重表/双链归属的说明"
+        ],
+        "layoutSafeguards": [
+          "顶点拓扑、字段定义、边表和顶点链分成独立面板，避免原图顶部文字相撞。",
+          "所有文字、箭头、框体和线条均位于 viewBox 0 0 1360 900 内。",
+          "使用 SVG 文本和路径，不使用 image、foreignObject、clipPath 或 root overflow hidden。"
+        ]
+      },
+      "validation": {
+        "svgMetadata": {
+          "width": 1360,
+          "height": 900,
+          "viewBox": "0 0 1360 900",
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false
+        },
+        "renderer": "sharp 0.34.5 / libvips SVG-to-PNG with white background",
+        "renderFiles": {
+          "original": [
+            "/Users/minimax/.codex/visualizations/2026/08/03/019fc604-b457-77b3-a6bd-5403641f149a/draft-07-08-renders/fig-7-12-original--intrinsic.png",
+            "/Users/minimax/.codex/visualizations/2026/08/03/019fc604-b457-77b3-a6bd-5403641f149a/draft-07-08-renders/fig-7-12-original--760.png",
+            "/Users/minimax/.codex/visualizations/2026/08/03/019fc604-b457-77b3-a6bd-5403641f149a/draft-07-08-renders/fig-7-12-original--396.png"
+          ],
+          "candidate": [
+            "/Users/minimax/.codex/visualizations/2026/08/03/019fc604-b457-77b3-a6bd-5403641f149a/draft-07-08-renders/fig-7-12-readable-candidate--intrinsic.png",
+            "/Users/minimax/.codex/visualizations/2026/08/03/019fc604-b457-77b3-a6bd-5403641f149a/draft-07-08-renders/fig-7-12-readable-candidate--760.png",
+            "/Users/minimax/.codex/visualizations/2026/08/03/019fc604-b457-77b3-a6bd-5403641f149a/draft-07-08-renders/fig-7-12-readable-candidate--396.png"
+          ],
+          "dimensions": {
+            "intrinsic": "1360x900",
+            "desktop760": "760x503",
+            "narrow396": "396x262"
+          }
+        },
+        "checks": [
+          "xmllint --noout 通过。",
+          "语义检查确认 data、firstedge、mark、ivex、ilink、jvex、jlink、info 全部出现。",
+          "语义检查确认 E01–E06、六条边对、五条顶点链和所有 ilink/jlink 目标均匹配。",
+          "intrinsic、760px 和 396px 渲染均完成并进行视觉检查；未见文字、箭头、框体或拓扑线碰撞/越界。"
+        ]
+      },
+      "unresolvedRisks": [
+        "mark 和 info 的真实运行时值/内存地址不在源图和上下文中；候选明确保留为空值标记，不应被解释为具体状态。",
+        "各顶点链的具体排列未由源文唯一规定；候选的升序链序是可核验的确定性展示选择。",
+        "真实页面当前仍引用原图，候选未被接入（按本任务禁止修改图片引用）；因此页面级验证记录的是现有原图布局和候选按相同 CSS 约束的预期尺寸，候选自身仍以 intrinsic/760/396 栅格文件验收。"
+      ]
+    },
+    {
+      "id": "fig-8-5",
+      "oldAsset": "public/textbooks/data-structures/08-dynamic-storage/8-2-available-space-table-and-allocation/assets/py/fig-8-5.svg",
+      "candidateAsset": "public/textbooks/data-structures/08-dynamic-storage/8-2-available-space-table-and-allocation/assets/py/fig-8-5-readable.svg",
+      "verdict": "candidate_redraw_validated",
+      "adjudication": {
+        "candidate_needed": true,
+        "candidate_not_needed": false,
+        "candidate_not_safe": false,
+        "severity": "medium",
+        "category": "overlap"
+      },
+      "oldToCandidate": {
+        "old": "public/textbooks/data-structures/08-dynamic-storage/8-2-available-space-table-and-allocation/assets/py/fig-8-5.svg",
+        "candidate": "public/textbooks/data-structures/08-dynamic-storage/8-2-available-space-table-and-allocation/assets/py/fig-8-5-readable.svg"
+      },
+      "sourceContextEvidence": {
+        "datasetPage": {
+          "id": "textbook-ds:08-dynamic-storage/8-2-available-space-table-and-allocation",
+          "sourcePath": "08-dynamic-storage/8-2-available-space-table-and-allocation/index.md",
+          "bookPages": "195-198",
+          "pdfPages": "205-208",
+          "sourceMarker": "/Users/minimax/schedule/kaoyan-quiz/app/data/textbook-data-structures.json:3366-3371"
+        },
+        "contextWindow": {
+          "before": "正文说明可利用空间表/存储池，并比较可变大小空闲块的首次拟合、最佳拟合和最差拟合策略。",
+          "caption": "图 8.5：首次、最佳和最差拟合的分配结果。",
+          "after": "完整逐页正文、条件与比较见连续页段转写。",
+          "locations": [
+            "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/review-05-08-adjudication.json:8475-8504",
+            "/Users/minimax/schedule/kaoyan-quiz/app/data/textbook-data-structures.json:3371-3373"
+          ]
+        }
+      },
+      "confirmedProblem": {
+        "originalReadableIssue": "标题压到表格上边界并侵入第一行，正文宽度和窄屏均可见；三行数据本身没有被裁切。",
+        "originalEvidence": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/08-dynamic-storage/8-2-available-space-table-and-allocation/assets/py/fig-8-5.svg:5, 888-1503"
+      },
+      "semanticInventory": {
+        "title": "图 8.5 三种拟合策略的剩余空闲块",
+        "table": {
+          "rows": [
+            {"strategy": "首次拟合", "values": [8000, 8000, 41000]},
+            {"strategy": "最佳拟合", "values": [15000, 1000, 41000]},
+            {"strategy": "最差拟合", "values": [15000, 8000, 34000]}
+          ],
+          "shape": "three strategy rows × three original numeric columns",
+          "preserved": [
+            "表格边界和行/列位置",
+            "全部地址/块相关数字原样保留为原图的九个数值单元格"
+          ]
+        },
+        "notPresentInSourceAndNotInvented": [
+          "原图没有列标题、单位或可证实的地址/大小/块字段映射，因此候选不把三列命名为地址、大小或其他具体含义。",
+          "原图没有指针、状态字段、分配操作箭头或逐步过程箭头，因此候选不补造这些元素。",
+          "原图没有额外示例标签或请求块大小，因此候选不补造例子或请求条件。"
+        ]
+      },
+      "candidateDesign": {
+        "deterministic": true,
+        "preserved": [
+          "图题",
+          "首次拟合、最佳拟合、最差拟合三行",
+          "三列全部九个数值：8000、8000、41000；15000、1000、41000；15000、8000、34000",
+          "三行三列的表格关系和边界"
+        ],
+        "layoutSafeguards": [
+          "将标题放入独立顶部安全区，与表格首行保持明显垂直间距。",
+          "所有文字和框体均位于 viewBox 0 0 1100 520 内。",
+          "使用 SVG 文本和矩形，不使用 image、foreignObject、clipPath 或 root overflow hidden。"
+        ]
+      },
+      "validation": {
+        "svgMetadata": {
+          "width": 1100,
+          "height": 520,
+          "viewBox": "0 0 1100 520",
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false
+        },
+        "renderer": "sharp 0.34.5 / libvips SVG-to-PNG with white background",
+        "renderFiles": {
+          "original": [
+            "/Users/minimax/.codex/visualizations/2026/08/03/019fc604-b457-77b3-a6bd-5403641f149a/draft-07-08-renders/fig-8-5-original--intrinsic.png",
+            "/Users/minimax/.codex/visualizations/2026/08/03/019fc604-b457-77b3-a6bd-5403641f149a/draft-07-08-renders/fig-8-5-original--760.png",
+            "/Users/minimax/.codex/visualizations/2026/08/03/019fc604-b457-77b3-a6bd-5403641f149a/draft-07-08-renders/fig-8-5-original--396.png"
+          ],
+          "candidate": [
+            "/Users/minimax/.codex/visualizations/2026/08/03/019fc604-b457-77b3-a6bd-5403641f149a/draft-07-08-renders/fig-8-5-readable-candidate--intrinsic.png",
+            "/Users/minimax/.codex/visualizations/2026/08/03/019fc604-b457-77b3-a6bd-5403641f149a/draft-07-08-renders/fig-8-5-readable-candidate--760.png",
+            "/Users/minimax/.codex/visualizations/2026/08/03/019fc604-b457-77b3-a6bd-5403641f149a/draft-07-08-renders/fig-8-5-readable-candidate--396.png"
+          ],
+          "dimensions": {
+            "intrinsic": "1100x520",
+            "desktop760": "760x359",
+            "narrow396": "396x187"
+          }
+        },
+        "checks": [
+          "xmllint --noout 通过。",
+          "语义检查确认图题、三种策略、三行三列关系和九个原图数值均出现。",
+          "intrinsic、760px 和 396px 渲染均完成并进行视觉检查；标题与首行不再碰撞，文字和框体未越界。"
+        ]
+      },
+      "unresolvedRisks": [
+        "候选只能修复已确证的标题/表格碰撞；由于原资产本身没有列含义、指针、状态、操作箭头或逐步分配过程，不能据此宣称重建了未提供的过程语义。",
+        "真实页面当前仍引用原图，候选未被接入（按本任务禁止修改图片引用）；因此页面级验证记录的是现有原图布局和候选按相同 CSS 约束的预期尺寸，候选自身仍以 intrinsic/760/396 栅格文件验收。"
+      ]
+    }
+  ],
+  "pageRenderAvailability": {
+    "attempted": true,
+    "surface": "Codex in-app Browser against the existing local dev server",
+    "routes": [
+      "http://127.0.0.1:3001/textbook/data-structures/07-graph/07-02-graph-storage/07-02-04-adjacency-multilist",
+      "http://127.0.0.1:3001/textbook/data-structures/08-dynamic-storage/8-2-available-space-table-and-allocation"
+    ],
+    "result": "available_baseline_only_candidate_refs_unchanged",
+    "observedDesktop": {
+      "viewport": "1440x900",
+      "articleWidth": 834,
+      "graphOriginal": {"srcEndsWith": "fig-7-12-adjacency-multilist.svg", "client": "688x260", "natural": "900x340"},
+      "fitPageImages": {"srcEndsWith": ["fig-8-3.svg", "fig-8-4.svg", "fig-8-5.svg"], "client": "688x271 each", "natural": "763x300 each"}
+    },
+    "observedNarrow": {
+      "viewport": "396x900",
+      "articleWidth": 366,
+      "graphOriginal": {"srcEndsWith": "fig-7-12-adjacency-multilist.svg", "client": "320x121", "natural": "900x340"},
+      "fitPageImages": {"srcEndsWith": ["fig-8-3.svg", "fig-8-4.svg", "fig-8-5.svg"], "client": "320x126 each", "natural": "763x300 each"}
+    },
+    "candidateExpectedAtObservedWidths": {
+      "fig-7-12-readable-candidate": {"desktop688": "688x455 (under max-height 530)", "narrow320": "320x212 (under max-height 390)"},
+      "fig-8-5-readable-candidate": {"desktop688": "688x325 (under max-height 530)", "narrow320": "320x151 (under max-height 390)"}
+    },
+    "interpretation": "真实页验收确认了两个相关路由、正文图像 CSS 宽度/高度约束和窄屏布局；由于本任务禁止修改图片引用，页面仍显示原图，未把候选伪装成已接入页面。"
+  },
+  "globalUnresolvedRisks": [
+    "本报告是候选草案，未改图片引用；候选不会自动出现在教材页面，直到后续明确批准并单独更新引用。",
+    "共享工作区在本任务期间有其他章节任务并行改动；本报告的 444 文件 post-inventory 不应被解释为本任务独占新增量。"
+  ],
+  "nonRemovalStatement": "未删除任何非重复知识内容"
+}

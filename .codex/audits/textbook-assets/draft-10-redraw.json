@@ -1,0 +1,316 @@
+{
+  "schemaVersion": "408-textbook-redraw-draft/1",
+  "generatedAt": "2026-08-03T13:21:47+08:00",
+  "project": "/Users/minimax/schedule/kaoyan-quiz",
+  "task": "图 10.16 决策树候选重绘",
+  "scope": {
+    "chapter": "10-internal-sorting",
+    "oldAsset": "public/textbooks/data-structures/10-internal-sorting/10-7-comparison/assets/py/fig-10-16-decision-tree.svg",
+    "candidateAsset": "public/textbooks/data-structures/10-internal-sorting/10-7-comparison/assets/py/fig-10-16-decision-tree-readable.svg",
+    "authoritativeAudit": ".codex/audits/textbook-assets/09-12.json",
+    "allowedWrites": [
+      "public/textbooks/data-structures/10-internal-sorting/10-7-comparison/assets/py/fig-10-16-decision-tree-readable.svg",
+      ".codex/audits/textbook-assets/draft-10-redraw.json"
+    ],
+    "prohibitedChangesPreserved": [
+      "原图未覆盖、未删除、未移动",
+      "app/data/textbook-data-structures.json 未改",
+      "教材 Markdown、组件和 CSS 未改",
+      "其他 agent 文件未改"
+    ]
+  },
+  "verdict": "candidate_safe",
+  "decision": {
+    "basis": "证据充分，可在不改变语义的前提下修复左下叶框裁切。",
+    "reason": [
+      "权威审计明确将原图判为 high/clipped，并定位左下叶框 x=-8 超出 viewBox=0 0 800 330。",
+      "原 SVG 实际保留了 5 个比较节点、10 条分支边、6 个叶框和全部叶文本；缺陷是 viewBox 边界裁切，不是语义缺失。",
+      "同页正文明确列出 6 种关键字关系、6 种记录排序结果、非终端比较节点和左右两种结果。",
+      "只读 subagent 独立清点的比较、分支、路径和叶标记与本地正文及原图完全一致。"
+    ]
+  },
+  "oldToCandidate": {
+    "old": {
+      "path": "public/textbooks/data-structures/10-internal-sorting/10-7-comparison/assets/py/fig-10-16-decision-tree.svg",
+      "viewBox": [0, 0, 800, 330],
+      "issue": "左下叶框 x=-8，左边框被 viewBox 裁切；该叶对应 K3 < K2 < K1、⑥。"
+    },
+    "candidate": {
+      "path": "public/textbooks/data-structures/10-internal-sorting/10-7-comparison/assets/py/fig-10-16-decision-tree-readable.svg",
+      "viewBox": [-30, 0, 790, 510],
+      "intrinsic": {
+        "width": 790,
+        "height": 510
+      },
+      "geometryRepair": "保留原决策树的比较顺序、分支方向、排列和叶标记，扩展左侧 viewBox 并加大节点/叶间距；左下叶框 x=-12，距 viewBox 左边界 18 个坐标单位，描边外仍有边距。"
+    }
+  },
+  "semanticInventory": {
+    "diagramMeaning": "3 个关键字 K1、K2、K3 进行直接插入排序时的比较判定树；每个非终端结点表示一次关键字比较，左、右子树表示两种结果。",
+    "assumption": "K1、K2、K3 两两不等。",
+    "branchConvention": "所有比较节点均为左分支“否”、右分支“是”；在两两不等假设下，“否”所代表的反向大小关系由叶排列确定。",
+    "comparisonNodes": [
+      {
+        "id": "A",
+        "position": "root",
+        "comparison": "K1 < K2",
+        "left": "否 -> B",
+        "right": "是 -> C"
+      },
+      {
+        "id": "B",
+        "position": "left child of A",
+        "comparison": "K1 < K3",
+        "left": "否 -> D",
+        "right": "是 -> leaf ④"
+      },
+      {
+        "id": "C",
+        "position": "right child of A",
+        "comparison": "K2 < K3",
+        "left": "否 -> E",
+        "right": "是 -> leaf ①"
+      },
+      {
+        "id": "D",
+        "position": "left lower child of B",
+        "comparison": "K2 < K3",
+        "left": "否 -> leaf ⑥",
+        "right": "是 -> leaf ⑤"
+      },
+      {
+        "id": "E",
+        "position": "right lower child of C",
+        "comparison": "K1 < K3",
+        "left": "否 -> leaf ③",
+        "right": "是 -> leaf ②"
+      }
+    ],
+    "rootToLeafPaths": [
+      {
+        "marker": "①",
+        "path": ["A 是", "C 是"],
+        "keyOrder": "K1 < K2 < K3",
+        "recordOrder": "{R1, R2, R3}"
+      },
+      {
+        "marker": "②",
+        "path": ["A 是", "C 否", "E 是"],
+        "keyOrder": "K1 < K3 < K2",
+        "recordOrder": "{R1, R3, R2}"
+      },
+      {
+        "marker": "③",
+        "path": ["A 是", "C 否", "E 否"],
+        "keyOrder": "K3 < K1 < K2",
+        "recordOrder": "{R3, R1, R2}"
+      },
+      {
+        "marker": "④",
+        "path": ["A 否", "B 是"],
+        "keyOrder": "K2 < K1 < K3",
+        "recordOrder": "{R2, R1, R3}"
+      },
+      {
+        "marker": "⑤",
+        "path": ["A 否", "B 否", "D 是"],
+        "keyOrder": "K2 < K3 < K1",
+        "recordOrder": "{R2, R3, R1}"
+      },
+      {
+        "marker": "⑥",
+        "path": ["A 否", "B 否", "D 否"],
+        "keyOrder": "K3 < K2 < K1",
+        "recordOrder": "{R3, R2, R1}"
+      }
+    ],
+    "counts": {
+      "comparisonNodes": 5,
+      "branchEdges": 10,
+      "branchLabels": 10,
+      "permutations": 6,
+      "leafMarkers": 6
+    },
+    "depthEvidence": "正文说判定树深度为 4，并据此说明对 3 个记录至少需要 3 次比较；最长根到叶路径含 3 条分支边。"
+  },
+  "sourceEvidence": [
+    {
+      "source": ".codex/audits/textbook-assets/09-12.json",
+      "locator": "lines 1935-1975; items[].asset=.../fig-10-16-decision-tree.svg",
+      "evidence": [
+        "status=problem，category=clipped，severity=high。",
+        "source page: 10-internal-sorting/10-7-comparison/index.md；route=/textbook/data-structures/10-internal-sorting/10-7-comparison。",
+        "caption=图 10.16：对 K1、K2、K3 插入排序过程的比较判定树。",
+        "审计信息保留清单要求保留 K1、K2、K3 和全部比较节点、每个比较的“是/否”方向、6 种全排列及①–⑥叶标记。",
+        "visualFinding=左下叶框的 x=-8 超出 viewBox=800×330，存在内容裁切。"
+      ]
+    },
+    {
+      "source": "app/data/textbook-data-structures.json",
+      "locator": "pages[].slug=10-internal-sorting/10-7-comparison; page object starts line 4184; markdown starts line 4200",
+      "evidence": [
+        "图前说明：除基数排序外，本章排序方法基于关键字间比较，可用类似图 10.16 的判定树描述过程。",
+        "图注：![图 10.16：对 K1、K2、K3 插入排序过程的比较判定树](assets/py/fig-10-16-decision-tree.svg)。",
+        "图后说明：每个非终端结点表示两个关键字间的一次比较，左、右子树表示两种结果；假设 K1≠K2≠K3≠K1。",
+        "正文逐项列出关键字关系：(1) K1<K2<K3；(2) K1<K3<K2；(3) K3<K1<K2；(4) K2<K1<K3；(5) K2<K3<K1；(6) K3<K2<K1。",
+        "正文逐项列出记录结果：(1) {R1,R2,R3}；(2) {R1,R3,R2}；(3) {R3,R1,R2}；(4) {R2,R1,R3}；(5) {R2,R3,R1}；(6) {R3,R2,R1}。",
+        "正文明确说 6 个终端结点恰好表示这 6 种排序结果，每条根到叶路径长度表示该初始序列所需比较次数。"
+      ],
+      "sourceMarkers": {
+        "pdf_pages": "298-302",
+        "book_pages": "288-292"
+      }
+    },
+    {
+      "source": "app/data/textbook-data-structures.json",
+      "locator": "pages[].slug=10-internal-sorting/10-2-insertion-sorting; page object starts line 3899; markdown starts line 3923",
+      "evidence": [
+        "直接插入排序的基本操作是把一个记录插入已排好序的有序表。",
+        "第 i 趟把 r[i] 插入 r[1..i-1]，通过关键字比较确定位置；算法 10.1 使用 LT(L.r[i].key, L.r[i-1].key) 和 LT(L.r[0].key, L.r[j].key)。",
+        "该算法上下文支持图注所称的“直接插入排序过程”，且未提出超出原 SVG 的额外比较节点。"
+      ],
+      "sourceMarkers": {
+        "pdf_pages": "275-282",
+        "book_pages": "265-272"
+      }
+    },
+    {
+      "source": "public/textbooks/data-structures/10-internal-sorting/10-7-comparison/assets/py/fig-10-16-decision-tree.svg",
+      "locator": "line 1",
+      "evidence": [
+        "原图 viewBox=0 0 800 330。",
+        "原图含 5 个椭圆比较节点：K1<K2、K1<K3、K2<K3、K2<K3、K1<K3。",
+        "原图含 10 条分支路径，左线标“否”、右线标“是”，含 6 个叶框和全部 ①–⑥标记。",
+        "左下叶框为 x=-8、y=253、width=116、height=30；其文字 K3<K2<K1 与⑥仍存在，但叶框左边界越界。"
+      ]
+    }
+  ],
+  "independentReadOnlyReview": {
+    "agentId": "019fc606-a7ba-7a61-9fc0-937889e49823",
+    "nickname": "Lagrange",
+    "status": "completed",
+    "writeOperations": false,
+    "conclusion": "独立枚举与主审一致：5 个比较节点，所有左分支为否、右分支为是，6 条根到叶路径与①–⑥及六种排列一一对应；没有需要凭常识补全的节点。",
+    "evidenceLocators": [
+      "目标 SVG line 1",
+      ".codex/audits/textbook-assets/09-12.json lines 1935-1975",
+      "app/data/textbook-data-structures.json page slug 10-internal-sorting/10-7-comparison, markdown line 4200",
+      "app/data/textbook-data-structures.json page slug 10-internal-sorting/10-2-insertion-sorting, markdown line 3923"
+    ]
+  },
+  "renderingVerification": {
+    "xmlSyntax": {
+      "command": "xmllint --noout public/textbooks/data-structures/10-internal-sorting/10-7-comparison/assets/py/fig-10-16-decision-tree-readable.svg",
+      "status": "passed"
+    },
+    "assetAudit": {
+      "command": "node /Users/minimax/.codex/skills/audit-408-textbook-assets-demo/scripts/audit-textbook-assets.mjs --project /Users/minimax/schedule/kaoyan-quiz --dataset app/data/textbook-data-structures.json --assets public/textbooks/data-structures --report /dev/null",
+      "status": "passed",
+      "observed": {
+        "missing": 0,
+        "malformed": 0,
+        "candidateScannedAsUnreferenced": true
+      },
+      "note": "候选按范围要求未接入教材 JSON/Markdown，因此审计脚本将其视为未直接引用资源；这不是缺失或 malformed。"
+    },
+    "semanticParity": {
+      "status": "passed",
+      "originalAndCandidateSemanticTextSetsEqual": true,
+      "candidateElementCounts": {
+        "comparisonEllipses": 5,
+        "leafRectangles": 6,
+        "branchEdges": 10,
+        "branchLabels": 10,
+        "permutationLabels": 6,
+        "leafMarkers": 6
+      },
+      "noLeafOrComparisonRemoved": true
+    },
+    "intrinsic": {
+      "status": "passed",
+      "method": "浏览器直接打开候选 SVG 并截图检查",
+      "renderedSize": {
+        "width": 790,
+        "height": 510
+      },
+      "checks": [
+        "根、5 个比较节点、10 条有向边、10 个是/否标签、6 个叶框、6 个排列和①–⑥均在画布内。",
+        "左下 K3<K2<K1 叶框完整可见，左侧和底部均有边距。",
+        "首次 intrinsic 检查发现右侧椭圆与①叶框相碰；候选已调整几何并复验通过。"
+      ]
+    },
+    "bodyWidthApprox760": {
+      "status": "passed",
+      "method": "使用 sharp 在内存中将确定性 SVG 栅格化到 760px 宽；未写入截图文件。",
+      "renderedSize": {
+        "width": 760,
+        "height": 491
+      },
+      "checks": [
+        "所有比较、边、分支方向、排列和叶标记可见。",
+        "无边框、文本或边线越界，无节点/叶框重叠。"
+      ]
+    },
+    "narrowApprox396": {
+      "status": "passed",
+      "method": "使用 sharp 在内存中将确定性 SVG 栅格化到 396px 宽；未写入截图文件。",
+      "renderedSize": {
+        "width": 396,
+        "height": 256
+      },
+      "checks": [
+        "树在窄宽度下仍完整收纳，无水平裁切或重叠。",
+        "比较文本、是/否、6 个排列和①–⑥均仍存在；文字密度较高但未以删叶或删比较换取适配。"
+      ]
+    },
+    "realPage": {
+      "status": "baseline_verified_candidate_not_wired_by_scope",
+      "url": "http://127.0.0.1:3000/textbook/data-structures/10-internal-sorting/10-7-comparison",
+      "observedViewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "observedOriginalImage": {
+        "naturalWidth": 800,
+        "naturalHeight": 330,
+        "displayedWidth": 567,
+        "displayedHeight": 235.0625,
+        "alt": "图 10.16：对 K1、K2、K3 插入排序过程的比较判定树"
+      },
+      "checks": [
+        "真实教材页可打开，原图资源加载完成，页面 document scrollWidth 未超过 viewport。",
+        "候选没有替换真实页引用，因为用户明确禁止改 Markdown、教材 JSON、组件、CSS 或图片引用；候选按同一 SVG img 缩放规则做了 760/396 无写入渲染验收。"
+      ]
+    },
+    "methodLimitations": [
+      "未创建临时 HTML、截图或 /tmp 文件；浏览器临时 data URL 预览受安全策略拒绝，因此 760/396 使用内存矢量栅格化，并以真实教材页的原图容器测量作为 CSS 基线。",
+      "未运行 full build/lint；本次仅新增未接入的 SVG 和审计草稿，未触碰导入数据、组件或全局样式。"
+    ]
+  },
+  "informationPreservation": {
+    "checklist": [
+      "5 个比较节点全部保留，包括重复出现但语义不同的 K1<K3、K2<K3 节点。",
+      "10 条分支边全部保留，左/右方向及“否/是”标签全部保留。",
+      "6 种关键字排列全部保留。",
+      "6 个终端叶节点及①–⑥全部保留，记录结果与正文顺序一致。",
+      "判定树的根到叶路径、比较次数语义和直接插入排序上下文未改写。",
+      "未删除任何非重复知识内容"
+    ],
+    "deletedNonDuplicateKnowledge": false
+  },
+  "residualRisks": [
+    "候选文件按用户范围要求未接入教材图片引用；当前真实教材页仍加载原图，正式替换需后续单独获得引用变更授权。",
+    "396px 窄屏下文字相对紧凑；几何无裁切/重叠，必要时阅读器可依赖图片放大查看。",
+    "工作区在本任务开始前已有 app/components/TextbookPracticeWorkspace.tsx、app/data/textbook-data-structures.json、app/globals.css 等修改；本任务未覆盖这些既有修改。"
+  ],
+  "writeAudit": {
+    "created": [
+      "public/textbooks/data-structures/10-internal-sorting/10-7-comparison/assets/py/fig-10-16-decision-tree-readable.svg",
+      ".codex/audits/textbook-assets/draft-10-redraw.json"
+    ],
+    "originalDiffCheck": "passed; git diff against fig-10-16-decision-tree.svg is empty",
+    "noWorktree": true,
+    "noTempFiles": true,
+    "noCommitOrPush": true
+  }
+}

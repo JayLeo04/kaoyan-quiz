@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="fig-title fig-desc">
+  <title id="fig-title">图 11.6 置换-选择过程中的败者树（a）～（l）</title>
+  <desc id="fig-desc">展示置换-选择排序建立败者树、输出记录并重新选择记录的十二个连续状态。圆形结点是败者树，工作区方框中的值为关键字和段号，右侧方框为当前选择记录。</desc>
+  <rect width="1440" height="900" fill="#fff"/>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #20232a; }
+    .title { font-size: 24px; font-weight: 700; }
+    .legend { font-size: 14px; fill: #4d5968; }
+    .panel { fill: #fbfcfe; stroke: #cbd4df; stroke-width: 1.5; }
+    .line { fill: none; stroke: #27313d; stroke-width: 1.8; stroke-linecap: round; }
+    .node { fill: #fff; stroke: #1f2933; stroke-width: 1.6; }
+    .node-label { font-size: 16px; text-anchor: middle; }
+    .q-label { font-size: 15px; font-weight: 700; fill: #385b7d; }
+    .panel-label { font-size: 16px; font-weight: 700; fill: #536275; }
+    .box { fill: #fff; stroke: #1f2933; stroke-width: 1.5; }
+    .box-label { font-size: 15px; text-anchor: middle; }
+    .box-caption { font-size: 12px; fill: #6a7684; }
+  </style>
+
+  <text x="720" y="26" text-anchor="middle" class="title">图 11.6　置换-选择过程中的败者树（a）～（l）</text>
+  <text x="720" y="51" text-anchor="middle" class="legend">圆形数字：败者树结点　下方方框：工作区 wa[i]（关键字/段号）　右侧方框：当前选择记录</text>
+
+  <defs>
+    <g id="loser-tree">
+      <line x1="220" y1="49" x2="220" y2="78" class="line"/>
+      <line x1="220" y1="78" x2="145" y2="110" class="line"/>
+      <line x1="220" y1="78" x2="295" y2="110" class="line"/>
+      <line x1="145" y1="110" x2="95" y2="140" class="line"/>
+      <line x1="145" y1="110" x2="175" y2="140" class="line"/>
+      <line x1="295" y1="110" x2="265" y2="140" class="line"/>
+      <line x1="295" y1="110" x2="345" y2="140" class="line"/>
+      <line x1="295" y1="110" x2="405" y2="110" class="line"/>
+      <circle cx="220" cy="49" r="17" class="node"/><text x="220" y="55" class="node-label">0</text>
+      <circle cx="220" cy="78" r="17" class="node"/><text x="220" y="84" class="node-label">0</text>
+      <circle cx="145" cy="110" r="17" class="node"/><text x="145" y="116" class="node-label">4</text>
+      <circle cx="295" cy="110" r="17" class="node"/><text x="295" y="116" class="node-label">0</text>
+      <circle cx="95" cy="140" r="17" class="node"/><text x="95" y="146" class="node-label">2</text>
+      <circle cx="175" cy="140" r="17" class="node"/><text x="175" y="146" class="node-label">5</text>
+      <circle cx="265" cy="140" r="17" class="node"/><text x="265" y="146" class="node-label">0</text>
+      <circle cx="345" cy="140" r="17" class="node"/><text x="345" y="146" class="node-label">1</text>
+    </g>
+  </defs>
+
+  <!-- row 1 -->
+  <g transform="translate(25 70)" aria-label="状态 a，q 等于空">
+    <rect width="450" height="195" rx="8" class="panel"/><text x="14" y="25" class="q-label">q=—</text><text x="423" y="25" class="panel-label">（a）</text>
+    <use href="#loser-tree"/>
+    <rect x="60" y="155" width="70" height="34" class="box"/><text x="95" y="177" class="box-label">0/0</text>
+    <rect x="140" y="155" width="70" height="34" class="box"/><text x="175" y="177" class="box-label">0/0</text>
+    <rect x="230" y="155" width="70" height="34" class="box"/><text x="265" y="177" class="box-label">0/0</text>
+    <rect x="310" y="155" width="70" height="34" class="box"/><text x="345" y="177" class="box-label">0/0</text>
+    <rect x="405" y="94" width="40" height="34" class="box"/><text x="425" y="116" class="box-label">0/0</text>
+  </g>
+  <g transform="translate(495 70)" aria-label="状态 b，q 等于空">
+    <rect width="450" height="195" rx="8" class="panel"/><text x="14" y="25" class="q-label">q=—</text><text x="423" y="25" class="panel-label">（b）</text>
+    <use href="#loser-tree"/>
+    <rect x="60" y="155" width="70" height="34" class="box"/><text x="95" y="177" class="box-label">0/0</text>
+    <rect x="140" y="155" width="70" height="34" class="box"/><text x="175" y="177" class="box-label">0/0</text>
+    <rect x="230" y="155" width="70" height="34" class="box"/><text x="265" y="177" class="box-label">51/1</text>
+    <rect x="310" y="155" width="70" height="34" class="box"/><text x="345" y="177" class="box-label">0/0</text>
+    <rect x="405" y="94" width="40" height="34" class="box"/><text x="425" y="116" class="box-label">0/0</text>
+  </g>
+  <g transform="translate(965 70)" aria-label="状态 c，q 等于空">
+    <rect width="450" height="195" rx="8" class="panel"/><text x="14" y="25" class="q-label">q=—</text><text x="423" y="25" class="panel-label">（c）</text>
+    <use href="#loser-tree"/>
+    <rect x="60" y="155" width="70" height="34" class="box"/><text x="95" y="177" class="box-label">0/0</text>
+    <rect x="140" y="155" width="70" height="34" class="box"/><text x="175" y="177" class="box-label">49/1</text>
+    <rect x="230" y="155" width="70" height="34" class="box"/><text x="265" y="177" class="box-label">51/1</text>
+    <rect x="310" y="155" width="70" height="34" class="box"/><text x="345" y="177" class="box-label">0/0</text>
+    <rect x="405" y="94" width="40" height="34" class="box"/><text x="425" y="116" class="box-label">0/0</text>
+  </g>
+
+  <!-- row 2 -->
+  <g transform="translate(25 275)" aria-label="状态 d，q 等于空">
+    <rect width="450" height="195" rx="8" class="panel"/><text x="14" y="25" class="q-label">q=—</text><text x="423" y="25" class="panel-label">（d）</text>
+    <use href="#loser-tree"/>
+    <rect x="60" y="155" width="70" height="34" class="box"/><text x="95" y="177" class="box-label">39/1</text>
+    <rect x="140" y="155" width="70" height="34" class="box"/><text x="175" y="177" class="box-label">49/1</text>
+    <rect x="230" y="155" width="70" height="34" class="box"/><text x="265" y="177" class="box-label">51/1</text>
+    <rect x="310" y="155" width="70" height="34" class="box"/><text x="345" y="177" class="box-label">0/0</text>
+    <rect x="405" y="94" width="40" height="34" class="box"/><text x="425" y="116" class="box-label">0/0</text>
+  </g>
+  <g transform="translate(495 275)" aria-label="状态 e，q 等于空">
+    <rect width="450" height="195" rx="8" class="panel"/><text x="14" y="25" class="q-label">q=—</text><text x="423" y="25" class="panel-label">（e）</text>
+    <use href="#loser-tree"/>
+    <rect x="60" y="155" width="70" height="34" class="box"/><text x="95" y="177" class="box-label">46/1</text>
+    <rect x="140" y="155" width="70" height="34" class="box"/><text x="175" y="177" class="box-label">39/1</text>
+    <rect x="230" y="155" width="70" height="34" class="box"/><text x="265" y="177" class="box-label">49/1</text>
+    <rect x="310" y="155" width="70" height="34" class="box"/><text x="345" y="177" class="box-label">51/1</text>
+    <rect x="405" y="94" width="40" height="34" class="box"/><text x="425" y="116" class="box-label">0/0</text>
+  </g>
+  <g transform="translate(965 275)" aria-label="状态 f，q 等于空">
+    <rect width="450" height="195" rx="8" class="panel"/><text x="14" y="25" class="q-label">q=—</text><text x="423" y="25" class="panel-label">（f）</text>
+    <use href="#loser-tree"/>
+    <rect x="60" y="155" width="70" height="34" class="box"/><text x="95" y="177" class="box-label">46/1</text>
+    <rect x="140" y="155" width="70" height="34" class="box"/><text x="175" y="177" class="box-label">39/1</text>
+    <rect x="230" y="155" width="70" height="34" class="box"/><text x="265" y="177" class="box-label">49/1</text>
+    <rect x="310" y="155" width="70" height="34" class="box"/><text x="345" y="177" class="box-label">51/1</text>
+    <rect x="405" y="94" width="40" height="34" class="box"/><text x="425" y="116" class="box-label">38/1</text>
+  </g>
+
+  <!-- row 3 -->
+  <g transform="translate(25 480)" aria-label="状态 g，q 等于 0">
+    <rect width="450" height="195" rx="8" class="panel"/><text x="14" y="25" class="q-label">q=0</text><text x="423" y="25" class="panel-label">（g）</text>
+    <use href="#loser-tree"/>
+    <rect x="60" y="155" width="70" height="34" class="box"/><text x="95" y="177" class="box-label">46/1</text>
+    <rect x="140" y="155" width="70" height="34" class="box"/><text x="175" y="177" class="box-label">39/1</text>
+    <rect x="230" y="155" width="70" height="34" class="box"/><text x="265" y="177" class="box-label">49/1</text>
+    <rect x="310" y="155" width="70" height="34" class="box"/><text x="345" y="177" class="box-label">51/1</text>
+    <rect x="405" y="94" width="40" height="34" class="box"/><text x="425" y="116" class="box-label">29/1</text>
+  </g>
+  <g transform="translate(495 480)" aria-label="状态 h，q 等于 1">
+    <rect width="450" height="195" rx="8" class="panel"/><text x="14" y="25" class="q-label">q=1</text><text x="423" y="25" class="panel-label">（h）</text>
+    <use href="#loser-tree"/>
+    <rect x="60" y="155" width="70" height="34" class="box"/><text x="95" y="177" class="box-label">46/1</text>
+    <rect x="140" y="155" width="70" height="34" class="box"/><text x="175" y="177" class="box-label">39/1</text>
+    <rect x="230" y="155" width="70" height="34" class="box"/><text x="265" y="177" class="box-label">49/1</text>
+    <rect x="310" y="155" width="70" height="34" class="box"/><text x="345" y="177" class="box-label">51/1</text>
+    <rect x="405" y="94" width="40" height="34" class="box"/><text x="425" y="116" class="box-label">29/1</text>
+  </g>
+  <g transform="translate(965 480)" aria-label="状态 i，q 等于 3">
+    <rect width="450" height="195" rx="8" class="panel"/><text x="14" y="25" class="q-label">q=3</text><text x="423" y="25" class="panel-label">（i）</text>
+    <use href="#loser-tree"/>
+    <rect x="60" y="155" width="70" height="34" class="box"/><text x="95" y="177" class="box-label">46/1</text>
+    <rect x="140" y="155" width="70" height="34" class="box"/><text x="175" y="177" class="box-label">39/1</text>
+    <rect x="230" y="155" width="70" height="34" class="box"/><text x="265" y="177" class="box-label">49/1</text>
+    <rect x="310" y="155" width="70" height="34" class="box"/><text x="345" y="177" class="box-label">51/1</text>
+    <rect x="405" y="94" width="40" height="34" class="box"/><text x="425" y="116" class="box-label">14/2</text>
+  </g>
+
+  <!-- row 4 -->
+  <g transform="translate(25 685)" aria-label="状态 j，q 等于 1">
+    <rect width="450" height="195" rx="8" class="panel"/><text x="14" y="25" class="q-label">q=1</text><text x="423" y="25" class="panel-label">（j）</text>
+    <use href="#loser-tree"/>
+    <rect x="60" y="155" width="70" height="34" class="box"/><text x="95" y="177" class="box-label">30/2</text>
+    <rect x="140" y="155" width="70" height="34" class="box"/><text x="175" y="177" class="box-label">15/2</text>
+    <rect x="230" y="155" width="70" height="34" class="box"/><text x="265" y="177" class="box-label">1/2</text>
+    <rect x="310" y="155" width="70" height="34" class="box"/><text x="345" y="177" class="box-label">48/2</text>
+    <rect x="405" y="94" width="40" height="34" class="box"/><text x="425" y="116" class="box-label">14/2</text>
+  </g>
+  <g transform="translate(495 685)" aria-label="状态 k，q 等于 4">
+    <rect width="450" height="195" rx="8" class="panel"/><text x="14" y="25" class="q-label">q=4</text><text x="423" y="25" class="panel-label">（k）</text>
+    <use href="#loser-tree"/>
+    <rect x="60" y="155" width="70" height="34" class="box"/><text x="95" y="177" class="box-label">30/2</text>
+    <rect x="140" y="155" width="70" height="34" class="box"/><text x="175" y="177" class="box-label">15/2</text>
+    <rect x="230" y="155" width="70" height="34" class="box"/><text x="265" y="177" class="box-label">1/2</text>
+    <rect x="310" y="155" width="70" height="34" class="box"/><text x="345" y="177" class="box-label">48/2</text>
+    <rect x="405" y="94" width="40" height="34" class="box"/><text x="425" y="116" class="box-label">14/2</text>
+  </g>
+  <g transform="translate(965 685)" aria-label="状态 l，q 等于 4">
+    <rect width="450" height="195" rx="8" class="panel"/><text x="14" y="25" class="q-label">q=4</text><text x="423" y="25" class="panel-label">（l）</text>
+    <use href="#loser-tree"/>
+    <rect x="60" y="155" width="70" height="34" class="box"/><text x="95" y="177" class="box-label">30/2</text>
+    <rect x="140" y="155" width="70" height="34" class="box"/><text x="175" y="177" class="box-label">15/2</text>
+    <rect x="230" y="155" width="70" height="34" class="box"/><text x="265" y="177" class="box-label">3/2</text>
+    <rect x="310" y="155" width="70" height="34" class="box"/><text x="345" y="177" class="box-label">48/2</text>
+    <rect x="405" y="94" width="40" height="34" class="box"/><text x="425" y="116" class="box-label">14/2</text>
+  </g>
+</svg>

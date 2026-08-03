@@ -1,0 +1,312 @@
+{
+  "schemaVersion": "textbook-answer-audit-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "02-linear-list",
+    "04-string"
+  ],
+  "updates": [
+    {
+      "id": "book-ds-yan-02-21",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设顺序表有效元素位于 elem[0..length-1]，且 $0\\le length\\le listsize$。用双下标交换两端元素即可。\n\n~~~~c\nvoid ReverseSqList(SqList *L) {\n    int i, j;\n    ElemType tmp;\n    if (L == NULL || L->length <= 1) return;\n    for (i = 0, j = L->length - 1; i < j; ++i, --j) {\n        tmp = L->elem[i];\n        L->elem[i] = L->elem[j];\n        L->elem[j] = tmp;\n    }\n}\n~~~~\n\n第 $k$ 次交换后，原前 $k$ 项已逆序放在尾部、原后 $k$ 项已逆序放在首部，未处理区保持原序；两端相遇时全表即逆置。空表和单元素表不变。时间为 $\\Theta(n)$，额外空间为 $O(1)$。",
+        "explanation": "采用顺序表连续元素区的两端交换，覆盖空表、单元素及奇偶长度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充顺序表原地逆置的独立参考解答。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-25",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设 $A,B$ 是合法顺序表，分别含 $m,n$ 个严格递增且无重复的元素；$C$ 是与输入不重叠的新表。交集至多有 $\\min(m,n)$ 项，故先按该容量分配，再同步扫描。\n\n~~~~c\nStatus IntersectSortedSq(const SqList *A, const SqList *B, SqList *C) {\n    int i = 0, j = 0;\n    int cap;\n    if (A == NULL || B == NULL || C == NULL ||\n        A->length < 0 || B->length < 0) return ERROR;\n    cap = A->length < B->length ? A->length : B->length;\n    C->elem = cap ? (ElemType *)malloc((size_t)cap * sizeof(ElemType)) : NULL;\n    if (cap && C->elem == NULL) return OVERFLOW;\n    C->length = 0;  C->listsize = cap;\n    while (i < A->length && j < B->length) {\n        if (A->elem[i] < B->elem[j]) ++i;\n        else if (A->elem[i] > B->elem[j]) ++j;\n        else {\n            C->elem[C->length++] = A->elem[i];\n            ++i; ++j;\n        }\n    }\n    return OK;\n}\n~~~~\n\n已越过的两个前缀的交集始终恰为 $C$；较小值不可能再与另一表未扫描元素相等，相等值写一次并同时前进。任一空表得到空交集。时间为 $O(m+n)$，结果区至多为 $O(\\min(m,n))$，工作空间为 $O(1)$。",
+        "explanation": "利用两个严格递增的顺序表作一次归并，结果容量按交集上界分配。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充顺序表有序集合交集的独立算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-26",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n沿用 2.25 的集合前提。以下把 $A,B$ 解释为带头结点、末结点 next 为 NULL 的单链表；为 $C$ 新建头结点和每个交集结点，不改动输入。\n\n~~~~c\nstatic void DestroyHeadedList(LinkList L) {\n    LinkList q;\n    while (L != NULL) { q = L->next; free(L); L = q; }\n}\n\nStatus IntersectSortedLink(LinkList A, LinkList B, LinkList *C) {\n    LinkList pa, pb, tail, q;\n    if (A == NULL || B == NULL || C == NULL) return ERROR;\n    *C = (LinkList)malloc(sizeof(LNode));\n    if (*C == NULL) return OVERFLOW;\n    (*C)->next = NULL;\n    tail = *C;  pa = A->next;  pb = B->next;\n    while (pa != NULL && pb != NULL) {\n        if (pa->data < pb->data) pa = pa->next;\n        else if (pa->data > pb->data) pb = pb->next;\n        else {\n            q = (LinkList)malloc(sizeof(LNode));\n            if (q == NULL) {\n                DestroyHeadedList(*C); *C = NULL; return OVERFLOW;\n            }\n            q->data = pa->data;  q->next = NULL;\n            tail->next = q;  tail = q;\n            pa = pa->next;  pb = pb->next;\n        }\n    }\n    return OK;\n}\n~~~~\n\n不变式是：$C$ 恰保存两个已扫描前缀的交集，tail 指向其最后结点。每个输入结点至多前进一次；空表只留下结果头结点。时间为 $O(m+n)$，结果结点空间为 $O(\\min(m,n))$，工作指针为 $O(1)$。",
+        "explanation": "采用带头结点单链表归并，显式处理空表和分配失败的回收。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充单链表有序集合交集的独立算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-03",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n顺序表通常优于链表的情形是：表长可预估且有连续空间；主要操作为按位序随机访问、遍历或有序表二分查找；中间插删少或主要在表尾；以及希望获得较好缓存局部性并避免每个结点的指针和分散分配开销。若大小难预估、连续空间难得，或已知位置的中间插删频繁，链表通常更合适。关键是顺序表的 $O(1)$ 位序访问是否能抵消搬移元素的代价。",
+        "explanation": "从访问方式、空间连续性、更新频率和存储开销比较两种表示。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充顺序表适用条件的独立比较。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-31",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n无头指针但已知 $s$ 时，要删除 $s$ 的前驱，需找到该前驱的前驱。从 $s$ 绕环，寻找满足 p->next->next==s 的结点即可。题设的长度大于 1 保证被删结点存在且不是唯一结点。\n\n~~~~c\nStatus DeletePredecessor(CLinkNode *s) {\n    CLinkNode *p, *q;\n    if (s == NULL || s->next == s) return ERROR;\n    p = s;\n    while (p->next->next != s) p = p->next;\n    q = p->next;\n    p->next = s;\n    free(q);\n    return OK;\n}\n~~~~\n\n长度为 2 时，初始 p=s 已满足终止条件，恰删除另一结点；更长时循环结束的 p 正是被删结点的前驱。重连后仍是包含其余结点的单向环。最坏需绕环，时间为 $O(n)$，额外空间为 $O(1)$。",
+        "explanation": "不引入头指针，按题设从 s 绕环定位被删结点的前驱并重连。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充无头指针单向循环链表的独立删除算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-32",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n令 L 指向环中任一已有结点，空表用 L==NULL 表示。所有 pre 初始为 NULL；遍历时只沿未改动的 next 前进，因此可在一次绕环中令每个后继的 pre 指向当前结点。\n\n~~~~c\nvoid MakeDoublyCircular(CLinkNode *L) {\n    CLinkNode *p, *q;\n    if (L == NULL) return;\n    p = L;\n    do {\n        q = p->next;\n        q->pre = p;\n        p = q;\n    } while (p != L);\n}\n~~~~\n\n每条原有边 $p\\to q$ 恰执行一次 q->pre=p；最后一次把 L->pre 设为原尾结点，next 不变。单结点环得到 L->pre=L，空表直接返回。时间为 $\\Theta(n)$，额外空间为 $O(1)$。",
+        "explanation": "只沿原 next 环遍历并回填后继的 pre，覆盖空环和单结点环。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充单向循环链表原地转双向循环链表的独立算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-35",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n严格采用 2.34 的异或双向链表：LRPtr=left XOR right，L->Left、L->Right 为两端，XorP 是题设给定的指针异或。以下在第 $i$ 个已有结点之前插入 e，要求 $1\\le i\\le n$；空表或越界位序返回错误。\n\n~~~~c\nStatus InsertBeforeXor(XorLinkedList *L, int i, char e) {\n    XorPointer prev = NULL, cur, following, node;\n    int k;\n    if (L == NULL || i < 1) return ERROR;\n    cur = L->Left;\n    for (k = 1; cur != NULL && k < i; ++k) {\n        following = XorP(prev, cur->LRPtr);\n        prev = cur;\n        cur = following;\n    }\n    if (cur == NULL) return ERROR;\n    node = (XorPointer)malloc(sizeof(XorNode));\n    if (node == NULL) return OVERFLOW;\n    node->data = e;\n    node->LRPtr = XorP(prev, cur);\n    cur->LRPtr = XorP(XorP(cur->LRPtr, prev), node);\n    if (prev != NULL)\n        prev->LRPtr = XorP(XorP(prev->LRPtr, cur), node);\n    else\n        L->Left = node;\n    return OK;\n}\n~~~~\n\n到达 cur 时 prev 是左邻。对 cur 与 prev 分别异或掉旧邻居、异或进 node，正好更新所有受影响链接；首位插入只改 Left，Right 不变。时间为 $O(i)$、最坏 $O(n)$，额外空间为 $O(1)$。",
+        "explanation": "按 2.34 的异或邻接编码替换相邻指针，保留首结点插入边界。",
+        "correction": {
+          "verified": "**独立参考解答（非原书摘录）**\n\n严格采用 2.34 的异或双向链表：LRPtr=left XOR right，L->Left、L->Right 为两端，XorP 是题设给定的指针异或。按线性表标准插入位序，允许 $1\\le i\\le n+1$：$i\\le n$ 时插在原第 i 个结点前，$i=n+1$ 时尾插；空表仅允许 $i=1$，并同时建立两个端指针。\n\n~~~~c\nStatus InsertBeforeXor(XorLinkedList *L, int i, char e) {\n    XorPointer prev = NULL, cur, following, node;\n    int k;\n    if (L == NULL || i < 1) return ERROR;\n\n    cur = L->Left;\n    for (k = 1; cur != NULL && k < i; ++k) {\n        following = XorP(prev, cur->LRPtr);\n        prev = cur;\n        cur = following;\n    }\n    if (k != i) return ERROR;           /* 位序大于当前长度加 1 */\n\n    node = (XorPointer)malloc(sizeof(XorNode));\n    if (node == NULL) return OVERFLOW;\n    node->data = e;\n    node->LRPtr = XorP(prev, cur);\n\n    if (cur != NULL)\n        cur->LRPtr = XorP(XorP(cur->LRPtr, prev), node);\n    if (prev != NULL)\n        prev->LRPtr = XorP(XorP(prev->LRPtr, cur), node);\n    else\n        L->Left = node;\n    if (cur == NULL)\n        L->Right = node;\n    return OK;\n}\n~~~~\n\n到达插入位置时，prev、cur 分别是新结点左右两侧的结点（端点可为 NULL）。node 的 LRPtr 取二者异或；非空左、右邻居分别以 node 替换旧邻居，故局部链接正确。首插令 Left 指向 node，尾插令 Right 指向 node，空表时二者都指向 node。循环最多走到原尾后一次，时间为 $O(i)$、最坏 $O(n)$，额外空间为 $O(1)$。",
+          "explanation": "扩展到教材 ListInsert 的完整合法位序，显式处理尾插与空表首插，并保持异或链接更新可追溯。",
+          "reason": "交叉复审指出原补充只接受已有第 i 个结点，拒绝标准的 i=n+1 尾插和空表 i=1；修正后覆盖完整插入位序。"
+        }
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充异或指针双向链表插入的独立算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-36",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n仍采用 2.34 的 LRPtr=left XOR right。查到第 $i$ 个结点 cur 后，先由 prev XOR cur->LRPtr 求右邻 next，再把 cur 从两侧邻居的异或域中替换掉。\n\n~~~~c\nStatus DeleteXorNode(XorLinkedList *L, int i) {\n    XorPointer prev = NULL, cur, next, following;\n    int k;\n    if (L == NULL || i < 1) return ERROR;\n    cur = L->Left;\n    for (k = 1; cur != NULL && k < i; ++k) {\n        following = XorP(prev, cur->LRPtr);\n        prev = cur;\n        cur = following;\n    }\n    if (cur == NULL) return ERROR;\n    next = XorP(prev, cur->LRPtr);\n    if (prev != NULL)\n        prev->LRPtr = XorP(XorP(prev->LRPtr, cur), next);\n    else\n        L->Left = next;\n    if (next != NULL)\n        next->LRPtr = XorP(XorP(next->LRPtr, cur), prev);\n    else\n        L->Right = prev;\n    free(cur);\n    return OK;\n}\n~~~~\n\nprev 的旧邻居 cur 被 next 替换，next 的旧邻居 cur 被 prev 替换，故二者删除后互为相邻。删除左右端相应更新 Left 或 Right，删除唯一结点时两端都变 NULL。时间为 $O(i)$、最坏 $O(n)$，额外空间为 $O(1)$。",
+        "explanation": "按异或链表的恢复邻居公式删除第 i 个结点，覆盖两端和唯一结点。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充异或指针双向链表删除的独立算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-37",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n目标为原奇数位正序、原偶数位逆序。设 L 是带头结点的双向循环链表。依原位序从左到右摘下每个结点并插到当前奇数段尾 oddTail 之后；奇数位插入后再把 oddTail 移到它。每个偶数位因而压在已有偶数段的前端。\n\n~~~~c\nvoid OddForwardEvenBackward(DuLinkList L) {\n    DNode *p, *next, *oddTail;\n    int pos = 1;\n    if (L == NULL || L->next == L) return;\n    oddTail = L;\n    p = L->next;\n    while (p != L) {\n        next = p->next;\n        p->prior->next = p->next;\n        p->next->prior = p->prior;\n        p->prior = oddTail;\n        p->next = oddTail->next;\n        oddTail->next->prior = p;\n        oddTail->next = p;\n        if (pos & 1) oddTail = p;\n        p = next;\n        ++pos;\n    }\n}\n~~~~\n\n处理完前 $k$ 个原结点后，链表前缀恰为已见奇数位正序接已见偶数位逆序。保存 next 后再摘插，故重排不丢失原扫描路径。空表和单元素表不变。每结点仅摘插一次，时间为 $\\Theta(n)$，额外空间为 $O(1)$。",
+        "explanation": "在带头结点双向循环链表内原地保留奇数位并逆置偶数位，无额外结点。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充双向循环链表奇偶位重排的独立算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-38",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n设 L 为带头结点的双向循环链表，普通结点在进入操作前已按 freq 非递增排列，pre、next 为双向链接。LOCATE 返回首次命中的结点，未命中返回 NULL；假定频度不会溢出。\n\n~~~~c\nDNode *Locate(DuLinkList L, ElemType x) {\n    DNode *p, *q;\n    if (L == NULL) return NULL;\n    p = L->next;\n    while (p != L && p->data != x) p = p->next;\n    if (p == L) return NULL;\n    ++p->freq;\n    q = p->pre;\n    while (q != L && q->freq < p->freq) q = q->pre;\n    if (q != p->pre) {\n        p->pre->next = p->next;\n        p->next->pre = p->pre;\n        p->pre = q;\n        p->next = q->next;\n        q->next->pre = p;\n        q->next = p;\n    }\n    return p;\n}\n~~~~\n\n频度加 1 后，p 与原后继仍满足非递增；只有其前方频度小于新值的结点可能失序。q 停在最近的频度不少于 p 的结点或头结点，接在 q 后即恢复全表次序。空表、未命中均不修改。查找和回退各至多经过 $n$ 项，最坏时间 $O(n)$，额外空间 $O(1)$。",
+        "explanation": "先查找，再只跨越因频度加一而失序的前驱段，保持频度顺序和双向链接。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充带频度域双向循环链表 LOCATE 的独立算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-04",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n各程序段从题图初态分别执行。记可见结点为 $N_1(2),N_2(5),N_3(7),N_4(3),N_5(8)$，初态 L=N1、P=N2、Q=N3、R=N4、S=N5，且 N5 后仍有题图用省略号表示的结点。\n\n| 段 | 执行结果 |\n| --- | --- |\n| (1) | Q=P->next，所以 Q=N3；链和值不变。 |\n| (2) | L=N3；物理链仍为 N1→N2→N3→…，只是从 L 不再可达 N1、N2。 |\n| (3) | R->data=P->data，故链为 2→5→7→5→8→…。 |\n| (4) | R->data=P->next->data，故链为 2→5→7→7→8→…。 |\n| (5) | P->next->next->next 是 N5，故链为 2→5→7→3→5→…。 |\n| (6) | T 从 N2 走到 NULL，N2 起所有结点加倍；可见前缀为 2→10→14→6→16→…，退出时 T=NULL。 |\n| (7) | T 从 N2 走到全表末结点，但末结点不进循环。N2、N3、N4、N5 变为 10、14、6、16；退出时 T 指向全表末结点，其数据不变。 |\n\n(6)、(7) 的精确尾部值取决于题图省略部分；表中结论已给出所有可见结点及循环边界。",
+        "explanation": "按题图中可见结点逐句演算，并对省略尾部保留可核验的符号化结果。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充题图所示单链表程序段的独立演算。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-40",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n沿用 2.39 的稀疏顺序表示：项仅存 coef 与 exp，指数严格递增，输入无零系数项。令项数为 $m,n$，另辟容量 $m+n$ 的结果区；归并时对第二多项式独有项写入其相反数。\n\n~~~~c\ntypedef struct { double coef; int exp; } Term;\ntypedef struct { Term *term; int length, capacity; } SqPoly;\n\nstatic void AppendTerm(SqPoly *C, double c, int e) {\n    if (c != 0) C->term[C->length++] = (Term){ c, e };\n}\n\nStatus SubPoly(const SqPoly *A, const SqPoly *B, SqPoly *C) {\n    int i = 0, j = 0, cap;\n    if (A == NULL || B == NULL || C == NULL ||\n        A->length < 0 || B->length < 0) return ERROR;\n    cap = A->length + B->length;\n    C->term = cap ? (Term *)malloc((size_t)cap * sizeof(Term)) : NULL;\n    if (cap && C->term == NULL) return OVERFLOW;\n    C->length = 0; C->capacity = cap;\n    while (i < A->length && j < B->length) {\n        if (A->term[i].exp < B->term[j].exp) {\n            AppendTerm(C, A->term[i].coef, A->term[i].exp); ++i;\n        } else if (A->term[i].exp > B->term[j].exp) {\n            AppendTerm(C, -B->term[j].coef, B->term[j].exp); ++j;\n        } else {\n            AppendTerm(C, A->term[i].coef - B->term[j].coef, A->term[i].exp);\n            ++i; ++j;\n        }\n    }\n    while (i < A->length) {\n        AppendTerm(C, A->term[i].coef, A->term[i].exp); ++i;\n    }\n    while (j < B->length) {\n        AppendTerm(C, -B->term[j].coef, B->term[j].exp); ++j;\n    }\n    return OK;\n}\n~~~~\n\n每轮输出尚未处理的最小指数项的正确差；同指数相消为零时不写入，故结果仍严格递增且无零项。空输入或全相消均允许结果长度为 0。时间为 $O(m+n)$，新结果最多 $O(m+n)$，除结果外为 $O(1)$。若系数用浮点数，零判定应换为题设容差。",
+        "explanation": "按 2.39 的系数—指数顺序存储作一次归并，处理相消和空结果。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充稀疏顺序多项式相减的独立算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-41",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n采用带头结点循环单链表：头结点 H 不表示项，空多项式满足 H->next==H；普通结点存非零 coef、非负 exp、next。对常数项删除释放；其他结点原地改为 $(c,e)\\mapsto(c\\cdot e,e-1)$。\n\n~~~~c\nvoid Derivative(PolyList H) {\n    PolyNode *prev, *p, *next;\n    if (H == NULL) return;\n    prev = H; p = H->next;\n    while (p != H) {\n        next = p->next;\n        if (p->exp == 0) {\n            prev->next = next;\n            free(p);\n        } else {\n            p->coef *= p->exp;\n            --p->exp;\n            prev = p;\n        }\n        p = next;\n    }\n}\n~~~~\n\n已处理结点恰为原扫描项的导数，prev 始终是结果最后项。非零指数项导数仍非零且指数同时减 1 不破坏次序；常数项恰为无用结点。空表和全常数表均得到 H->next==H。若原有 $m$ 项，时间 $\\Theta(m)$、额外空间 $O(1)$，不新分配结点。",
+        "explanation": "以带头结点循环链表表示稀疏多项式，复用非零导数项并释放常数项。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充循环链表稀疏多项式求导的独立算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-05",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n按教材单链表基本操作的通常约定，Ins_LinkList(L,k,e) 在第 $k$ 个数据结点前插入，Del_LinkList(L,k) 删除第 $k$ 个数据结点，位序从 1 开始且头结点不计入。以下 H 表示头结点，方括号为 H->next 起的数据；P 始终指向原来数据为 7 的结点。\n\n| 执行位置 | 链表及指针状态 |\n| --- | --- |\n| L=malloc，P=L | L=P=H，空表。 |\n| 建表 i=1,2,3,4 | 依次为 H→[1]、H→[1,3]、H→[1,3,5]、H→[1,3,5,7]；P 依次指向新尾。 |\n| P->next=NULL | H→[1,3,5,7]→NULL，P 指向 7。 |\n| 插入 i=4,3,2,1 | 依次为 H→[1,3,5,7,8]、H→[1,3,5,6,7,8]、H→[1,3,4,5,6,7,8]、H→[1,2,3,4,5,6,7,8]。 |\n| 删除 i=1,2,3 | 依次为 H→[2,3,4,5,6,7,8]、H→[2,4,5,6,7,8]、H→[2,4,6,7,8]。 |\n\n最终 L 仍指向头结点，P 仍指向 7（前驱变为 6，后继为 8）。每次插删所用位序在当时均合法。",
+        "explanation": "按 1 起始位序逐轮追踪建表、插入和删除后的数据链及 P 的位置。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充单链表建表、插入与删除的独立演算。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-08",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n题面 priou 按语义视为前驱指针域。P 是中间结点，故各组需用的前驱、后继存在；各组从给定初态独立执行。\n\n| 操作 | 语句编号序列 | 核验要点 |\n| --- | --- | --- |\n| a. 在 P 后插 S | (7) → (6) → (12) → (3) | 先保存原后继，再改其前驱，最后覆盖 P 的后继。 |\n| b. 在 P 前插 S | (8) → (5) → (13) → (4) | 先保存原前驱，再改其后继，最后覆盖 P 的前驱。 |\n| c. 删除 P 的直接后继 | (15) → (1) → (11) → (18) | 先保存待删结点，重连两侧，最后释放。 |\n| d. 删除 P 的直接前驱 | (16) → (2) → (10) → (18) | 与 c 对称。 |\n| e. 删除 P | (9) → (14) → (17) | 先使 P 两邻居互连，最后才释放 P。 |\n\n每组均先完成双向链接两侧更新，再覆盖会丢失旧邻居的域或释放结点，故不会访问悬空指针。",
+        "explanation": "逐组验证双向链表两侧链接更新顺序，避免过早覆盖旧邻居。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案缺失；已补充双向链表选择题的独立序列核验。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-14",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n按本类串题的常规，每个操作数和二元运算符均为一个字符，算符集合为 $\\mathrm{OP}=\\{+,-,*,/,^\\}$。若有多字符标识符，只须先按分隔符分词后把一个 token 压栈，递推不变。题设保证前缀式合法。\n\n先将前缀串自右向左压栈，栈顶便是尚未处理的最左 token。递归取 token：操作数直接返回；算符则递归取得左、右子式后缀串，并依次拼接。\n\n~~~~text\nToPost(in):\n    Pop(in, token)\n    if token ∉ OP: return token\n    left  = ToPost(in)\n    right = ToPost(in)\n    return Concat(Concat(left, right), token)\n\nPrefixToPostfix(pre, post):\n    InitStack(in)\n    for i = StrLength(pre) downto 1:\n        StrAssign(token, SubString(pre, i, 1))\n        Push(in, token)\n    StrAssign(post, ToPost(in))\n    assert StackEmpty(in)\n~~~~\n\n每个算符恰消费两个完整子树；结构归纳可知返回串先含左右子树后缀式、再含根算符，正是后缀式。单操作数为基例。若 Concat 按结果长度复制字符，最坏时间为 $O(N^2)$；输入栈、递归栈和最终结果为 $O(N)$。",
+        "explanation": "用串基本操作生成 token、栈控制前缀读取、集合判定运算符并递归生成后缀式。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书无该题答案；已补充前缀式到后缀式的独立递推算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-15",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n严格采用 4.2.1 定长顺序串：SString 有 MAXSTRLEN+1 个单元，T[0] 存长度，字符位于 T[1..T[0]]；chars 是不与 T 重叠、以 \\0 结束的 C 字符串。先完整测长，超长时不破坏原串。\n\n~~~~c\nStatus StrAssign(SString T, const char chars[]) {\n    int n = 0, i;\n    if (chars == NULL) return ERROR;\n    while (chars[n] != '\\0') {\n        if (n == MAXSTRLEN) return ERROR;\n        ++n;\n    }\n    T[0] = (unsigned char)n;\n    for (i = 1; i <= n; ++i)\n        T[i] = (unsigned char)chars[i - 1];\n    return OK;\n}\n~~~~\n\n成功时 $n=|chars|$ 且 $0\\le n\\le MAXSTRLEN$，每个外部字符被准确拷入 1 起始内部区。空 C 串得到 T[0]=0。时间为 $\\Theta(|chars|)$，额外空间为 $O(1)$。",
+        "explanation": "严格使用长度单元和 1 起始字符区，先测长以保证超长输入不部分覆盖目标串。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书无该题答案；已补充定长顺序串 StrAssign 的独立实现。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-16",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n仍采用 S[0]、T[0] 保存长度、字符从下标 1 开始的定长顺序串。按字符编码的字典序比较，返回正、零、负分别表示 $S>T$、$S=T$、$S<T$；不调用串基本操作。\n\n~~~~c\nint StrCompare(const SString S, const SString T) {\n    int i = 1;\n    while (i <= (int)S[0] && i <= (int)T[0]) {\n        if (S[i] != T[i])\n            return (int)(unsigned char)S[i] - (int)(unsigned char)T[i];\n        ++i;\n    }\n    return (int)S[0] - (int)T[0];\n}\n~~~~\n\n共同前缀内首次不同字符即可决定字典序；若共同前缀相同，较长串较大，等长即相等。因此空串、前缀串和相等串均正确。时间为 $\\Theta(\\min(|S|,|T|))$，额外空间为 $O(1)$。",
+        "explanation": "直接访问长度单元与字符区，覆盖首个失配和前缀关系。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书无该题答案；已补充定长顺序串 StrCompare 的独立实现。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-19",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立参考解答（非原书摘录）**\n\n4.11 要求保留 s 中首次出现且不在 t 中的字符。严格直接访问定长顺序串的 S[0]、T[0] 及字符区，不调用 StrLength、SubString、Index 等串基本操作。Loc 是容量至少为 $|S|$ 的 0 起始数组，Loc[k] 对应 R[k+1] 在 S 中的 1 起始首次位置。\n\n~~~~c\n#include <limits.h>\n\nStatus BuildDifferenceChars(const SString S, const SString T,\n                            SString R, int Loc[], int locCap) {\n    int inT[UCHAR_MAX + 1] = {0};\n    int seen[UCHAR_MAX + 1] = {0};\n    int i, rlen = 0, slen = (int)S[0], tlen = (int)T[0];\n    unsigned char ch;\n    if (Loc == NULL || locCap < slen) return ERROR;\n    for (i = 1; i <= tlen; ++i)\n        inT[(unsigned char)T[i]] = 1;\n    for (i = 1; i <= slen; ++i) {\n        ch = (unsigned char)S[i];\n        if (!inT[ch] && !seen[ch]) {\n            R[++rlen] = ch;\n            Loc[rlen - 1] = i;\n            seen[ch] = 1;\n        }\n    }\n    R[0] = (unsigned char)rlen;\n    return OK;\n}\n~~~~\n\n扫描到 S[i] 时，inT 记录禁止字符，seen 记录已写入 R 的字符，故写入条件恰为题设条件；写入顺序和 Loc 都是首次出现的位置。$|R|\\le|S|\\le MAXSTRLEN$，空串或无合格字符得到 R[0]=0。固定字节字符集下时间为 $\\Theta(|S|+|T|)$、辅助空间 $O(1)$；若字母表大小视为变量，则为 $O(|S|+|T|+|\\Sigma|)$ 时间与 $O(|\\Sigma|)$ 空间。",
+        "explanation": "直接扫描长度单元和字符区，以标记表完成排除、去重和首次位置记录。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "原书无该题答案；已补充 4.11 要求在定长顺序串上的直接实现。"
+      }
+    }
+  ],
+  "unresolved": []
+}

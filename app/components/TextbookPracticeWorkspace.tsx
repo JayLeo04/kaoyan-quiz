@@ -37,7 +37,15 @@ function questionTypeLabel(type: string) {
   return typeLabels[type] || "习题";
 }
 
-function answerLabel(question: { answer: { status: TextbookQuestion["answer"]["status"] } }) {
+type AnswerPresentation = Pick<TextbookQuestion["answer"], "status" | "origin"> & {
+  hasVerified?: boolean;
+  verifiedHtml?: string;
+};
+
+function answerLabel(question: { answer: AnswerPresentation }) {
+  if (question.answer.hasVerified || question.answer.verifiedHtml) {
+    return question.answer.origin === "book+verified" ? "原书内容 · 核验补充" : "独立核验解答";
+  }
   if (question.answer.status === "provided") return "原书答案";
   if (question.answer.status === "hint-only") return "原书提示";
   if (question.answer.status === "pending-review") return "答案待复核";
@@ -98,7 +106,7 @@ export function TextbookPracticeWorkspace({ initialChapterId, library }: { initi
     return exerciseQuestions.filter((question) => {
       const chapterMatch = chapterId === "all" || question.chapterId === chapterId;
       const typeMatch = type === "all" || question.type === type;
-      const answerMatch = answer === "all" || question.answer.status === answer;
+      const answerMatch = answer === "all" || (answer === "verified" ? question.answer.hasVerified : question.answer.status === answer);
       const learningMatch = learning === "all"
         || (learning === "mastered" && progress.mastered.includes(question.id))
         || (learning === "review" && progress.review.includes(question.id))
@@ -133,7 +141,7 @@ export function TextbookPracticeWorkspace({ initialChapterId, library }: { initi
             <Link href={textbookHref(textbook)} className="back-link">← 返回教材阅读</Link>
             <p>TEXTBOOK PRACTICE / {dataset.book.title}</p>
             <h1>按章节，做完这本书的题</h1>
-            <span>{dataset.stats.exerciseQuestions} 道可练习题 · {dataset.stats.answersProvided} 道含原书答案 · {dataset.stats.answersHintOnly} 道仅提供提示</span>
+            <span>{dataset.stats.exerciseQuestions} 道可练习题 · {dataset.stats.answersProvided} 道含原书完整答案 · {dataset.stats.answersHintOnly} 道仅原书提示 · {dataset.stats.answersVerified} 道有独立核验补充</span>
           </div>
           <div className="textbook-practice-progress">
             <strong>{progress.mastered.length}</strong><span>已掌握</span>
@@ -162,9 +170,10 @@ export function TextbookPracticeWorkspace({ initialChapterId, library }: { initi
             <span>答案</span>
             <select value={answer} onChange={(event) => { setAnswer(event.target.value); resetPage(); }}>
               <option value="all">全部答案状态</option>
-              <option value="provided">有原书答案</option>
+              <option value="provided">有完整参考解答</option>
               <option value="hint-only">仅原书提示</option>
-              <option value="missing">未收录答案</option>
+              <option value="verified">独立核验补充</option>
+              <option value="missing">未收录完整参考内容</option>
               <option value="pending-review">待复核</option>
             </select>
           </label>
@@ -279,7 +288,7 @@ export function TextbookQuestionWorkspace({ questionData }: { questionData: Text
                 <button className={mastered ? "active mastered" : ""} type="button" onClick={() => saveProgress(toggleTextbookStatus(progress, question.id, "mastered"))}>{mastered ? "✓ 已掌握" : "标记已掌握"}</button>
                 <button className={review ? "active review" : ""} type="button" onClick={() => saveProgress(toggleTextbookStatus(progress, question.id, "review"))}>{review ? "↺ 需复习" : "标记需复习"}</button>
                 <button className={bookmarked ? "active saved" : ""} type="button" onClick={() => saveProgress(toggleTextbookBookmark(progress, question.id))}>{bookmarked ? "◆ 已收藏" : "◇ 收藏"}</button>
-                <button className="show-answer" type="button" onClick={() => setAnswerVisible((visible) => !visible)}>{answerVisible ? "收起参考内容" : "查看原书答案 / 提示"}</button>
+                <button className="show-answer" type="button" onClick={() => setAnswerVisible((visible) => !visible)}>{answerVisible ? "收起参考内容" : question.answer.verifiedHtml ? "查看参考解答" : "查看原书答案 / 提示"}</button>
               </div>
             </div>
           </article>
@@ -290,10 +299,24 @@ export function TextbookQuestionWorkspace({ questionData }: { questionData: Text
                 <div><span>REFERENCE</span><strong>{answerLabel(question)}</strong></div>
                 <button type="button" onClick={() => setAnswerVisible((visible) => !visible)}>{answerVisible ? "隐藏" : "显示"}</button>
               </header>
-              {answerVisible ? (
-                question.answer.status === "missing" ? <div className="textbook-answer-missing"><strong>原书未给出可独立对应的答案。</strong><p>这里不会补写或猜测答案。你可以先完成作答，再结合对应教材章节复核。</p></div>
-                  : <div className="textbook-answer-html" dangerouslySetInnerHTML={{ __html: question.answer.html }} />
-              ) : <div className="textbook-answer-closed"><strong>先独立作答</strong><span>点击“显示”后查看原书保留的答案或提示。</span></div>}
+              {answerVisible ? (() => {
+                const hasBookAnswer = Boolean(question.answer.html.trim());
+                const hasVerifiedAnswer = Boolean(question.answer.verifiedHtml?.trim());
+                if (!hasBookAnswer && !hasVerifiedAnswer) {
+                  return <div className="textbook-answer-missing"><strong>暂未收录可独立对应的完整参考内容。</strong><p>原书内容保持缺答状态；后续仅在完成独立核验后才会补充。</p></div>;
+                }
+                if (!hasVerifiedAnswer) return <div className="textbook-answer-html" dangerouslySetInnerHTML={{ __html: question.answer.html }} />;
+                return (
+                  <div className="textbook-answer-composite">
+                    {hasBookAnswer ? <section className="textbook-book-answer"><span>原书保留内容</span><div className="textbook-answer-html" dangerouslySetInnerHTML={{ __html: question.answer.html }} /></section> : null}
+                    <section className="textbook-verified-answer">
+                      <header><span>独立核验补充</span><small>非原书答案</small></header>
+                      <div className="textbook-answer-html" dangerouslySetInnerHTML={{ __html: question.answer.verifiedHtml || "" }} />
+                      {question.answer.explanation ? <p className="textbook-verified-note">核验说明：{question.answer.explanation}</p> : null}
+                    </section>
+                  </div>
+                );
+              })() : <div className="textbook-answer-closed"><strong>先独立作答</strong><span>点击“显示”后查看原书保留内容或独立核验补充。</span></div>}
             </section>
 
             <section className="textbook-question-context">
@@ -308,6 +331,7 @@ export function TextbookQuestionWorkspace({ questionData }: { questionData: Text
               <strong>题目与答案来源</strong>
               <p>{pagesLabel(sourceQuestion?.bookPages)} · PDF {sourceQuestion?.pdfPages?.join("、") || "未标注"}</p>
               {sourceAnswer ? <p>答案：{pagesLabel(sourceAnswer.bookPages)} · PDF {sourceAnswer.pdfPages?.join("、") || "未标注"}</p> : <p>答案篇未建立对应条目。</p>}
+              {question.answer.verifiedHtml ? <p>补充：独立核验解答，不替代原书内容。</p> : null}
             </section>
 
             {openFlags.length ? <details className="textbook-review-flags"><summary>来源审校提示 · {openFlags.length}</summary><ul>{openFlags.map((flag) => <li key={`${flag.code}-${flag.message}`}><b>{flag.code}</b>{flag.message}</li>)}</ul></details> : null}

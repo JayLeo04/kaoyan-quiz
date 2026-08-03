@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="860" height="520" viewBox="0 0 860 520"
+     role="img" aria-labelledby="fig315-title fig315-desc">
+  <title id="fig315-title">图 3.15　事件驱动模拟（算法 3.7）过程中事件表和队列状态变化状况</title>
+  <desc id="fig315-desc">六个按原文顺序排列的时间快照：初始、到达 0、到达 4、到达 5、离开 7、后续状态。每个快照保留随机数、事件表和 Q1 到 Q4 客户队列；事件项为发生时间与类型，客户项为到达时刻与办理时长。</desc>
+  <defs>
+    <style>
+      .title { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 22px; font-weight: 700; fill: #111827; }
+      .snapshot-title { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 18px; font-weight: 700; fill: #0f172a; }
+      .heading { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 14px; font-weight: 700; fill: #334155; }
+      .small { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 13px; fill: #475569; }
+      .value { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 15px; fill: #111827; }
+      .queue-label { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 14px; font-weight: 700; fill: #334155; }
+      .legend { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 15px; fill: #334155; }
+      .caption { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", sans-serif; font-size: 16px; fill: #1f2937; }
+      .panel { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.5; }
+      .cell { fill: #ffffff; stroke: #475569; stroke-width: 1.2; }
+      .empty-cell { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.1; stroke-dasharray: 3 2; }
+    </style>
+  </defs>
+
+  <rect width="860" height="520" fill="#ffffff"/>
+  <text class="title" x="430" y="31" text-anchor="middle">图 3.15　事件驱动模拟（算法 3.7）过程中事件表和队列状态变化状况</text>
+
+  <!-- Row 1: 初始, 到达 0, 到达 4 -->
+  <g id="snapshot-initial" transform="translate(24 52)">
+    <rect class="panel" x="0" y="0" width="256" height="187" rx="9"/>
+    <text class="snapshot-title" x="128" y="23" text-anchor="middle">初始</text>
+    <text class="heading" x="12" y="45">随机数</text>
+    <text class="heading" x="82" y="45">事件表</text>
+    <text class="heading" x="164" y="45">队列状态</text>
+    <rect class="empty-cell" x="12" y="56" width="58" height="27" rx="2"/>
+    <text class="value" x="41" y="75" text-anchor="middle">—</text>
+    <rect class="cell" x="82" y="56" width="72" height="25" rx="2"/>
+    <text class="value" x="118" y="74" text-anchor="middle">0,0</text>
+    <g class="queue-label" text-anchor="middle">
+      <text x="174" y="74">Q1</text><text x="174" y="99">Q2</text><text x="174" y="124">Q3</text><text x="174" y="149">Q4</text>
+    </g>
+    <g class="empty-cell">
+      <rect x="194" y="56" width="50" height="22" rx="2"/><rect x="194" y="81" width="50" height="22" rx="2"/>
+      <rect x="194" y="106" width="50" height="22" rx="2"/><rect x="194" y="131" width="50" height="22" rx="2"/>
+    </g>
+    <g class="value" text-anchor="middle">
+      <text x="219" y="72">—</text><text x="219" y="97">—</text><text x="219" y="122">—</text><text x="219" y="147">—</text>
+    </g>
+  </g>
+
+  <g id="snapshot-arrival-0" transform="translate(302 52)">
+    <rect class="panel" x="0" y="0" width="256" height="187" rx="9"/>
+    <text class="snapshot-title" x="128" y="23" text-anchor="middle">到达 0</text>
+    <text class="heading" x="12" y="45">随机数</text>
+    <text class="heading" x="82" y="45">事件表</text>
+    <text class="heading" x="164" y="45">队列状态</text>
+    <rect class="cell" x="12" y="56" width="58" height="27" rx="2"/>
+    <text class="value" x="41" y="75" text-anchor="middle">(23,4)</text>
+    <g>
+      <rect class="cell" x="82" y="56" width="72" height="25" rx="2"/><rect class="cell" x="82" y="81" width="72" height="25" rx="2"/>
+      <text class="value" x="118" y="74" text-anchor="middle">4,0</text><text class="value" x="118" y="99" text-anchor="middle">23,1</text>
+    </g>
+    <g class="queue-label" text-anchor="middle">
+      <text x="174" y="74">Q1</text><text x="174" y="99">Q2</text><text x="174" y="124">Q3</text><text x="174" y="149">Q4</text>
+    </g>
+    <g class="empty-cell"><rect x="194" y="56" width="50" height="22" rx="2"/><rect x="194" y="81" width="50" height="22" rx="2"/><rect x="194" y="106" width="50" height="22" rx="2"/><rect x="194" y="131" width="50" height="22" rx="2"/></g>
+    <rect class="cell" x="194" y="56" width="50" height="22" rx="2"/>
+    <text class="value" x="219" y="72" text-anchor="middle">0,23</text>
+    <g class="value" text-anchor="middle"><text x="219" y="97">—</text><text x="219" y="122">—</text><text x="219" y="147">—</text></g>
+  </g>
+
+  <g id="snapshot-arrival-4" transform="translate(580 52)">
+    <rect class="panel" x="0" y="0" width="256" height="187" rx="9"/>
+    <text class="snapshot-title" x="128" y="23" text-anchor="middle">到达 4</text>
+    <text class="heading" x="12" y="45">随机数</text>
+    <text class="heading" x="82" y="45">事件表</text>
+    <text class="heading" x="164" y="45">队列状态</text>
+    <rect class="cell" x="12" y="56" width="58" height="27" rx="2"/>
+    <text class="value" x="41" y="75" text-anchor="middle">(3,1)</text>
+    <g>
+      <rect class="cell" x="82" y="56" width="72" height="25" rx="2"/><rect class="cell" x="82" y="81" width="72" height="25" rx="2"/><rect class="cell" x="82" y="106" width="72" height="25" rx="2"/>
+      <text class="value" x="118" y="74" text-anchor="middle">5,0</text><text class="value" x="118" y="99" text-anchor="middle">7,2</text><text class="value" x="118" y="124" text-anchor="middle">23,1</text>
+    </g>
+    <g class="queue-label" text-anchor="middle">
+      <text x="174" y="74">Q1</text><text x="174" y="99">Q2</text><text x="174" y="124">Q3</text><text x="174" y="149">Q4</text>
+    </g>
+    <g class="empty-cell"><rect x="194" y="56" width="50" height="22" rx="2"/><rect x="194" y="81" width="50" height="22" rx="2"/><rect x="194" y="106" width="50" height="22" rx="2"/><rect x="194" y="131" width="50" height="22" rx="2"/></g>
+    <rect class="cell" x="194" y="56" width="50" height="22" rx="2"/><rect class="cell" x="194" y="81" width="50" height="22" rx="2"/>
+    <text class="value" x="219" y="72" text-anchor="middle">0,23</text><text class="value" x="219" y="97" text-anchor="middle">4,3</text>
+    <g class="value" text-anchor="middle"><text x="219" y="122">—</text><text x="219" y="147">—</text></g>
+  </g>
+
+  <!-- Row 2: 到达 5, 离开 7, 后续状态 -->
+  <g id="snapshot-arrival-5" transform="translate(24 248)">
+    <rect class="panel" x="0" y="0" width="256" height="187" rx="9"/>
+    <text class="snapshot-title" x="128" y="23" text-anchor="middle">到达 5</text>
+    <text class="heading" x="12" y="45">随机数</text>
+    <text class="heading" x="82" y="45">事件表</text>
+    <text class="heading" x="164" y="45">队列状态</text>
+    <rect class="cell" x="12" y="56" width="58" height="27" rx="2"/>
+    <text class="value" x="41" y="75" text-anchor="middle">(11,3)</text>
+    <g>
+      <rect class="cell" x="82" y="56" width="72" height="25" rx="2"/><rect class="cell" x="82" y="81" width="72" height="25" rx="2"/><rect class="cell" x="82" y="106" width="72" height="25" rx="2"/><rect class="cell" x="82" y="131" width="72" height="25" rx="2"/>
+      <text class="value" x="118" y="74" text-anchor="middle">7,2</text><text class="value" x="118" y="99" text-anchor="middle">8,0</text><text class="value" x="118" y="124" text-anchor="middle">16,3</text><text class="value" x="118" y="149" text-anchor="middle">23,1</text>
+    </g>
+    <g class="queue-label" text-anchor="middle">
+      <text x="174" y="74">Q1</text><text x="174" y="99">Q2</text><text x="174" y="124">Q3</text><text x="174" y="149">Q4</text>
+    </g>
+    <g class="empty-cell"><rect x="194" y="56" width="50" height="22" rx="2"/><rect x="194" y="81" width="50" height="22" rx="2"/><rect x="194" y="106" width="50" height="22" rx="2"/><rect x="194" y="131" width="50" height="22" rx="2"/></g>
+    <rect class="cell" x="194" y="56" width="50" height="22" rx="2"/><rect class="cell" x="194" y="81" width="50" height="22" rx="2"/><rect class="cell" x="194" y="106" width="50" height="22" rx="2"/>
+    <text class="value" x="219" y="72" text-anchor="middle">0,23</text><text class="value" x="219" y="97" text-anchor="middle">4,3</text><text class="value" x="219" y="122" text-anchor="middle">5,11</text>
+    <text class="value" x="219" y="147" text-anchor="middle">—</text>
+  </g>
+
+  <g id="snapshot-departure-7" transform="translate(302 248)">
+    <rect class="panel" x="0" y="0" width="256" height="187" rx="9"/>
+    <text class="snapshot-title" x="128" y="23" text-anchor="middle">离开 7</text>
+    <text class="heading" x="12" y="45">随机数</text>
+    <text class="heading" x="82" y="45">事件表</text>
+    <text class="heading" x="164" y="45">队列状态</text>
+    <rect class="empty-cell" x="12" y="56" width="58" height="27" rx="2"/>
+    <text class="value" x="41" y="75" text-anchor="middle">—</text>
+    <g>
+      <rect class="cell" x="82" y="56" width="72" height="25" rx="2"/><rect class="cell" x="82" y="81" width="72" height="25" rx="2"/><rect class="cell" x="82" y="106" width="72" height="25" rx="2"/>
+      <text class="value" x="118" y="74" text-anchor="middle">8,0</text><text class="value" x="118" y="99" text-anchor="middle">16,3</text><text class="value" x="118" y="124" text-anchor="middle">23,1</text>
+    </g>
+    <g class="queue-label" text-anchor="middle">
+      <text x="174" y="74">Q1</text><text x="174" y="99">Q2</text><text x="174" y="124">Q3</text><text x="174" y="149">Q4</text>
+    </g>
+    <g class="empty-cell"><rect x="194" y="56" width="50" height="22" rx="2"/><rect x="194" y="81" width="50" height="22" rx="2"/><rect x="194" y="106" width="50" height="22" rx="2"/><rect x="194" y="131" width="50" height="22" rx="2"/></g>
+    <rect class="cell" x="194" y="56" width="50" height="22" rx="2"/><rect class="cell" x="194" y="106" width="50" height="22" rx="2"/>
+    <text class="value" x="219" y="72" text-anchor="middle">0,23</text><text class="value" x="219" y="122" text-anchor="middle">5,11</text>
+    <g class="value" text-anchor="middle"><text x="219" y="97">—</text><text x="219" y="147">—</text></g>
+  </g>
+
+  <g id="snapshot-follow-up" transform="translate(580 248)">
+    <rect class="panel" x="0" y="0" width="256" height="187" rx="9"/>
+    <text class="snapshot-title" x="128" y="23" text-anchor="middle">后续状态</text>
+    <text class="heading" x="12" y="45">随机数</text>
+    <text class="heading" x="82" y="45">事件表</text>
+    <text class="heading" x="164" y="45">队列状态</text>
+    <rect class="cell" x="12" y="56" width="58" height="27" rx="2"/>
+    <text class="value" x="41" y="75" text-anchor="middle">(29,2)</text>
+    <g>
+      <rect class="cell" x="82" y="56" width="72" height="25" rx="2"/><rect class="cell" x="82" y="81" width="72" height="25" rx="2"/><rect class="cell" x="82" y="106" width="72" height="25" rx="2"/><rect class="cell" x="82" y="131" width="72" height="25" rx="2"/>
+      <text class="value" x="118" y="74" text-anchor="middle">10,0</text><text class="value" x="118" y="99" text-anchor="middle">16,3</text><text class="value" x="118" y="124" text-anchor="middle">23,1</text><text class="value" x="118" y="149" text-anchor="middle">37,2</text>
+    </g>
+    <g class="queue-label" text-anchor="middle">
+      <text x="174" y="74">Q1</text><text x="174" y="99">Q2</text><text x="174" y="124">Q3</text><text x="174" y="149">Q4</text>
+    </g>
+    <g class="empty-cell"><rect x="194" y="56" width="50" height="22" rx="2"/><rect x="194" y="81" width="50" height="22" rx="2"/><rect x="194" y="106" width="50" height="22" rx="2"/><rect x="194" y="131" width="50" height="22" rx="2"/></g>
+    <rect class="cell" x="194" y="56" width="50" height="22" rx="2"/><rect class="cell" x="194" y="81" width="50" height="22" rx="2"/><rect class="cell" x="194" y="106" width="50" height="22" rx="2"/>
+    <text class="value" x="219" y="72" text-anchor="middle">0,23</text><text class="value" x="219" y="97" text-anchor="middle">8,29</text><text class="value" x="219" y="122" text-anchor="middle">5,11</text>
+    <text class="value" x="219" y="147" text-anchor="middle">—</text>
+  </g>
+
+  <text class="legend" x="430" y="462" text-anchor="middle">事件项为（发生时间, 类型）：0=到达，1–4=窗口离开；— 表示该离开事件未生成新随机数。</text>
+  <text class="caption" x="430" y="493" text-anchor="middle">每个快照：有序事件表（按发生时刻）与 4 个窗口的客户队列；客户项为「到达时刻, 办理时长」。</text>
+</svg>

@@ -142,7 +142,7 @@ test("renders the data structures textbook reading experience", async () => {
   const html = await response.text();
   assert.match(html, /2\.2 线性表的顺序表示和实现/);
   assert.match(html, /线性表的顺序存储结构示意图/);
-  assert.match(html, /textbooks\/data-structures\/02-linear-list\/2-2-sequential-representation-and-implementation\/assets\/py\/fig-2-2-sequential-layout\.svg/);
+  assert.match(html, /textbooks\/data-structures\/02-linear-list\/2-2-sequential-representation-and-implementation\/assets\/py\/fig-2-2-sequential-layout-readable\.svg/);
   assert.match(html, /katex/);
   assert.match(html, /本章练习/);
 });
@@ -169,7 +169,7 @@ test("renders textbook practice and preserves answer provenance", async () => {
   assert.match(libraryHtml, /按章节，做完这本书的题/);
   assert.match(libraryHtml, /455(?:<!-- -->)? 道可练习题/);
   assert.match(libraryHtml, /原书答案/);
-  assert.match(libraryHtml, /未收录独立答案/);
+  assert.match(libraryHtml, /独立核验解答/);
 
   const questionResponse = await render("/textbook/data-structures/practice/book-ds-yan-02-01");
   assert.equal(questionResponse.status, 200);

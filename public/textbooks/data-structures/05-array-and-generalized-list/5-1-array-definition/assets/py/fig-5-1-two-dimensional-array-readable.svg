@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="720" viewBox="0 0 1240 720" role="img" aria-labelledby="title desc">
+<title id="title">图 5.1：矩阵、列向量和行向量形式的二维数组</title>
+<desc id="desc">同一个 m 行 n 列二维数组的矩阵形式、列向量形式和行向量形式，保留全部元素下标与省略号。</desc>
+<style>
+  .canvas { fill: #fff; }
+  text { fill: #161616; font-family: "Times New Roman", "STIX Two Text", serif; }
+  .cell { fill: #fff; stroke: #222; stroke-width: 1.8; }
+  .small { font-size: 27px; }
+  .label { font-size: 30px; font-weight: 600; }
+  .formula { font-size: 23px; }
+  .caption { font-family: "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 25px; font-weight: 600; }
+  .sub { font-size: 0.62em; baseline-shift: sub; }
+  .italic { font-style: italic; }
+</style>
+<rect class="canvas" width="1240" height="720"/>
+
+<!-- (a) matrix form -->
+<text x="290" y="66" class="label" text-anchor="middle"><tspan class="italic">A</tspan><tspan class="sub">m×n</tspan> =</text>
+<g aria-label="矩阵形式">
+  <rect class="cell" x="70" y="95" width="88" height="64"/><text x="114" y="135" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">00</tspan></text>
+  <rect class="cell" x="158" y="95" width="88" height="64"/><text x="202" y="135" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">01</tspan></text>
+  <rect class="cell" x="246" y="95" width="88" height="64"/><text x="290" y="135" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">02</tspan></text>
+  <rect class="cell" x="334" y="95" width="88" height="64"/><text x="378" y="135" class="small" text-anchor="middle">…</text>
+  <rect class="cell" x="422" y="95" width="88" height="64"/><text x="466" y="135" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">0,n−1</tspan></text>
+
+  <rect class="cell" x="70" y="159" width="88" height="64"/><text x="114" y="199" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">10</tspan></text>
+  <rect class="cell" x="158" y="159" width="88" height="64"/><text x="202" y="199" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">11</tspan></text>
+  <rect class="cell" x="246" y="159" width="88" height="64"/><text x="290" y="199" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">12</tspan></text>
+  <rect class="cell" x="334" y="159" width="88" height="64"/><text x="378" y="199" class="small" text-anchor="middle">…</text>
+  <rect class="cell" x="422" y="159" width="88" height="64"/><text x="466" y="199" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">1,n−1</tspan></text>
+
+  <rect class="cell" x="70" y="223" width="88" height="64"/><text x="114" y="263" class="small" text-anchor="middle">⋮</text>
+  <rect class="cell" x="158" y="223" width="88" height="64"/><text x="202" y="263" class="small" text-anchor="middle">⋮</text>
+  <rect class="cell" x="246" y="223" width="88" height="64"/><text x="290" y="263" class="small" text-anchor="middle">⋮</text>
+  <rect class="cell" x="334" y="223" width="88" height="64"/><text x="378" y="263" class="small" text-anchor="middle"></text>
+  <rect class="cell" x="422" y="223" width="88" height="64"/><text x="466" y="263" class="small" text-anchor="middle">⋮</text>
+
+  <rect class="cell" x="70" y="287" width="88" height="64"/><text x="114" y="327" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">m−1,0</tspan></text>
+  <rect class="cell" x="158" y="287" width="88" height="64"/><text x="202" y="327" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">m−1,1</tspan></text>
+  <rect class="cell" x="246" y="287" width="88" height="64"/><text x="290" y="327" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">m−1,2</tspan></text>
+  <rect class="cell" x="334" y="287" width="88" height="64"/><text x="378" y="327" class="small" text-anchor="middle">…</text>
+  <rect class="cell" x="422" y="287" width="88" height="64"/><text x="466" y="327" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">m−1,n−1</tspan></text>
+</g>
+<text x="290" y="405" class="label" text-anchor="middle">(a)</text>
+
+<!-- (b) column-vector form -->
+<text x="865" y="66" class="label" text-anchor="middle"><tspan class="italic">A</tspan><tspan class="sub">m×n</tspan> =</text>
+<g aria-label="列向量形式">
+  <rect class="cell" x="630" y="95" width="88" height="64"/><text x="674" y="135" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">0,0</tspan></text>
+  <rect class="cell" x="630" y="159" width="88" height="64"/><text x="674" y="199" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">1,0</tspan></text>
+  <rect class="cell" x="630" y="223" width="88" height="64"/><text x="674" y="263" class="small" text-anchor="middle">⋮</text>
+  <rect class="cell" x="630" y="287" width="88" height="64"/><text x="674" y="327" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">m−1,0</tspan></text>
+  <text x="674" y="405" class="label" text-anchor="middle"><tspan class="italic">a</tspan><tspan class="sub">0</tspan></text>
+
+  <rect class="cell" x="780" y="95" width="88" height="64"/><text x="824" y="135" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">0,1</tspan></text>
+  <rect class="cell" x="780" y="159" width="88" height="64"/><text x="824" y="199" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">1,1</tspan></text>
+  <rect class="cell" x="780" y="223" width="88" height="64"/><text x="824" y="263" class="small" text-anchor="middle">⋮</text>
+  <rect class="cell" x="780" y="287" width="88" height="64"/><text x="824" y="327" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">m−1,1</tspan></text>
+  <text x="824" y="405" class="label" text-anchor="middle"><tspan class="italic">a</tspan><tspan class="sub">1</tspan></text>
+
+  <text x="924" y="235" class="label" text-anchor="middle">…</text>
+  <rect class="cell" x="1000" y="95" width="88" height="64"/><text x="1044" y="135" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">0,n−1</tspan></text>
+  <rect class="cell" x="1000" y="159" width="88" height="64"/><text x="1044" y="199" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">1,n−1</tspan></text>
+  <rect class="cell" x="1000" y="223" width="88" height="64"/><text x="1044" y="263" class="small" text-anchor="middle">⋮</text>
+  <rect class="cell" x="1000" y="287" width="88" height="64"/><text x="1044" y="327" class="small" text-anchor="middle"><tspan>a</tspan><tspan class="sub">m−1,n−1</tspan></text>
+  <text x="1044" y="405" class="label" text-anchor="middle"><tspan class="italic">a</tspan><tspan class="sub">n−1</tspan></text>
+</g>
+<text x="865" y="450" class="label" text-anchor="middle">(b)</text>
+
+<!-- (c) row-vector/matrix tuple form -->
+<text x="620" y="510" class="formula" text-anchor="middle"><tspan class="italic">A</tspan><tspan class="sub">m×n</tspan> = ((<tspan>a</tspan><tspan class="sub">00</tspan> <tspan>a</tspan><tspan class="sub">01</tspan> … <tspan>a</tspan><tspan class="sub">0,n−1</tspan>), (<tspan>a</tspan><tspan class="sub">10</tspan> <tspan>a</tspan><tspan class="sub">11</tspan> … <tspan>a</tspan><tspan class="sub">1,n−1</tspan>),</text>
+<text x="620" y="550" class="formula" text-anchor="middle">…, (<tspan>a</tspan><tspan class="sub">m−1,0</tspan> <tspan>a</tspan><tspan class="sub">m−1,1</tspan> … <tspan>a</tspan><tspan class="sub">m−1,n−1</tspan>))</text>
+<text x="620" y="600" class="label" text-anchor="middle">(c)</text>
+<text x="620" y="675" class="caption" text-anchor="middle">图 5.1　二位数组图例</text>
+</svg>

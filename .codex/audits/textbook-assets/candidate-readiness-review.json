@@ -1,0 +1,500 @@
+{
+  "audit": {
+    "title": "候选教材图独立可用性裁决",
+    "reviewed_at": "2026-08-03T12:37:59+08:00",
+    "reviewer_mode": "独立 Luna 会话；不复用旧会话结论",
+    "skill": "/Users/minimax/.codex/skills/audit-408-textbook-assets-demo/SKILL.md",
+    "project": "/Users/minimax/schedule/kaoyan-quiz",
+    "dataset": "app/data/textbook-data-structures.json",
+    "scope": [
+      "图 6.10 原图及 6.3 目录下所有 *-readable.svg 候选",
+      "图 6.22 原图及 6.6 目录下所有 *-readable.svg 候选",
+      "图 11.6 原图与 fig-11-6-loser-tree-states-readable.svg"
+    ],
+    "prohibited_changes_observed": [
+      "未修改 app/data/textbook-data-structures.json",
+      "未修改正文、组件或 CSS",
+      "未覆盖或删除任何原教材图",
+      "未创建 worktree、未写入 /tmp、未提交或推送"
+    ]
+  },
+  "manifest": {
+    "initial_scan_before_late_candidates": {
+      "inventory": {
+        "files": 419,
+        "referenced": 274,
+        "missing": 0,
+        "unreferenced": 145,
+        "entries": 419
+      },
+      "readable_candidates_found": {
+        "fig-6-10": [],
+        "fig-6-22": [],
+        "fig-11-6": [
+          "public/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-6-loser-tree-states-readable.svg"
+        ]
+      },
+      "note": "初始清单时图 6.10、图 6.22 候选尚未出现；没有等待或修改它们。"
+    },
+    "current_scan_after_late_candidates": {
+      "inventory_command": "node /Users/minimax/.codex/skills/audit-408-textbook-assets-demo/scripts/audit-textbook-assets.mjs --project /Users/minimax/schedule/kaoyan-quiz --dataset app/data/textbook-data-structures.json --assets public/textbooks/data-structures",
+      "files": 421,
+      "referenced": 274,
+      "missing": 0,
+      "unreferenced": 147,
+      "entries": 421,
+      "malformed_target_assets": 0,
+      "note": "图 6.10 与图 6.22 候选在初始清单后出现；本报告对其做了独立复核，但未创建或修改候选。"
+    },
+    "target_directories_existing_files": {
+      "06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree": [
+        "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process-readable.svg",
+        "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process.svg",
+        "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-11-threaded-tree.svg",
+        "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-12-postorder-thread.svg",
+        "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-9-expression-tree.svg"
+      ],
+      "06-tree-and-binary-tree/6-6-huffman-tree-and-applications": [
+        "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees-readable.svg",
+        "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees.svg",
+        "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-23-decision-process.svg",
+        "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-24-huffman-construction.svg",
+        "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-25-prefix-code.svg",
+        "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-26-huffman-example.svg",
+        "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-27-huffman-storage.svg"
+      ],
+      "11-external-sorting/11-4-replacement-selection": [
+        "public/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-5-replacement-process.svg",
+        "public/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-6-loser-tree-states-readable.svg",
+        "public/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-6-loser-tree-states.svg",
+        "public/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-7-snow-sweeper.svg"
+      ]
+    },
+    "reviewed_assets": [
+      {
+        "role": "old",
+        "asset": "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process.svg",
+        "exists": true,
+        "bytes": 18522,
+        "viewBox": "0 0 427.32 202.896",
+        "audit_dimensions": { "width": 427.32, "height": 202.896 },
+        "sha256": "888932527267d2c84fc379df75cf15b1106f98193eaca23115e2365490dbeb87",
+        "dataset_references": 2
+      },
+      {
+        "role": "candidate",
+        "asset": "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process-readable.svg",
+        "exists": true,
+        "bytes": 7229,
+        "viewBox": "0 0 1080 620",
+        "render_dimensions_at_density_96": { "width": 1440, "height": 827 },
+        "sha256": "ddbbdc248f40413f85032ba198ba7d8107b5d43354d1e3284edd6566becb74f6",
+        "dataset_references": 0,
+        "candidate_scan": "初始清单缺失，复核期间出现"
+      },
+      {
+        "role": "old",
+        "asset": "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees.svg",
+        "exists": true,
+        "bytes": 21615,
+        "viewBox": "0 0 427.32 202.896",
+        "audit_dimensions": { "width": 427.32, "height": 202.896 },
+        "sha256": "616007d48fb488903c4ac3e7a945da22b1a1c4f2bee5f6f289ee659baa86462d",
+        "dataset_references": 2
+      },
+      {
+        "role": "candidate",
+        "asset": "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees-readable.svg",
+        "exists": true,
+        "bytes": 6247,
+        "viewBox": "0 0 1080 660",
+        "render_dimensions_at_density_96": { "width": 1440, "height": 880 },
+        "sha256": "fb1d9fb4638af6109d8271caaa38d951af985ed401c72f32d9dd56ee751be241",
+        "dataset_references": 0,
+        "candidate_scan": "初始清单缺失，复核期间出现"
+      },
+      {
+        "role": "old",
+        "asset": "public/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-6-loser-tree-states.svg",
+        "exists": true,
+        "bytes": 25480,
+        "viewBox": "0 0 1200 780",
+        "audit_dimensions": { "width": 1200, "height": 780 },
+        "sha256": "690818fd9240ea4c1bd96381e6231a0ca628fdc5f05491b5f61ad29806ed13f8",
+        "dataset_references": 2
+      },
+      {
+        "role": "candidate",
+        "asset": "public/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-6-loser-tree-states-readable.svg",
+        "exists": true,
+        "bytes": 13093,
+        "viewBox": "0 0 1440 900",
+        "render_dimensions_at_density_96": { "width": 1920, "height": 1200 },
+        "sha256": "37872950e43f0d8dd06d1e36920e04faa8f6867067e58b6ee4af2c70e6afe50c",
+        "dataset_references": 0
+      }
+    ]
+  },
+  "render_validation": {
+    "requested_widths_px": { "desktop": 578, "narrow": 360 },
+    "full_review_width_px": 1600,
+    "equivalent_renderer": "项目现有 sharp/libvips SVG 栅格化；SVG density=96，白底 flatten，fit=inside，输出宽度精确为 578/360/1600px",
+    "page_sizing_equivalence": "按正文图片 max-width:100%; height:auto 的等效几何验收",
+    "browser_attempt": {
+      "surface": "Codex in-app Browser",
+      "result": "file:// 本地页面被浏览器 URL 安全策略拒绝",
+      "action_taken": "未绕过策略、未改用 raw CDP 或其他浏览器通道；改用上述等效 SVG 渲染",
+      "tabs_left_open": false
+    },
+    "auxiliary_artifacts": {
+      "render_fixture": ".codex/audits/textbook-assets/candidate-readiness-review-render.html",
+      "render_directory": ".codex/audits/textbook-assets/candidate-readiness-review-renders",
+      "contact_sheets_directory": ".codex/audits/textbook-assets/candidate-readiness-review-contact-sheets"
+    }
+  },
+  "items": [
+    {
+      "id": "fig-6-10-traversal-process",
+      "page": {
+        "slug": "06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree",
+        "title": "6.3　遍历二叉树和线索二叉树",
+        "sourcePath": "06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/index.md",
+        "book_pages": "128-134",
+        "pdf_pages": "138-144",
+        "dataset_html_asset_reference": "/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process.svg"
+      },
+      "source_evidence": {
+        "markdown_line_range_within_page": "31-39",
+        "before": [
+          "因此，表达式树的先序、中序、后序序列分别给出前缀、中缀和后缀表示。三种算法的差别只在于访问根结点与递归遍历左右子树的先后关系。"
+        ],
+        "asset_markdown": "![三种遍历的递归过程](assets/py/fig-6-10-traversal-process.svg)",
+        "caption": "图 6.10　三种遍历的递归执行过程（下行箭头表示递归调用，上行箭头表示返回；重绘示意图）。",
+        "after": [
+          "下面给出先序遍历的基本实现；把访问根的语句移到左右递归调用之间或之后，即可得到中序或后序遍历。",
+          "Status PreOrderTraverse 中的执行顺序是 Visit(T->data)、递归 T->lchild、递归 T->rchild。"
+        ]
+      },
+      "old_asset_observation": {
+        "verdict_basis": "original_issue_confirmed",
+        "rendered_content": [
+          "标题‘图 6.10　三种遍历过程示意’",
+          "先序：根-左-右；中序：左-根-右；后序：左-右-根",
+          "每列一根向下箭头"
+        ],
+        "confirmed_missing_or_unreadable": [
+          "没有当前结点、递归左子树或递归右子树的节点/框",
+          "没有上行返回箭头",
+          "没有三种算法的具体执行序列或访问根与左右递归的相对位置",
+          "因此 caption 所要求的‘下行递归调用/上行返回’关系并未完整呈现"
+        ],
+        "structural_signal": {
+          "circle_count": 0,
+          "svg_text_elements": 0,
+          "visible_down_arrow_groups": 3,
+          "visible_up_arrow_groups": 0
+        }
+      },
+      "candidate": {
+        "asset": "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process-readable.svg",
+        "present": true,
+        "semantic_inventory_check": {
+          "status": "pass",
+          "retained": [
+            "先序根-左-右、中序左-根-右、后序左-右-根",
+            "当前结点 T、T->lchild、T->rchild",
+            "蓝色下行递归调用与橙色虚线上行返回",
+            "三个访问顺序说明及根访问时机解释"
+          ],
+          "supported_additions": [
+            "下行=递归调用、上行=返回图例",
+            "三种顺序的具体编号步骤",
+            "‘每个子树都按同一规则递归’的说明，均由正文与 caption 支持"
+          ],
+          "invented_or_deleted_meaning": []
+        },
+        "render_acceptance": {
+          "desktop_578px": {
+            "old_render": ".codex/audits/textbook-assets/candidate-readiness-review-renders/fig-6-10-original--desktop-578.png",
+            "candidate_render": ".codex/audits/textbook-assets/candidate-readiness-review-renders/fig-6-10-readable-candidate--desktop-578.png",
+            "candidate_render_size": "578x332",
+            "pass": false,
+            "observation": "三列底部的①/②/③顺序文本宽度超过列间距；左列起始文字被裁切，左列与中列、中列与右列在列边界处相互重叠。"
+          },
+          "narrow_360px": {
+            "old_render": ".codex/audits/textbook-assets/candidate-readiness-review-renders/fig-6-10-original--narrow-360.png",
+            "candidate_render": ".codex/audits/textbook-assets/candidate-readiness-review-renders/fig-6-10-readable-candidate--narrow-360.png",
+            "candidate_render_size": "360x207",
+            "pass": false,
+            "observation": "桌面宽度下已发生的底部顺序文本裁切/重叠在窄屏更严重；图例、框和箭头虽在 viewBox 内，但关键步骤文字不能作为正式正文图可靠阅读。"
+          },
+          "full_resolution_crop": ".codex/audits/textbook-assets/candidate-readiness-review-renders/fig-6-10-readable-candidate--full-order-crop.png"
+        }
+      },
+      "verdict": "needs_followup",
+      "mapping": {
+        "old_asset": "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process.svg",
+        "candidate_asset": "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process-readable.svg",
+        "approved": false,
+        "required_followup": "将三列底部顺序说明改为列内换行/分行或缩短布局，确保不出 viewBox 且不跨列重叠；修复后再复验 578px 与 360px。"
+      },
+      "unresolved_risks": [
+        "候选语义已补全，但当前版式不满足无裁切、无重叠验收，因此不能安全切换引用。",
+        "候选目前未被 textbook-data-structures.json 引用；本审查没有改引用。"
+      ]
+    },
+    {
+      "id": "fig-6-22-weighted-trees",
+      "page": {
+        "slug": "06-tree-and-binary-tree/6-6-huffman-tree-and-applications",
+        "title": "6.6 哈夫曼树及其应用",
+        "sourcePath": "06-tree-and-binary-tree/6-6-huffman-tree-and-applications/index.md",
+        "book_pages": "144-148",
+        "pdf_pages": "154-158",
+        "dataset_html_asset_reference": "/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees.svg"
+      },
+      "source_evidence": {
+        "markdown_line_range_within_page": "20-36",
+        "before": [
+          "例如，图 6.22 中三棵二叉树均有 4 个带权叶子 (a,b,c,d)，权值分别为 7、5、2、4，它们的 WPL 分别为",
+          "(a) WPL=7×2+5×2+2×2+4×2=36",
+          "(b) WPL=7×3+5×3+2×1+4×2=46",
+          "(c) WPL=7×1+5×2+2×3+4×3=35.",
+          "其中 (c) 的 WPL 最小，因此它是这组权值的哈夫曼树。"
+        ],
+        "asset_markdown": "![不同带权路径长度的二叉树](assets/py/fig-6-22-weighted-trees.svg)",
+        "caption": "图 6.22　具有不同带权路径长度的二叉树",
+        "after": [
+          "哈夫曼树还可用于构造判定树。"
+        ]
+      },
+      "old_asset_observation": {
+        "verdict_basis": "original_issue_confirmed",
+        "rendered_content": [
+          "标题‘图 6.22　具有不同带权路径长度的二叉树’",
+          "(a) WPL=36、(b) WPL=46、(c) WPL=35"
+        ],
+        "confirmed_missing_or_unreadable": [
+          "三棵二叉树的根、内部节点、边和叶子均不可见",
+          "叶标签 a、b、c、d 与权值 7、5、2、4 均不可见",
+          "(a)/(b)/(c) 的深度关系不可见，无法从图本身核算三组 WPL",
+          "(b) 的 WPL 标签在原图标题区域发生明显拥挤"
+        ],
+        "structural_signal": {
+          "circle_count": 0,
+          "svg_text_elements": 0,
+          "visible_tree_edge_groups": 0,
+          "visible_leaf_labels": 0
+        },
+        "calculation_context_check": {
+          "a": "7×2+5×2+2×2+4×2=36",
+          "b": "7×3+5×3+2×1+4×2=46",
+          "c": "7×1+5×2+2×3+4×3=35",
+          "all_correct": true
+        }
+      },
+      "candidate": {
+        "asset": "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees-readable.svg",
+        "present": true,
+        "semantic_inventory_check": {
+          "status": "pass",
+          "retained": [
+            "(a)、(b)、(c) 三棵二叉树",
+            "四个叶子及权值 a=7、b=5、c=2、d=4",
+            "(a) 深度均为 2；(b) a,b,c,d 深度分别为 3,3,1,2；(c) 深度分别为 1,2,3,3",
+            "WPL=36、46、35 及三条逐项计算式",
+            "(c) WPL 最小、为哈夫曼树的关系"
+          ],
+          "calculation_check": {
+            "a": { "depths": { "a": 2, "b": 2, "c": 2, "d": 2 }, "equation": "7×2+5×2+2×2+4×2=36", "pass": true },
+            "b": { "depths": { "a": 3, "b": 3, "c": 1, "d": 2 }, "equation": "7×3+5×3+2×1+4×2=46", "pass": true },
+            "c": { "depths": { "a": 1, "b": 2, "c": 3, "d": 3 }, "equation": "7×1+5×2+2×3+4×3=35", "pass": true }
+          },
+          "supported_additions": [
+            "四个叶子权值副标题",
+            "每条分支长度为 1 的说明",
+            "‘最小：哈夫曼树’标识，由正文‘其中 (c) 的 WPL 最小，因此它是这组权值的哈夫曼树’支持"
+          ],
+          "invented_or_deleted_meaning": []
+        },
+        "render_acceptance": {
+          "desktop_578px": {
+            "old_render": ".codex/audits/textbook-assets/candidate-readiness-review-renders/fig-6-22-original--desktop-578.png",
+            "candidate_render": ".codex/audits/textbook-assets/candidate-readiness-review-renders/fig-6-22-readable-candidate--desktop-578.png",
+            "candidate_render_size": "578x353",
+            "pass": false,
+            "observation": "三棵树、叶权和公式均进入画面且结构清楚，但 (c) 顶部橙色‘最小：哈夫曼树’文字与根圆相交，文字中部被节点覆盖，存在可见重叠。"
+          },
+          "narrow_360px": {
+            "old_render": ".codex/audits/textbook-assets/candidate-readiness-review-renders/fig-6-22-original--narrow-360.png",
+            "candidate_render": ".codex/audits/textbook-assets/candidate-readiness-review-renders/fig-6-22-readable-candidate--narrow-360.png",
+            "candidate_render_size": "360x220",
+            "pass": false,
+            "observation": "三组树与公式没有裁切，但 (c) 的橙色标识仍与根节点相交；公式在窄屏较小，修复重叠后需再次确认正文字体栈下的可读性。"
+          },
+          "full_resolution_crop": ".codex/audits/textbook-assets/candidate-readiness-review-renders/fig-6-22-readable-candidate--full-root-crop.png",
+          "overlap_geometry": "候选 SVG 中橙色 note 的 baseline y=160，(c) 根圆心为 (890,165)、半径 22；文字绘制区域与圆相交。"
+        }
+      },
+      "verdict": "needs_followup",
+      "mapping": {
+        "old_asset": "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees.svg",
+        "candidate_asset": "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees-readable.svg",
+        "approved": false,
+        "required_followup": "将 (c) 的‘最小：哈夫曼树’移到根圆上方或移出树区，避免文字与根节点相交；修复后复验 578px 与 360px。"
+      },
+      "unresolved_risks": [
+        "候选已恢复全部正文要求的树、标签、深度和计算，但当前可见重叠不满足正式替换门槛。",
+        "候选目前未被 textbook-data-structures.json 引用；本审查没有改引用。"
+      ]
+    },
+    {
+      "id": "fig-11-6-loser-tree-states",
+      "page": {
+        "slug": "11-external-sorting/11-4-replacement-selection",
+        "title": "11.4 置换-选择排序",
+        "sourcePath": "11-external-sorting/11-4-replacement-selection/index.md",
+        "book_pages": "299-304",
+        "pdf_pages": "309-314",
+        "dataset_html_asset_reference": "/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-6-loser-tree-states.svg"
+      },
+      "source_evidence": {
+        "markdown_line_range_within_page": "125-133",
+        "before": [
+          "算法 11.7",
+          "图 11.6(a)～(g) 显示了败者树建立过程中状态变化状况。",
+          "最后得到最小关键字的记录为 wa[0]，之后输出 wa[0].rec 并从 FI 输入下一记录至 wa[0]；若新关键字较刚输出记录小，则段号为 2，如图 11.6(h)。",
+          "输出 wa[1] 后若新关键字较 wa[1].key 大，则段号仍为 1，如图 11.6(i)。",
+          "图 11.6(j) 是输出 6 个记录后选得 wa[1] 的状态；图 11.6(k) 显示所有工作区记录段号变为 2，新的 MINIMAX 属于下一归并段。"
+        ],
+        "asset_markdown": "![图 11.6：置换-选择过程中败者树的建立、输出与重新选择状态](assets/py/fig-11-6-loser-tree-states.svg)",
+        "caption": "图 11.6 置换-选择过程中的败者树",
+        "after": [
+          "由置换-选择排序得到的初始归并段长度不等；随机关键字时平均长度为工作区大小 w 的两倍。"
+        ]
+      },
+      "old_asset_observation": {
+        "verdict_basis": "original_issue_confirmed",
+        "rendered_content": [
+          "12 个面板 (a)～(l)",
+          "每个面板同一棵败者树拓扑，圆节点值为 0、0、4、0、2、5、0、1",
+          "工作区四个 key/rnum 框与右侧当前选择记录框",
+          "q 与面板状态"
+        ],
+        "issue": "原图在 578px 下信息存在但文字明显偏小；在 360px 下 12 面板状态、q 和 key/rnum 更难读，属于可用性风险而非语义缺失。"
+      },
+      "candidate": {
+        "asset": "public/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-6-loser-tree-states-readable.svg",
+        "present": true,
+        "semantic_inventory_check": {
+          "status": "pass",
+          "panel_count": 12,
+          "panel_labels": ["（a）", "（b）", "（c）", "（d）", "（e）", "（f）", "（g）", "（h）", "（i）", "（j）", "（k）", "（l）"],
+          "tree_node_values_per_panel": ["0", "0", "4", "0", "2", "5", "0", "1"],
+          "q_sequence": ["q=—", "q=—", "q=—", "q=—", "q=—", "q=—", "q=0", "q=1", "q=3", "q=1", "q=4", "q=4"],
+          "work_area_key_rnum_sequence": [
+            ["0/0", "0/0", "0/0", "0/0"],
+            ["0/0", "0/0", "51/1", "0/0"],
+            ["0/0", "49/1", "51/1", "0/0"],
+            ["39/1", "49/1", "51/1", "0/0"],
+            ["46/1", "39/1", "49/1", "51/1"],
+            ["46/1", "39/1", "49/1", "51/1"],
+            ["46/1", "39/1", "49/1", "51/1"],
+            ["46/1", "39/1", "49/1", "51/1"],
+            ["46/1", "39/1", "49/1", "51/1"],
+            ["30/2", "15/2", "1/2", "48/2"],
+            ["30/2", "15/2", "1/2", "48/2"],
+            ["30/2", "15/2", "3/2", "48/2"]
+          ],
+          "current_selection_sequence": ["0/0", "0/0", "0/0", "0/0", "0/0", "38/1", "29/1", "29/1", "14/2", "14/2", "14/2", "14/2"],
+          "state_matrix_exact_match": true,
+          "winner_loser_path_check": {
+            "status": "pass",
+            "detail": "候选保留原图每个面板的根到左右叶节点及右侧当前记录的连接拓扑；原图没有显式方向箭头，路径方向由根树结构、节点编号和当前选择框语境给出，候选没有新增、删除或反转路径关系。"
+          },
+          "supported_additions": [
+            "圆形数字/工作区 wa[i]/右侧当前记录的图例",
+            "面板边框和可访问 aria-label",
+            "更大的字体与留白"
+          ],
+          "invented_or_deleted_meaning": []
+        },
+        "render_acceptance": {
+          "desktop_578px": {
+            "old_render": ".codex/audits/textbook-assets/candidate-readiness-review-renders/fig-11-6-original--desktop-578.png",
+            "candidate_render": ".codex/audits/textbook-assets/candidate-readiness-review-renders/fig-11-6-readable-candidate--desktop-578.png",
+            "old_render_size": "578x376",
+            "candidate_render_size": "578x361",
+            "pass": true,
+            "observation": "12 个状态面板均在画面内；候选的 q、面板字母、key/rnum 和当前选择框较原图清楚，无裁切、遮盖或横向溢出。"
+          },
+          "narrow_360px": {
+            "old_render": ".codex/audits/textbook-assets/candidate-readiness-review-renders/fig-11-6-original--narrow-360.png",
+            "candidate_render": ".codex/audits/textbook-assets/candidate-readiness-review-renders/fig-11-6-readable-candidate--narrow-360.png",
+            "old_render_size": "360x234",
+            "candidate_render_size": "360x225",
+            "pass": true,
+            "observation": "候选仍为紧凑的 3×4 状态总览，但全部 12 面板、q、工作区和右侧选择记录保留且无裁切/重叠；相较原图，线条和文字仍可辨认，必要时可放大查看。"
+          }
+        }
+      },
+      "verdict": "candidate_approved",
+      "mapping": {
+        "old_asset": "public/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-6-loser-tree-states.svg",
+        "candidate_asset": "public/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-6-loser-tree-states-readable.svg",
+        "approved": true,
+        "approval_basis": "语义状态矩阵逐项相同；候选保留全部面板、q、工作区 key/rnum、当前记录和败者树连接关系，并通过 578px/360px 无裁切无重叠验收。"
+      },
+      "unresolved_risks": [
+        "候选目前未被 textbook-data-structures.json 引用；正式切换仍需主线程单独修改引用并重新渲染实际阅读页。",
+        "360px 下 12 面板必然紧凑，用户若需逐项读取应支持图片放大；这不影响本次静态图替换批准。"
+      ]
+    }
+  ],
+  "old_to_candidate_mappings": {
+    "approved": [
+      {
+        "old": "public/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-6-loser-tree-states.svg",
+        "candidate": "public/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-6-loser-tree-states-readable.svg"
+      }
+    ],
+    "not_approved_pending_followup": [
+      {
+        "old": "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process.svg",
+        "candidate": "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process-readable.svg",
+        "reason": "底部顺序说明在桌面和窄屏均裁切/跨列重叠"
+      },
+      {
+        "old": "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees.svg",
+        "candidate": "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees-readable.svg",
+        "reason": "(c) 的‘最小：哈夫曼树’文字与根节点相交"
+      }
+    ]
+  },
+  "decision": {
+    "safe_to_enter_safe_reference_switching_for_all_three": false,
+    "approved_scope": ["fig-11-6-loser-tree-states"],
+    "blocked_scope": ["fig-6-10-traversal-process", "fig-6-22-weighted-trees"],
+    "reason": "图 11.6 候选已达到正式替换门槛；图 6.10 与图 6.22 候选虽恢复了主要语义，但分别存在跨列裁切/重叠和文字压盖根节点问题，修复并复验前不能进入三图整体安全切换阶段。"
+  },
+  "change_boundary": {
+    "review_artifacts_created": [
+      ".codex/audits/textbook-assets/candidate-readiness-review.json",
+      ".codex/audits/textbook-assets/candidate-readiness-review-render.html",
+      ".codex/audits/textbook-assets/candidate-readiness-review-renders/",
+      ".codex/audits/textbook-assets/candidate-readiness-review-contact-sheets/"
+    ],
+    "source_assets_not_modified_by_this_review": [
+      "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process.svg",
+      "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees.svg",
+      "public/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-6-loser-tree-states.svg",
+      "app/data/textbook-data-structures.json"
+    ],
+    "candidate_assets_not_modified_by_this_review": [
+      "public/textbooks/data-structures/06-tree-and-binary-tree/6-3-traversal-and-threaded-binary-tree/assets/py/fig-6-10-traversal-process-readable.svg",
+      "public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-22-weighted-trees-readable.svg",
+      "public/textbooks/data-structures/11-external-sorting/11-4-replacement-selection/assets/py/fig-11-6-loser-tree-states-readable.svg"
+    ],
+    "preservation_statement": "未删除任何非重复知识内容"
+  }
+}

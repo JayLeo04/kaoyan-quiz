@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "reportId": "draft-06-23-redraw",
+  "scope": {
+    "project": "/Users/minimax/schedule/kaoyan-quiz",
+    "asset": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-23-decision-process.svg",
+    "candidateAsset": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-23-decision-process-readable.svg",
+    "authority": {
+      "adjudication": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/review-05-08-adjudication.json",
+      "dataset": "/Users/minimax/schedule/kaoyan-quiz/app/data/textbook-data-structures.json",
+      "sourcePage": "06-tree-and-binary-tree/6-6-huffman-tree-and-applications"
+    },
+    "writeBoundary": {
+      "verdict": "enforced",
+      "allowedAddedFiles": [
+        "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-06-23-redraw.json",
+        "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-23-decision-process-readable.svg"
+      ],
+      "actualAddedFiles": [
+        "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-06-23-redraw.json"
+      ],
+      "forbiddenChanges": [
+        "原图不得覆盖、删除或移动",
+        "不得修改 Markdown、JSON、组件、CSS、任何引用或其他 agent 文件",
+        "不创建 worktree，不写 /tmp，不提交推送"
+      ]
+    }
+  },
+  "verdict": "candidate_not_safe",
+  "decision": {
+    "candidateNotSafe": true,
+    "verdict": "candidate_not_safe",
+    "reason": "源文可以恢复算法语义约束，但没有精确给出图 6.23(b)/(c) 的判定框内容、左右子树分配、真/假分支方向、箭头端点、拆分后的比较顺序或图内编码；残留图只有图题、五个标签和一条无箭头斜线，无法补足这些非装饰性信息。按任务安全门不得凭推导或记忆编造候选。",
+    "decisionRule": "若源文和残留图不足以精确保留全部非装饰性内容，则不得自行编造候选，报告 candidate_not_safe。",
+    "independentReadOnlySubagent": {
+      "verdict": "independent_confirmation",
+      "agentId": "019fc605-6ee6-7872-8fdc-5a8535f50615",
+      "nickname": "Franklin",
+      "mode": "read-only",
+      "result": "candidate_not_safe = true",
+      "summary": "独立从同页正文、caption、alt、裁定和残留 SVG 恢复了条件、权值与三组子图语义，并明确指出完整树形结构、分支方向和编码不足；未修改、创建或删除任何文件。"
+    }
+  },
+  "evidence": [
+    {
+      "verdict": "direct",
+      "kind": "source-context",
+      "path": "/Users/minimax/schedule/kaoyan-quiz/app/data/textbook-data-structures.json#page=06-tree-and-binary-tree%2F6-6-huffman-tree-and-applications",
+      "excerpt": "哈夫曼树还可用于构造判定树。例如，要把学生成绩转换成五级制：低于 60 分为“不及格”，60～69 分为“及格”，70～79 分为“中等”，80～89 分为“良好”，90～100 分为“优秀”，直接写成条件语句为：if (a < 60) b = \"bad\"; else if (a < 70) b = \"pass\"; else if (a < 80) b = \"general\"; else if (a < 90) b = \"good\"; else b = \"excellent\";",
+      "supports": [
+        "五个结果及其原始嵌套条件顺序",
+        "<60、<70、<80、<90 和 else 分支",
+        "中英文结果标签"
+      ]
+    },
+    {
+      "verdict": "direct",
+      "kind": "source-context",
+      "path": "/Users/minimax/schedule/kaoyan-quiz/app/data/textbook-data-structures.json#page=06-tree-and-binary-tree%2F6-6-huffman-tree-and-applications",
+      "excerpt": "分数段 0–59、60–69、70–79、80–89、90–100 的比例依次为 0.40、0.30、0.15、0.10、0.05；以 (40,30,15,10,5) 为权值构造哈夫曼树，得到图 6.23(b)；把每个判定框的两次比较拆开，得到图 6.23(c)；图 6.23(c) 约需 22,000 次比较，原来嵌套条件语句约需 32,000 次比较。",
+      "supports": [
+        "五个分数段和权值",
+        "(b) Huffman 判定树与 (c) 拆分比较树的关系",
+        "约 22,000 与约 32,000 的比较次数关系"
+      ]
+    },
+    {
+      "verdict": "direct",
+      "kind": "caption-and-alt",
+      "path": "/Users/minimax/schedule/kaoyan-quiz/app/data/textbook-data-structures.json#page=06-tree-and-binary-tree%2F6-6-huffman-tree-and-applications",
+      "caption": "图 6.23　转换五级分数制的判定过程　(a) 原始条件语句；(b) 按分数段构造的判定树；(c) 拆分比较后的判定树。",
+      "alt": "五级分数制判定过程",
+      "supports": [
+        "图题语义",
+        "(a)(b)(c) 三组主体必须保留",
+        "alt 只有总称，没有结构细节"
+      ]
+    },
+    {
+      "verdict": "direct",
+      "kind": "adjudication",
+      "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/review-05-08-adjudication.json:2906",
+      "excerpt": "目标资产为 problem / high / not-a-figure；现图只有一条斜线和五个成绩标签，缺少 caption 明确要求的 (a) 原始条件语句、(b) 哈夫曼判定树、(c) 拆分比较后的判定树三组主体。",
+      "preservationFromAuthority": [
+        "(a) 原始嵌套条件语句的五级成绩分支与结果",
+        "(b) 权值 (40,30,15,10,5) 对应的 Huffman 判定树、分数段和路径",
+        "(c) 拆分比较后的判定树、比较方向与约 22,000/32,000 次比较关系",
+        "图题、(a)(b)(c) 标签以及前后文交叉引用"
+      ]
+    },
+    {
+      "verdict": "direct",
+      "kind": "residual-svg",
+      "path": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-23-decision-process.svg:34",
+      "excerpt": "源 SVG 只有一条 line2d_1 斜线；图题路径文字位于 :42，残留标签路径文字位于 :772、:897、:1012、:1019、:1118。",
+      "supports": [
+        "残留图不是完整判定过程",
+        "没有可读的节点、条件框、分支箭头或编码"
+      ]
+    },
+    {
+      "verdict": "direct",
+      "kind": "source-structure",
+      "path": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/review-05-08-adjudication.json:2963",
+      "excerpt": "assetMetadata.svgSignals.textCount=0、pathCount=28、clipPathCount=1、hasEmbeddedImage=false；权威哈希为 eea966cd18bdd7cb927bf3c34c36942f636f47b00ca91296f0f92793c329f7bb。",
+      "supports": [
+        "残留文字已转为路径，不能从 SVG 文本结构恢复缺失主体",
+        "原图身份可核对"
+      ]
+    },
+    {
+      "verdict": "independent_confirmation",
+      "kind": "read-only-subagent",
+      "path": "agent:019fc605-6ee6-7872-8fdc-5a8535f50615",
+      "excerpt": "独立审阅恢复的语义清单与不足：原始条件顺序、五个分数段、结果/代码名、权值；可由算法推导合并权值 5+10=15、15+15=30、30+30=60、40+60=100，但图内左右方向和编码并未由源文给出；(c) 的拆分比较顺序、真/假方向和箭头端点缺失。",
+      "supports": [
+        "独立确认 candidate_not_safe",
+        "排除把算法推导当成原图精确证据"
+      ]
+    }
+  ],
+  "semanticInventory": {
+    "verdict": "partial-recovery-only",
+    "captionMeaning": {
+      "verdict": "recoverable",
+      "text": "图 6.23 转换五级分数制的判定过程；(a) 原始条件语句；(b) 按分数段构造的判定树；(c) 拆分比较后的判定树。"
+    },
+    "rawConditionalProcess": {
+      "verdict": "recoverable",
+      "orderedBranches": [
+        {
+          "order": 1,
+          "condition": "a < 60",
+          "scoreRange": "0–59",
+          "result": "不及格",
+          "codeName": "bad",
+          "weight": 40
+        },
+        {
+          "order": 2,
+          "condition": "否则且 a < 70",
+          "scoreRange": "60–69",
+          "result": "及格",
+          "codeName": "pass",
+          "weight": 30
+        },
+        {
+          "order": 3,
+          "condition": "否则且 a < 80",
+          "scoreRange": "70–79",
+          "result": "中等",
+          "codeName": "general",
+          "weight": 15
+        },
+        {
+          "order": 4,
+          "condition": "否则且 a < 90",
+          "scoreRange": "80–89",
+          "result": "良好",
+          "codeName": "good",
+          "weight": 10
+        },
+        {
+          "order": 5,
+          "condition": "否则",
+          "scoreRange": "90–100",
+          "result": "优秀",
+          "codeName": "excellent",
+          "weight": 5
+        }
+      ]
+    },
+    "huffmanProcess": {
+      "verdict": "constraints-only",
+      "directlyGiven": [
+        "输入权值 (40,30,15,10,5)",
+        "(b) 是按分数段构造的 Huffman 判定树",
+        "(b) 中每个判定框包含两次比较"
+      ],
+      "algorithmicallyDerivedButNotExactFigureEvidence": [
+        "5+10=15",
+        "15+15=30",
+        "30+30=60",
+        "40+60=100",
+        "一组可能的叶深度约束为 40:1、30:2、15:3、10:4、5:4"
+      ],
+      "missingForSafeRedraw": [
+        "同权值 15 的合并在图中的具体 tie-break 选择",
+        "每个判定框内两次比较的具体表达式",
+        "左右子树分配、分支条件和箭头方向",
+        "图 6.23 的具体二进制编码"
+      ]
+    },
+    "splitComparisonProcess": {
+      "verdict": "insufficient",
+      "directlyGiven": [
+        "(c) 是把 (b) 每个含两次比较的判定框拆开后的判定树",
+        "(c) 约需 22,000 次比较，原始嵌套条件语句约需 32,000 次比较"
+      ],
+      "missingForSafeRedraw": [
+        "拆分后每个比较节点的具体顺序",
+        "真/假分支与箭头端点",
+        "所有节点之间的完整连接关系"
+      ]
+    },
+    "residualNonDecorativeContent": {
+      "verdict": "incomplete-and-conflicting",
+      "visible": [
+        "图题：图 6.23 转换五级分制的判定过程",
+        "不及格",
+        "中等",
+        "及格",
+        "良好",
+        "优秀",
+        "一条无箭头斜线"
+      ],
+      "limitations": [
+        "没有 (a)(b)(c) 三组主体",
+        "没有条件、权值、编码、节点、箭头或比较次数",
+        "斜线上的空间标签顺序将“中等”置于“及格”之前，与正文分数段顺序不一致，不能作为语义顺序证据"
+      ]
+    }
+  },
+  "informationPreservation": [
+    {
+      "verdict": "recoverable",
+      "item": "原始条件语句与五个分数段",
+      "evidence": "教材正文直接给出五个阈值、else 分支、分数段和中英文结果名。"
+    },
+    {
+      "verdict": "recoverable",
+      "item": "权值 (40,30,15,10,5) 与比例",
+      "evidence": "教材同页表格和正文直接给出。"
+    },
+    {
+      "verdict": "recoverable",
+      "item": "图题及 (a)(b)(c) 三组子图语义",
+      "evidence": "caption 直接给出。"
+    },
+    {
+      "verdict": "recoverable",
+      "item": "约 22,000 与约 32,000 的比较次数关系",
+      "evidence": "同页正文直接给出。"
+    },
+    {
+      "verdict": "not_recoverable_safely",
+      "item": "(b) 的全部判定框、左右连接、分支方向和节点顺序",
+      "evidence": "正文只说按权值构造 Huffman 判定树；同权值合并和左右方向未指定，残留图没有树主体。"
+    },
+    {
+      "verdict": "not_recoverable_safely",
+      "item": "(c) 的拆分比较节点、真/假箭头、端点和完整顺序",
+      "evidence": "正文只说把每个判定框的两次比较拆开；残留图没有任何可读节点或箭头。"
+    },
+    {
+      "verdict": "not_recoverable_safely",
+      "item": "图 6.23 的权值/编码标注",
+      "evidence": "权值输入可知，但具体图内标注位置与二进制编码未给出；图 6.25 后文的左 0/右 1 说明属于另一图的通用编码说明，不能替代图 6.23 的缺失证据。"
+    }
+  ],
+  "oldToCandidate": {
+    "verdict": "not_applicable",
+    "old": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-23-decision-process.svg",
+    "candidate": null,
+    "reason": "candidate_not_safe；未新增 readable SVG，因此不建立 old → candidate 映射。原图保留原位。"
+  },
+  "renderingValidation": {
+    "verdict": "candidate_not_run",
+    "originalIntrinsic": {
+      "verdict": "verified-source-only",
+      "sourceWidth": "427.32pt",
+      "sourceHeight": "202.896pt",
+      "viewBox": "0 0 427.32 202.896",
+      "sha256": "eea966cd18bdd7cb927bf3c34c36942f636f47b00ca91296f0f92793c329f7bb",
+      "observation": "原 SVG 的源尺寸和哈希与权威裁定一致；内容仍是缺失主体的残留图。"
+    },
+    "originalBodyWidth": {
+      "verdict": "verified-existing-probe",
+      "viewportWidth": 760,
+      "contentWidth": 578,
+      "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/page-probes-renders-05-08/fig-6-23-decision-process--578.png",
+      "imageSize": "578x275",
+      "observation": "只有一条斜线和五个成绩标签，没有 caption 要求的 (a)(b)(c) 三组判定主体；缺失不是 viewport 裁切。"
+    },
+    "originalNarrowWidth": {
+      "verdict": "verified-existing-probe",
+      "viewportWidth": 396,
+      "contentWidth": 360,
+      "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/page-probes-renders-05-08/fig-6-23-decision-process--360.png",
+      "imageSize": "360x171",
+      "observation": "窄屏只进一步缩小残余标签，仍没有三组判定主体；缺失不是 viewport 裁切。"
+    },
+    "originalFullSize": {
+      "verdict": "verified-existing-render",
+      "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/renders-adjudication-05-08/fig-6-23-decision-process.png",
+      "imageSize": "1200x570",
+      "observation": "全尺寸复核仍只见图题、斜线和五个标签。"
+    },
+    "candidateIntrinsic": {
+      "verdict": "not_run",
+      "reason": "没有写入 candidate SVG；candidate_not_safe。"
+    },
+    "candidateBodyWidth": {
+      "verdict": "not_run",
+      "reason": "没有安全候选可渲染。"
+    },
+    "candidateNarrowWidth": {
+      "verdict": "not_run",
+      "reason": "没有安全候选可渲染。"
+    },
+    "realPageAcceptance": {
+      "verdict": "not_run",
+      "reason": "候选未产生；既有探针仅用于确认原图缺失，不冒充候选验收。"
+    }
+  },
+  "unresolvedRisks": [
+    {
+      "verdict": "open",
+      "risk": "页面仍引用主体缺失的原图，图 6.23 的教材教学信息暂未修复。"
+    },
+    {
+      "verdict": "open",
+      "risk": "若未经原始图像或更完整教材源补证，任何三栏/三段重绘都可能臆造 (b)/(c) 的节点、条件、方向、顺序或编码。"
+    },
+    {
+      "verdict": "open",
+      "risk": "Huffman 合并中出现权值 15 的同权情形；仅凭权值不能确定原图的 tie-break、左右子树或编码。"
+    },
+    {
+      "verdict": "open",
+      "risk": "残留图标签的空间顺序与正文分数段顺序不一致，不能用位置补全语义。"
+    }
+  ],
+  "fileIntegrity": {
+    "verdict": "preserved",
+    "originalAsset": {
+      "verdict": "unchanged",
+      "sha256": "eea966cd18bdd7cb927bf3c34c36942f636f47b00ca91296f0f92793c329f7bb"
+    },
+    "candidateAsset": {
+      "verdict": "not_created",
+      "path": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/06-tree-and-binary-tree/6-6-huffman-tree-and-applications/assets/py/fig-6-23-decision-process-readable.svg"
+    },
+    "otherFiles": {
+      "verdict": "not_touched_by_this_task",
+      "note": "未修改 Markdown、JSON、组件、CSS、引用、原图、其他 agent 文件或其他目录。"
+    }
+  },
+  "contentRetentionStatement": "未删除任何非重复知识内容"
+}

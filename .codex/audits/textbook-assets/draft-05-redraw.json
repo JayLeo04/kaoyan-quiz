@@ -1,0 +1,617 @@
+{
+  "audit": "draft-05-redraw",
+  "status": "candidate-redraw-validated",
+  "generatedOn": "2026-08-03",
+  "generatedAt": "2026-08-03T13:27:52+08:00",
+  "project": "/Users/minimax/schedule/kaoyan-quiz",
+  "skill": "audit-408-textbook-assets-demo",
+  "scope": {
+    "dataset": "app/data/textbook-data-structures.json",
+    "chapter": "05-array-and-generalized-list",
+    "onlyReviewedAssets": [
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose.svg"
+    ],
+    "writePolicy": {
+      "newFilesOnly": true,
+      "originalsPreserved": true,
+      "originalsDeletedMovedOrOverwritten": false,
+      "markdownJsonComponentsCssImagesReferencesUntouched": true,
+      "worktreeCreated": false,
+      "tmpWritten": false,
+      "reportWrittenOnlyAt": ".codex/audits/textbook-assets/draft-05-redraw.json",
+      "renderArtifactsAt": ".codex/audits/textbook-assets/draft-05-renders/"
+    },
+    "preExistingWorktreeChanges": {
+      "detected": true,
+      "handling": "保留既有改动；本任务未编辑、覆盖、删除或移动其他人的文件。"
+    }
+  },
+  "readOnlySemanticReview": {
+    "agentId": "019fc605-37e0-7ad3-ba77-8b5325a14ff2",
+    "readOnly": true,
+    "result": "completed",
+    "conclusion": "五张图全部 candidate_needed；没有 candidate_not_needed。独立审计确认问题分别为复合下标字形缺失、末端下标拥挤、局部下标碰撞和图注侵入矩阵。",
+    "reviewedEvidence": [
+      ".codex/audits/textbook-assets/current-baseline.json",
+      ".codex/audits/textbook-assets/review-05-08-adjudication.json",
+      "app/data/textbook-data-structures.json",
+      "五张原始 SVG 本体",
+      ".codex/audits/textbook-assets/page-probes-renders-05-08/ 下的 578px/360px 原图探针"
+    ],
+    "independentSemanticChecks": [
+      "逐图核对维度、行列下标、数组顺序、三元组/矩阵值、映射关系、括号/分组和子图关系。",
+      "确认五张原图没有 CSS 高度裁切；问题来自实际字形缺失或局部布局碰撞。",
+      "确认没有任何一张可以按原图清晰处理，因此没有新增 candidate_not_needed 项。"
+    ]
+  },
+  "baselineAndInventory": {
+    "baseline": ".codex/audits/textbook-assets/current-baseline.json",
+    "adjudication": ".codex/audits/textbook-assets/review-05-08-adjudication.json",
+    "inventoryCommand": "node /Users/minimax/.codex/skills/audit-408-textbook-assets-demo/scripts/audit-textbook-assets.mjs --project /Users/minimax/schedule/kaoyan-quiz --dataset app/data/textbook-data-structures.json --assets public/textbooks/data-structures --report /dev/null",
+    "inventoryOutputAfterCandidates": {
+      "files": 444,
+      "referenced": 274,
+      "missing": 0,
+      "unreferenced": 170,
+      "entries": 444,
+      "malformedCandidateRenders": 0,
+      "contactSheetsWritten": 0,
+      "note": "按用户要求不写 /tmp；清单仅输出到 stdout，未产生额外持久化审计报告。新增候选未修改任何既有图片引用。"
+    }
+  },
+  "items": [
+    {
+      "asset": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array.svg",
+      "candidate": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array-readable.svg",
+      "verdict": "candidate_passed",
+      "findingCategory": "unreadable-glyph",
+      "severity": "high",
+      "oldToCandidate": {
+        "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array.svg",
+        "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array-readable.svg"
+      },
+      "sourcePageEvidence": {
+        "slug": "05-array-and-generalized-list/5-1-array-definition",
+        "route": "/textbook/data-structures/05-array-and-generalized-list/5-1-array-definition",
+        "title": "5.1　数组的定义",
+        "sourcePath": "05-array-and-generalized-list/5-1-array-definition/index.md",
+        "bookPages": "90-91",
+        "pdfPages": "100-101",
+        "alt": "图 5.1：矩阵形式、列向量和行向量形式下的二维数组",
+        "before": "同理，一个 n 维数组类型可以定义为其数据元素为 n-1 维数组类型的一维数组类型。",
+        "caption": "图 5.1　二位数组图例： (a) 矩阵形式表示；(b) 列向量的一维数组；(c) 行向量的一维数组。",
+        "after": "数组一旦被定义，它的维数和维界就不再改变。因此，除了结构的初始化和销毁之外，数组只有存取元素和修改元素值的操作。",
+        "imageMarkdown": "![图 5.1：矩阵形式、列向量和行向量形式下的二维数组](assets/py/fig-5-1-two-dimensional-array.svg)"
+      },
+      "originalVisualEvidence": {
+        "intrinsic": {
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/renders-adjudication-05-08/fig-5-1-two-dimensional-array.png",
+          "observation": "全尺寸栅格中 A_{m×n}、a_{m−1,0}、a_{m−1,n−1} 等复合下标出现缺字方框/异常字形。"
+        },
+        "bodyWidth760": {
+          "viewportWidth": 760,
+          "contentWidth": 578,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/page-probes-renders-05-08/fig-5-1-two-dimensional-array--578.png",
+          "observation": "矩阵边界标签和三种表示仍可见，但复合下标不能可靠读取；无 CSS 高度裁切。"
+        },
+        "narrowWidth396": {
+          "viewportWidth": 396,
+          "contentWidth": 360,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/page-probes-renders-05-08/fig-5-1-two-dimensional-array--360.png",
+          "observation": "窄屏缩放后复合下标更难辨认，缺字/异常字形仍存在；无 CSS 高度裁切。"
+        },
+        "realPage": {
+          "pageUrl": "http://localhost:3001/textbook/data-structures/05-array-and-generalized-list/5-1-array-definition",
+          "probeFixture": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/review-05-08-page-probes.html",
+          "measuredImageBox": {
+            "viewport760": "666x294.609375",
+            "viewport396": "322x143.015625"
+          },
+          "observation": "真实页直接引用原 SVG；当前图框未被裁切，原图字形问题仍是内容可读性风险。"
+        }
+      },
+      "semanticChecklist": {
+        "mustPreserve": [
+          "A_{m×n} 维度标签。",
+          "(a) 矩阵形式、(b) 列向量一维数组、(c) 行向量/元组形式及三者属于同一二维数组的关系。",
+          "矩阵 4 行 5 列示例：a00、a01、a02、…、a0,n−1；a10、a11、a12、…、a1,n−1；中间行省略号；a_{m−1,0}、a_{m−1,1}、a_{m−1,2}、…、a_{m−1,n−1}。",
+          "列向量 a0、a1、…、a_{n−1}，每列包含 a_{0,j}、a_{1,j}、⋮、a_{m−1,j}。",
+          "底部元组 A_{m×n}=((a00 a01 … a0,n−1),(a10 a11 … a1,n−1),…,(a_{m−1,0} a_{m−1,1} … a_{m−1,n−1}))。",
+          "图内省略号、子图标记和原图图注。"
+        ],
+        "visibleArrows": "无；候选没有虚构箭头。",
+        "preservedValues": "未删除任何矩阵元素、下标、维度或省略号。"
+      },
+      "candidateRenderValidation": {
+        "renderer": "sharp/libvips deterministic PNG render",
+        "svgMetadata": {
+          "viewBox": "0 0 1240 720",
+          "fullSize": "1240x720",
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false,
+          "explicitTspanSubscript": true
+        },
+        "intrinsic": {
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-1-two-dimensional-array-readable--intrinsic.png",
+          "observation": "矩阵、三列向量、底部元组和图注完整；复合下标由 ASCII 文本嵌套 tspan 显示，无缺字方框。"
+        },
+        "bodyWidth760": {
+          "contentWidth": 578,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-1-two-dimensional-array-readable--578.png",
+          "observation": "全部边界下标、(a)(b)(c) 和两行底部元组清楚，无碰撞或裁切。"
+        },
+        "narrowWidth396": {
+          "contentWidth": 360,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-1-two-dimensional-array-readable--360.png",
+          "realPageCssWidth": 322,
+          "realPageSizeRender": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-1-two-dimensional-array-readable--322.png",
+          "observation": "窄屏仍需放大阅读底部长元组，但下标字形完整、面板没有互相侵入或被裁切。"
+        }
+      },
+      "unresolvedRisks": [
+        "360px/322px 窄屏下底部元组字号自然偏小，需放大查看；未再发现缺字、碰撞或裁切。"
+      ]
+    },
+    {
+      "asset": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders.svg",
+      "candidate": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders-readable.svg",
+      "verdict": "candidate_passed",
+      "findingCategory": "unreadable-glyph",
+      "severity": "high",
+      "oldToCandidate": {
+        "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders.svg",
+        "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders-readable.svg"
+      },
+      "sourcePageEvidence": {
+        "slug": "05-array-and-generalized-list/5-2-array-sequential-representation",
+        "route": "/textbook/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation",
+        "title": "5.2　数组的顺序表示和实现",
+        "sourcePath": "05-array-and-generalized-list/5-2-array-sequential-representation/index.md",
+        "bookPages": "91-95",
+        "pdfPages": "101-105",
+        "alt": "图 5.2：二维数组按列主序与按行主序的连续存储次序",
+        "before": "由于存储单元是一维的结构，而数组是个多维的结构，则用一组连续存储单元存放数组的数据元素就有个次序约定问题。例如图 5.1(a) 的二维数组可以看成如图 5.1(c) 的一维数组，也可看成如图 5.1(b) 的一维数组。对应地，对二维数组可有两种存储方式：一种以列序为主序（column major order）的存储方式，如图 5.2(a) 所示；一种是以行序为主序（row major order）的存储方式，如图 5.2(b) 所示。在扩展 BASIC、PL/1、COBOL、PASCAL 和 C 语言中，用的都是以行序为主序的存储结构，而在 FORTRAN 语言中，用的是以列序为主序的存储结构。",
+        "caption": "图 5.2　二位数组的两种存储方式： (a) 以列序为主序；(b) 以行序为主序。",
+        "after": "由此，对于数组，一旦规定了它的维数和各维的长度，便可为它分配存储空间。反之，只要给出一组下标便可求得相应数组元素的存储位置。下面仅以行序为主序的存储结构为例予以说明。",
+        "imageMarkdown": "![图 5.2：二维数组按列主序与按行主序的连续存储次序](assets/py/fig-5-2-storage-orders.svg)"
+      },
+      "originalVisualEvidence": {
+        "intrinsic": {
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/renders-adjudication-05-08/fig-5-2-storage-orders.png",
+          "observation": "列主序和行主序两组展开序列中的 m−1、n−1 复合下标出现缺字方框/异常字形，LOC 标签也随之不稳定。"
+        },
+        "bodyWidth760": {
+          "viewportWidth": 760,
+          "contentWidth": 578,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/page-probes-renders-05-08/fig-5-2-storage-orders--578.png",
+          "observation": "两组序列、括号和 LOC 标注可见，但最后组边界下标不能可靠读出；无 CSS 高度裁切。"
+        },
+        "narrowWidth396": {
+          "viewportWidth": 396,
+          "contentWidth": 360,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/page-probes-renders-05-08/fig-5-2-storage-orders--360.png",
+          "observation": "窄屏下地址标注和端点下标更密集，缺字/异常字形仍存在；无 CSS 高度裁切。"
+        },
+        "realPage": {
+          "pageUrl": "http://localhost:3001/textbook/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation",
+          "probeFixture": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/review-05-08-page-probes.html",
+          "measuredImageBox": {
+            "viewport760": "666x390",
+            "viewport396": "322x208.1015625"
+          },
+          "observation": "真实页直接引用原 SVG，图框未被裁切；原图地址公式和复合下标的可读性仍不足。"
+        }
+      },
+      "semanticChecklist": {
+        "mustPreserve": [
+          "(a) 左侧列主序、(b) 右侧行主序的并列关系。",
+          "列主序序列：a00、a10、…、a_{m−1,0}；a01、a11、…、a_{m−1,1}；…；a_{0,n−1}、a_{1,n−1}、…、a_{m−1,n−1}。",
+          "列主序分组 Ā_0^(1)、Ā_1^(1)、…、Ā_{n−1}^(1)，以及 LOC(Ā_0^(1))=LOC(a00)、LOC(Ā_1^(1))=LOC(a01)、LOC(Ā_{n−1}^(1))=LOC(a_{0,n−1})。",
+          "列主序关系 A^(2)=(Ā_0^(1),Ā_1^(1),…,Ā_{n−1}^(1)) 与 Ā_j^(1)=(a_{0j},a_{1j},…,a_{m−1,j})。",
+          "行主序序列：a00、a01、…、a_{0,n−1}；a10、a11、…、a_{1,n−1}；…；a_{m−1,0}、a_{m−1,1}、…、a_{m−1,n−1}。",
+          "行主序分组 A_0^(1)、A_1^(1)、…、A_{m−1}^(1)，以及 LOC(A_0^(1))=LOC(a00)、LOC(A_1^(1))=LOC(a10)、LOC(A_{m−1}^(1))=LOC(a_{m−1,0})。",
+          "行主序关系 A^(2)=(A_0^(1),A_1^(1),…,A_{m−1}^(1)) 与 A_i^(1)=(a_{i0},a_{i1},…,a_{i,n−1})。",
+          "大括号、LOC 地址标注、全部省略号、(a)(b) 和原图图注。"
+        ],
+        "visibleArrows": "无；大括号不是箭头，候选保留为括号分组。",
+        "preservedValues": "全部元素下标、m/n 端点和 LOC 映射均保留。"
+      },
+      "candidateRenderValidation": {
+        "renderer": "sharp/libvips deterministic PNG render",
+        "svgMetadata": {
+          "viewBox": "0 0 1540 920",
+          "fullSize": "1540x920",
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false,
+          "explicitTspanSubscriptAndSuperscript": true
+        },
+        "intrinsic": {
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-2-storage-orders-readable--intrinsic.png",
+          "observation": "两组 13 项展开序列、三段括号、六个 LOC 端点映射和两行向量公式完整，复合下标/上标不再依赖缺失 Unicode 字形。"
+        },
+        "bodyWidth760": {
+          "contentWidth": 578,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-2-storage-orders-readable--578.png",
+          "observation": "序列顺序、分组边界、LOC 映射和向量公式彼此分离，无局部重叠或裁切。"
+        },
+        "narrowWidth396": {
+          "contentWidth": 360,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-2-storage-orders-readable--360.png",
+          "realPageCssWidth": 322,
+          "realPageSizeRender": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-2-storage-orders-readable--322.png",
+          "observation": "窄屏下所有端点仍在各自序列中，LOC 标签、括号和公式没有碰撞；整体字号偏小但不存在缺字。"
+        }
+      },
+      "unresolvedRisks": [
+        "这是五张候选中窄屏信息密度最高的一张；322px/360px 下 LOC 与底部向量公式需放大阅读，但布局未发生溢出或碰撞。"
+      ]
+    },
+    {
+      "asset": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression.svg",
+      "candidate": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression-readable.svg",
+      "verdict": "candidate_passed",
+      "findingCategory": "unreadable-glyph",
+      "severity": "medium-high",
+      "oldToCandidate": {
+        "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression.svg",
+        "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression-readable.svg"
+      },
+      "sourcePageEvidence": {
+        "slug": "05-array-and-generalized-list/5-3-matrix-compressed-storage",
+        "route": "/textbook/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage",
+        "title": "5.3 矩阵的压缩存储",
+        "sourcePath": "05-array-and-generalized-list/5-3-matrix-compressed-storage/index.md",
+        "bookPages": "95-106",
+        "pdfPages": "105-116",
+        "alt": "图 5.3：对称矩阵下三角含对角线按行压缩到一维数组",
+        "before": "对于任意给定一组下标 (i,j)，均可在 sa 中找到矩阵元 a_{ij}；反之，对所有的 k=0,1,2,ldots,dfrac{n(n+1)}2-1，都能确定 sa[k] 中的元在矩阵中的位置 (i,j)。由此，称 sa[n(n+1)/2] 为 n 阶对称矩阵 A 的压缩存储。",
+        "caption": "图 5.3：对称矩阵下三角含对角线按行压缩到一维数组",
+        "after": "这种压缩存储的方法同样也适用于三角矩阵。所谓下（上）三角矩阵是指矩阵的上（下）三角（不包括对角线）中的元均为常数 c 或零的 n 阶矩阵。则除了和对称矩阵一样，只存储其下（上）三角中的元之外，再加一个存储常数 c 的存储空间即可。",
+        "imageMarkdown": "![图 5.3：对称矩阵下三角含对角线按行压缩到一维数组](assets/py/fig-5-3-symmetric-compression.svg)"
+      },
+      "originalVisualEvidence": {
+        "intrinsic": {
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/renders-adjudication-05-08/fig-5-3-symmetric-compression.png",
+          "observation": "末端 a_{n1}、a_{nn} 的 n 下标在全尺寸栅格化中出现缺字方框。"
+        },
+        "bodyWidth760": {
+          "viewportWidth": 760,
+          "contentWidth": 578,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/page-probes-renders-05-08/fig-5-3-symmetric-compression--578.png",
+          "observation": "压缩序列和 k 端点可见，但末端矩阵项的复合下标不能可靠读取；无 CSS 高度裁切。"
+        },
+        "narrowWidth396": {
+          "viewportWidth": 396,
+          "contentWidth": 360,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/page-probes-renders-05-08/fig-5-3-symmetric-compression--360.png",
+          "observation": "窄屏仍能看见一维序列，但 a_{n1}/a_{nn} 的精确下标继续受缺字影响；无 CSS 高度裁切。"
+        },
+        "realPage": {
+          "pageUrl": "http://localhost:3001/textbook/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage",
+          "probeFixture": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/review-05-08-page-probes.html",
+          "measuredImageBox": {
+            "viewport760": "666x208.2890625",
+            "viewport396": "322x101.4140625"
+          },
+          "observation": "真实页图框未被裁切；原图端点映射仍需要可读的 n 下标。"
+        }
+      },
+      "semanticChecklist": {
+        "mustPreserve": [
+          "下三角（含主对角线）按行压缩为一个一维序列。",
+          "序列项按左到右为 a11、a21、a22、a31、…、a_{n1}、…、a_{nn}。",
+          "k=0、1、2、3、n(n−1)/2、n(n+1)/2−1，并与对应序列位置对齐。",
+          "1-based 矩阵下标和原英文图注 Fig. 5.3 Symmetric-matrix compressed storage。"
+        ],
+        "exactMapping": [
+          "k=0 → a11",
+          "k=1 → a21",
+          "k=2 → a22",
+          "k=3 → a31",
+          "k=n(n−1)/2 → a_{n1}",
+          "k=n(n+1)/2−1 → a_{nn}"
+        ],
+        "visibleArrows": "无；原 SVG 只定义了未使用的 marker，候选未添加箭头。"
+      },
+      "candidateRenderValidation": {
+        "renderer": "sharp/libvips deterministic PNG render",
+        "svgMetadata": {
+          "viewBox": "0 0 1220 390",
+          "fullSize": "1220x390",
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false,
+          "explicitTspanSubscript": true
+        },
+        "intrinsic": {
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-3-symmetric-compression-readable--intrinsic.png",
+          "observation": "8 个序列格、6 个 k 端点索引和图注完整，a_{n1}/a_{nn} 的下标清楚。"
+        },
+        "bodyWidth760": {
+          "contentWidth": 578,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-3-symmetric-compression-readable--578.png",
+          "observation": "序列格与 k 标签逐项对齐，无末端拥挤、缺字或裁切。"
+        },
+        "narrowWidth396": {
+          "contentWidth": 360,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-3-symmetric-compression-readable--360.png",
+          "realPageCssWidth": 322,
+          "realPageSizeRender": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-3-symmetric-compression-readable--322.png",
+          "observation": "端点下标和两个 n 公式仍可辨认，窄屏没有重叠或越界。"
+        }
+      },
+      "unresolvedRisks": [
+        "窄屏下端点公式的字号较小，但其 n、−1 和分母结构没有缺失或碰撞。"
+      ]
+    },
+    {
+      "asset": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix.svg",
+      "candidate": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix-readable.svg",
+      "verdict": "candidate_passed",
+      "findingCategory": "overlap-and-unreadable-glyph",
+      "severity": "medium-high",
+      "oldToCandidate": {
+        "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix.svg",
+        "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix-readable.svg"
+      },
+      "sourcePageEvidence": {
+        "slug": "05-array-and-generalized-list/5-3-matrix-compressed-storage",
+        "route": "/textbook/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage",
+        "title": "5.3 矩阵的压缩存储",
+        "sourcePath": "05-array-and-generalized-list/5-3-matrix-compressed-storage/index.md",
+        "bookPages": "95-106",
+        "pdfPages": "105-116",
+        "alt": "图 5.4：一般带状对角矩阵及三对角矩阵",
+        "before": "在数值分析中经常出现的还有另一类特殊矩阵是对角矩阵。在这种矩阵中，所有的非零元都集中在以主对角线为中心的带状区域中。即除了主对角线上和直接在对角线上、下方若干条对角线上的元之外，所有其他的元均为零。如图 5.4 所示。对这种矩阵，我们也可按某个原则（或以行为主，或以对角线的顺序）将其压缩存储到一维数组上。",
+        "caption": "图 5.4：一般带状对角矩阵及三对角矩阵",
+        "after": "在所有这些我们统称为特殊矩阵的矩阵中，非零元的分布都有一个明显的规律，从而我们都可将其压缩存储到一维数组中，并找到每个非零元在一维数组中的对应关系。",
+        "imageMarkdown": "![图 5.4：一般带状对角矩阵及三对角矩阵](assets/py/fig-5-4-band-matrix.svg)"
+      },
+      "originalVisualEvidence": {
+        "intrinsic": {
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/renders-adjudication-05-08/fig-5-4-band-matrix.png",
+          "observation": "三对角网格右下角 a_{n−1,n−2} 与 a_{n−1,n−1} 的复合下标挤在相邻单元格之间。"
+        },
+        "bodyWidth760": {
+          "viewportWidth": 760,
+          "contentWidth": 578,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/page-probes-renders-05-08/fig-5-4-band-matrix--578.png",
+          "observation": "右下角两个标签发生实际侵入；一般带状图形越过矩形边界是原图意图，未越出 viewBox，也没有 CSS 高度裁切。"
+        },
+        "narrowWidth396": {
+          "viewportWidth": 396,
+          "contentWidth": 360,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/page-probes-renders-05-08/fig-5-4-band-matrix--360.png",
+          "observation": "窄屏保留同一右下角碰撞，复合下标更难辨认；无 CSS 高度裁切。"
+        },
+        "realPage": {
+          "pageUrl": "http://localhost:3001/textbook/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage",
+          "probeFixture": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/review-05-08-page-probes.html",
+          "measuredImageBox": {
+            "viewport760": "666x269.0390625",
+            "viewport396": "322x130.6953125"
+          },
+          "observation": "真实页图框没有被裁切；碰撞来自原 SVG 的右下角排布。"
+        }
+      },
+      "semanticChecklist": {
+        "mustPreserve": [
+          "(a) 一般带状情形与 (b) 三对角矩阵的并列关系。",
+          "a_{ij} main diagonal、(a) general case、m rows, n columns 和 (b) tridiagonal matrix 标签。",
+          "一般带状区域矩形及 10 条平行斜线；斜线没有被误改成箭头。",
+          "4×4 三对角网格中的 a00、a01、a10、a11、a12、⋱、a_{n−1,n−2}、a_{n−1,n−1}，以及全部空白格。",
+          "原英文图注 Fig. 5.4 Nonzeros concentrated around main diagonal。"
+        ],
+        "visibleArrows": "无；斜线是普通 line，不是方向箭头。",
+        "preservedValues": "没有删除边界下标、空白网格、斜线或子图标签。"
+      },
+      "candidateRenderValidation": {
+        "renderer": "sharp/libvips deterministic PNG render",
+        "svgMetadata": {
+          "viewBox": "0 0 1260 660",
+          "fullSize": "1260x660",
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false,
+          "parallelLines": 10,
+          "gridCells": 16,
+          "explicitTspanSubscript": true
+        },
+        "intrinsic": {
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-4-band-matrix-readable--intrinsic.png",
+          "observation": "10 条斜线、一般情形标签、完整 4×4 网格和边界下标均保留；两个末行标签分开。"
+        },
+        "bodyWidth760": {
+          "contentWidth": 578,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-4-band-matrix-readable--578.png",
+          "observation": "两个末行标签各自落在单元格内，图注下移后不侵入矩阵。"
+        },
+        "narrowWidth396": {
+          "contentWidth": 360,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-4-band-matrix-readable--360.png",
+          "realPageCssWidth": 322,
+          "realPageSizeRender": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-4-band-matrix-readable--322.png",
+          "observation": "窄屏仍能区分两个边界下标和三对角带状关系，无标签相撞、裁切或越界。"
+        }
+      },
+      "unresolvedRisks": [
+        "窄屏下 4×4 网格中的复合下标仍偏小；原图的带状斜线越出内部矩形但保持在 viewBox 内，这是保留的图意而非未解决裁切。"
+      ]
+    },
+    {
+      "asset": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose.svg",
+      "candidate": "/Users/minimax/schedule/kaoyan-quiz/public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose-readable.svg",
+      "verdict": "candidate_passed",
+      "findingCategory": "overlap",
+      "severity": "medium",
+      "oldToCandidate": {
+        "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose.svg",
+        "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose-readable.svg"
+      },
+      "sourcePageEvidence": {
+        "slug": "05-array-and-generalized-list/5-3-matrix-compressed-storage",
+        "route": "/textbook/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage",
+        "title": "5.3 矩阵的压缩存储",
+        "sourcePath": "05-array-and-generalized-list/5-3-matrix-compressed-storage/index.md",
+        "bookPages": "95-106",
+        "pdfPages": "105-116",
+        "alt": "图 5.5：稀疏矩阵 M 与其转置矩阵 T",
+        "before": "加上 (6,7) 这一对行、列值便可作为图 5.5 中矩阵 M 的另一种描述。而由上述三元组表的不同表示方法可引出稀疏矩阵不同的压缩存储方法。",
+        "caption": "图 5.5：稀疏矩阵 M 与其转置矩阵 T",
+        "after": "### 1．三元组顺序表",
+        "imageMarkdown": "![图 5.5：稀疏矩阵 M 与其转置矩阵 T](assets/py/fig-5-5-sparse-matrix-and-transpose.svg)"
+      },
+      "originalVisualEvidence": {
+        "intrinsic": {
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/renders-adjudication-05-08/fig-5-5-sparse-matrix-and-transpose.png",
+          "observation": "原图的英文图注直接贴在 T 矩阵底部，侵入最后一行。"
+        },
+        "bodyWidth760": {
+          "viewportWidth": 760,
+          "contentWidth": 578,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/page-probes-renders-05-08/fig-5-5-sparse-matrix-and-transpose--578.png",
+          "observation": "T 的最后一行和英文图注实际重叠；矩阵边界没有被 CSS 高度裁切。"
+        },
+        "narrowWidth396": {
+          "viewportWidth": 396,
+          "contentWidth": 360,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/page-probes-renders-05-08/fig-5-5-sparse-matrix-and-transpose--360.png",
+          "observation": "窄屏缩放后图注仍压在 T 底行附近，底行完整性受到视觉侵入；无 CSS 高度裁切。"
+        },
+        "realPage": {
+          "pageUrl": "http://localhost:3001/textbook/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage",
+          "probeFixture": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/review-05-08-page-probes.html",
+          "measuredImageBox": {
+            "viewport760": "666x282.3515625",
+            "viewport396": "322x137.109375"
+          },
+          "observation": "真实页仍直接引用原 SVG；T 底行与图注的侵入是 SVG 内部布局问题，不是页面裁切。"
+        }
+      },
+      "semanticChecklist": {
+        "mustPreserve": [
+          "左侧矩阵 M、右侧转置矩阵 T 的标识和二者的转置关系。",
+          "M 为 6×7，T 为 7×6；所有网格边界和空值位置。",
+          "M 全部行：\"0 12 9 0 0 0 0\"；\"0 0 0 0 0 0 0\"；\"-3 0 0 0 0 14 0\"；\"0 0 24 0 0 0 0\"；\"0 18 0 0 0 0 0\"；\"15 0 0 -7 0 0 0\"。",
+          "T 全部行：\"0 0 -3 0 0 15\"；\"12 0 0 0 18 0\"；\"9 0 0 24 0 0\"；\"0 0 0 0 0 -7\"；\"0 0 0 0 0 0\"；\"0 0 14 0 0 0\"；\"0 0 0 0 0 0\"。",
+          "全部非零值 12、9、−3、14、24、18、15、−7 及其位置，所有其余 0。",
+          "原英文图注 Fig. 5.5 Sparse matrix M and its transpose T。"
+        ],
+        "sourceTripleConsistency": [
+          "(1,2,12)",
+          "(1,3,9)",
+          "(3,1,-3)",
+          "(3,6,14)",
+          "(4,3,24)",
+          "(5,2,18)",
+          "(6,1,15)",
+          "(6,4,-7)",
+          "(6,7) 行列值"
+        ],
+        "visibleArrows": "无；原 SVG 只定义了未使用的 marker，候选未添加虚构箭头。"
+      },
+      "candidateRenderValidation": {
+        "renderer": "sharp/libvips deterministic PNG render",
+        "svgMetadata": {
+          "viewBox": "0 0 1240 700",
+          "fullSize": "1240x700",
+          "foreignObject": false,
+          "embeddedImage": false,
+          "rootOverflowHidden": false,
+          "matrixMCells": 42,
+          "matrixTCells": 42
+        },
+        "intrinsic": {
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-5-sparse-matrix-and-transpose-readable--intrinsic.png",
+          "observation": "M 的 6×7、T 的 7×6 网格、全部 84 个单元值和标题完整；图注下移后与矩阵分离。"
+        },
+        "bodyWidth760": {
+          "contentWidth": 578,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-5-sparse-matrix-and-transpose-readable--578.png",
+          "observation": "全部非零值及其转置位置清楚，T 底行完整，图注不再侵入。"
+        },
+        "narrowWidth396": {
+          "contentWidth": 360,
+          "render": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-5-sparse-matrix-and-transpose-readable--360.png",
+          "realPageCssWidth": 322,
+          "realPageSizeRender": "/Users/minimax/schedule/kaoyan-quiz/.codex/audits/textbook-assets/draft-05-renders/fig-5-5-sparse-matrix-and-transpose-readable--322.png",
+          "observation": "窄屏下 0、12、9、−3、14、24、18、15、−7 全部仍在正确单元格内，图注与底行有明确空隙。"
+        }
+      },
+      "unresolvedRisks": [
+        "窄屏下矩阵数值字号较小，需放大阅读；未再发现图注侵入、数值丢失或裁切。"
+      ]
+    }
+  ],
+  "candidateNotNeeded": [],
+  "oldToCandidateMappings": [
+    {
+      "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array.svg",
+      "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array-readable.svg",
+      "preserved": ["矩阵、列向量、行向量三种表示", "A_{m×n}、全部矩阵元素下标与省略号", "(a)(b)(c) 分组和图注"],
+      "repair": ["用嵌套 tspan 显式绘制下标", "拆分底部长元组以避免窄屏拥挤"]
+    },
+    {
+      "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders.svg",
+      "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders-readable.svg",
+      "preserved": ["列主序/行主序全部展开顺序", "全部 LOC 映射、括号和向量公式", "所有端点下标与 (a)(b) 图注"],
+      "repair": ["用嵌套 tspan 显式绘制下标和上标", "拉开括号、LOC、序列和公式间距"]
+    },
+    {
+      "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression.svg",
+      "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression-readable.svg",
+      "preserved": ["a11、a21、a22、a31、…、a_{n1}、…、a_{nn}", "k=0、1、2、3、n(n−1)/2、n(n+1)/2−1", "序列对齐关系和英文图注"],
+      "repair": ["显式下标", "增大末端单元格与 k 标签间距"]
+    },
+    {
+      "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix.svg",
+      "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix-readable.svg",
+      "preserved": ["10 条一般带状斜线", "4×4 三对角网格及全部标签/空格", "主对角线、m/n 标签、(a)(b) 和图注"],
+      "repair": ["显式下标", "扩大网格单元并下移图注以消除右下角和图注碰撞"]
+    },
+    {
+      "old": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose.svg",
+      "candidate": "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose-readable.svg",
+      "preserved": ["M 6×7 和 T 7×6 的全部 84 个单元", "全部 0 和 8 个非零值及其位置", "M/T 标识、转置关系和图注"],
+      "repair": ["矩阵与图注增加垂直间距", "保留原矩阵尺寸和全部值，不以摘要替代矩阵"]
+    }
+  ],
+  "validation": {
+    "candidateFiles": [
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-1-array-definition/assets/py/fig-5-1-two-dimensional-array-readable.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders-readable.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-3-symmetric-compression-readable.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-4-band-matrix-readable.svg",
+      "public/textbooks/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage/assets/py/fig-5-5-sparse-matrix-and-transpose-readable.svg"
+    ],
+    "renderMatrix": {
+      "intrinsic": "5/5 rendered successfully and visually checked",
+      "bodyWidth760Content578": "5/5 rendered successfully and visually checked",
+      "narrowWidth396Content360": "5/5 rendered successfully and visually checked",
+      "actualPageMeasuredWidths666And322": "5/5 rendered successfully for comparison",
+      "malformed": false,
+      "missing": false
+    },
+    "realPageCheck": {
+      "available": true,
+      "routesChecked": [
+        "/textbook/data-structures/05-array-and-generalized-list/5-1-array-definition",
+        "/textbook/data-structures/05-array-and-generalized-list/5-2-array-sequential-representation",
+        "/textbook/data-structures/05-array-and-generalized-list/5-3-matrix-compressed-storage"
+      ],
+      "viewportChecks": [760, 396],
+      "observation": "真实页继续引用原图（本任务禁止修改引用）；五张原图均加载，图框没有 CSS 高度裁切，原图问题与候选报告中的 intrinsic/578/360 证据一致。"
+    },
+    "projectChecks": {
+      "assetAudit": "通过：missing=0；候选均可由 sharp/libvips 解析。",
+      "lintBuild": "未运行；本次仅新增未引用 SVG 资产，没有触及生成 JSON、组件、CSS 或图片引用。"
+    }
+  },
+  "retentionStatement": "未删除任何非重复知识内容。"
+}

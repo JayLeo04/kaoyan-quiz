@@ -5,6 +5,9 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "/kaoyan-quiz";
 const outputDirectory = resolve("dist/client");
 const escapedBasePath = basePath.slice(1).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const rootAttribute = new RegExp(`\\b(src|href)=(['\"])\\/(?!\\/|${escapedBasePath}(?:\\/|$))`, "gi");
+// Vinext writes its hydration entry point and RSC payload asset paths inside
+// inline scripts, where they are not covered by the href/src rewrite above.
+const rootAssetString = /(['"])\/(assets\/)/g;
 
 async function htmlFiles(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -19,7 +22,9 @@ async function htmlFiles(directory) {
 const files = await htmlFiles(outputDirectory);
 await Promise.all(files.map(async (file) => {
   const html = await readFile(file, "utf8");
-  const prefixed = html.replace(rootAttribute, `$1=$2${basePath}/`);
+  const prefixed = html
+    .replace(rootAttribute, `$1=$2${basePath}/`)
+    .replace(rootAssetString, `$1${basePath}/$2`);
   if (prefixed !== html) await writeFile(file, prefixed);
 }));
 

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/app/components/SiteLink";
 import { type ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
 import { AppHeader } from "@/app/components/AppHeader";
 import { subjectById, subjectCatalog, type SubjectId } from "@/app/data/catalog";

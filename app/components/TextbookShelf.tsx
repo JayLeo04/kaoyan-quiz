@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/app/components/SiteLink";
 import { AppHeader } from "@/app/components/AppHeader";
 import { textbookCatalog, textbookHref, textbookPracticeHref } from "@/app/data/textbook-registry";
 

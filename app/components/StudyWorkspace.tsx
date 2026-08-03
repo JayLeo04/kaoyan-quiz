@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element -- Question-bank figures have source-provided dimensions. */
 
-import Link from "next/link";
+import Link from "@/app/components/SiteLink";
 import { marked, Renderer } from "marked";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AppHeader } from "@/app/components/AppHeader";

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/app/components/SiteLink";
 import { subjectCatalog } from "@/app/data/catalog";
 
 export function AppHeader({ completedCount }: { completedCount: number }) {

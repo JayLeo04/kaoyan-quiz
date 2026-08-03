@@ -1,5 +1,5 @@
 import knowledgeData from "@/app/data/knowledge.json";
-import Link from "next/link";
+import Link from "@/app/components/SiteLink";
 import { KnowledgeWorkspace, type LocalKnowledgeSubject } from "@/app/components/KnowledgeWorkspace";
 import { subjectById, type SubjectId } from "@/app/data/catalog";
 

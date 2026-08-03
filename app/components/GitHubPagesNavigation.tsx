@@ -26,22 +26,6 @@ export function GitHubPagesNavigation() {
       });
     };
 
-    const keepInsidePagesSite = (event: MouseEvent) => {
-      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      const target = event.target;
-      if (!(target instanceof Element)) return;
-      const link = target.closest("a[href]");
-      if (!link || link.target || link.hasAttribute("download")) return;
-      const href = link.getAttribute("href");
-      if (!href || !href.startsWith("/") || href.startsWith("//")) return;
-      const destination = href === basePath || href.startsWith(`${basePath}/`) ? href : `${basePath}${href}`;
-      event.preventDefault();
-      // Vinext's client router retains the original unprefixed Link target.
-      // Capture on window so it cannot turn a project Pages link into /subject/… .
-      event.stopImmediatePropagation();
-      window.location.assign(destination);
-    };
-
     prefixRootRelativeTree(document);
     const observer = new MutationObserver((records) => {
       for (const record of records) {
@@ -52,10 +36,8 @@ export function GitHubPagesNavigation() {
       }
     });
     observer.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["href", "src"] });
-    window.addEventListener("click", keepInsidePagesSite, true);
     return () => {
       observer.disconnect();
-      window.removeEventListener("click", keepInsidePagesSite, true);
     };
   }, []);
 

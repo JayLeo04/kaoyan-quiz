@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/app/components/SiteLink";
 import { type ReactNode, useEffect, useMemo, useState } from "react";
 
 type AllocationMode = "hybrid" | "contiguous" | "linked" | "fat" | "indexed";

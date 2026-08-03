@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/app/components/SiteLink";
 import { useEffect, useMemo, useState } from "react";
 import { AppHeader } from "@/app/components/AppHeader";
 import { textbookHref, textbookPracticeHref, textbookQuestionHref } from "@/app/data/textbook-registry";

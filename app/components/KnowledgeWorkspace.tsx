@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/app/components/SiteLink";
 import { type RefObject, useEffect, useMemo, useRef, useState } from "react";
 import { AppHeader } from "@/app/components/AppHeader";
 import { KnowledgeVisual } from "@/app/components/knowledge-visuals/KnowledgeVisual";

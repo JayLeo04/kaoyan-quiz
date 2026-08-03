@@ -33,9 +33,13 @@ export function GitHubPagesNavigation() {
       const link = target.closest("a[href]");
       if (!link || link.target || link.hasAttribute("download")) return;
       const href = link.getAttribute("href");
-      if (!href || !href.startsWith("/") || href.startsWith("//") || href === basePath || href.startsWith(`${basePath}/`)) return;
+      if (!href || !href.startsWith("/") || href.startsWith("//")) return;
+      const destination = href === basePath || href.startsWith(`${basePath}/`) ? href : `${basePath}${href}`;
       event.preventDefault();
-      window.location.assign(`${basePath}${href}`);
+      // Vinext's client router retains the original unprefixed Link target.
+      // Capture on window so it cannot turn a project Pages link into /subject/… .
+      event.stopImmediatePropagation();
+      window.location.assign(destination);
     };
 
     prefixRootRelativeTree(document);
@@ -48,10 +52,10 @@ export function GitHubPagesNavigation() {
       }
     });
     observer.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["href", "src"] });
-    document.addEventListener("click", keepInsidePagesSite, true);
+    window.addEventListener("click", keepInsidePagesSite, true);
     return () => {
       observer.disconnect();
-      document.removeEventListener("click", keepInsidePagesSite, true);
+      window.removeEventListener("click", keepInsidePagesSite, true);
     };
   }, []);
 

@@ -31,6 +31,7 @@ import {
   type PracticeProgress,
   type QuestionNotes,
 } from "@/app/lib/local-study-data";
+import { siteAssetPath, withSiteAssetPaths } from "@/app/lib/site-path";
 
 type SubjectQuestion = StudyQuestion & { subject: SubjectId };
 type TypeFilter = "all" | "choice" | "answer" | "wrong";
@@ -196,7 +197,7 @@ function renderQuestionNoteMarkdown(value: string) {
 function HomePage({ progress }: { progress: PracticeProgress }) {
   const completedSet = new Set(progress.completed);
   return (
-    <div className="viewport-app">
+    <div className="viewport-app home-viewport">
       <AppHeader completedCount={progress.completed.length} />
       <main className="home-main shell-width">
         <section className="home-hero">
@@ -212,7 +213,7 @@ function HomePage({ progress }: { progress: PracticeProgress }) {
             <Link className="home-primary-action" href="/question/real-2026-1">从 2026 真题开始 <b>↗</b></Link>
           </div>
           <div className="home-visual">
-            <img src="/hero-408-minimal-v5.png" alt="栈与二叉树、CPU、操作系统窗口和网络路由器组成的四个 Q 版 408 知识点形象" />
+            <img src={siteAssetPath("/hero-408-minimal-v5.png")} alt="栈与二叉树、CPU、操作系统窗口和网络路由器组成的四个 Q 版 408 知识点形象" />
           </div>
         </section>
         <section className="home-subjects" aria-label="选择科目">
@@ -951,18 +952,18 @@ function QuestionPage({
               <p className="page-label">{question.number}</p>
               <h1>{question.title}</h1>
               {question.promptHtml ? (
-                <div className="question-rich-html single-prompt" dangerouslySetInnerHTML={{ __html: question.promptHtml }} />
+                <div className="question-rich-html single-prompt" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.promptHtml) }} />
               ) : (
                 <p className="single-prompt">{question.prompt}</p>
               )}
-              {!question.promptHtml && question.images.length ? <div className="single-images">{question.images.map((src, index) => <img key={src} src={src} alt={`${question.number} 题图 ${index + 1}`} />)}</div> : null}
+              {!question.promptHtml && question.images.length ? <div className="single-images">{question.images.map((src, index) => <img key={src} src={siteAssetPath(src)} alt={`${question.number} 题图 ${index + 1}`} />)}</div> : null}
               {question.options.length ? (
                 <div className="single-options" role="group" aria-label="请选择答案">
                   {question.options.map((option) => {
                     const isSelected = selectedOption === option.label;
                     const isCorrect = revealed && correctOption === option.label;
                     const isWrong = revealed && isSelected && correctOption !== option.label;
-                    return <button key={option.label} type="button" className={[isSelected ? "selected" : "", isCorrect ? "correct" : "", isWrong ? "wrong" : ""].filter(Boolean).join(" ")} onClick={() => { if (!revealed) setSelectedOption(option.label); }}><span>{option.label}</span>{option.html ? <div className="option-rich-html" dangerouslySetInnerHTML={{ __html: option.html }} /> : <p>{option.text}</p>}{isCorrect ? <b>正确答案</b> : isWrong ? <b>你的选择</b> : null}</button>;
+                    return <button key={option.label} type="button" className={[isSelected ? "selected" : "", isCorrect ? "correct" : "", isWrong ? "wrong" : ""].filter(Boolean).join(" ")} onClick={() => { if (!revealed) setSelectedOption(option.label); }}><span>{option.label}</span>{option.html ? <div className="option-rich-html" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(option.html) }} /> : <p>{option.text}</p>}{isCorrect ? <b>正确答案</b> : isWrong ? <b>你的选择</b> : null}</button>;
                   })}
                 </div>
               ) : null}
@@ -990,7 +991,7 @@ function QuestionPage({
                 <div className="answer-reveal-panel">
                   <div className="answer-reveal-head"><span>参考答案{savedAttempt ? ` · ${new Date(savedAttempt.answeredAt).toLocaleString("zh-CN", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })}` : ""}</span><strong>{question.answer || "解题思路"}</strong></div>
                   <div className="answer-scroll">
-                    {question.solutionHtml ? <div className="solution-rich-html" dangerouslySetInnerHTML={{ __html: question.solutionHtml }} /> : <p>{question.solution || "这道题暂未录入解析，请结合知识点自行复盘。"}</p>}
+                    {question.solutionHtml ? <div className="solution-rich-html" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.solutionHtml) }} /> : <p>{question.solution || "这道题暂未录入解析，请结合知识点自行复盘。"}</p>}
                     <KnowledgeLinks question={question} />
                   </div>
                 </div>

@@ -1,4 +1,11 @@
 import { StudyWorkspace } from "@/app/components/StudyWorkspace";
+import { subjectStaticParams } from "@/app/lib/static-params";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return subjectStaticParams();
+}
 
 export default async function SubjectPage({
   params,

@@ -7,6 +7,7 @@ import { KnowledgeVisual } from "@/app/components/knowledge-visuals/KnowledgeVis
 import type { KnowledgeVisualizationSpec } from "@/app/components/knowledge-visuals/types";
 import { MermaidCodeBlocks } from "@/app/components/MermaidCodeBlocks";
 import { subjectById, type SubjectId } from "@/app/data/catalog";
+import { withSiteAssetPaths } from "@/app/lib/site-path";
 
 export type LocalKnowledgePage = {
   id: string;
@@ -53,7 +54,7 @@ function KnowledgeArticle({ page, articleRef }: { page: LocalKnowledgePage; arti
     <article ref={articleRef} className="local-markdown" data-latex-source-count={page.sourceLatex.length}>
       {pieces.map((piece, index) => piece.kind === "visual"
         ? <KnowledgeVisual key={piece.spec.id} spec={piece.spec} />
-        : <div key={`knowledge-html-${index}`} className="local-markdown-segment" dangerouslySetInnerHTML={{ __html: piece.html }} />)}
+        : <div key={`knowledge-html-${index}`} className="local-markdown-segment" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(piece.html) }} />)}
       <MermaidCodeBlocks rootRef={articleRef} contentKey={`${page.id}:${page.html}`} />
     </article>
   );

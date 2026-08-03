@@ -19,6 +19,7 @@ import {
   writeTextbookProgress,
   type TextbookProgress,
 } from "@/app/lib/textbook-progress";
+import { withSiteAssetPaths } from "@/app/lib/site-path";
 
 const typeLabels: Record<string, string> = {
   algorithm: "算法题",
@@ -277,11 +278,11 @@ export function TextbookQuestionWorkspace({ questionData }: { questionData: Text
             <div className="textbook-question-scroll">
               <div className="textbook-question-eyebrow"><span>{question.number}</span><span>{questionTypeLabel(question.type)}</span><span>{question.section.title}</span></div>
               <h1>第 {question.number} 题</h1>
-              <div className="textbook-question-html" dangerouslySetInnerHTML={{ __html: question.prompt.html }} />
+              <div className="textbook-question-html" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.prompt.html) }} />
               {question.options.length ? (
                 <section className="textbook-question-options">
                   <header><span>QUESTION PARTS</span><strong>题中给出的操作或选项</strong></header>
-                  <ol>{question.options.map((option) => <li key={option.label}><b>{option.label}</b><div dangerouslySetInnerHTML={{ __html: option.html }} /></li>)}</ol>
+                  <ol>{question.options.map((option) => <li key={option.label}><b>{option.label}</b><div dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(option.html) }} /></li>)}</ol>
                 </section>
               ) : null}
               <div className="textbook-learning-actions">
@@ -305,13 +306,13 @@ export function TextbookQuestionWorkspace({ questionData }: { questionData: Text
                 if (!hasBookAnswer && !hasVerifiedAnswer) {
                   return <div className="textbook-answer-missing"><strong>暂未收录可独立对应的完整参考内容。</strong><p>原书内容保持缺答状态；后续仅在完成独立核验后才会补充。</p></div>;
                 }
-                if (!hasVerifiedAnswer) return <div className="textbook-answer-html" dangerouslySetInnerHTML={{ __html: question.answer.html }} />;
+                if (!hasVerifiedAnswer) return <div className="textbook-answer-html" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.answer.html) }} />;
                 return (
                   <div className="textbook-answer-composite">
-                    {hasBookAnswer ? <section className="textbook-book-answer"><span>原书保留内容</span><div className="textbook-answer-html" dangerouslySetInnerHTML={{ __html: question.answer.html }} /></section> : null}
+                    {hasBookAnswer ? <section className="textbook-book-answer"><span>原书保留内容</span><div className="textbook-answer-html" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.answer.html) }} /></section> : null}
                     <section className="textbook-verified-answer">
                       <header><span>独立核验补充</span><small>非原书答案</small></header>
-                      <div className="textbook-answer-html" dangerouslySetInnerHTML={{ __html: question.answer.verifiedHtml || "" }} />
+                      <div className="textbook-answer-html" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.answer.verifiedHtml || "") }} />
                       {question.answer.explanation ? <p className="textbook-verified-note">核验说明：{question.answer.explanation}</p> : null}
                     </section>
                   </div>

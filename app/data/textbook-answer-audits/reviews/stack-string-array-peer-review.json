@@ -1,40 +1,40 @@
 {
   "reviewedFile": "stack-string-array.json",
   "reviewedIds": [
-    "book-ds-yan-03-11",
-    "book-ds-yan-03-02",
-    "book-ds-yan-03-20",
-    "book-ds-yan-03-22",
-    "book-ds-yan-03-24",
-    "book-ds-yan-03-25",
-    "book-ds-yan-03-26",
-    "book-ds-yan-03-33",
-    "book-ds-yan-03-34",
-    "book-ds-yan-04-01",
-    "book-ds-yan-04-10",
-    "book-ds-yan-04-13"
+    "book-ds-yan-03-stack-and-queue-3-11",
+    "book-ds-yan-03-stack-and-queue-3-2",
+    "book-ds-yan-03-stack-and-queue-3-20",
+    "book-ds-yan-03-stack-and-queue-3-22",
+    "book-ds-yan-03-stack-and-queue-3-24",
+    "book-ds-yan-03-stack-and-queue-3-25",
+    "book-ds-yan-03-stack-and-queue-3-26",
+    "book-ds-yan-03-stack-and-queue-3-33",
+    "book-ds-yan-03-stack-and-queue-3-34",
+    "book-ds-yan-04-string-4-1",
+    "book-ds-yan-04-string-4-10",
+    "book-ds-yan-04-string-4-13"
   ],
   "passedIds": [
-    "book-ds-yan-03-11",
-    "book-ds-yan-03-02",
-    "book-ds-yan-03-22",
-    "book-ds-yan-03-24",
-    "book-ds-yan-03-25",
-    "book-ds-yan-03-26",
-    "book-ds-yan-03-33",
-    "book-ds-yan-03-34",
-    "book-ds-yan-04-01",
-    "book-ds-yan-04-10"
+    "book-ds-yan-03-stack-and-queue-3-11",
+    "book-ds-yan-03-stack-and-queue-3-2",
+    "book-ds-yan-03-stack-and-queue-3-22",
+    "book-ds-yan-03-stack-and-queue-3-24",
+    "book-ds-yan-03-stack-and-queue-3-25",
+    "book-ds-yan-03-stack-and-queue-3-26",
+    "book-ds-yan-03-stack-and-queue-3-33",
+    "book-ds-yan-03-stack-and-queue-3-34",
+    "book-ds-yan-04-string-4-1",
+    "book-ds-yan-04-string-4-10"
   ],
   "findings": [
     {
-      "id": "book-ds-yan-03-20",
+      "id": "book-ds-yan-03-stack-and-queue-3-20",
       "severity": "error",
       "issue": "题干的图像下标范围是 g(1..m,1..n)，但算法按 0..m-1、0..n-1 检查和扩展：会拒绝合法起点 (m,j) 或 (i,n)，并接受题干外的第 0 行/列；同时颜色上界 K 未在参数或局部定义中给出（题干写为 k）。",
       "recommendedFix": "统一采用题干的 1 基坐标：起点检查改为 i0<1 || i0>m || j0<1 || j0>n，四邻域检查改为 1<=r && r<=m && 1<=c && c<=n；把颜色上界作为参数 k 传入并检查 newColor<=k，或删除该未定义的 K 检查。相应数组须保留 1 基下标或在入口明确转换为 0 基。"
     },
     {
-      "id": "book-ds-yan-04-13",
+      "id": "book-ds-yan-04-string-4-13",
       "severity": "warning",
       "issue": "题干未规定重叠匹配和删除后新暴露匹配的语义，答案文字声称“从左到右的非重叠匹配删除”，但写指针算法会继续删除删除边界重新拼出的匹配。例如 s=bbaa、t=ba 时，按原串左到右非重叠删除结果为 ba，而该算法会把新拼出的 ba 也删除，结果为空串。",
       "recommendedFix": "明确采用哪一种语义：若允许删除后继续消去新暴露的匹配，则把文字改为“流式消去/反复删除直至无匹配”；若要求仅删除原串中左到右的非重叠出现，则在读指针处先检查原串窗口并跳过 m 个字符，不要用会跨已删除边界重新匹配的后缀栈策略。"

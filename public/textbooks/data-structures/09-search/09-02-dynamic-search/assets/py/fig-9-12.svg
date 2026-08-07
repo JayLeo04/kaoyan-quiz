@@ -1,33 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="260" viewBox="0 0 960 260">
-<style>text{font-family:Arial,"Microsoft YaHei",sans-serif;font-size:17px} .t{font-weight:bold;font-size:21px}.n{fill:#fff;stroke:#111;stroke-width:2}.e{stroke:#111;stroke-width:2;fill:none}</style>
-<text class="t" x="28" y="34">图9.12 平衡树的生成过程</text>
-<path class="e" d="M80 113 L240 77"/>
-<path class="e" d="M240 113 L400 77"/>
-<path class="e" d="M400 113 L560 77"/>
-<path class="e" d="M560 113 L720 77"/>
-<path class="e" d="M720 113 L880 77"/>
-<path class="e" d="M720 113 L80 147"/>
-<path class="e" d="M80 183 L240 147"/>
-<path class="e" d="M240 183 L400 147"/>
-<path class="e" d="M720 113 L560 147"/>
-<rect class="n" x="25" y="75" rx="13" width="110" height="40"/>
-<text x="80" y="101" text-anchor="middle">∅</text>
-<rect class="n" x="185" y="75" rx="13" width="110" height="40"/>
-<text x="240" y="101" text-anchor="middle">13(BF0)</text>
-<rect class="n" x="345" y="75" rx="13" width="110" height="40"/>
-<text x="400" y="101" text-anchor="middle">24(BF-1)</text>
-<rect class="n" x="505" y="75" rx="13" width="110" height="40"/>
-<text x="560" y="101" text-anchor="middle">37(BF0)</text>
-<rect class="n" x="665" y="75" rx="13" width="110" height="40"/>
-<text x="720" y="101" text-anchor="middle">24(BF0)</text>
-<rect class="n" x="825" y="75" rx="13" width="110" height="40"/>
-<text x="880" y="101" text-anchor="middle">13</text>
-<rect class="n" x="25" y="145" rx="13" width="110" height="40"/>
-<text x="80" y="171" text-anchor="middle">37</text>
-<rect class="n" x="185" y="145" rx="13" width="110" height="40"/>
-<text x="240" y="171" text-anchor="middle">90</text>
-<rect class="n" x="345" y="145" rx="13" width="110" height="40"/>
-<text x="400" y="171" text-anchor="middle">53</text>
-<rect class="n" x="505" y="145" rx="13" width="110" height="40"/>
-<text x="560" y="171" text-anchor="middle">旋转后 24</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1010" height="185" viewBox="0 0 1010 185">
+<style>text{font-family:Arial,"Microsoft YaHei",sans-serif;fill:#111}.title{font-size:22px;font-weight:bold}.n,.b{fill:#fff;stroke:#111;stroke-width:1.7}.e{stroke:#111;stroke-width:1.5;fill:none}.lab{font-size:13px;font-weight:bold}.cap{font-size:12px}</style>
+<text class="title" x="24" y="28">图 9.12  平衡树的生成过程</text>
+<path class="e" d="M270 58 L305 102"/>
+<path class="e" d="M400 48 L435 90"/>
+<path class="e" d="M435 90 L470 132"/>
+<path class="e" d="M570 55 L535 102"/>
+<path class="e" d="M570 55 L605 102"/>
+<path class="e" d="M725 48 L690 92"/>
+<path class="e" d="M725 48 L760 92"/>
+<path class="e" d="M760 92 L725 136"/>
+<path class="e" d="M760 92 L795 136"/>
+<path class="e" d="M890 48 L855 92"/>
+<path class="e" d="M890 48 L925 92"/>
+<path class="e" d="M925 92 L890 136"/>
+<path class="e" d="M925 92 L960 136"/>
+<circle class="n" cx="75" cy="78" r="17"/><text class="lab" x="75" y="83" text-anchor="middle">∅</text>
+<circle class="n" cx="175" cy="78" r="17"/><text class="lab" x="175" y="83" text-anchor="middle">13</text>
+<circle class="n" cx="270" cy="58" r="17"/><text class="lab" x="270" y="63" text-anchor="middle">13</text>
+<circle class="n" cx="305" cy="102" r="17"/><text class="lab" x="305" y="107" text-anchor="middle">24</text>
+<circle class="n" cx="400" cy="48" r="17"/><text class="lab" x="400" y="53" text-anchor="middle">13</text>
+<circle class="n" cx="435" cy="90" r="17"/><text class="lab" x="435" y="95" text-anchor="middle">24</text>
+<circle class="n" cx="470" cy="132" r="17"/><text class="lab" x="470" y="137" text-anchor="middle">37</text>
+<circle class="n" cx="570" cy="55" r="17"/><text class="lab" x="570" y="60" text-anchor="middle">24</text>
+<circle class="n" cx="535" cy="102" r="17"/><text class="lab" x="535" y="107" text-anchor="middle">13</text>
+<circle class="n" cx="605" cy="102" r="17"/><text class="lab" x="605" y="107" text-anchor="middle">37</text>
+<circle class="n" cx="725" cy="48" r="17"/><text class="lab" x="725" y="53" text-anchor="middle">24</text>
+<circle class="n" cx="690" cy="92" r="17"/><text class="lab" x="690" y="97" text-anchor="middle">13</text>
+<circle class="n" cx="760" cy="92" r="17"/><text class="lab" x="760" y="97" text-anchor="middle">37</text>
+<circle class="n" cx="725" cy="136" r="17"/><text class="lab" x="725" y="141" text-anchor="middle">53</text>
+<circle class="n" cx="795" cy="136" r="17"/><text class="lab" x="795" y="141" text-anchor="middle">90</text>
+<circle class="n" cx="890" cy="48" r="17"/><text class="lab" x="890" y="53" text-anchor="middle">24</text>
+<circle class="n" cx="855" cy="92" r="17"/><text class="lab" x="855" y="97" text-anchor="middle">13</text>
+<circle class="n" cx="925" cy="92" r="17"/><text class="lab" x="925" y="97" text-anchor="middle">53</text>
+<circle class="n" cx="890" cy="136" r="17"/><text class="lab" x="890" y="141" text-anchor="middle">37</text>
+<circle class="n" cx="960" cy="136" r="17"/><text class="lab" x="960" y="141" text-anchor="middle">90</text>
+<rect class="b" x="58.0" y="161.0" width="34" height="18"/><text class="cap" x="75" y="174" text-anchor="middle">(a)</text>
+<rect class="b" x="158.0" y="161.0" width="34" height="18"/><text class="cap" x="175" y="174" text-anchor="middle">(b)</text>
+<rect class="b" x="268.0" y="161.0" width="34" height="18"/><text class="cap" x="285" y="174" text-anchor="middle">(c)</text>
+<rect class="b" x="418.0" y="161.0" width="34" height="18"/><text class="cap" x="435" y="174" text-anchor="middle">(d)</text>
+<rect class="b" x="548.0" y="161.0" width="44" height="18"/><text class="cap" x="570" y="174" text-anchor="middle">(e) 左旋</text>
+<rect class="b" x="738.0" y="161.0" width="34" height="18"/><text class="cap" x="755" y="174" text-anchor="middle">(f)</text>
+<rect class="b" x="873.0" y="161.0" width="74" height="18"/><text class="cap" x="910" y="174" text-anchor="middle">(g)(h) 双旋</text>
 </svg>

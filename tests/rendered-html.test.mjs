@@ -3,10 +3,60 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
+import { normalizeLocalLearningLibrary } from "../app/lib/local-learning-library.ts";
+import { renderQuestionPreviewMarkdown } from "../app/lib/render-question-preview.ts";
 
 const knowledgeSourceRoot = process.env.KAOYAN_KNOWLEDGE_SOURCE
   ? path.resolve(process.env.KAOYAN_KNOWLEDGE_SOURCE)
   : null;
+
+test("renders compact question previews from Markdown", () => {
+  const html = renderQuestionPreviewMarkdown(
+    "### 1.3②\n\n设 $n^2$，并运行 `push()`。\n\n- 第一步\n- 第二步",
+    "1.3",
+  );
+  assert.match(html, /class="katex"/);
+  assert.match(html, /<code>push\(\)<\/code>/);
+  assert.match(html, /<ul>/);
+  assert.doesNotMatch(html, /<h3>/);
+
+  const safeHtml = renderQuestionPreviewMarkdown("[外链](https://example.com)\n\n<img src=x onerror=alert(1)>", "safe");
+  assert.doesNotMatch(safeHtml, /<a\b|<img\b/);
+  assert.match(safeHtml, /&lt;img/);
+});
+
+test("normalizes local bookmarks, notes, and text annotations", () => {
+  const library = normalizeLocalLearningLibrary({
+    resources: {
+      "knowledge:ds:list": {
+        id: "knowledge:ds:list",
+        kind: "knowledge",
+        title: "线性表",
+        href: "/knowledge/ds/linearlist",
+        context: "数据结构知识点",
+        updatedAt: "2026-08-08T00:00:00.000Z",
+      },
+    },
+    bookmarks: { "knowledge:ds:list": { savedAt: "2026-08-08T00:00:00.000Z" } },
+    notes: { "knowledge:ds:list": { body: "顺序表易错点", updatedAt: "2026-08-08T00:00:00.000Z" } },
+    annotations: {
+      "knowledge:ds:list": [{
+        id: "annotation-1",
+        style: "highlight",
+        start: 2,
+        end: 5,
+        quote: "线性表",
+        prefix: "",
+        suffix: "是",
+        createdAt: "2026-08-08T00:00:00.000Z",
+      }],
+    },
+  });
+  assert.equal(library.resources["knowledge:ds:list"].title, "线性表");
+  assert.ok(library.bookmarks["knowledge:ds:list"]);
+  assert.equal(library.notes["knowledge:ds:list"].body, "顺序表易错点");
+  assert.deepEqual(library.annotations["knowledge:ds:list"].map((item) => item.style), ["highlight"]);
+});
 
 async function render(path = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -87,6 +137,14 @@ test("renders a subject analytics dashboard", async () => {
   assert.match(html, /真题题库/);
 });
 
+test("renders rich question previews in the real-question library", async () => {
+  const response = await render("/subject/ds?view=questions&knowledge=basic%2Falgorithm");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /question-card-markdown subject-question-card-markdown/);
+  assert.match(html, /class="katex"/);
+});
+
 test("keeps the analytics dataset aligned with the full question bank", () => {
   const questions = JSON.parse(fs.readFileSync(new URL("../app/data/questions.json", import.meta.url), "utf8"));
   const analytics = JSON.parse(fs.readFileSync(new URL("../app/data/analytics.json", import.meta.url), "utf8"));
@@ -119,6 +177,11 @@ test("renders schedule local knowledge pages", async () => {
   assert.match(html, /Sequential List/);
   assert.match(html, /做相关真题/);
   assert.match(html, /做相关真题 · (?:<!-- -->)?6(?:<!-- -->)? 道/);
+  assert.match(html, /study-resource-tools/);
+  assert.match(html, /收藏知识点/);
+  assert.match(html, /添加笔记/);
+  assert.match(html, /选中文字/);
+  assert.match(html, /data-study-annotatable="true"/);
   assert.match(html, /\/subject\/ds\?view=questions(?:&|&amp;)knowledge=linearlist%2Fsequential/);
   assert.match(html, /\/knowledge\/ds\/linearlist\/sequential\/assets\/inline-svg-01\.svg/);
   const osRootResponse = await render("/knowledge/os");
@@ -137,14 +200,26 @@ test("renders the data structures textbook reading experience", async () => {
   assert.match(rootHtml, /刷本书习题/);
   assert.match(rootHtml, /textbook\/data-structures\/02-linear-list/);
 
+  const condensedResponse = await render("/textbook/data-structures/01-introduction");
+  assert.equal(condensedResponse.status, 200);
+  const condensedHtml = await condensedResponse.text();
+  assert.match(condensedHtml, /教材原文/);
+  assert.match(condensedHtml, /精简版/);
+  assert.match(condensedHtml, /408 复习/);
+
   const response = await render("/textbook/data-structures/02-linear-list/2-2-sequential-representation-and-implementation");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /2\.2 线性表的顺序表示和实现/);
   assert.match(html, /线性表的顺序存储结构示意图/);
-  assert.match(html, /textbooks\/data-structures\/02-linear-list\/2-2-sequential-representation-and-implementation\/assets\/py\/fig-2-2-sequential-layout-readable\.svg/);
+  assert.match(html, /textbooks\/data-structures\/02-linear-list\/2-2-sequential-representation-and-implementation\/assets\/py\/fig-2-2-sequential-layout\.svg/);
+  assert.doesNotMatch(html, /-readable\.svg/);
   assert.match(html, /katex/);
   assert.match(html, /本章练习/);
+  assert.match(html, /study-resource-tools/);
+  assert.match(html, /收藏知识点/);
+  assert.match(html, /添加笔记/);
+  assert.match(html, /data-study-annotatable="true"/);
 });
 
 test("renders the textbook catalog and keeps unknown books inside the shared shelf", async () => {
@@ -167,21 +242,27 @@ test("renders textbook practice and preserves answer provenance", async () => {
   assert.equal(libraryResponse.status, 200);
   const libraryHtml = await libraryResponse.text();
   assert.match(libraryHtml, /按章节，做完这本书的题/);
-  assert.match(libraryHtml, /455(?:<!-- -->)? 道可练习题/);
+  assert.match(libraryHtml, /457(?:<!-- -->)? 道可练习题/);
   assert.match(libraryHtml, /原书答案/);
   assert.match(libraryHtml, /独立核验解答/);
+  assert.ok(Buffer.byteLength(libraryHtml) < 250_000, "the practice landing page must serialize only its visible result page");
+  assert.match(libraryHtml, /question-card-markdown textbook-question-card-markdown/);
+  assert.match(libraryHtml, /class="katex"/);
 
-  const questionResponse = await render("/textbook/data-structures/practice/book-ds-yan-02-01");
+  const questionResponse = await render("/textbook/data-structures/practice/book-ds-yan-02-linear-list-2-1");
   assert.equal(questionResponse.status, 200);
   const questionHtml = await questionResponse.text();
   assert.match(questionHtml, /头指针，头结点，首元结点/);
   assert.match(questionHtml, /查看原书答案 \/ 提示/);
   assert.match(questionHtml, /对应知识点/);
   assert.match(questionHtml, /题目与答案来源/);
+  assert.match(questionHtml, /textbook-question-note-tools/);
+  assert.match(questionHtml, /添加笔记/);
+  assert.match(questionHtml, /textbook-question-annotation-surface/);
   assert.doesNotMatch(questionHtml, /fig-02-04-linked-list/);
   assert.ok(questionHtml.length < 250_000, "a single textbook question must not serialize the complete textbook dataset");
 
-  const illustratedQuestionResponse = await render("/textbook/data-structures/practice/book-ds-yan-02-04");
+  const illustratedQuestionResponse = await render("/textbook/data-structures/practice/book-ds-yan-02-linear-list-2-4");
   assert.equal(illustratedQuestionResponse.status, 200);
   const illustratedQuestionHtml = await illustratedQuestionResponse.text();
   assert.match(illustratedQuestionHtml, /fig-02-04-linked-list/);
@@ -189,21 +270,46 @@ test("renders textbook practice and preserves answer provenance", async () => {
 
 test("keeps generated textbook data and local images publishable", () => {
   const textbook = JSON.parse(fs.readFileSync(new URL("../app/data/textbook-data-structures.json", import.meta.url), "utf8"));
-  assert.equal(textbook.stats.knowledgePages, 85);
-  assert.equal(textbook.stats.exerciseRecords, 456);
-  assert.equal(textbook.stats.exerciseQuestions, 455);
-  assert.equal(textbook.pages.length, 85);
-  assert.equal(textbook.questions.length, 456);
+  assert.equal(textbook.stats.knowledgePages, 81);
+  assert.equal(textbook.stats.condensedPages, 1);
+  assert.equal(textbook.stats.condensedImages, 2);
+  assert.equal(textbook.stats.exerciseRecords, 457);
+  assert.equal(textbook.stats.exerciseQuestions, 457);
+  assert.equal(textbook.stats.exerciseImages, 49);
+  assert.equal(textbook.stats.answersProvided, 123);
+  assert.equal(textbook.stats.answersHintOnly, 100);
+  assert.equal(textbook.stats.answersMissing, 233);
+  assert.equal(textbook.pages.length, 81);
+  assert.equal(textbook.questions.length, 457);
+  assert.equal(new Set(textbook.questions.map((question) => question.id)).size, 457);
+  assert.ok(textbook.questions.every((question) => question.isExercise && /^\d+\.\d+$/.test(question.number)));
+  assert.equal(textbook.questions.filter((question) => question.chapterId === "practice-0-overview").length, 3);
+  assert.equal(textbook.questions.filter((question) => question.number === "report-6.6").length, 0);
   assert.ok(textbook.pages.every((page) => page.markdown && page.html && Array.isArray(page.sourceLatex)));
+  assert.equal(new Set(textbook.pages.map((page) => page.sourcePath)).size, 81);
+  assert.ok(textbook.pages.every((page) => !/\bwork\/sections\b|2-3-[123]-linear-|07-02-04-adjacency-multilist/.test(page.sourcePath)));
   assert.ok(textbook.pages.some((page) => page.html.includes("katex")));
+  const knowledgeImageTags = textbook.pages.flatMap((page) => [...page.html.matchAll(/<img\b[^>]*>/g)].map((match) => match[0]));
+  assert.equal(knowledgeImageTags.length, 213);
+  assert.ok(knowledgeImageTags.every((tag) => /\bwidth="\d+"/.test(tag) && /\bheight="\d+"/.test(tag)));
+  assert.ok(knowledgeImageTags.every((tag) => /loading="lazy"/.test(tag) && /decoding="async"/.test(tag)));
+  assert.ok(knowledgeImageTags.every((tag) => !/alt="[^"]*<(?:span|math)\b/.test(tag)));
+  const condensedIntroduction = textbook.pages.find((page) => page.slug === "01-introduction")?.condensed;
+  assert.ok(condensedIntroduction, "the introduction chapter should include its distilled reading version");
+  assert.equal(condensedIntroduction.audit.status, "distilled");
+  assert.equal(condensedIntroduction.audit.sourceFiles, 5);
+  assert.equal(condensedIntroduction.audit.risks, 0);
+  assert.match(condensedIntroduction.html, /本章主线/);
+  assert.match(condensedIntroduction.html, /textbooks\/data-structures\/condensed\/01-introduction\/assets\/fig-1-7-common-growth-rates\.png/);
   assert.ok(textbook.questions.every((question) => question.prompt.html && question.answer.html !== undefined));
   const assetReferences = [
-    ...textbook.pages.flatMap((page) => [...page.html.matchAll(/src="([^"]+)"/g)].map((match) => match[1])),
+    ...textbook.pages.flatMap((page) => [page.html, page.condensed?.html || ""]
+      .flatMap((html) => [...html.matchAll(/src="([^"]+)"/g)].map((match) => match[1]))),
     ...textbook.questions.flatMap((question) => [question.prompt.html, question.answer.html, ...question.options.map((option) => option.html)]
       .flatMap((html) => [...html.matchAll(/src="([^"]+)"/g)].map((match) => match[1]))),
     ...textbook.questions.flatMap((question) => question.images.map((image) => image.src)),
   ].filter((value) => value.startsWith("/textbooks/"));
-  assert.ok(assetReferences.length >= 400);
+  assert.ok(assetReferences.length >= 300);
   assert.ok(assetReferences.every((asset) => fs.existsSync(path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public", asset.replace(/^\//, "")))));
 
   const dynamicStorage = textbook.pages.find((page) => page.slug === "08-dynamic-storage/8-3-boundary-tag-method");
@@ -239,6 +345,29 @@ test("keeps generated textbook data and local images publishable", () => {
     assert.doesNotMatch(page.markdown, /占位|luna:figure-placeholder/);
     assert.doesNotMatch(page.html, /占位|luna:figure-placeholder/);
   }
+
+  const dynamicSearch = textbook.pages.find((page) => page.slug === "09-search/09-02-dynamic-search");
+  assert.match(dynamicSearch.markdown, /pdf_page="261"/);
+  assert.match(dynamicSearch.markdown, /Status InsertAVL/);
+  assert.match(dynamicSearch.markdown, /void LeftBalance/);
+
+  const indexFile = textbook.pages.find((page) => page.slug === "12-file/12-3-index-file");
+  assert.equal(indexFile.source.attributes.pdf_pages, "321-323");
+  assert.equal(indexFile.source.attributes.book_pages, "311-313");
+  assert.match(indexFile.markdown, /pdf_page="322"/);
+  assert.match(indexFile.markdown, /pdf_page="323"/);
+  assert.match(indexFile.markdown, /稠密索引/);
+  assert.match(indexFile.html, /fig-12-7-lookup-table\.svg/);
+});
+
+test("keeps the full textbook dataset out of client bundles", () => {
+  const assetsDirectory = fileURLToPath(new URL("../dist/client/assets/", import.meta.url));
+  const routeChunk = fs.readdirSync(assetsDirectory).find((name) => /^textbook-progress-.*\.js$/.test(name));
+  assert.ok(routeChunk, "the lightweight textbook route/progress chunk should exist");
+  const routeChunkPath = path.join(assetsDirectory, routeChunk);
+  const routeChunkSource = fs.readFileSync(routeChunkPath, "utf8");
+  assert.ok(fs.statSync(routeChunkPath).size < 50_000, "client route helpers must not bundle the full textbook dataset");
+  assert.doesNotMatch(routeChunkSource, /data-structures-yan-weimin|book-ds-yan-09-46/);
 });
 
 test("mounts structured knowledge visuals at their semantic markers", async () => {
@@ -440,6 +569,8 @@ test("renders a single-question route", async () => {
   assert.match(html, /知识点/);
   assert.match(html, /类似题/);
   assert.match(html, /answer-closed/);
+  assert.match(html, /question-annotation-surface/);
+  assert.match(html, /data-study-annotatable="true"/);
   assert.doesNotMatch(html, /答案与解析/);
   assert.doesNotMatch(html, /关联知识点/);
 });

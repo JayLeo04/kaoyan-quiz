@@ -8,7 +8,7 @@
   ],
   "updates": [
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-38",
+      "id": "book-ds-yan-07-graph-7-38",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -22,7 +22,7 @@
       }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-39",
+      "id": "book-ds-yan-07-graph-7-39",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -36,7 +36,7 @@
       }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-40",
+      "id": "book-ds-yan-07-graph-7-40",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -50,7 +50,7 @@
       }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-41",
+      "id": "book-ds-yan-07-graph-7-41",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -64,7 +64,7 @@
       }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-42",
+      "id": "book-ds-yan-07-graph-7-42",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -78,7 +78,7 @@
       }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-6",
+      "id": "book-ds-yan-07-graph-7-6",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -92,7 +92,7 @@
       }
     },
     {
-      "id": "book-ds-yan-08-10",
+      "id": "book-ds-yan-08-dynamic-storage-8-10",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -108,7 +108,7 @@
       }
     },
     {
-      "id": "book-ds-yan-08-11",
+      "id": "book-ds-yan-08-dynamic-storage-8-11",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -124,7 +124,7 @@
       }
     },
     {
-      "id": "book-ds-yan-08-12",
+      "id": "book-ds-yan-08-dynamic-storage-8-12",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -140,7 +140,7 @@
       }
     },
     {
-      "id": "book-ds-yan-08-16",
+      "id": "book-ds-yan-08-dynamic-storage-8-16",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -161,7 +161,7 @@
       }
     },
     {
-      "id": "book-ds-yan-08-04",
+      "id": "book-ds-yan-08-dynamic-storage-8-4",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -177,7 +177,7 @@
       }
     },
     {
-      "id": "book-ds-yan-09-01",
+      "id": "book-ds-yan-09-search-9-1",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -193,7 +193,7 @@
       }
     },
     {
-      "id": "book-ds-yan-09-15",
+      "id": "book-ds-yan-09-search-9-15",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -209,7 +209,7 @@
       }
     },
     {
-      "id": "book-ds-yan-09-16",
+      "id": "book-ds-yan-09-search-9-16",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -225,7 +225,7 @@
       }
     },
     {
-      "id": "book-ds-yan-09-17",
+      "id": "book-ds-yan-09-search-9-17",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -241,7 +241,7 @@
       }
     },
     {
-      "id": "book-ds-yan-09-18",
+      "id": "book-ds-yan-09-search-9-18",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -257,7 +257,7 @@
       }
     },
     {
-      "id": "book-ds-yan-09-02",
+      "id": "book-ds-yan-09-search-9-2",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -273,7 +273,7 @@
       }
     },
     {
-      "id": "book-ds-yan-09-20",
+      "id": "book-ds-yan-09-search-9-20",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -289,7 +289,7 @@
       }
     },
     {
-      "id": "book-ds-yan-09-29",
+      "id": "book-ds-yan-09-search-9-29",
       "answer": {
         "status": "provided",
         "origin": "verified",

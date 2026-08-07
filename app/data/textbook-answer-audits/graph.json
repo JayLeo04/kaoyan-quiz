@@ -1,70 +1,96 @@
 {
   "schemaVersion": "textbook-answer-audit-v1",
   "bookId": "data-structures-yan-weimin",
-  "scope": ["07-graph"],
+  "scope": [
+    "07-graph"
+  ],
   "updates": [
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-14",
+      "id": "book-ds-yan-07-graph-7-14",
       "answer": {
         "status": "provided",
         "origin": "verified",
         "verified": "独立参考解答：以下采用 0 基顶点下标的简单有向图。`index` 是顶点信息到下标的字典；`seen` 是弧对集合，用来拒绝重复弧并保持线性建图时间。每个弧结点只挂在其弧尾的出弧链上。\n\n```c\ntypedef struct ArcNode {\n    int to; ArcInfo info;\n    struct ArcNode *next;\n} ArcNode;\ntypedef struct { VertexInfo data; ArcNode *first; } VNode;\ntypedef struct { VNode v[MAXV]; int vexnum, arcnum; } ALGraph;\n\nStatus CreateDG(ALGraph *G) {\n    int n, m; Read(&n); Read(&m);\n    if (n < 0 || n > MAXV || m < 0) return ERROR;\n    G->vexnum = n; G->arcnum = 0;\n    Map index = NewMap(); Set seen = NewPairSet();\n    for (int i = 0; i < n; ++i) {\n        Read(&G->v[i].data);\n        if (!MapPutUnique(index, G->v[i].data, i)) return ERROR;\n        G->v[i].first = NULL;\n    }\n    for (int e = 0; e < m; ++e) {\n        VertexInfo a, b; ArcInfo info; Read(&a); Read(&b); Read(&info);\n        int u = MapGet(index, a), w = MapGet(index, b);\n        if (u < 0 || w < 0 || u == w || !SetInsert(seen, u, w)) return ERROR;\n        ArcNode *p = malloc(sizeof(*p));\n        if (!p) { DestroyGraph(G); return OVERFLOW; }\n        p->to = w; p->info = info; p->next = G->v[u].first;\n        G->v[u].first = p; ++G->arcnum;\n    }\n    return OK;\n}\n```\n\n这里把自环和重弧视为非法；若应用允许它们，删去相应检查即可。成功输入时共有 n 个顶点、m 个弧，时间 O(n+m)，图空间 O(n+m)；若不用字典和弧集合而线性查找，顶点定位或重弧检查会增加时间。",
         "explanation": "给出邻接表的字段、输入一致性、分配失败和简单有向图边界。"
       },
-      "review": {"status": "passed", "resolvedFlagCodes": [], "notes": "已独立补入有向邻接表建图算法。"}
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已独立补入有向邻接表建图算法。"
+      }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-15",
+      "id": "book-ds-yan-07-graph-7-15",
       "answer": {
         "status": "provided",
         "origin": "verified",
         "verified": "独立参考解答：设邻接矩阵单元有 `present` 和可选的 `info` 字段，`Index(G,x)` 能以 O(1) 时间定位顶点（或把该查找时间另计）。以下代码同时说明有向与无向情形：无向图在对称单元作同样修改，但逻辑弧数只增减一次。\n\n```c\nStatus InsertVex(MGraph *G, VertexInfo x) {\n    if (G->vexnum == MAXV || Index(G, x) >= 0) return ERROR;\n    int k = G->vexnum++; G->v[k] = x;\n    for (int i = 0; i < G->vexnum; ++i) {\n        G->a[k][i].present = false;\n        G->a[i][k].present = false;\n    }\n    return OK;\n}\n\nStatus InsertArc(MGraph *G, VertexInfo x, VertexInfo y, ArcInfo info) {\n    int u = Index(G, x), v = Index(G, y);\n    if (u < 0 || v < 0 || u == v || G->a[u][v].present) return ERROR;\n    G->a[u][v] = (ArcCell){true, info};\n    if (!G->directed) G->a[v][u] = (ArcCell){true, info};\n    ++G->arcnum; return OK;\n}\n\nStatus DeleteArc(MGraph *G, VertexInfo x, VertexInfo y) {\n    int u = Index(G, x), v = Index(G, y);\n    if (u < 0 || v < 0 || !G->a[u][v].present) return ERROR;\n    G->a[u][v].present = false;\n    if (!G->directed) G->a[v][u].present = false;\n    --G->arcnum; return OK;\n}\n\nStatus DeleteVex(MGraph *G, VertexInfo x) {\n    int oldN = G->vexnum, k = Index(G, x);\n    if (k < 0) return ERROR;\n    MGraph H; InitEmptyMatrix(&H, G->directed);\n    int map[MAXV];\n    for (int i = 0; i < oldN; ++i) map[i] = -1;\n    for (int i = 0; i < oldN; ++i)\n        if (i != k) { map[i] = H.vexnum; H.v[H.vexnum++] = G->v[i]; }\n    for (int i = 0; i < oldN; ++i)\n        for (int j = 0; j < oldN; ++j)\n            if (i != k && j != k && G->a[i][j].present &&\n                (G->directed || i < j))\n                InsertArcByIndex(&H, map[i], map[j], G->a[i][j].info);\n    *G = H; return OK;\n}\n```\n\n`DeleteVex` 重建幸存子图，因此所有入弧和出弧都会被删且不会遗漏压缩后的下标。插入顶点为 O(n)，插入或删除弧为 O(1) 加定位成本，删除顶点为 O(n^2)；矩阵本身占 O(n^2) 空间。",
         "explanation": "重建法避免行、列压缩时漏删关联弧，并明确有向/无向镜像规则。"
       },
-      "review": {"status": "passed", "resolvedFlagCodes": [], "notes": "已独立补入邻接矩阵四种基本操作。"}
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已独立补入邻接矩阵四种基本操作。"
+      }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-16",
+      "id": "book-ds-yan-07-graph-7-16",
       "answer": {
         "status": "provided",
         "origin": "verified",
         "verified": "独立参考解答：以下仍以简单有向图的邻接表为例。顶点定位由 `Index` 处理；`FindLink` 返回指向目标弧指针的链接位置，未找到时为 NULL。\n\n```c\nStatus InsertVex(ALGraph *G, VertexInfo x) {\n    if (G->vexnum == MAXV || Index(G, x) >= 0) return ERROR;\n    G->v[G->vexnum].data = x;\n    G->v[G->vexnum++].first = NULL;\n    return OK;\n}\n\nStatus InsertArc(ALGraph *G, VertexInfo x, VertexInfo y, ArcInfo info) {\n    int u = Index(G, x), v = Index(G, y);\n    if (u < 0 || v < 0 || u == v || FindLink(G, u, v)) return ERROR;\n    ArcNode *p = malloc(sizeof(*p)); if (!p) return OVERFLOW;\n    p->to = v; p->info = info; p->next = G->v[u].first;\n    G->v[u].first = p; ++G->arcnum; return OK;\n}\n\nStatus DeleteArc(ALGraph *G, VertexInfo x, VertexInfo y) {\n    int u = Index(G, x), v = Index(G, y);\n    ArcNode **link = (u < 0 || v < 0) ? NULL : FindLink(G, u, v);\n    if (!link) return ERROR;\n    ArcNode *p = *link; *link = p->next; free(p); --G->arcnum;\n    return OK;\n}\n\nStatus DeleteVex(ALGraph *G, VertexInfo x) {\n    int k = Index(G, x); if (k < 0) return ERROR;\n    for (ArcNode *p = G->v[k].first; p; ) {\n        ArcNode *next = p->next; free(p); --G->arcnum; p = next;\n    }\n    for (int u = 0; u < G->vexnum; ++u) if (u != k) {\n        ArcNode **link = &G->v[u].first;\n        while (*link) {\n            ArcNode *p = *link;\n            if (p->to == k) { *link = p->next; free(p); --G->arcnum; }\n            else { if (p->to > k) --p->to; link = &p->next; }\n        }\n    }\n    for (int u = k; u + 1 < G->vexnum; ++u) G->v[u] = G->v[u + 1];\n    --G->vexnum; RebuildIndex(G); return OK;\n}\n```\n\n先释放 k 的所有出弧，再从其他表删除所有指向 k 的入弧；压缩顶点数组前将较大的终点下标减一。插入顶点 O(1)，插入或删除弧为 O(outdegree(u))，删除顶点需扫描全表，为 O(n+m)，空间为 O(n+m)。无向图可把每条逻辑边存成两个弧并镜像操作，但逻辑边数只能更新一次。",
         "explanation": "算法覆盖空表、重弧、删除顶点时的入弧和出弧，以及压缩下标。"
       },
-      "review": {"status": "passed", "resolvedFlagCodes": [], "notes": "已独立补入邻接表版本的四项操作。"}
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已独立补入邻接表版本的四项操作。"
+      }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-17",
+      "id": "book-ds-yan-07-graph-7-17",
       "answer": {
         "status": "provided",
         "origin": "verified",
         "verified": "独立参考解答：十字链表用于有向图。每个弧盒同时在弧尾的出弧链 `tlink` 和弧头的入弧链 `hlink` 中出现一次。\n\n```c\ntypedef struct ArcBox {\n    int tail, head; ArcInfo info;\n    struct ArcBox *tlink, *hlink;\n} ArcBox;\ntypedef struct { VertexInfo data; ArcBox *firstin, *firstout; } OLVex;\ntypedef struct { OLVex v[MAXV]; int vexnum, arcnum; } OLGraph;\n\nStatus InsertVex(OLGraph *G, VertexInfo x) {\n    if (G->vexnum == MAXV || Index(G, x) >= 0) return ERROR;\n    int k = G->vexnum++;\n    G->v[k] = (OLVex){x, NULL, NULL}; return OK;\n}\n\nStatus InsertArc(OLGraph *G, VertexInfo x, VertexInfo y, ArcInfo info) {\n    int u = Index(G, x), v = Index(G, y);\n    if (u < 0 || v < 0 || u == v || FindOut(G, u, v)) return ERROR;\n    ArcBox *p = malloc(sizeof(*p)); if (!p) return OVERFLOW;\n    p->tail = u; p->head = v; p->info = info;\n    p->tlink = G->v[u].firstout; G->v[u].firstout = p;\n    p->hlink = G->v[v].firstin;  G->v[v].firstin = p;\n    ++G->arcnum; return OK;\n}\n\nStatus DeleteArcByIndex(OLGraph *G, int u, int v) {\n    ArcBox **out = &G->v[u].firstout;\n    while (*out && (*out)->head != v) out = &(*out)->tlink;\n    if (!*out) return ERROR;\n    ArcBox *p = *out, **in = &G->v[v].firstin;\n    while (*in != p) in = &(*in)->hlink;\n    *out = p->tlink; *in = p->hlink; free(p); --G->arcnum;\n    return OK;\n}\n```\n\n`DeleteArc(G,x,y)` 先定位下标后调用 `DeleteArcByIndex`。为安全删除顶点，可先从每条 `firstout` 链收集所有不关联该顶点的 `(tail,head,info)`，释放全部弧盒、删除顶点并重建下标，再按收集记录重新插入（大于被删下标的端点减一）。这种重建式 `DeleteVex` 不会留下悬垂的入弧或出弧，时间 O(n+m)、临时空间 O(m)。插入顶点 O(1)，插入弧 O(outdegree)，删除单弧 O(outdegree+indegree)。",
         "explanation": "明确十字链表两条链接都必须同步维护，并用重建法安全处理顶点删除。"
       },
-      "review": {"status": "passed", "resolvedFlagCodes": [], "notes": "已独立补入十字链表版本的基本操作。"}
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已独立补入十字链表版本的基本操作。"
+      }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-18",
+      "id": "book-ds-yan-07-graph-7-18",
       "answer": {
         "status": "provided",
         "origin": "verified",
         "verified": "独立参考解答：邻接多重表用于简单无向图，每条边只分配一个结点。统一令 `ivex < jvex`，这样可用 `NextAt(e,u)` 取得边在顶点 u 的邻接链后继。\n\n```c\ntypedef struct EBox {\n    int ivex, jvex; EdgeInfo info;\n    struct EBox *ilink, *jlink;\n} EBox;\ntypedef struct { VertexInfo data; EBox *firstedge; } AMVex;\ntypedef struct { AMVex v[MAXV]; int vexnum, arcnum; } AMLGraph;\n\nEBox *NextAt(EBox *e, int u) {\n    return e->ivex == u ? e->ilink : e->jlink;\n}\n\nStatus InsertVex(AMLGraph *G, VertexInfo x) {\n    if (G->vexnum == MAXV || Index(G, x) >= 0) return ERROR;\n    G->v[G->vexnum] = (AMVex){x, NULL}; ++G->vexnum; return OK;\n}\n\nStatus InsertArc(AMLGraph *G, VertexInfo x, VertexInfo y, EdgeInfo info) {\n    int u = Index(G, x), v = Index(G, y);\n    if (u < 0 || v < 0 || u == v || FindEdge(G, u, v)) return ERROR;\n    if (u > v) { int t = u; u = v; v = t; }\n    EBox *e = malloc(sizeof(*e)); if (!e) return OVERFLOW;\n    e->ivex = u; e->jvex = v; e->info = info;\n    e->ilink = G->v[u].firstedge; G->v[u].firstedge = e;\n    e->jlink = G->v[v].firstedge; G->v[v].firstedge = e;\n    ++G->arcnum; return OK;\n}\n\nStatus DeleteArc(AMLGraph *G, VertexInfo x, VertexInfo y) {\n    int u = Index(G, x), v = Index(G, y);\n    EBox **lu = FindEdgeLink(G, u, v), **lv = FindEdgeLink(G, v, u);\n    if (!lu || !lv) return ERROR;\n    EBox *e = *lu; *lu = NextAt(e, u); *lv = NextAt(e, v);\n    free(e); --G->arcnum; return OK;\n}\n```\n\n`DeleteVex` 的安全实现是：在任何改链前用集合收集每个边结点一次，保留不关联被删顶点的边记录；释放所有边结点，压缩顶点和下标，再重新插入幸存边。这样规避同一边在两条邻接链中出现时的双重释放，时间 O(n+m)、临时空间 O(m)。插入顶点 O(1)，插入边 O(degree(u)+degree(v)) 的重边检查，删除边也为该量级。",
         "explanation": "每条无向边只建一个 EBox；删除边需从两个端点的链中同时脱链。"
       },
-      "review": {"status": "passed", "resolvedFlagCodes": [], "notes": "已独立补入邻接多重表版本的基本操作。"}
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已独立补入邻接多重表版本的基本操作。"
+      }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-19",
+      "id": "book-ds-yan-07-graph-7-19",
       "answer": {
         "status": "provided",
         "origin": "verified",
         "verified": "独立参考解答：沿用邻接多重表的 `EBox(ivex,jvex,ilink,jlink)` 表示，并把端点标准化为 `ivex<jvex`。顶点字典和无序端点对集合保证输入顶点存在且无重边。\n\n```c\nStatus CreateAMLGraph(AMLGraph *G) {\n    int n, m; Read(&n); Read(&m);\n    if (n < 0 || n > MAXV || m < 0) return ERROR;\n    G->vexnum = n; G->arcnum = 0;\n    Map index = NewMap(); Set seen = NewPairSet();\n    for (int i = 0; i < n; ++i) {\n        Read(&G->v[i].data);\n        if (!MapPutUnique(index, G->v[i].data, i)) return ERROR;\n        G->v[i].firstedge = NULL;\n    }\n    for (int k = 0; k < m; ++k) {\n        VertexInfo a, b; EdgeInfo info; Read(&a); Read(&b); Read(&info);\n        int u = MapGet(index, a), v = MapGet(index, b);\n        if (u < 0 || v < 0 || u == v) return ERROR;\n        int lo = u < v ? u : v, hi = u < v ? v : u;\n        if (!SetInsert(seen, lo, hi)) return ERROR;\n        EBox *e = malloc(sizeof(*e));\n        if (!e) { DestroyAML(G); return OVERFLOW; }\n        e->ivex = lo; e->jvex = hi; e->info = info;\n        e->ilink = G->v[lo].firstedge; G->v[lo].firstedge = e;\n        e->jlink = G->v[hi].firstedge; G->v[hi].firstedge = e;\n        ++G->arcnum;\n    }\n    return OK;\n}\n```\n\n每个无向边只插入一次，但从两端均可访问。若允许自环，应为它单独规定两个链接的约定；此处把自环视为非法。使用字典和集合时建图时间 O(n+m)、空间 O(n+m)。",
         "explanation": "明确无向端点标准化、重边和自环检查、分配失败以及每边只建一个结点。"
       },
-      "review": {"status": "passed", "resolvedFlagCodes": [], "notes": "已独立补入无向图邻接多重表建图算法。"}
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已独立补入无向图邻接多重表建图算法。"
+      }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-20",
+      "id": "book-ds-yan-07-graph-7-20",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -76,10 +102,14 @@
           "reason": "两份交叉复核均指出原草稿混用了有向弧、入出度和无向图的题面口径，且把包含 z=x 的式子称为精确候选数。"
         }
       },
-      "review": {"status": "passed", "resolvedFlagCodes": [], "notes": "已独立补入邻接矩阵的可传递性判定和复杂度估计。"}
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已独立补入邻接矩阵的可传递性判定和复杂度估计。"
+      }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-21",
+      "id": "book-ds-yan-07-graph-7-21",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -91,30 +121,42 @@
           "reason": "高风险交叉复核指出原草稿只按有向图入度、出度和 m=nd 说明复杂度，未与 7.20 的题面口径对齐。"
         }
       },
-      "review": {"status": "passed", "resolvedFlagCodes": [], "notes": "已独立补入邻接表的可传递性判定。"}
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已独立补入邻接表的可传递性判定。"
+      }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-22",
+      "id": "book-ds-yan-07-graph-7-22",
       "answer": {
         "status": "provided",
         "origin": "verified",
         "verified": "独立参考解答：设有向图以邻接表保存，`first` 和 `next` 就是题目所需的邻接表基本访问操作。`Index` 将顶点信息映射为下标。\n\n```c\nbool DFSReach(const ALGraph *G, int u, int target, bool visited[]) {\n    if (u == target) return true;\n    visited[u] = true;\n    for (ArcNode *p = G->v[u].first; p; p = p->next) {\n        int w = p->to;\n        if (!visited[w] && DFSReach(G, w, target, visited)) return true;\n    }\n    return false;\n}\n\nStatus HasPathDFS(const ALGraph *G, VertexInfo vi, VertexInfo vj, bool *found) {\n    int s = Index(G, vi), t = Index(G, vj);\n    if (s < 0 || t < 0 || s == t) return ERROR;\n    bool visited[MAXV] = {false};\n    *found = DFSReach(G, s, t, visited);\n    return OK;\n}\n```\n\n`visited` 使有环图不会无限递归；一旦到达目标就提前结束。题设 i 不等于 j，故把相同端点作为非法输入；若应用把零长路径也视为路径，可改为返回真。最坏扫描可达子图，时间 O(n+m)、额外空间 O(n)（访问标记和递归栈）。",
         "explanation": "所有图访问均直接通过邻接表结点完成，并处理不存在顶点、有环和目标提前命中。"
       },
-      "review": {"status": "passed", "resolvedFlagCodes": [], "notes": "已独立补入邻接表 DFS 可达性算法。"}
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已独立补入邻接表 DFS 可达性算法。"
+      }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-23",
+      "id": "book-ds-yan-07-graph-7-23",
       "answer": {
         "status": "provided",
         "origin": "verified",
         "verified": "独立参考解答：广度优先搜索应在入队时标记，而不是出队时标记，这样同一顶点不会被多个前驱重复入队。\n\n```c\nStatus HasPathBFS(const ALGraph *G, VertexInfo vi, VertexInfo vj, bool *found) {\n    int s = Index(G, vi), t = Index(G, vj);\n    if (s < 0 || t < 0 || s == t) return ERROR;\n\n    bool visited[MAXV] = {false};\n    Queue Q; InitQueue(&Q);\n    visited[s] = true; EnQueue(&Q, s);\n    while (!QueueEmpty(Q)) {\n        int u; DeQueue(&Q, &u);\n        for (ArcNode *p = G->v[u].first; p; p = p->next) {\n            int w = p->to;\n            if (w == t) { *found = true; return OK; }\n            if (!visited[w]) {\n                visited[w] = true;\n                EnQueue(&Q, w);\n            }\n        }\n    }\n    *found = false; return OK;\n}\n```\n\n空队列与无出弧顶点自然结束；有环不会重复入队。若还需最短路径，可为每个首次访问顶点记录前驱。最坏时间 O(n+m)，队列和标记的额外空间 O(n)。",
         "explanation": "明确邻接表遍历、非法端点、入队标记和提前发现目标的边界。"
       },
-      "review": {"status": "passed", "resolvedFlagCodes": [], "notes": "已独立补入邻接表 BFS 可达性算法。"}
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已独立补入邻接表 BFS 可达性算法。"
+      }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-24",
+      "id": "book-ds-yan-07-graph-7-24",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -126,17 +168,25 @@
           "reason": "高风险交叉复核发现原草稿调用了未声明的 ReplaceTop，未能严格满足只使用栈基本操作的要求。"
         }
       },
-      "review": {"status": "passed", "resolvedFlagCodes": [], "notes": "已独立补入 Graph ADT 上的非递归 DFS。"}
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已独立补入 Graph ADT 上的非递归 DFS。"
+      }
     },
     {
-      "id": "ds-yan-weimin-exercises-07-graph-7-29",
+      "id": "book-ds-yan-07-graph-7-29",
       "answer": {
         "status": "provided",
         "origin": "verified",
         "verified": "独立参考解答：这里的“不含回路”按简单路径处理，即同一顶点不得重复。邻接矩阵幂只能统计允许重复顶点的游走，不能直接用于本题。回溯时用 `inPath` 维护当前路径。\n\n```c\nlong long CountFrom(const MGraph *G, int u, int target, int remain, bool inPath[]) {\n    if (remain == 0) return u == target ? 1 : 0;\n    long long total = 0;\n    for (int v = 0; v < G->vexnum; ++v) {\n        if (G->a[u][v].present && !inPath[v]) {\n            inPath[v] = true;\n            total += CountFrom(G, v, target, remain - 1, inPath);\n            inPath[v] = false;\n        }\n    }\n    return total;\n}\n\nStatus CountSimplePaths(const MGraph *G, int i, int j, int k, long long *answer) {\n    int n = G->vexnum;\n    if (i < 0 || i >= n || j < 0 || j >= n || k < 0) return ERROR;\n    if (k == 0) { *answer = (i == j); return OK; }\n    if (i == j || k >= n) { *answer = 0; return OK; }\n    bool inPath[MAXV] = {false};\n    inPath[i] = true;\n    *answer = CountFrom(G, i, j, k, inPath);\n    return OK;\n}\n```\n\n路径长度按弧数计；当 i 不等于 j 时，简单路径最多有 n-1 条弧，所以 k 大于等于 n 时为 0。邻接矩阵使每个递归状态扫描 n 个候选顶点。最坏时间为 O(n times sum from r=0 to k-1 of P(n-1,r))，固定 k 时为 O(n^(k+1))；标记数组 O(n)、递归栈 O(k)。计数可能超过整数范围，实际系统应使用大整数或溢出检查。",
         "explanation": "明确长度、无回路含义、k=0、k 过大、非法下标和计数溢出边界。"
       },
-      "review": {"status": "passed", "resolvedFlagCodes": [], "notes": "已独立补入邻接矩阵简单定长路径计数。"}
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已独立补入邻接矩阵简单定长路径计数。"
+      }
     }
   ],
   "unresolved": []

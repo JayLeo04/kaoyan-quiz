@@ -1,6 +1,7 @@
 import Link from "@/app/components/SiteLink";
 import { AppHeader } from "@/app/components/AppHeader";
-import { textbookCatalog, textbookHref, textbookPracticeHref } from "@/app/data/textbook-registry";
+import { textbookCatalog } from "@/app/data/textbook-registry";
+import { textbookHref, textbookPracticeHref } from "@/app/data/textbook-routes";
 
 export function TextbookShelf({ unavailableBookSlug }: { unavailableBookSlug?: string }) {
   return (

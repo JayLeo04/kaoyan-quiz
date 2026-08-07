@@ -1,3 +1,10 @@
+import {
+  EMPTY_LOCAL_LEARNING_LIBRARY,
+  LOCAL_LEARNING_LIBRARY_STORAGE_KEY,
+  normalizeLocalLearningLibrary,
+  type LocalLearningLibrary,
+} from "@/app/lib/local-learning-library";
+
 export type AttemptRecord = {
   selectedOption: string | null;
   correct: boolean | null;
@@ -15,11 +22,12 @@ export type QuestionNotes = Record<string, string>;
 export type LocalStudySnapshot = {
   progress: PracticeProgress;
   notes: QuestionNotes;
+  learning: LocalLearningLibrary;
 };
 
 export type LocalStudyBackup = {
   format: "yanshua-408-local-backup";
-  version: 1;
+  version: 2;
   exportedAt: string;
   data: LocalStudySnapshot;
 };
@@ -32,7 +40,11 @@ const MAX_TRACKED_QUESTIONS = 10_000;
 const MAX_NOTES = 2_000;
 
 export const EMPTY_PROGRESS: PracticeProgress = { completed: [], bookmarks: [], attempts: {} };
-export const EMPTY_LOCAL_STUDY_SNAPSHOT: LocalStudySnapshot = { progress: EMPTY_PROGRESS, notes: {} };
+export const EMPTY_LOCAL_STUDY_SNAPSHOT: LocalStudySnapshot = {
+  progress: EMPTY_PROGRESS,
+  notes: {},
+  learning: EMPTY_LOCAL_LEARNING_LIBRARY,
+};
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -97,10 +109,11 @@ function parseStoredValue(key: string) {
 }
 
 export function readLocalStudySnapshot(): LocalStudySnapshot {
-  if (typeof window === "undefined") return { progress: EMPTY_PROGRESS, notes: {} };
+  if (typeof window === "undefined") return EMPTY_LOCAL_STUDY_SNAPSHOT;
   return {
     progress: normalizeProgress(parseStoredValue(PROGRESS_STORAGE_KEY)),
     notes: normalizeQuestionNotes(parseStoredValue(QUESTION_NOTES_STORAGE_KEY)),
+    learning: normalizeLocalLearningLibrary(parseStoredValue(LOCAL_LEARNING_LIBRARY_STORAGE_KEY)),
   };
 }
 
@@ -108,11 +121,14 @@ export function writeLocalStudySnapshot(value: LocalStudySnapshot) {
   const snapshot: LocalStudySnapshot = {
     progress: normalizeProgress(value.progress),
     notes: normalizeQuestionNotes(value.notes),
+    learning: normalizeLocalLearningLibrary(value.learning),
   };
   try {
     window.localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(snapshot.progress));
     if (Object.keys(snapshot.notes).length) window.localStorage.setItem(QUESTION_NOTES_STORAGE_KEY, JSON.stringify(snapshot.notes));
     else window.localStorage.removeItem(QUESTION_NOTES_STORAGE_KEY);
+    if (Object.keys(snapshot.learning.resources).length) window.localStorage.setItem(LOCAL_LEARNING_LIBRARY_STORAGE_KEY, JSON.stringify(snapshot.learning));
+    else window.localStorage.removeItem(LOCAL_LEARNING_LIBRARY_STORAGE_KEY);
     return true;
   } catch {
     return false;
@@ -122,20 +138,22 @@ export function writeLocalStudySnapshot(value: LocalStudySnapshot) {
 export function createLocalStudyBackup(value: LocalStudySnapshot): LocalStudyBackup {
   return {
     format: "yanshua-408-local-backup",
-    version: 1,
+    version: 2,
     exportedAt: new Date().toISOString(),
     data: {
       progress: normalizeProgress(value.progress),
       notes: normalizeQuestionNotes(value.notes),
+      learning: normalizeLocalLearningLibrary(value.learning),
     },
   };
 }
 
 export function parseLocalStudyBackup(value: unknown): LocalStudySnapshot | null {
-  if (!isRecord(value) || value.format !== "yanshua-408-local-backup" || value.version !== 1 || !isRecord(value.data)) return null;
+  if (!isRecord(value) || value.format !== "yanshua-408-local-backup" || (value.version !== 1 && value.version !== 2) || !isRecord(value.data)) return null;
   if (!("progress" in value.data) || !("notes" in value.data)) return null;
   return {
     progress: normalizeProgress(value.data.progress),
     notes: normalizeQuestionNotes(value.data.notes),
+    learning: normalizeLocalLearningLibrary(value.version === 2 ? value.data.learning : null),
   };
 }

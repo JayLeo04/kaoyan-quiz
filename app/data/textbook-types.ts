@@ -1,25 +1,43 @@
 import type { KnowledgeVisualizationSpec } from "@/app/components/knowledge-visuals/types";
 
-export type TextbookPage = {
+export type TextbookPageSource = {
+  attributes: Record<string, string>;
+  pageMarkers: Array<Record<string, string>>;
+};
+
+export type TextbookReadingContent = {
+  title: string;
+  headings: string[];
+  sourceLatex: string[];
+  /** Optional while older generated textbook datasets are still supported. */
+  visualizations?: KnowledgeVisualizationSpec[];
+  source: TextbookPageSource;
+  html: string;
+};
+
+export type TextbookCondensedPage = TextbookReadingContent & {
+  sourcePath: string;
+  summary: string;
+  markdown: string;
+  audit: {
+    status: "distilled";
+    sourceFiles: number;
+    omitted: number;
+    risks: number;
+  };
+};
+
+export type TextbookPage = TextbookReadingContent & {
   id: string;
   slug: string;
   route: string;
   sourcePath: string;
   chapterId: string | null;
-  title: string;
   summary: string;
   depth: number;
   parentSlug: string | null;
-  headings: string[];
-  sourceLatex: string[];
-  /** Optional while older generated textbook datasets are still supported. */
-  visualizations?: KnowledgeVisualizationSpec[];
-  source: {
-    attributes: Record<string, string>;
-    pageMarkers: Array<Record<string, string>>;
-  };
   markdown: string;
-  html: string;
+  condensed?: TextbookCondensedPage;
 };
 
 export type TextbookChapter = {
@@ -119,6 +137,8 @@ export type TextbookDataset = {
   stats: {
     knowledgePages: number;
     knowledgeImages: number;
+    condensedPages: number;
+    condensedImages: number;
     chapters: number;
     exerciseRecords: number;
     exerciseQuestions: number;
@@ -153,11 +173,35 @@ export type TextbookChapterSummary = Pick<TextbookChapter, "id" | "title" | "que
 
 export type TextbookPageSummary = Pick<TextbookPage, "id" | "slug" | "chapterId" | "title" | "summary" | "depth" | "headings">;
 
-export type TextbookPageContent = Pick<TextbookPage, "id" | "slug" | "chapterId" | "title" | "headings" | "sourceLatex" | "visualizations" | "source" | "html">;
+export type TextbookCondensedPageContent = Pick<TextbookCondensedPage, "title" | "headings" | "sourceLatex" | "visualizations" | "source" | "html" | "audit">;
 
-export type TextbookQuestionSummary = Pick<TextbookQuestion, "id" | "number" | "type" | "chapterId" | "section" | "knowledgePoints"> & {
-  prompt: Pick<TextbookQuestion["prompt"], "plain">;
-  answer: Pick<TextbookQuestion["answer"], "status" | "originalStatus" | "origin"> & { hasVerified: boolean };
+export type TextbookPageContent = Pick<TextbookPage, "id" | "slug" | "chapterId" | "title" | "headings" | "sourceLatex" | "visualizations" | "source" | "html"> & {
+  condensed?: TextbookCondensedPageContent;
+};
+
+export type TextbookQuestionSummary = Pick<TextbookQuestion, "id" | "number" | "type" | "chapterId"> & {
+  section: Pick<TextbookQuestion["section"], "id" | "title">;
+  prompt: Pick<TextbookQuestion["prompt"], "markdown" | "plain">;
+  answer: Pick<TextbookQuestion["answer"], "status" | "origin"> & { hasVerified: boolean };
+  knowledgePoints: Array<Pick<TextbookQuestion["knowledgePoints"][number], "id" | "title">>;
+};
+
+export type TextbookPracticeQuery = {
+  chapterId?: string;
+  type?: string;
+  answer?: string;
+  learning?: string;
+  query?: string;
+  page?: number;
+  masteredIds?: string[];
+  reviewIds?: string[];
+};
+
+export type TextbookPracticeResults = {
+  questions: TextbookQuestionSummary[];
+  total: number;
+  page: number;
+  pageSize: number;
 };
 
 export type TextbookQuestionContent = Pick<TextbookQuestion, "id" | "number" | "type" | "chapterId"> & {
@@ -192,7 +236,9 @@ export type TextbookPracticeLibraryPayload = {
   book: Pick<TextbookDataset["book"], "id" | "title" | "author">;
   stats: Pick<TextbookDataset["stats"], "exerciseQuestions" | "answersProvided" | "answersHintOnly" | "answersVerified">;
   chapters: TextbookChapterSummary[];
-  exerciseQuestions: TextbookQuestionSummary[];
+  questionTypes: string[];
+  exerciseQuestionIds: string[];
+  initialResults: TextbookPracticeResults;
 };
 
 export type TextbookQuestionPayload = {

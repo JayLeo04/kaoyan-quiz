@@ -8,7 +8,7 @@
   ],
   "updates": [
     {
-      "id": "book-ds-yan-03-11",
+      "id": "book-ds-yan-03-stack-and-queue-3-11",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -17,12 +17,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "题干定义充分，已补入独立核验结论。"
       }
     },
     {
-      "id": "book-ds-yan-03-02",
+      "id": "book-ds-yan-03-stack-and-queue-3-2",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -31,12 +33,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补入栈与一般线性表的独立比较。"
       }
     },
     {
-      "id": "book-ds-yan-03-20",
+      "id": "book-ds-yan-03-stack-and-queue-3-20",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -50,12 +54,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已用四邻域洪泛填充独立复核。"
       }
     },
     {
-      "id": "book-ds-yan-03-22",
+      "id": "book-ds-yan-03-stack-and-queue-3-22",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -64,12 +70,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "按单字母变量和双目四则运算条件补入独立解答。"
       }
     },
     {
-      "id": "book-ds-yan-03-24",
+      "id": "book-ds-yan-03-stack-and-queue-3-24",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -78,12 +86,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "递归算法和 g(5,2) 的栈变化已独立核验。"
       }
     },
     {
-      "id": "book-ds-yan-03-25",
+      "id": "book-ds-yan-03-stack-and-queue-3-25",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -92,12 +102,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补入等价的递归与非递归实现。"
       }
     },
     {
-      "id": "book-ds-yan-03-26",
+      "id": "book-ds-yan-03-stack-and-queue-3-26",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -106,12 +118,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "题给递归式已安全地改写为迭代。"
       }
     },
     {
-      "id": "book-ds-yan-03-33",
+      "id": "book-ds-yan-03-stack-and-queue-3-33",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -120,12 +134,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "输出受限双端循环队列的两端入队和头端出队已独立核验。"
       }
     },
     {
-      "id": "book-ds-yan-03-34",
+      "id": "book-ds-yan-03-stack-and-queue-3-34",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -134,12 +150,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已验证输出受限双端队列可实现所需三类排序。"
       }
     },
     {
-      "id": "book-ds-yan-04-01",
+      "id": "book-ds-yan-04-string-4-1",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -153,7 +171,7 @@
       }
     },
     {
-      "id": "book-ds-yan-04-10",
+      "id": "book-ds-yan-04-string-4-10",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -167,7 +185,7 @@
       }
     },
     {
-      "id": "book-ds-yan-04-13",
+      "id": "book-ds-yan-04-string-4-13",
       "answer": {
         "status": "provided",
         "origin": "verified",

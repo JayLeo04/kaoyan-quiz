@@ -15,6 +15,7 @@ import {
   type LocalStudySnapshot,
   writeLocalStudySnapshot,
 } from "@/app/lib/local-study-data";
+import type { LearningResourceRecord } from "@/app/lib/local-learning-library";
 
 type ProfileView = "overview" | "notes" | "history" | "favorites" | "knowledge";
 type ProfileQuestion = {
@@ -83,7 +84,7 @@ const profileViews: Array<{ id: ProfileView; label: string }> = [
   { id: "overview", label: "概览" },
   { id: "notes", label: "笔记" },
   { id: "history", label: "做题历史" },
-  { id: "favorites", label: "收藏题目" },
+  { id: "favorites", label: "收藏" },
   { id: "knowledge", label: "知识点" },
 ];
 
@@ -260,6 +261,24 @@ function QuestionRecord({
   );
 }
 
+function LearningRecord({
+  resource,
+  badge,
+  excerpt,
+}: {
+  resource: LearningResourceRecord;
+  badge: string;
+  excerpt?: string;
+}) {
+  return (
+    <Link className="profile-record" href={resource.href}>
+      <div className="profile-record-meta"><span>{resource.context || "本地学习资料"}</span><b>{badge}</b></div>
+      <strong>{resource.title}</strong>
+      <p>{excerpt ? compactText(excerpt, 180) : resource.kind === "knowledge" ? "已收藏的 408 知识点，可直接回到正文继续复习。" : "已保存的教材或题目学习资料。"}</p>
+    </Link>
+  );
+}
+
 export function LocalProfileWorkspace() {
   const [snapshot, setSnapshot] = useState<LocalStudySnapshot>(EMPTY_LOCAL_STUDY_SNAPSHOT);
   const [view, setView] = useState<ProfileView>("overview");
@@ -279,6 +298,17 @@ export function LocalProfileWorkspace() {
     return rightTime - leftTime;
   }), [snapshot]);
   const favorites = useMemo(() => snapshot.progress.bookmarks.map((questionId) => ({ questionId, question: questionsById.get(questionId) })), [snapshot.progress.bookmarks]);
+  const savedResources = useMemo(() => Object.entries(snapshot.learning.bookmarks)
+    .map(([resourceId, bookmark]) => ({ resource: snapshot.learning.resources[resourceId], savedAt: bookmark.savedAt }))
+    .filter((item): item is { resource: LearningResourceRecord; savedAt: string } => Boolean(item.resource))
+    .sort((left, right) => Date.parse(right.savedAt) - Date.parse(left.savedAt)), [snapshot.learning.bookmarks, snapshot.learning.resources]);
+  const learningNotes = useMemo(() => Object.entries(snapshot.learning.notes)
+    .map(([resourceId, note]) => ({ resource: snapshot.learning.resources[resourceId], note }))
+    .filter((item): item is { resource: LearningResourceRecord; note: { body: string; updatedAt: string } } => Boolean(item.resource))
+    .sort((left, right) => Date.parse(right.note.updatedAt) - Date.parse(left.note.updatedAt)), [snapshot.learning.notes, snapshot.learning.resources]);
+  const annotationCount = useMemo(() => Object.values(snapshot.learning.annotations).reduce((total, items) => total + items.length, 0), [snapshot.learning.annotations]);
+  const totalFavoriteCount = favorites.length + savedResources.length;
+  const totalNoteCount = noteEntries.length + learningNotes.length;
   const knowledgePoints = useMemo(() => buildKnowledgePoints(snapshot), [snapshot]);
   const historyAnalysis = useMemo(() => buildPersonalHistoryAnalysis(snapshot), [snapshot]);
   const recentActivityMax = Math.max(...historyAnalysis.recentStudyDays.map((day) => day.attempted), 1);
@@ -304,7 +334,7 @@ export function LocalProfileWorkspace() {
     anchor.click();
     anchor.remove();
     window.setTimeout(() => URL.revokeObjectURL(href), 0);
-    setMessage("备份已下载，文件包含笔记、做题历史、完成与收藏记录。");
+    setMessage("备份已下载，文件包含笔记、文本标注、做题历史、完成与收藏记录。");
   };
 
   const importBackup = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -321,7 +351,7 @@ export function LocalProfileWorkspace() {
         setMessage("无法识别该备份文件。请选择由研刷 408 导出的本地备份。 ");
         return;
       }
-      if (!window.confirm("导入会覆盖这台设备现有的笔记、做题历史、完成与收藏记录。确定继续吗？")) return;
+      if (!window.confirm("导入会覆盖这台设备现有的笔记、文本标注、做题历史、完成与收藏记录。确定继续吗？")) return;
       if (!writeLocalStudySnapshot(imported)) {
         setMessage("本地存储空间不足，暂时无法导入该备份。 ");
         return;
@@ -342,14 +372,14 @@ export function LocalProfileWorkspace() {
         <div className="profile-stat-grid">
           <div><b>{snapshot.progress.completed.length}</b><span>已完成</span></div>
           <div><b>{history.length}</b><span>作答记录</span></div>
-          <div><b>{snapshot.progress.bookmarks.length}</b><span>收藏题目</span></div>
-          <div><b>{noteEntries.length}</b><span>题目笔记</span></div>
+          <div><b>{totalFavoriteCount}</b><span>收藏资料</span></div>
+          <div><b>{totalNoteCount}</b><span>学习笔记</span></div>
         </div>
       </section>
       <section className="profile-summary-card profile-review-card">
         <span>REVIEW CUE</span>
         <h2>{historyAnalysis.scored ? `正确率 ${historyAnalysis.accuracy}%` : history.length ? "等待可计分作答" : "从第一道题开始"}</h2>
-        <p>{history.length ? reviewFocus : "在题目右侧完成作答、收藏或写笔记后，资料会自动出现在这里。"}</p>
+        <p>{history.length ? reviewFocus : "完成作答，或在知识页收藏、写笔记和标注正文后，资料会自动出现在这里。"}</p>
         <button type="button" onClick={() => setView(history.length ? "history" : "favorites")}>{history.length ? "查看做题历史" : "查看收藏题目"} →</button>
       </section>
       <section className="profile-section-card profile-recent-card">
@@ -413,10 +443,11 @@ export function LocalProfileWorkspace() {
 
   const content = view === "overview" ? overview : view === "notes" ? (
     <section className="profile-section-card profile-list-card">
-      <header><div><span>QUESTION NOTES</span><h2>我的题目笔记</h2></div><small>{noteEntries.length} 条</small></header>
+      <header><div><span>STUDY NOTES</span><h2>我的学习笔记</h2></div><small>{totalNoteCount} 条 · {annotationCount} 处标注</small></header>
       <div className="profile-record-list">
         {noteEntries.map(([questionId, note]) => <QuestionRecord key={questionId} questionId={questionId} meta={questionMeta(questionsById.get(questionId))} badge="笔记" excerpt={compactText(note, 180)} />)}
-        {!noteEntries.length ? <EmptyProfileState title="还没有笔记" detail="在题目侧边打开“笔记”，写下思路、易错点或 Mermaid 图后会自动保存到这里。" /> : null}
+        {learningNotes.map(({ resource, note }) => <LearningRecord key={resource.id} resource={resource} badge="页面笔记" excerpt={note.body} />)}
+        {!totalNoteCount ? <EmptyProfileState title="还没有笔记" detail="在题目或知识页打开“添加笔记”，写下思路、易错点或复习提醒后会自动保存到这里。" /> : null}
       </div>
     </section>
   ) : view === "history" ? (
@@ -432,10 +463,11 @@ export function LocalProfileWorkspace() {
     </div>
   ) : view === "favorites" ? (
     <section className="profile-section-card profile-list-card">
-      <header><div><span>BOOKMARKED QUESTIONS</span><h2>收藏题目</h2></div><small>{favorites.length} 题</small></header>
+      <header><div><span>BOOKMARKED MATERIALS</span><h2>我的收藏</h2></div><small>{totalFavoriteCount} 条</small></header>
       <div className="profile-record-list">
-        {favorites.map(({ questionId, question }) => <QuestionRecord key={questionId} questionId={questionId} meta={questionMeta(question)} badge="收藏" />)}
-        {!favorites.length ? <EmptyProfileState title="还没有收藏题目" detail="在任意题目的右侧点击“收藏”，之后便能在这里快速回看。" /> : null}
+        {favorites.map(({ questionId, question }) => <QuestionRecord key={questionId} questionId={questionId} meta={questionMeta(question)} badge="收藏题目" />)}
+        {savedResources.map(({ resource }) => <LearningRecord key={resource.id} resource={resource} badge={resource.kind === "knowledge" ? "收藏知识点" : "收藏教材"} />)}
+        {!totalFavoriteCount ? <EmptyProfileState title="还没有收藏" detail="在题目右侧或知识页顶部点击“收藏”，之后便能在这里快速回看。" /> : null}
       </div>
     </section>
   ) : (
@@ -458,12 +490,12 @@ export function LocalProfileWorkspace() {
           <div className="profile-identity"><span>我</span><div><p>LOCAL LEARNER</p><h1>本地资料库</h1></div></div>
           <p className="profile-sidebar-copy">你的资料只保存在这台设备。备份文件由你自己保存、自己导入。</p>
           <nav className="profile-view-nav" aria-label="本地资料库导航">
-            {profileViews.map((item) => <button key={item.id} type="button" className={view === item.id ? "active" : ""} onClick={() => setView(item.id)}><span>{item.label}</span>{item.id === "notes" ? <small>{noteEntries.length}</small> : item.id === "favorites" ? <small>{favorites.length}</small> : item.id === "history" ? <small>{history.length}</small> : item.id === "knowledge" ? <small>{knowledgePoints.length}</small> : null}</button>)}
+            {profileViews.map((item) => <button key={item.id} type="button" className={view === item.id ? "active" : ""} onClick={() => setView(item.id)}><span>{item.label}</span>{item.id === "notes" ? <small>{totalNoteCount}</small> : item.id === "favorites" ? <small>{totalFavoriteCount}</small> : item.id === "history" ? <small>{history.length}</small> : item.id === "knowledge" ? <small>{knowledgePoints.length}</small> : null}</button>)}
           </nav>
           <div className="profile-backup-box">
             <span>LOCAL BACKUP</span>
             <strong>备份这台设备的学习资料</strong>
-            <p>包含笔记、做题历史、完成与收藏记录。</p>
+            <p>包含笔记、文本标注、做题历史、完成与收藏记录。</p>
             <button type="button" className="profile-backup-download" onClick={downloadBackup}>下载备份</button>
             <button type="button" className="profile-backup-import" onClick={() => importRef.current?.click()}>导入备份</button>
             <input ref={importRef} className="profile-import-input" type="file" accept="application/json,.json" onChange={importBackup} />

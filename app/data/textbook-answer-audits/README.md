@@ -11,7 +11,7 @@
   "scope": ["01-introduction"],
   "updates": [
     {
-      "id": "book-ds-yan-01-...",
+        "id": "book-ds-yan-01-introduction-1-1",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -32,6 +32,7 @@
 规则：
 
 - 不直接修改 `textbook-data-structures.json`；它是从教材源稿导出的基线。
+- 所有题号只使用 `book-ds-yan-{单元 ID}-{题号}` 这一种规范格式，不保留旧题号兼容层。
 - 不得把自行推导内容写进 `answer.original`，也不得称为原书答案。
 - 题干不足或无法安全确认时放进 `unresolved`，附具体原因。
 - 经交叉审计发现错误时，在原 `answer` 旁增加 `correction`（含新 `verified`、`reason` 和可选 `explanation`）；加载器只呈现修正后的内容，旧草稿仍可追溯。

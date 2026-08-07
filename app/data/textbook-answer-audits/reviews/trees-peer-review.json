@@ -1,40 +1,40 @@
 {
   "reviewedFile": "trees.json",
   "reviewedIds": [
-    "book-ds-yan-06-10",
-    "book-ds-yan-06-14",
-    "book-ds-yan-06-02",
-    "book-ds-yan-06-23",
-    "book-ds-yan-06-24",
-    "book-ds-yan-06-25",
-    "book-ds-yan-06-27",
-    "book-ds-yan-06-28",
-    "book-ds-yan-06-29",
-    "book-ds-yan-06-30",
-    "book-ds-yan-06-36",
-    "book-ds-yan-06-37"
+    "book-ds-yan-06-tree-and-binary-tree-6-10",
+    "book-ds-yan-06-tree-and-binary-tree-6-14",
+    "book-ds-yan-06-tree-and-binary-tree-6-2",
+    "book-ds-yan-06-tree-and-binary-tree-6-23",
+    "book-ds-yan-06-tree-and-binary-tree-6-24",
+    "book-ds-yan-06-tree-and-binary-tree-6-25",
+    "book-ds-yan-06-tree-and-binary-tree-6-27",
+    "book-ds-yan-06-tree-and-binary-tree-6-28",
+    "book-ds-yan-06-tree-and-binary-tree-6-29",
+    "book-ds-yan-06-tree-and-binary-tree-6-30",
+    "book-ds-yan-06-tree-and-binary-tree-6-36",
+    "book-ds-yan-06-tree-and-binary-tree-6-37"
   ],
   "passedIds": [
-    "book-ds-yan-06-10",
-    "book-ds-yan-06-14",
-    "book-ds-yan-06-02",
-    "book-ds-yan-06-23",
-    "book-ds-yan-06-27",
-    "book-ds-yan-06-28",
-    "book-ds-yan-06-29",
-    "book-ds-yan-06-30",
-    "book-ds-yan-06-36",
-    "book-ds-yan-06-37"
+    "book-ds-yan-06-tree-and-binary-tree-6-10",
+    "book-ds-yan-06-tree-and-binary-tree-6-14",
+    "book-ds-yan-06-tree-and-binary-tree-6-2",
+    "book-ds-yan-06-tree-and-binary-tree-6-23",
+    "book-ds-yan-06-tree-and-binary-tree-6-27",
+    "book-ds-yan-06-tree-and-binary-tree-6-28",
+    "book-ds-yan-06-tree-and-binary-tree-6-29",
+    "book-ds-yan-06-tree-and-binary-tree-6-30",
+    "book-ds-yan-06-tree-and-binary-tree-6-36",
+    "book-ds-yan-06-tree-and-binary-tree-6-37"
   ],
   "findings": [
     {
-      "id": "book-ds-yan-06-24",
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-24",
       "severity": "error",
       "issue": "给出的森林把 H 及其后续结点误写成多个单结点树，和声明的左孩子—右兄弟二叉树先序/中序反算不一致。由给定先序和中序重建的二叉树根为 A，A 的右孩子为 H；因此 H 是第二棵树根而非末尾单结点树。",
       "recommendedFix": "将图和广义表改为 A(B(C),D(E,F),G), H(I(J),K,L)。其左孩子—右兄弟二叉树先序为 ABCDEFGHIJKL，中序为 CBEFDGAJIKLH。"
     },
     {
-      "id": "book-ds-yan-06-25",
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-25",
       "severity": "warning",
       "issue": "证明使用了叶权均为正这一前提来推出加权路径长度严格下降，但题干本身未明示该前提。若允许零权，单凭最小加权路径长度不能推出严格矛盾。",
       "recommendedFix": "明确写出叶权为正是采用的哈夫曼树定义前提；若课程定义允许零权，则改用哈夫曼构造过程说明每次合并均生成恰有两个孩子的内部结点，或相应限定结论。"

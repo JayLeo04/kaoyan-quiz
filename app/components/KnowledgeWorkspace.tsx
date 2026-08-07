@@ -6,8 +6,10 @@ import { AppHeader } from "@/app/components/AppHeader";
 import { KnowledgeVisual } from "@/app/components/knowledge-visuals/KnowledgeVisual";
 import type { KnowledgeVisualizationSpec } from "@/app/components/knowledge-visuals/types";
 import { MermaidCodeBlocks } from "@/app/components/MermaidCodeBlocks";
+import { StudyAnnotationSurface, StudyResourceTools } from "@/app/components/StudyTools";
 import { subjectById, type SubjectId } from "@/app/data/catalog";
 import { withSiteAssetPaths } from "@/app/lib/site-path";
+import type { LearningResource } from "@/app/lib/local-learning-library";
 
 export type LocalKnowledgePage = {
   id: string;
@@ -38,7 +40,7 @@ export type LocalKnowledgeSubject = {
 const priorityLabel = { high: "高优先级", medium: "中优先级", low: "低优先级" } as const;
 const knowledgeVisualMarker = /<!--\s*knowledge-visual:([a-z0-9]+(?:-[a-z0-9]+)*)\s*-->/g;
 
-function KnowledgeArticle({ page, articleRef }: { page: LocalKnowledgePage; articleRef: RefObject<HTMLElement | null> }) {
+function KnowledgeArticle({ page, articleRef, resource }: { page: LocalKnowledgePage; articleRef: RefObject<HTMLElement | null>; resource: LearningResource }) {
   const specsById = new Map(page.visualizations.map((spec) => [spec.id, spec]));
   const pieces: Array<{ kind: "html"; html: string } | { kind: "visual"; spec: KnowledgeVisualizationSpec }> = [];
   let cursor = 0;
@@ -51,12 +53,14 @@ function KnowledgeArticle({ page, articleRef }: { page: LocalKnowledgePage; arti
   if (cursor < page.html.length) pieces.push({ kind: "html", html: page.html.slice(cursor) });
 
   return (
-    <article ref={articleRef} className="local-markdown" data-latex-source-count={page.sourceLatex.length}>
-      {pieces.map((piece, index) => piece.kind === "visual"
-        ? <KnowledgeVisual key={piece.spec.id} spec={piece.spec} />
-        : <div key={`knowledge-html-${index}`} className="local-markdown-segment" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(piece.html) }} />)}
-      <MermaidCodeBlocks rootRef={articleRef} contentKey={`${page.id}:${page.html}`} />
-    </article>
+    <StudyAnnotationSurface resource={resource} contentKey={`${page.id}:${page.html.length}`} className="knowledge-annotation-surface">
+      <article ref={articleRef} className="local-markdown" data-latex-source-count={page.sourceLatex.length}>
+        {pieces.map((piece, index) => piece.kind === "visual"
+          ? <KnowledgeVisual key={piece.spec.id} spec={piece.spec} />
+          : <div key={`knowledge-html-${index}`} className="local-markdown-segment" data-study-annotatable="true" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(piece.html) }} />)}
+        <MermaidCodeBlocks rootRef={articleRef} contentKey={`${page.id}:${page.html}`} />
+      </article>
+    </StudyAnnotationSurface>
   );
 }
 
@@ -81,6 +85,13 @@ export function KnowledgeWorkspace({
   const practiceHref = currentPage.slug && currentPage.questionIds.length
     ? `/subject/${subjectId}?view=questions&knowledge=${encodeURIComponent(currentPage.slug)}`
     : null;
+  const learningResource = useMemo<LearningResource>(() => ({
+    id: `knowledge:${subjectId}:${currentPage.id}`,
+    kind: "knowledge",
+    title: currentPage.title,
+    href: currentPage.route,
+    context: `${subject.shortName}知识点`,
+  }), [currentPage.id, currentPage.route, currentPage.title, subject.shortName, subjectId]);
 
   useEffect(() => {
     try {
@@ -179,7 +190,8 @@ export function KnowledgeWorkspace({
                 {practiceHref ? <Link href={practiceHref}>做相关真题 · {currentPage.questionIds.length} 道 →</Link> : null}
               </div>
             ) : null}
-            <KnowledgeArticle page={currentPage} articleRef={articleRef} />
+            <StudyResourceTools resource={learningResource} practiceHref={practiceHref} practiceLabel={`做相关真题${currentPage.questionIds.length ? ` · ${currentPage.questionIds.length} 道` : ""}`} />
+            <KnowledgeArticle page={currentPage} articleRef={articleRef} resource={learningResource} />
             <div className="local-knowledge-bottom-nav">
               {previousPage ? <Link href={previousPage.route}><span>上一篇</span><strong>{previousPage.title}</strong></Link> : <span />}
               {nextPage ? <Link href={nextPage.route}><span>下一篇</span><strong>{nextPage.title}</strong></Link> : <span />}

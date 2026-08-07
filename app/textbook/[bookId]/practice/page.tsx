@@ -12,5 +12,5 @@ export function generateStaticParams() {
 export default async function TextbookPracticePage({ params, searchParams }: { params: Promise<{ bookId: string }>; searchParams: Promise<{ chapter?: string }> }) {
   const [{ bookId }, { chapter }] = await Promise.all([params, searchParams]);
   const textbook = getTextbook(bookId);
-  return textbook ? <TextbookPracticeWorkspace library={createTextbookPracticeLibraryPayload(textbook)} initialChapterId={chapter} /> : <TextbookShelf unavailableBookSlug={bookId} />;
+  return textbook ? <TextbookPracticeWorkspace library={createTextbookPracticeLibraryPayload(textbook, chapter)} initialChapterId={chapter} /> : <TextbookShelf unavailableBookSlug={bookId} />;
 }

@@ -3,7 +3,8 @@
 import Link from "@/app/components/SiteLink";
 import { useEffect, useMemo, useState } from "react";
 import { AppHeader } from "@/app/components/AppHeader";
-import { textbookHref, textbookPracticeHref, textbookQuestionHref } from "@/app/data/textbook-registry";
+import { StudyAnnotationSurface, StudyResourceTools } from "@/app/components/StudyTools";
+import { textbookHref, textbookPracticeHref, textbookQuestionHref } from "@/app/data/textbook-routes";
 import type {
   TextbookChapterSummary,
   TextbookPracticeLibraryPayload,
@@ -19,7 +20,9 @@ import {
   writeTextbookProgress,
   type TextbookProgress,
 } from "@/app/lib/textbook-progress";
-import { withSiteAssetPaths } from "@/app/lib/site-path";
+import { renderQuestionPreviewMarkdown } from "@/app/lib/render-question-preview";
+import { siteAssetPath, withSiteAssetPaths } from "@/app/lib/site-path";
+import type { LearningResource } from "@/app/lib/local-learning-library";
 
 const typeLabels: Record<string, string> = {
   algorithm: "算法题",
@@ -74,7 +77,10 @@ function PracticeLibraryCard({ question, progress, bookSlug, chapters }: { quest
         <span>{question.number} · {questionTypeLabel(question.type)}</span>
         <ProgressMark question={question} progress={progress} />
       </div>
-      <h2>{question.prompt.plain}</h2>
+      <div
+        className="question-card-markdown textbook-question-card-markdown"
+        dangerouslySetInnerHTML={{ __html: renderQuestionPreviewMarkdown(question.prompt.markdown, question.number) }}
+      />
       <div className="textbook-question-card-bottom">
         <span>{chapter?.title || question.section.title}</span>
         <b>{answerLabel(question)} →</b>
@@ -86,43 +92,75 @@ function PracticeLibraryCard({ question, progress, bookSlug, chapters }: { quest
 export function TextbookPracticeWorkspace({ initialChapterId, library }: { initialChapterId?: string; library: TextbookPracticeLibraryPayload }) {
   const textbook = { slug: library.bookSlug };
   const dataset = { book: library.book, stats: library.stats, chapters: library.chapters };
-  const exerciseQuestions = library.exerciseQuestions;
   const validInitialChapter = dataset.chapters.some((chapter) => chapter.id === initialChapterId) ? initialChapterId! : "all";
   const [chapterId, setChapterId] = useState(validInitialChapter);
   const [type, setType] = useState("all");
   const [answer, setAnswer] = useState("all");
   const [learning, setLearning] = useState("all");
   const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(library.initialResults.page);
   const [progress, setProgress] = useState<TextbookProgress>(EMPTY_TEXTBOOK_PROGRESS);
+  const [progressLoaded, setProgressLoaded] = useState(false);
+  const [resultQuestions, setResultQuestions] = useState(library.initialResults.questions);
+  const [resultTotal, setResultTotal] = useState(library.initialResults.total);
+  const [loading, setLoading] = useState(false);
+  const [loadError, setLoadError] = useState("");
 
   useEffect(() => {
     // Browser-only state is intentionally kept separate from the real-question progress record.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setProgress(readTextbookProgress(textbook.slug));
+    setProgressLoaded(true);
   }, [textbook.slug]);
 
-  const filteredQuestions = useMemo(() => {
-    const normalized = query.trim().toLocaleLowerCase();
-    return exerciseQuestions.filter((question) => {
-      const chapterMatch = chapterId === "all" || question.chapterId === chapterId;
-      const typeMatch = type === "all" || question.type === type;
-      const answerMatch = answer === "all" || (answer === "verified" ? question.answer.hasVerified : question.answer.status === answer);
-      const learningMatch = learning === "all"
-        || (learning === "mastered" && progress.mastered.includes(question.id))
-        || (learning === "review" && progress.review.includes(question.id))
-        || (learning === "unmarked" && !progress.mastered.includes(question.id) && !progress.review.includes(question.id));
-      const queryMatch = !normalized || `${question.number} ${question.prompt.plain} ${question.section.title} ${question.knowledgePoints.map((point) => point.title).join(" ")}`.toLocaleLowerCase().includes(normalized);
-      return chapterMatch && typeMatch && answerMatch && learningMatch && queryMatch;
+  useEffect(() => {
+    if (!progressLoaded) return;
+    const controller = new AbortController();
+    queueMicrotask(() => {
+      if (!controller.signal.aborted) {
+        setLoading(true);
+        setLoadError("");
+      }
     });
-  }, [answer, chapterId, exerciseQuestions, learning, progress.mastered, progress.review, query, type]);
+    fetch(siteAssetPath(`/api/textbook/${encodeURIComponent(library.bookSlug)}/practice-index`), {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        chapterId,
+        type,
+        answer,
+        learning,
+        query,
+        page,
+        masteredIds: progress.mastered,
+        reviewIds: progress.review,
+      }),
+      signal: controller.signal,
+    })
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json() as Promise<{ questions: TextbookQuestionSummary[]; total: number; page: number; pageSize: number }>;
+      })
+      .then((result) => {
+        setResultQuestions(result.questions);
+        setResultTotal(result.total);
+        if (result.page !== page) setPage(result.page);
+      })
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setLoadError("题目索引加载失败，请重试。");
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false);
+      });
+    return () => controller.abort();
+  }, [answer, chapterId, learning, library.bookSlug, page, progress.mastered, progress.review, progressLoaded, query, type]);
 
-  const pageSize = 12;
-  const pageCount = Math.max(1, Math.ceil(filteredQuestions.length / pageSize));
+  const pageSize = library.initialResults.pageSize;
+  const pageCount = Math.max(1, Math.ceil(resultTotal / pageSize));
   const safePage = Math.min(page, pageCount);
-  const visibleQuestions = filteredQuestions.slice((safePage - 1) * pageSize, safePage * pageSize);
   const chapterOptions = dataset.chapters.filter((chapter) => chapter.questionCount > 0);
-  const continueQuestion = exerciseQuestions.find((question) => !progress.mastered.includes(question.id));
+  const continueQuestionId = library.exerciseQuestionIds.find((questionId) => !progress.mastered.includes(questionId));
   const resetPage = () => setPage(1);
   const resetAll = () => {
     setChapterId("all");
@@ -148,7 +186,7 @@ export function TextbookPracticeWorkspace({ initialChapterId, library }: { initi
             <strong>{progress.mastered.length}</strong><span>已掌握</span>
             <i style={{ width: `${dataset.stats.exerciseQuestions ? progress.mastered.length / dataset.stats.exerciseQuestions * 100 : 0}%` }} />
             <small>{progress.review.length} 道待复习 · {progress.bookmarks.length} 道已收藏</small>
-            {continueQuestion ? <Link href={textbookQuestionHref(textbook, continueQuestion.id)}>继续下一题 →</Link> : <span className="complete">全部已标记掌握</span>}
+            {continueQuestionId ? <Link href={textbookQuestionHref(textbook, continueQuestionId)}>继续下一题 →</Link> : <span className="complete">全部已标记掌握</span>}
           </div>
         </section>
 
@@ -164,7 +202,7 @@ export function TextbookPracticeWorkspace({ initialChapterId, library }: { initi
             <span>题型</span>
             <select value={type} onChange={(event) => { setType(event.target.value); resetPage(); }}>
               <option value="all">全部题型</option>
-              {[...new Set(exerciseQuestions.map((question) => question.type))].map((item) => <option key={item} value={item}>{questionTypeLabel(item)}</option>)}
+              {library.questionTypes.map((item) => <option key={item} value={item}>{questionTypeLabel(item)}</option>)}
             </select>
           </label>
           <label>
@@ -194,18 +232,19 @@ export function TextbookPracticeWorkspace({ initialChapterId, library }: { initi
           <button type="button" onClick={resetAll}>清除筛选</button>
         </section>
 
-        <section className="textbook-library-results">
+        <section className="textbook-library-results" aria-busy={loading}>
           <div className="textbook-library-results-head">
-            <div><span>QUESTION BANK</span><strong>{filteredQuestions.length} 道匹配题目</strong></div>
-            <small>每题保留对应章节、图片、答案状态与来源页码。</small>
+            <div><span>QUESTION BANK</span><strong>{resultTotal} 道匹配题目</strong></div>
+            <small>{loading ? "正在更新当前页…" : "每题保留对应章节、图片、答案状态与来源页码。"}</small>
           </div>
           <div className="textbook-question-grid">
-            {visibleQuestions.map((question) => <PracticeLibraryCard key={question.id} question={question} progress={progress} bookSlug={library.bookSlug} chapters={library.chapters} />)}
-            {!visibleQuestions.length ? <div className="textbook-library-empty"><strong>没有匹配的题目</strong><span>试试放宽章节、答案或学习状态筛选。</span></div> : null}
+            {resultQuestions.map((question) => <PracticeLibraryCard key={question.id} question={question} progress={progress} bookSlug={library.bookSlug} chapters={library.chapters} />)}
+            {!resultQuestions.length && !loading ? <div className="textbook-library-empty"><strong>没有匹配的题目</strong><span>试试放宽章节、答案或学习状态筛选。</span></div> : null}
+            {loadError ? <div className="textbook-library-empty"><strong>{loadError}</strong><span>修改任一筛选条件即可重新加载。</span></div> : null}
           </div>
           <nav className="textbook-library-pagination" aria-label="习题分页">
             <span>第 {safePage} / {pageCount} 页</span>
-            <div><button type="button" disabled={safePage <= 1} onClick={() => setPage((value) => Math.max(1, value - 1))}>← 上一页</button><button type="button" disabled={safePage >= pageCount} onClick={() => setPage((value) => Math.min(pageCount, value + 1))}>下一页 →</button></div>
+            <div><button type="button" disabled={loading || safePage <= 1} onClick={() => setPage((value) => Math.max(1, value - 1))}>← 上一页</button><button type="button" disabled={loading || safePage >= pageCount} onClick={() => setPage((value) => Math.min(pageCount, value + 1))}>下一页 →</button></div>
           </nav>
         </section>
       </main>
@@ -220,6 +259,23 @@ export function TextbookQuestionWorkspace({ questionData }: { questionData: Text
   const questionId = question?.id || "";
   const [progress, setProgress] = useState<TextbookProgress>(EMPTY_TEXTBOOK_PROGRESS);
   const [answerVisible, setAnswerVisible] = useState(false);
+  const learningResource = useMemo<LearningResource>(() => ({
+    id: `textbook-question:${textbook.slug}:${questionId || "missing"}`,
+    kind: "textbook-question",
+    title: question ? `第 ${question.number} 题` : "教材习题",
+    href: questionId ? textbookQuestionHref(textbook.slug, questionId) : textbookPracticeHref(textbook.slug),
+    context: questionData.presentation.displayName,
+  }), [question, questionData.presentation.displayName, questionId, textbook.slug]);
+  const promptAnnotationResource = useMemo<LearningResource>(() => ({
+    ...learningResource,
+    id: `${learningResource.id}:prompt`,
+    title: `${learningResource.title}题干`,
+  }), [learningResource]);
+  const answerAnnotationResource = useMemo<LearningResource>(() => ({
+    ...learningResource,
+    id: `${learningResource.id}:answer`,
+    title: `${learningResource.title}参考内容`,
+  }), [learningResource]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -278,7 +334,9 @@ export function TextbookQuestionWorkspace({ questionData }: { questionData: Text
             <div className="textbook-question-scroll">
               <div className="textbook-question-eyebrow"><span>{question.number}</span><span>{questionTypeLabel(question.type)}</span><span>{question.section.title}</span></div>
               <h1>第 {question.number} 题</h1>
-              <div className="textbook-question-html" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.prompt.html) }} />
+              <StudyAnnotationSurface resource={promptAnnotationResource} contentKey={`${question.id}:prompt:${question.prompt.html.length}`} className="textbook-question-annotation-surface">
+                <div className="textbook-question-html" data-study-annotatable="true" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.prompt.html) }} />
+              </StudyAnnotationSurface>
               {question.options.length ? (
                 <section className="textbook-question-options">
                   <header><span>QUESTION PARTS</span><strong>题中给出的操作或选项</strong></header>
@@ -291,6 +349,7 @@ export function TextbookQuestionWorkspace({ questionData }: { questionData: Text
                 <button className={bookmarked ? "active saved" : ""} type="button" onClick={() => saveProgress(toggleTextbookBookmark(progress, question.id))}>{bookmarked ? "◆ 已收藏" : "◇ 收藏"}</button>
                 <button className="show-answer" type="button" onClick={() => setAnswerVisible((visible) => !visible)}>{answerVisible ? "收起参考内容" : question.answer.verifiedHtml ? "查看参考解答" : "查看原书答案 / 提示"}</button>
               </div>
+              <StudyResourceTools resource={learningResource} showBookmark={false} className="textbook-question-note-tools" />
             </div>
           </article>
 
@@ -300,24 +359,26 @@ export function TextbookQuestionWorkspace({ questionData }: { questionData: Text
                 <div><span>REFERENCE</span><strong>{answerLabel(question)}</strong></div>
                 <button type="button" onClick={() => setAnswerVisible((visible) => !visible)}>{answerVisible ? "隐藏" : "显示"}</button>
               </header>
+              <StudyAnnotationSurface resource={answerAnnotationResource} contentKey={`${question.id}:answer:${answerVisible}:${question.answer.html.length}:${question.answer.verifiedHtml?.length || 0}`} className="textbook-answer-annotation-surface" showHint={answerVisible}>
               {answerVisible ? (() => {
                 const hasBookAnswer = Boolean(question.answer.html.trim());
                 const hasVerifiedAnswer = Boolean(question.answer.verifiedHtml?.trim());
                 if (!hasBookAnswer && !hasVerifiedAnswer) {
                   return <div className="textbook-answer-missing"><strong>暂未收录可独立对应的完整参考内容。</strong><p>原书内容保持缺答状态；后续仅在完成独立核验后才会补充。</p></div>;
                 }
-                if (!hasVerifiedAnswer) return <div className="textbook-answer-html" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.answer.html) }} />;
+                if (!hasVerifiedAnswer) return <div className="textbook-answer-html" data-study-annotatable="true" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.answer.html) }} />;
                 return (
                   <div className="textbook-answer-composite">
-                    {hasBookAnswer ? <section className="textbook-book-answer"><span>原书保留内容</span><div className="textbook-answer-html" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.answer.html) }} /></section> : null}
+                    {hasBookAnswer ? <section className="textbook-book-answer"><span>原书保留内容</span><div className="textbook-answer-html" data-study-annotatable="true" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.answer.html) }} /></section> : null}
                     <section className="textbook-verified-answer">
                       <header><span>独立核验补充</span><small>非原书答案</small></header>
-                      <div className="textbook-answer-html" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.answer.verifiedHtml || "") }} />
+                      <div className="textbook-answer-html" data-study-annotatable="true" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.answer.verifiedHtml || "") }} />
                       {question.answer.explanation ? <p className="textbook-verified-note">核验说明：{question.answer.explanation}</p> : null}
                     </section>
                   </div>
                 );
               })() : <div className="textbook-answer-closed"><strong>先独立作答</strong><span>点击“显示”后查看原书保留内容或独立核验补充。</span></div>}
+              </StudyAnnotationSurface>
             </section>
 
             <section className="textbook-question-context">

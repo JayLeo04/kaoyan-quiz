@@ -8,7 +8,7 @@
   ],
   "updates": [
     {
-      "id": "ds-yan-practice-4-1",
+      "id": "book-ds-yan-practice-4-4-1",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -24,7 +24,7 @@
       }
     },
     {
-      "id": "ds-yan-practice-4-2",
+      "id": "book-ds-yan-practice-4-4-2",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -45,7 +45,7 @@
       }
     },
     {
-      "id": "ds-yan-practice-4-3",
+      "id": "book-ds-yan-practice-4-4-3",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -66,7 +66,7 @@
       }
     },
     {
-      "id": "ds-yan-practice-4-4",
+      "id": "book-ds-yan-practice-4-4-4",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -82,7 +82,7 @@
       }
     },
     {
-      "id": "ds-yan-practice-5-1",
+      "id": "book-ds-yan-practice-5-5-1",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -96,7 +96,7 @@
       }
     },
     {
-      "id": "ds-yan-practice-5-2",
+      "id": "book-ds-yan-practice-5-5-2",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -115,7 +115,7 @@
       }
     },
     {
-      "id": "ds-yan-practice-5-3",
+      "id": "book-ds-yan-practice-5-5-3",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -129,7 +129,7 @@
       }
     },
     {
-      "id": "ds-yan-practice-5-4",
+      "id": "book-ds-yan-practice-5-5-4",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -148,7 +148,7 @@
       }
     },
     {
-      "id": "ds-yan-practice-5-5",
+      "id": "book-ds-yan-practice-5-5-5",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -162,7 +162,7 @@
       }
     },
     {
-      "id": "ds-yan-practice-5-6",
+      "id": "book-ds-yan-practice-5-5-6",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -176,7 +176,7 @@
       }
     },
     {
-      "id": "ds-yan-practice-5-7",
+      "id": "book-ds-yan-practice-5-5-7",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -190,7 +190,7 @@
       }
     },
     {
-      "id": "ds-yan-practice-5-8",
+      "id": "book-ds-yan-practice-5-5-8",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -209,7 +209,7 @@
       }
     },
     {
-      "id": "book-ds-yan-practice-6-6.1",
+      "id": "book-ds-yan-practice-6-6-1",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -223,7 +223,7 @@
       }
     },
     {
-      "id": "book-ds-yan-practice-6-6.2",
+      "id": "book-ds-yan-practice-6-6-2",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -237,7 +237,7 @@
       }
     },
     {
-      "id": "book-ds-yan-practice-6-6.3",
+      "id": "book-ds-yan-practice-6-6-3",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -251,7 +251,7 @@
       }
     },
     {
-      "id": "book-ds-yan-practice-6-6.4",
+      "id": "book-ds-yan-practice-6-6-4",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -265,7 +265,7 @@
       }
     },
     {
-      "id": "book-ds-yan-practice-6-6.5",
+      "id": "book-ds-yan-practice-6-6-5",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -279,7 +279,7 @@
       }
     },
     {
-      "id": "book-ds-yan-practice-6-6.6",
+      "id": "book-ds-yan-practice-6-6-6",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -293,7 +293,7 @@
       }
     },
     {
-      "id": "book-ds-yan-practice-6-6.7",
+      "id": "book-ds-yan-practice-6-6-7",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -304,20 +304,6 @@
         "status": "passed",
         "resolvedFlagCodes": [],
         "notes": "已补入多关键字 LSD 排序的两种策略及综合比较方案。"
-      }
-    },
-    {
-      "id": "book-ds-yan-practice-6-report-6.6",
-      "answer": {
-        "status": "provided",
-        "origin": "verified",
-        "verified": "**独立参考解答（非原书摘录）**\n\n这是实习报告示例而非有唯一数值答案的编程题；独立核验应给出可复现实验结论，不能把示例表中的随机数结果当作通用标准。报告至少写明表长和测试组数、每组数据构造和随机种子、六种排序的精确版本、比较和移动的计数口径、每种算法前从同一基准副本恢复、排序性和排列守卫，以及汇总表和解释。\n\n示例中可直接核验的量包括：n=400 时简单选择排序的比较次数恒为 400 乘 399 再除以 2，即 79800；带提前结束的起泡排序在正序上应为 399 次比较、0 次交换；若插入排序把暂存和写回均计移动，正序的 399 次插入给出 798 次移动。这些与表中对应数字一致。快速、希尔、堆的具体计数取决于枢轴、增量、堆的子结点选择、随机序列和是否计临时赋值，未声明这些条件不能从理论推导唯一数字。\n\n可执行的报告基线是：Less 是唯一关键字比较入口并递增 comparison；Move 是唯一关键字赋值入口并递增 move；Swap 由三次 Move 组成；每组数据分别运行六种排序并在每次运行前恢复基准数组。最大堆下滤必须选择两个孩子中较大的一个，再与暂存根比较；完成后验证数组非降且元素多重集未变。解释要区分算法阶与输入敏感性：选择比较固定，起泡和插入对逆序、乱序高度敏感，快速平均较少但有 O(n^2) 最坏，希尔依赖增量，堆为 O(n log n) 且波动较小。六算法原地工作空间通常 O(1)，快速另有递归栈。\n\n若要复现示例，必须补充伪随机发生器、种子、编译器和所有排序细节；否则只能核验上述不变量和趋势，不能安全断言每个随机相关数字为唯一正确值。",
-        "explanation": "按可复现实验标准核验报告示例，区分可由不变量验证的数值与依赖未给定随机或实现细节的数值。"
-      },
-      "review": {
-        "status": "passed",
-        "resolvedFlagCodes": [],
-        "notes": "已补入实习报告示例的独立核验口径与可复现结论。"
       }
     }
   ],

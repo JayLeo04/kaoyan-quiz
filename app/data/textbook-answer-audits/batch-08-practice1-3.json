@@ -8,7 +8,7 @@
   ],
   "updates": [
     {
-      "id": "practice-1-2",
+      "id": "book-ds-yan-practice-1-1-2",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -17,12 +17,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补充独立的循环链表模拟与测试次序，未改动原书题库。"
       }
     },
     {
-      "id": "practice-1-3",
+      "id": "book-ds-yan-practice-1-1-3",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -31,12 +33,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补充独立的有序链表归并算法、输入约束和可核验测试结果。"
       }
     },
     {
-      "id": "practice-1-4",
+      "id": "book-ds-yan-practice-1-1-4",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -45,12 +49,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补充任意长度加法的独立实现方案和全部关键边界。"
       }
     },
     {
-      "id": "practice-1-5",
+      "id": "book-ds-yan-practice-1-1-5",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -64,12 +70,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补充稀疏多项式建立、相加、相减、零多项式和复杂度的独立解答。"
       }
     },
     {
-      "id": "practice-1-6",
+      "id": "book-ds-yan-practice-1-1-6",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -78,7 +86,9 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补充池塘夜雨的事件状态管理方案，未假定特定图形 API。"
       }
     },
@@ -92,7 +102,9 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补充停车场模拟、让路恢复、费用计算和测试事件核验。"
       }
     },
@@ -111,7 +123,9 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补充魔王语言解释器的独立算法、非法输入条件和给定测试核验。"
       }
     },
@@ -125,7 +139,9 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补充车厢调度的递归枚举、打印方式、正确性和复杂度。"
       }
     },
@@ -139,7 +155,9 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补充马踏棋盘的非递归完整回溯算法和可核验路线条件。"
       }
     },
@@ -153,7 +171,9 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补充算符优先求值的独立算法和测试表达式的核验。"
       }
     },
@@ -172,7 +192,9 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补充银行业务事件驱动模拟的独立可执行流程和边界处理。"
       }
     },
@@ -186,7 +208,9 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补充航空订票、查询、退票和候补处理的独立方案。"
       }
     },
@@ -200,7 +224,9 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补充五层单梯的事件驱动模拟状态机和完整时序管理。"
       }
     },
@@ -214,12 +240,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
         "notes": "已补充迷宫求解、方向三元组输出和来源坐标冲突的安全处理；既有来源冲突标记保持开放。"
       }
     },
     {
-      "id": "book-ds-yan-practice-3-3.1",
+      "id": "book-ds-yan-practice-3-3-1",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -228,12 +256,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["PRACTICE_3_ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "PRACTICE_3_ANSWER_MISSING"
+        ],
         "notes": "已补充文学研究助手的独立单遍统计方案、输出定义和复杂度。"
       }
     },
     {
-      "id": "book-ds-yan-practice-3-3.2",
+      "id": "book-ds-yan-practice-3-3-2",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -242,12 +272,14 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["PRACTICE_3_ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "PRACTICE_3_ANSWER_MISSING"
+        ],
         "notes": "已补充文本格式化器的独立版面算法、边界和复杂度。"
       }
     },
     {
-      "id": "book-ds-yan-practice-3-3.3",
+      "id": "book-ds-yan-practice-3-3-3",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -261,31 +293,35 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["PRACTICE_3_ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "PRACTICE_3_ANSWER_MISSING"
+        ],
         "notes": "已补充简单行编辑器的活区数据结构、四条命令和边界行为。"
       }
     },
     {
-      "id": "book-ds-yan-practice-3-3.4",
+      "id": "book-ds-yan-practice-3-3-4",
       "answer": {
         "status": "provided",
         "origin": "verified",
         "verified": "**独立参考解答（非原书摘录）**\n\n以堆分配串 `HString={char *ch; int length;}` 实现 ADT，`length=0` 时也保留一个可释放的最小分配块。不得调用 C 串库：`CopyChars`、`EqualAt`、整数解析和字符串字面量解析均逐字符循环。所有产生串的操作先分配并填充新块，成功后才交给目标，故参数别名或内存分配失败不会破坏原串。\n\n~~~c\nStatus StrAssign(HString *t, const char a[], int n);\nint StrCompare(HString s, HString t);             // 字典序，0 表示相等\nStatus Concat(HString *r, HString a, HString b);  // 长度 |a|+|b|\nStatus SubString(HString *r, HString s, int pos, int len) {\n    if (pos < 1 || len < 0 || pos + len - 1 > s.length) return ERROR;\n    return StrAssign(r, s.ch + pos - 1, len);\n}\nint Index(HString s, HString pat) {\n    if (pat.length == 0) return ERROR;\n    for (int i = 0; i + pat.length <= s.length; ++i)\n        if (EqualAt(s,i,pat)) return i + 1;\n    return 0;\n}\nStatus Replace(HString *r, HString s, HString pat, HString repl) {\n    if (pat.length == 0) return ERROR;\n    Builder b; InitBuilder(&b);\n    for (int i = 0; i < s.length; ) {\n        if (i + pat.length <= s.length && EqualAt(s,i,pat)) { AppendString(&b,repl); i += pat.length; }\n        else AppendChar(&b,s.ch[i++]);\n    }\n    return FinishBuilder(&b,r);\n}\n~~~\n\n命令解释器使用 `StrHead[100]`、`used[100]` 和 `CurNum`；`FindFree` 找未占槽位，槽位下标即内部名。`Resolve` 将已定义内部名取为实参，或解析单引号文字（连续两个单引号译为一个单引号）后新建槽位。`A,E,C,L,S,I,R,P,D,Q` 分别调用赋值、比较、联接、长度、子串、定位、替换、显示、销毁和退出；`C/S/R` 的结果均取新槽位，`D` 释放块并标为未定义。缺少实参、未定义名、槽位已满、非法位置/长度、空模式和分配失败都必须报错且不改变既有表。\n\n替换采用从左到右的**不重叠**语义：`R 'aaa' 'aa' 'b'` 得 `ba`，`R 'aaabc' 'a' 'aab'` 得 `aabaabbc`。按命令文法，联接必须有两个串实参，空串联接可写为两个空文字并输出空串。定位空模式按测试要求报参数非法。比较、子串为 O(n)，朴素定位 O(|s||pat|)，替换为 O(|s||pat|+|结果|)，额外空间为结果串和表中持久串。\n\n题面最后一组文字若确为 8 个 `a`，则上述确定的不重叠语义应得到 `ababaa`，而非其列出的 `abab`；后者与 6 个 `a` 的输入相符。该测试字符数或期望值需回查来源，不能以静默丢弃尾部字符来迎合它。",
         "explanation": "实现堆串 ADT 与全部命令，明确参数检查、字面量转义、独立结果分配和可复核的不重叠替换语义。",
         "correction": {
-          "verified": "**独立审校修正（非原书摘录）**\n\n以堆分配 `HString={char *ch; int length;}` 实现串 ADT，空串也持有可释放的最小块。所有复制、比较、数值和字面量解析均逐字符完成，不调用 C 串库；产生串的操作先分配并写满新块，成功后才替换目标，故别名和分配失败都不破坏旧串。\n\n~~~c\nStatus StrAssign(HString *t, const char a[], int n);\nint StrCompare(HString s, HString t);\nStatus Concat(HString *r, HString a, HString b);\nStatus SubString(HString *r, HString s, int pos, int len) {\n    if (pos < 1 || len < 0 || pos + len - 1 > s.length) return ERROR;\n    return StrAssign(r,s.ch+pos-1,len);\n}\nint Index(HString s, HString pat) {\n    if (pat.length == 0) return ERROR;\n    for (int i=0; i+pat.length<=s.length; ++i)\n        if (EqualAt(s,i,pat)) return i+1;\n    return 0;\n}\nStatus Replace(HString *r, HString s, HString pat, HString repl) {\n    if (pat.length == 0) return ERROR;\n    Builder b; InitBuilder(&b);\n    for (int i=0; i<s.length; ) {\n        if (i+pat.length<=s.length && EqualAt(s,i,pat)) {\n            AppendString(&b,repl); i += pat.length;\n        } else AppendChar(&b,s.ch[i++]);\n    }\n    return FinishBuilder(&b,r);\n}\n~~~\n\n命令表为 `StrHead[100]`、`used[100]`、`CurNum`；槽位下标是内部名。`Resolve` 取得已定义内部名，或解析单引号文字（连续两个单引号代表一个单引号）并建新槽位。`A,E,C,L,S,I,R,P,D,Q` 分别执行赋值、比较、联接、长度、子串、定位、替换、显示、销毁、退出；`C/S/R` 的结果必占新槽位，`D` 释放后标为未定义。缺参、未定义名、槽满、非法位置或长度、空模式、分配失败均报错且不改变既有表。空串定位按题设报参数非法；联接有两个实参，空串联接应提供两个空文字。\n\nReplace 明确采用从左到右的**不重叠**语义：`R 'aaa' 'aa' 'b'` 得 `ba`；`R 'aaabc' 'a' 'aab'` 的字面输入含三个 `a`，正确结果为 `aabaabaabbc`；`R 'aaaaaaaa' 'aaa' 'ab'` 的字面输入含八个 `a`，正确结果为 `ababaa`。题面分别列为 `aabaabbc` 与 `abab`，前者对应 `aabc`，后者对应六个 `a`，均与给定输入不一致；不能为迎合这些期望而丢弃尾部字符。\n\n比较、子串为 O(n)，朴素定位 O(|s||pat|)，替换 O(|s||pat|+|结果|)，额外空间为结果串和表中持久串。逐字符循环保证扫描位置单调前进，故每次匹配只替换一个不重叠出现，原串不变，结果语义可验证。",
-          "explanation": "更正第二组替换样例，并同时保留两处题面测试输入与期望不一致的独立审校结论。",
-          "reason": "交叉复审发现原草稿错误接受 aaabc 替换后的题面期望值；按自身声明的不重叠算法应为 aabaabaabbc。"
+          "verified": "**独立审校修正（非原书摘录）**\n\n以堆分配 `HString={char *ch; int length;}` 实现串 ADT，空串也持有可释放的最小块。所有复制、比较、数值和字面量解析均逐字符完成，不调用 C 串库；产生串的操作先分配并写满新块，成功后才替换目标，故别名和分配失败都不破坏旧串。\n\n~~~c\nStatus StrAssign(HString *t, const char a[], int n);\nint StrCompare(HString s, HString t);\nStatus Concat(HString *r, HString a, HString b);\nStatus SubString(HString *r, HString s, int pos, int len) {\n    if (pos < 1 || len < 0 || pos + len - 1 > s.length) return ERROR;\n    return StrAssign(r,s.ch+pos-1,len);\n}\nint Index(HString s, HString pat) {\n    if (pat.length == 0) return ERROR;\n    for (int i=0; i+pat.length<=s.length; ++i)\n        if (EqualAt(s,i,pat)) return i+1;\n    return 0;\n}\nStatus Replace(HString *r, HString s, HString pat, HString repl) {\n    if (pat.length == 0) return ERROR;\n    Builder b; InitBuilder(&b);\n    for (int i=0; i<s.length; ) {\n        if (i+pat.length<=s.length && EqualAt(s,i,pat)) {\n            AppendString(&b,repl); i += pat.length;\n        } else AppendChar(&b,s.ch[i++]);\n    }\n    return FinishBuilder(&b,r);\n}\n~~~\n\n命令表为 `StrHead[100]`、`used[100]`、`CurNum`；槽位下标是内部名。`Resolve` 取得已定义内部名，或解析单引号文字（连续两个单引号代表一个单引号）并建新槽位。`A,E,C,L,S,I,R,P,D,Q` 分别执行赋值、比较、联接、长度、子串、定位、替换、显示、销毁、退出；`C/S/R` 的结果必占新槽位，`D` 释放后标为未定义。缺参、未定义名、槽满、非法位置或长度、空模式、分配失败均报错且不改变既有表。空串定位按题设报参数非法；联接有两个实参，空串联接应提供两个空文字。\n\nReplace 明确采用从左到右的**不重叠**语义：`R 'aaa' 'aa' 'b'` 得 `ba`；`R 'aaabc' 'a' 'aab'` 得 `aabaabaabbc`；`R 'aaaaaaaa' 'aaaa' 'ab'` 得 `abab`。三组结果均与 PDF 第 125 页原始测试数据一致。\n\n比较、子串为 O(n)，朴素定位 O(|s||pat|)，替换 O(|s||pat|+|结果|)，额外空间为结果串和表中持久串。逐字符循环保证扫描位置单调前进，故每次匹配只替换一个不重叠出现，原串不变，结果语义可验证。",
+          "explanation": "更正替换样例，并以 PDF 第 125 页原始测试数据完成逐字符复核。",
+          "reason": "交叉复审暴露两处疑似矛盾；回查 PDF 后确认是 Markdown 转写分别漏写一个 aab 和一个 a，现已修复源稿并同步核验答案。"
         }
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["PRACTICE_3_ANSWER_MISSING"],
-        "notes": "已补充 HString 基本操作和命令解释器；保留测试第 7 组的可核验文本/期望值矛盾。"
+        "resolvedFlagCodes": [
+          "PRACTICE_3_ANSWER_MISSING"
+        ],
+        "notes": "已补充 HString 基本操作和命令解释器；PDF 第 125 页两处测试数据已回查并修正转写。"
       }
     },
     {
-      "id": "book-ds-yan-practice-3-3.5",
+      "id": "book-ds-yan-practice-3-3-5",
       "answer": {
         "status": "provided",
         "origin": "verified",
@@ -299,15 +335,12 @@
       },
       "review": {
         "status": "passed",
-        "resolvedFlagCodes": ["PRACTICE_3_ANSWER_MISSING"],
+        "resolvedFlagCodes": [
+          "PRACTICE_3_ANSWER_MISSING"
+        ],
         "notes": "已补充程序风格分析器的独立单遍算法、函数计数与等级计算。"
       }
     }
   ],
-  "unresolved": [
-    {
-      "id": "book-ds-yan-practice-3-3.4",
-      "reason": "题面替换测试有两处输入与期望不一致：aaabc 用单字符 a 替换为 aab 的不重叠结果应为 aabaabaabbc，而非 aabaabbc；8 个 a 用 aaa 替换为 ab 的结果应为 ababaa，而非 abab。已提供完整实现，但需回查原始题面以确认各组的输入字符数或期望输出是否有转写错误。"
-    }
-  ]
+  "unresolved": []
 }

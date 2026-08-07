@@ -3,5 +3,5 @@ import { createTextbookPracticeLibraryPayload, dataStructuresTextbook } from "@/
 
 export default async function DataStructuresPracticePage({ searchParams }: { searchParams: Promise<{ chapter?: string }> }) {
   const { chapter } = await searchParams;
-  return <TextbookPracticeWorkspace library={createTextbookPracticeLibraryPayload(dataStructuresTextbook)} initialChapterId={chapter} />;
+  return <TextbookPracticeWorkspace library={createTextbookPracticeLibraryPayload(dataStructuresTextbook, chapter)} initialChapterId={chapter} />;
 }

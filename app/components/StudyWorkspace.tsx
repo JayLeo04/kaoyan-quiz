@@ -7,6 +7,7 @@ import { marked, Renderer } from "marked";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AppHeader } from "@/app/components/AppHeader";
 import { MermaidCodeBlocks } from "@/app/components/MermaidCodeBlocks";
+import { StudyAnnotationSurface } from "@/app/components/StudyTools";
 import {
   knowledgeById,
   questionSeeds,
@@ -31,6 +32,7 @@ import {
   type PracticeProgress,
   type QuestionNotes,
 } from "@/app/lib/local-study-data";
+import type { LearningResource } from "@/app/lib/local-learning-library";
 import { siteAssetPath, withSiteAssetPaths } from "@/app/lib/site-path";
 
 type SubjectQuestion = StudyQuestion & { subject: SubjectId };
@@ -194,6 +196,13 @@ function renderQuestionNoteMarkdown(value: string) {
   }
 }
 
+function nonInteractiveQuestionPreview(html: string) {
+  return withSiteAssetPaths(html)
+    .replace(/<a\b[^>]*>/gi, "")
+    .replace(/<\/a>/gi, "")
+    .replace(/<img\b[^>]*>/gi, '<span class="question-preview-image">含题图</span>');
+}
+
 function HomePage({ progress }: { progress: PracticeProgress }) {
   const completedSet = new Set(progress.completed);
   return (
@@ -248,7 +257,12 @@ function SubjectQuestionCard({ question, progress }: { question: SubjectQuestion
         <span>{question.year || "专项"} · {questionTypeLabel(question)}</span>
         <span>{saved ? "◆ " : ""}{attempt ? (attempt.correct === false ? "答错" : attempt.correct === true ? "答对" : "已作答") : done ? "✓" : ""}</span>
       </div>
-      <h3>{question.prompt}</h3>
+      {question.promptHtml ? (
+        <div
+          className="question-card-markdown subject-question-card-markdown"
+          dangerouslySetInnerHTML={{ __html: nonInteractiveQuestionPreview(question.promptHtml) }}
+        />
+      ) : <p className="question-card-markdown subject-question-card-markdown">{question.prompt}</p>}
       <div className="card-bottom"><span>{question.tags.slice(0, 2).join(" · ") || question.section}</span><b>作答 →</b></div>
     </Link>
   );
@@ -906,6 +920,18 @@ function QuestionPage({
   const completed = progress.completed.includes(question.id);
   const bookmarked = progress.bookmarks.includes(question.id);
   const savedAttempt = progress.attempts[question.id];
+  const promptResource = useMemo<LearningResource>(() => ({
+    id: `question:${question.id}:prompt`,
+    kind: "question",
+    title: `${question.number}题干`,
+    href: `/question/${question.id}`,
+    context: subject.name,
+  }), [question.id, question.number, subject.name]);
+  const solutionResource = useMemo<LearningResource>(() => ({
+    ...promptResource,
+    id: `question:${question.id}:solution`,
+    title: `${question.number}解析`,
+  }), [promptResource, question.id, question.number]);
   const save = (value: PracticeProgress) => updateProgress(value);
   const toggleCompleted = () => save({ ...progress, completed: completed ? progress.completed.filter((id) => id !== question.id) : [...progress.completed, question.id] });
   const toggleBookmark = () => save({ ...progress, bookmarks: bookmarked ? progress.bookmarks.filter((id) => id !== question.id) : [...progress.bookmarks, question.id] });
@@ -951,11 +977,13 @@ function QuestionPage({
             <div className="question-content-scroll">
               <p className="page-label">{question.number}</p>
               <h1>{question.title}</h1>
-              {question.promptHtml ? (
-                <div className="question-rich-html single-prompt" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.promptHtml) }} />
-              ) : (
-                <p className="single-prompt">{question.prompt}</p>
-              )}
+              <StudyAnnotationSurface resource={promptResource} contentKey={`${question.id}:prompt:${question.promptHtml?.length || question.prompt.length}`} className="question-annotation-surface">
+                {question.promptHtml ? (
+                  <div className="question-rich-html single-prompt" data-study-annotatable="true" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.promptHtml) }} />
+                ) : (
+                  <p className="single-prompt" data-study-annotatable="true">{question.prompt}</p>
+                )}
+              </StudyAnnotationSurface>
               {!question.promptHtml && question.images.length ? <div className="single-images">{question.images.map((src, index) => <img key={src} src={siteAssetPath(src)} alt={`${question.number} 题图 ${index + 1}`} />)}</div> : null}
               {question.options.length ? (
                 <div className="single-options" role="group" aria-label="请选择答案">
@@ -991,7 +1019,9 @@ function QuestionPage({
                 <div className="answer-reveal-panel">
                   <div className="answer-reveal-head"><span>参考答案{savedAttempt ? ` · ${new Date(savedAttempt.answeredAt).toLocaleString("zh-CN", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })}` : ""}</span><strong>{question.answer || "解题思路"}</strong></div>
                   <div className="answer-scroll">
-                    {question.solutionHtml ? <div className="solution-rich-html" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.solutionHtml) }} /> : <p>{question.solution || "这道题暂未录入解析，请结合知识点自行复盘。"}</p>}
+                    <StudyAnnotationSurface resource={solutionResource} contentKey={`${question.id}:solution:${question.solutionHtml?.length || question.solution?.length || 0}`} className="question-solution-annotation" showHint={false}>
+                      {question.solutionHtml ? <div className="solution-rich-html" data-study-annotatable="true" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.solutionHtml) }} /> : <p data-study-annotatable="true">{question.solution || "这道题暂未录入解析，请结合知识点自行复盘。"}</p>}
+                    </StudyAnnotationSurface>
                     <KnowledgeLinks question={question} />
                   </div>
                 </div>

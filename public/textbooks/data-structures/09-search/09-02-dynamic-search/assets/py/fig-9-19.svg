@@ -1,47 +1,127 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="320" viewBox="0 0 960 320">
-<style>text{font-family:Arial,"Microsoft YaHei",sans-serif;font-size:17px} .t{font-weight:bold;font-size:21px}.n{fill:#fff;stroke:#111;stroke-width:2}.e{stroke:#111;stroke-width:2;fill:none}</style>
-<text class="t" x="28" y="34">图9.19 键字集的键树</text>
-<path class="e" d="M80 113 L240 77"/>
-<path class="e" d="M80 113 L400 77"/>
-<path class="e" d="M80 113 L560 77"/>
-<path class="e" d="M80 113 L720 77"/>
-<path class="e" d="M80 113 L880 77"/>
-<path class="e" d="M240 113 L80 147"/>
-<path class="e" d="M240 113 L240 147"/>
-<path class="e" d="M400 113 L400 147"/>
-<path class="e" d="M560 113 L560 147"/>
-<path class="e" d="M720 113 L720 147"/>
-<path class="e" d="M880 113 L880 147"/>
-<path class="e" d="M80 183 L80 217"/>
-<path class="e" d="M240 183 L80 217"/>
-<path class="e" d="M400 183 L80 217"/>
-<path class="e" d="M560 183 L80 217"/>
-<path class="e" d="M720 183 L80 217"/>
-<path class="e" d="M880 183 L80 217"/>
-<rect class="n" x="25" y="75" rx="13" width="110" height="40"/>
-<text x="80" y="101" text-anchor="middle">root</text>
-<rect class="n" x="185" y="75" rx="13" width="110" height="40"/>
-<text x="240" y="101" text-anchor="middle">C</text>
-<rect class="n" x="345" y="75" rx="13" width="110" height="40"/>
-<text x="400" y="101" text-anchor="middle">L</text>
-<rect class="n" x="505" y="75" rx="13" width="110" height="40"/>
-<text x="560" y="101" text-anchor="middle">W</text>
-<rect class="n" x="665" y="75" rx="13" width="110" height="40"/>
-<text x="720" y="101" text-anchor="middle">Y</text>
-<rect class="n" x="825" y="75" rx="13" width="110" height="40"/>
-<text x="880" y="101" text-anchor="middle">Z</text>
-<rect class="n" x="25" y="145" rx="13" width="110" height="40"/>
-<text x="80" y="171" text-anchor="middle">CAI/CAO</text>
-<rect class="n" x="185" y="145" rx="13" width="110" height="40"/>
-<text x="240" y="171" text-anchor="middle">CHA/CHANG/CHAO/CHEN</text>
-<rect class="n" x="345" y="145" rx="13" width="110" height="40"/>
-<text x="400" y="171" text-anchor="middle">LI/LAN/LONG/LIU</text>
-<rect class="n" x="505" y="145" rx="13" width="110" height="40"/>
-<text x="560" y="171" text-anchor="middle">WEN/WANG/WU</text>
-<rect class="n" x="665" y="145" rx="13" width="110" height="40"/>
-<text x="720" y="171" text-anchor="middle">YANG/YUN</text>
-<rect class="n" x="825" y="145" rx="13" width="110" height="40"/>
-<text x="880" y="171" text-anchor="middle">ZHAO</text>
-<rect class="n" x="25" y="215" rx="13" width="110" height="40"/>
-<text x="80" y="241" text-anchor="middle">$</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="475" viewBox="0 0 1000 475">
+<style>text{font-family:Arial,"Microsoft YaHei",sans-serif;fill:#111}.title{font-size:22px;font-weight:bold}.n,.b{fill:#fff;stroke:#111;stroke-width:1.7}.e{stroke:#111;stroke-width:1.5;fill:none}.lab{font-size:13px;font-weight:bold}.cap{font-size:12px}</style>
+<text class="title" x="24" y="28">图 9.19  表示式 (9-24) 关键字集的一棵键树</text>
+<path class="e" d="M500 55 L144.0 125"/>
+<path class="e" d="M144.0 125 L95.45454545454545 181"/>
+<path class="e" d="M95.45454545454545 181 L86.78571428571428 237"/>
+<path class="e" d="M86.78571428571428 237 L86.78571428571428 293"/>
+<path class="e" d="M500 55 L144.0 125"/>
+<path class="e" d="M144.0 125 L95.45454545454545 181"/>
+<path class="e" d="M95.45454545454545 181 L150.35714285714286 237"/>
+<path class="e" d="M150.35714285714286 237 L150.35714285714286 293"/>
+<path class="e" d="M500 55 L322.0 125"/>
+<path class="e" d="M322.0 125 L176.36363636363637 181"/>
+<path class="e" d="M176.36363636363637 181 L213.92857142857142 237"/>
+<path class="e" d="M500 55 L322.0 125"/>
+<path class="e" d="M322.0 125 L257.27272727272725 181"/>
+<path class="e" d="M257.27272727272725 181 L277.5 237"/>
+<path class="e" d="M277.5 237 L213.92857142857142 293"/>
+<path class="e" d="M500 55 L144.0 125"/>
+<path class="e" d="M144.0 125 L338.1818181818182 181"/>
+<path class="e" d="M338.1818181818182 181 L341.07142857142856 237"/>
+<path class="e" d="M341.07142857142856 237 L277.5 293"/>
+<path class="e" d="M500 55 L144.0 125"/>
+<path class="e" d="M144.0 125 L338.1818181818182 181"/>
+<path class="e" d="M338.1818181818182 181 L341.07142857142856 237"/>
+<path class="e" d="M341.07142857142856 237 L341.07142857142856 293"/>
+<path class="e" d="M341.07142857142856 293 L118.57142857142857 349"/>
+<path class="e" d="M118.57142857142857 349 L500.0 405"/>
+<path class="e" d="M500 55 L500.0 125"/>
+<path class="e" d="M500.0 125 L419.09090909090907 181"/>
+<path class="e" d="M419.09090909090907 181 L404.64285714285717 237"/>
+<path class="e" d="M404.64285714285717 237 L404.64285714285717 293"/>
+<path class="e" d="M500 55 L144.0 125"/>
+<path class="e" d="M144.0 125 L338.1818181818182 181"/>
+<path class="e" d="M338.1818181818182 181 L341.07142857142856 237"/>
+<path class="e" d="M341.07142857142856 237 L468.2142857142857 293"/>
+<path class="e" d="M468.2142857142857 293 L245.71428571428572 349"/>
+<path class="e" d="M500 55 L678.0 125"/>
+<path class="e" d="M678.0 125 L500.0 181"/>
+<path class="e" d="M500.0 181 L468.2142857142857 237"/>
+<path class="e" d="M468.2142857142857 237 L531.7857142857142 293"/>
+<path class="e" d="M500 55 L678.0 125"/>
+<path class="e" d="M678.0 125 L580.9090909090909 181"/>
+<path class="e" d="M580.9090909090909 181 L531.7857142857142 237"/>
+<path class="e" d="M531.7857142857142 237 L595.3571428571429 293"/>
+<path class="e" d="M595.3571428571429 293 L372.85714285714283 349"/>
+<path class="e" d="M500 55 L322.0 125"/>
+<path class="e" d="M322.0 125 L661.8181818181819 181"/>
+<path class="e" d="M661.8181818181819 181 L595.3571428571429 237"/>
+<path class="e" d="M595.3571428571429 237 L658.9285714285714 293"/>
+<path class="e" d="M658.9285714285714 293 L500.0 349"/>
+<path class="e" d="M500 55 L500.0 125"/>
+<path class="e" d="M500.0 125 L742.7272727272727 181"/>
+<path class="e" d="M742.7272727272727 181 L658.9285714285714 237"/>
+<path class="e" d="M658.9285714285714 237 L722.5 293"/>
+<path class="e" d="M722.5 293 L627.1428571428571 349"/>
+<path class="e" d="M500 55 L856.0 125"/>
+<path class="e" d="M856.0 125 L823.6363636363636 181"/>
+<path class="e" d="M823.6363636363636 181 L722.5 237"/>
+<path class="e" d="M722.5 237 L786.0714285714286 293"/>
+<path class="e" d="M786.0714285714286 293 L754.2857142857143 349"/>
+<path class="e" d="M500 55 L322.0 125"/>
+<path class="e" d="M322.0 125 L176.36363636363637 181"/>
+<path class="e" d="M176.36363636363637 181 L786.0714285714286 237"/>
+<path class="e" d="M786.0714285714286 237 L849.6428571428571 293"/>
+<path class="e" d="M500 55 L500.0 125"/>
+<path class="e" d="M500.0 125 L904.5454545454545 181"/>
+<path class="e" d="M904.5454545454545 181 L849.6428571428571 237"/>
+<path class="e" d="M500 55 L144.0 125"/>
+<path class="e" d="M144.0 125 L338.1818181818182 181"/>
+<path class="e" d="M338.1818181818182 181 L913.2142857142857 237"/>
+<path class="e" d="M913.2142857142857 237 L913.2142857142857 293"/>
+<path class="e" d="M913.2142857142857 293 L881.4285714285714 349"/>
+<circle class="n" cx="500" cy="55" r="17"/><text class="lab" x="500" y="60" text-anchor="middle"></text>
+<circle class="n" cx="144.0" cy="125" r="17"/><text class="lab" x="144.0" y="130" text-anchor="middle">C</text>
+<circle class="n" cx="95.45454545454545" cy="181" r="17"/><text class="lab" x="95.45454545454545" y="186" text-anchor="middle">A</text>
+<circle class="n" cx="86.78571428571428" cy="237" r="17"/><text class="lab" x="86.78571428571428" y="242" text-anchor="middle">I</text>
+<circle class="n" cx="86.78571428571428" cy="293" r="17"/><text class="lab" x="86.78571428571428" y="298" text-anchor="middle">$</text>
+<circle class="n" cx="150.35714285714286" cy="237" r="17"/><text class="lab" x="150.35714285714286" y="242" text-anchor="middle">O</text>
+<circle class="n" cx="150.35714285714286" cy="293" r="17"/><text class="lab" x="150.35714285714286" y="298" text-anchor="middle">$</text>
+<circle class="n" cx="322.0" cy="125" r="17"/><text class="lab" x="322.0" y="130" text-anchor="middle">L</text>
+<circle class="n" cx="176.36363636363637" cy="181" r="17"/><text class="lab" x="176.36363636363637" y="186" text-anchor="middle">I</text>
+<circle class="n" cx="213.92857142857142" cy="237" r="17"/><text class="lab" x="213.92857142857142" y="242" text-anchor="middle">$</text>
+<circle class="n" cx="257.27272727272725" cy="181" r="17"/><text class="lab" x="257.27272727272725" y="186" text-anchor="middle">A</text>
+<circle class="n" cx="277.5" cy="237" r="17"/><text class="lab" x="277.5" y="242" text-anchor="middle">N</text>
+<circle class="n" cx="213.92857142857142" cy="293" r="17"/><text class="lab" x="213.92857142857142" y="298" text-anchor="middle">$</text>
+<circle class="n" cx="338.1818181818182" cy="181" r="17"/><text class="lab" x="338.1818181818182" y="186" text-anchor="middle">H</text>
+<circle class="n" cx="341.07142857142856" cy="237" r="17"/><text class="lab" x="341.07142857142856" y="242" text-anchor="middle">A</text>
+<circle class="n" cx="277.5" cy="293" r="17"/><text class="lab" x="277.5" y="298" text-anchor="middle">$</text>
+<circle class="n" cx="341.07142857142856" cy="293" r="17"/><text class="lab" x="341.07142857142856" y="298" text-anchor="middle">N</text>
+<circle class="n" cx="118.57142857142857" cy="349" r="17"/><text class="lab" x="118.57142857142857" y="354" text-anchor="middle">G</text>
+<circle class="n" cx="500.0" cy="405" r="17"/><text class="lab" x="500.0" y="410" text-anchor="middle">$</text>
+<circle class="n" cx="500.0" cy="125" r="17"/><text class="lab" x="500.0" y="130" text-anchor="middle">W</text>
+<circle class="n" cx="419.09090909090907" cy="181" r="17"/><text class="lab" x="419.09090909090907" y="186" text-anchor="middle">E</text>
+<circle class="n" cx="404.64285714285717" cy="237" r="17"/><text class="lab" x="404.64285714285717" y="242" text-anchor="middle">N</text>
+<circle class="n" cx="404.64285714285717" cy="293" r="17"/><text class="lab" x="404.64285714285717" y="298" text-anchor="middle">$</text>
+<circle class="n" cx="468.2142857142857" cy="293" r="17"/><text class="lab" x="468.2142857142857" y="298" text-anchor="middle">O</text>
+<circle class="n" cx="245.71428571428572" cy="349" r="17"/><text class="lab" x="245.71428571428572" y="354" text-anchor="middle">$</text>
+<circle class="n" cx="678.0" cy="125" r="17"/><text class="lab" x="678.0" y="130" text-anchor="middle">Y</text>
+<circle class="n" cx="500.0" cy="181" r="17"/><text class="lab" x="500.0" y="186" text-anchor="middle">U</text>
+<circle class="n" cx="468.2142857142857" cy="237" r="17"/><text class="lab" x="468.2142857142857" y="242" text-anchor="middle">N</text>
+<circle class="n" cx="531.7857142857142" cy="293" r="17"/><text class="lab" x="531.7857142857142" y="298" text-anchor="middle">$</text>
+<circle class="n" cx="580.9090909090909" cy="181" r="17"/><text class="lab" x="580.9090909090909" y="186" text-anchor="middle">A</text>
+<circle class="n" cx="531.7857142857142" cy="237" r="17"/><text class="lab" x="531.7857142857142" y="242" text-anchor="middle">N</text>
+<circle class="n" cx="595.3571428571429" cy="293" r="17"/><text class="lab" x="595.3571428571429" y="298" text-anchor="middle">G</text>
+<circle class="n" cx="372.85714285714283" cy="349" r="17"/><text class="lab" x="372.85714285714283" y="354" text-anchor="middle">$</text>
+<circle class="n" cx="661.8181818181819" cy="181" r="17"/><text class="lab" x="661.8181818181819" y="186" text-anchor="middle">O</text>
+<circle class="n" cx="595.3571428571429" cy="237" r="17"/><text class="lab" x="595.3571428571429" y="242" text-anchor="middle">N</text>
+<circle class="n" cx="658.9285714285714" cy="293" r="17"/><text class="lab" x="658.9285714285714" y="298" text-anchor="middle">G</text>
+<circle class="n" cx="500.0" cy="349" r="17"/><text class="lab" x="500.0" y="354" text-anchor="middle">$</text>
+<circle class="n" cx="742.7272727272727" cy="181" r="17"/><text class="lab" x="742.7272727272727" y="186" text-anchor="middle">A</text>
+<circle class="n" cx="658.9285714285714" cy="237" r="17"/><text class="lab" x="658.9285714285714" y="242" text-anchor="middle">N</text>
+<circle class="n" cx="722.5" cy="293" r="17"/><text class="lab" x="722.5" y="298" text-anchor="middle">G</text>
+<circle class="n" cx="627.1428571428571" cy="349" r="17"/><text class="lab" x="627.1428571428571" y="354" text-anchor="middle">$</text>
+<circle class="n" cx="856.0" cy="125" r="17"/><text class="lab" x="856.0" y="130" text-anchor="middle">Z</text>
+<circle class="n" cx="823.6363636363636" cy="181" r="17"/><text class="lab" x="823.6363636363636" y="186" text-anchor="middle">H</text>
+<circle class="n" cx="722.5" cy="237" r="17"/><text class="lab" x="722.5" y="242" text-anchor="middle">A</text>
+<circle class="n" cx="786.0714285714286" cy="293" r="17"/><text class="lab" x="786.0714285714286" y="298" text-anchor="middle">O</text>
+<circle class="n" cx="754.2857142857143" cy="349" r="17"/><text class="lab" x="754.2857142857143" y="354" text-anchor="middle">$</text>
+<circle class="n" cx="786.0714285714286" cy="237" r="17"/><text class="lab" x="786.0714285714286" y="242" text-anchor="middle">U</text>
+<circle class="n" cx="849.6428571428571" cy="293" r="17"/><text class="lab" x="849.6428571428571" y="298" text-anchor="middle">$</text>
+<circle class="n" cx="904.5454545454545" cy="181" r="17"/><text class="lab" x="904.5454545454545" y="186" text-anchor="middle">U</text>
+<circle class="n" cx="849.6428571428571" cy="237" r="17"/><text class="lab" x="849.6428571428571" y="242" text-anchor="middle">$</text>
+<circle class="n" cx="913.2142857142857" cy="237" r="17"/><text class="lab" x="913.2142857142857" y="242" text-anchor="middle">E</text>
+<circle class="n" cx="913.2142857142857" cy="293" r="17"/><text class="lab" x="913.2142857142857" y="298" text-anchor="middle">N</text>
+<circle class="n" cx="881.4285714285714" cy="349" r="17"/><text class="lab" x="881.4285714285714" y="354" text-anchor="middle">$</text>
 </svg>

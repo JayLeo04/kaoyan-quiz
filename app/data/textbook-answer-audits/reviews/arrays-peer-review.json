@@ -1,60 +1,60 @@
 {
   "reviewedFile": "arrays.json",
   "reviewedIds": [
-    "book-ds-yan-05-01",
-    "book-ds-yan-05-14",
-    "book-ds-yan-05-21",
-    "book-ds-yan-05-24",
-    "book-ds-yan-05-25",
-    "book-ds-yan-05-26",
-    "book-ds-yan-05-27",
-    "book-ds-yan-05-28",
-    "book-ds-yan-05-29",
-    "book-ds-yan-05-33",
-    "book-ds-yan-05-38",
-    "book-ds-yan-05-09"
+    "book-ds-yan-05-array-and-generalized-list-5-1",
+    "book-ds-yan-05-array-and-generalized-list-5-14",
+    "book-ds-yan-05-array-and-generalized-list-5-21",
+    "book-ds-yan-05-array-and-generalized-list-5-24",
+    "book-ds-yan-05-array-and-generalized-list-5-25",
+    "book-ds-yan-05-array-and-generalized-list-5-26",
+    "book-ds-yan-05-array-and-generalized-list-5-27",
+    "book-ds-yan-05-array-and-generalized-list-5-28",
+    "book-ds-yan-05-array-and-generalized-list-5-29",
+    "book-ds-yan-05-array-and-generalized-list-5-33",
+    "book-ds-yan-05-array-and-generalized-list-5-38",
+    "book-ds-yan-05-array-and-generalized-list-5-9"
   ],
   "passedIds": [
-    "book-ds-yan-05-01",
-    "book-ds-yan-05-14",
-    "book-ds-yan-05-21",
-    "book-ds-yan-05-24",
-    "book-ds-yan-05-26",
-    "book-ds-yan-05-09"
+    "book-ds-yan-05-array-and-generalized-list-5-1",
+    "book-ds-yan-05-array-and-generalized-list-5-14",
+    "book-ds-yan-05-array-and-generalized-list-5-21",
+    "book-ds-yan-05-array-and-generalized-list-5-24",
+    "book-ds-yan-05-array-and-generalized-list-5-26",
+    "book-ds-yan-05-array-and-generalized-list-5-9"
   ],
   "findings": [
     {
-      "id": "book-ds-yan-05-25",
+      "id": "book-ds-yan-05-array-and-generalized-list-5-25",
       "severity": "warning",
       "issue": "算法声称核验输入一致性，但只在扫描完毕后才比较 pa/pb 与 ta/tb。若标志矩阵中的 1 多于声明的 ta 或 tb，会先越界读取 VA[pa] 或 VB[pb]，无法安全返回 ERROR。",
       "recommendedFix": "在每次执行 MA[i][j] ? VA[pa++] : 0 前先检查 pa<ta；对 MB 同理。扫描结束后仍保留 pa==ta、pb==tb 的检查，以发现声明的值数组含有未被标志矩阵消费的多余元素。"
     },
     {
-      "id": "book-ds-yan-05-27",
+      "id": "book-ds-yan-05-array-and-generalized-list-5-27",
       "severity": "error",
       "issue": "题目要求采用教材 5.3.2 节的十字链表，其行、列头指针和结点下标按 1..mu、1..nu 使用；答案却改为 0 起始并循环 i=0..mu-1。直接作用于该结构时会跳过第 mu 行，且 ctail[j] 在 j=nu 时可能越界，不能正确完成 B 加到 A。",
       "recommendedFix": "按教材结构统一改为 1 基：初始化/分配 rtail[1..mu]、ctail[1..nu]，外循环 i=1..A->mu，所有 rhead/chead、OLNode 的 i/j 均保持 1 基。若坚持 0 基，必须明确重定义并转换整个 CrossList，而不能声称采用教材 5.3.2 的定义。"
     },
     {
-      "id": "book-ds-yan-05-28",
+      "id": "book-ds-yan-05-array-and-generalized-list-5-28",
       "severity": "error",
       "issue": "题目明确指定教材 5.6 的 m 元多项式表示，但答案自行改成 (exp,sub,next) 的无表头分层结构，并访问教材 MPNode 中不存在的 sub/next 字段。教材结构实际使用 tag、exp、hp/coef、tp，且每层有表头结点记录变元层次，因此算法不能直接处理题设多项式。",
       "recommendedFix": "改以 MPNode 的 tag、hp、tp 和各层表头为接口：先依据表头 exp/变元数组定位第二变量层；对该层项的 exp=0 删除 tp 链结点，对 exp>0 将 exp 减一，并在 ATOM 项修改 coef、在 LIST 项递归缩放 hp 子表。所有删除都须绕过层表头并维护 tp。"
     },
     {
-      "id": "book-ds-yan-05-29",
+      "id": "book-ds-yan-05-array-and-generalized-list-5-29",
       "severity": "error",
       "issue": "同样未采用题设的教材 5.6 MPNode 表示：答案假定 sub/next 和末层直接 coef，而教材使用 tag、hp/coef、tp 及层表头。其 Clone/NewTerm/AddPoly 的链接语义未定义为教材结点，无法在给定表示上执行或保持表头与 tp 链。",
       "recommendedFix": "以教材 MPNode 重写各层归并：保留并校验同层表头，沿 tp 合并指数项；同指数的 ATOM 项相加 coef，LIST 项递归合并 hp 子表，和为零时删除该项；复制操作须复制单个 tp 链结点及其 hp 子表，而非依赖未定义的 sub/next。"
     },
     {
-      "id": "book-ds-yan-05-33",
+      "id": "book-ds-yan-05-array-and-generalized-list-5-33",
       "severity": "error",
       "issue": "在教材头尾链表表示中，空子表作为某个表结点的 hp 可以为 NULL。PrintElement 未先判断 e==NULL 就访问 e->tag，因此广义表含嵌套空表（如 ((),a)）时会空指针解引用，和“空表不输出”的说明不一致。",
       "recommendedFix": "在 PrintElement 的首行加入 if (e == NULL) return;，再按 ATOM/LIST 分支处理；这样空子表只贡献层次结构、不产生原子输出。"
     },
     {
-      "id": "book-ds-yan-05-38",
+      "id": "book-ds-yan-05-array-and-generalized-list-5-38",
       "severity": "error",
       "issue": "与 5.33 相同，头尾链表的 hp 可指向空子表 NULL，而 PrintLevelElement 直接访问 e->tag。包含 () 的广义表在到达该元素时会崩溃，不能满足空表和不存在目标层原子时不输出的边界要求。",
       "recommendedFix": "在 PrintLevelElement 的首行加入 if (e == NULL) return;，然后再判断 ATOM 或在 depth<target 时递归进入 LIST；其余目标层剪枝逻辑可保持不变。"

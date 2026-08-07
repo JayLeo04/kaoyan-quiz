@@ -1,13 +1,14 @@
 import dataStructuresTextbookData from "@/app/data/textbook-data-structures.json";
 import { applyTextbookAnswerAudits } from "@/app/data/textbook-answer-audit";
 import { dataStructuresAnswerAudits } from "@/app/data/textbook-answer-audits";
-import { applyDataStructuresImageOverrides } from "@/app/data/textbook-image-overrides";
 import type {
   TextbookChapterSummary,
   TextbookDataset,
   TextbookPageContent,
   TextbookPageSummary,
   TextbookPracticeLibraryPayload,
+  TextbookPracticeQuery,
+  TextbookPracticeResults,
   TextbookPresentation,
   TextbookQuestionContent,
   TextbookQuestionPayload,
@@ -44,31 +45,6 @@ export function getTextbook(bookSlug: string | undefined) {
   return textbookCatalog.find((textbook) => textbook.slug === bookSlug) || null;
 }
 
-function cleanPathPart(value: string) {
-  return value.replace(/^\/+|\/+$/g, "");
-}
-
-type TextbookRouteTarget = string | Pick<TextbookRegistration, "slug">;
-
-function routeBookSlug(target: TextbookRouteTarget) {
-  return typeof target === "string" ? target : target.slug;
-}
-
-export function textbookHref(target: TextbookRouteTarget, pageSlug = "") {
-  const bookSlug = routeBookSlug(target);
-  const suffix = cleanPathPart(pageSlug);
-  return suffix ? `/textbook/${bookSlug}/${suffix}` : `/textbook/${bookSlug}`;
-}
-
-export function textbookPracticeHref(target: TextbookRouteTarget, chapterId?: string) {
-  const base = `${textbookHref(target)}/practice`;
-  return chapterId ? `${base}?chapter=${encodeURIComponent(chapterId)}` : base;
-}
-
-export function textbookQuestionHref(target: TextbookRouteTarget, questionId: string) {
-  return `${textbookPracticeHref(target)}/${encodeURIComponent(questionId)}`;
-}
-
 function chapterSummaries(textbook: TextbookRegistration): TextbookChapterSummary[] {
   return textbook.dataset.chapters.map(({ id, title, questionCount }) => ({ id, title, questionCount }));
 }
@@ -103,7 +79,24 @@ function pageContent(page: TextbookDataset["pages"][number]): TextbookPageConten
       formulaHtml: { ...(visualization.formulaHtml || {}) },
       config: { ...(visualization.config || {}) },
     })),
-    html: applyDataStructuresImageOverrides(page.html),
+    html: page.html,
+    condensed: page.condensed ? {
+      title: page.condensed.title,
+      headings: [...page.condensed.headings],
+      sourceLatex: [...page.condensed.sourceLatex],
+      source: {
+        attributes: { ...page.condensed.source.attributes },
+        pageMarkers: page.condensed.source.pageMarkers.map((marker) => ({ ...marker })),
+      },
+      visualizations: (page.condensed.visualizations || []).map((visualization) => ({
+        ...visualization,
+        sourceLatex: [...(visualization.sourceLatex || [])],
+        formulaHtml: { ...(visualization.formulaHtml || {}) },
+        config: { ...(visualization.config || {}) },
+      })),
+      html: page.condensed.html,
+      audit: { ...page.condensed.audit },
+    } : undefined,
   };
 }
 
@@ -113,15 +106,14 @@ function questionSummary(question: TextbookDataset["questions"][number]): Textbo
     number: question.number,
     type: question.type,
     chapterId: question.chapterId,
-    section: { ...question.section, path: [...question.section.path] },
-    prompt: { plain: question.prompt.plain },
+    section: { id: question.section.id, title: question.section.title },
+    prompt: { markdown: question.prompt.markdown, plain: question.prompt.plain },
     answer: {
       status: question.answer.status,
-      originalStatus: question.answer.originalStatus,
       origin: question.answer.origin,
       hasVerified: Boolean(question.answer.verified?.trim()),
     },
-    knowledgePoints: question.knowledgePoints.map((point) => ({ ...point })),
+    knowledgePoints: question.knowledgePoints.map((point) => ({ id: point.id, title: point.title })),
   };
 }
 
@@ -186,8 +178,41 @@ export function createTextbookReaderPayload(textbook: TextbookRegistration, curr
   };
 }
 
-/** Builds card/filter data only; full question HTML is intentionally excluded. */
-export function createTextbookPracticeLibraryPayload(textbook: TextbookRegistration): TextbookPracticeLibraryPayload {
+const textbookPracticePageSize = 12;
+
+export function createTextbookPracticeResults(textbook: TextbookRegistration, query: TextbookPracticeQuery = {}): TextbookPracticeResults {
+  const normalized = String(query.query || "").trim().toLocaleLowerCase();
+  const masteredIds = new Set(query.masteredIds || []);
+  const reviewIds = new Set(query.reviewIds || []);
+  const questions = textbook.dataset.questions.filter((question) => {
+    if (!question.isExercise) return false;
+    const chapterMatch = !query.chapterId || query.chapterId === "all" || question.chapterId === query.chapterId;
+    const typeMatch = !query.type || query.type === "all" || question.type === query.type;
+    const hasVerified = Boolean(question.answer.verified?.trim());
+    const answerMatch = !query.answer || query.answer === "all"
+      || (query.answer === "verified" ? hasVerified : question.answer.status === query.answer);
+    const learningMatch = !query.learning || query.learning === "all"
+      || (query.learning === "mastered" && masteredIds.has(question.id))
+      || (query.learning === "review" && reviewIds.has(question.id))
+      || (query.learning === "unmarked" && !masteredIds.has(question.id) && !reviewIds.has(question.id));
+    const queryMatch = !normalized || `${question.number} ${question.prompt.plain} ${question.section.title} ${question.knowledgePoints.map((point) => point.title).join(" ")}`.toLocaleLowerCase().includes(normalized);
+    return chapterMatch && typeMatch && answerMatch && learningMatch && queryMatch;
+  });
+  const pageCount = Math.max(1, Math.ceil(questions.length / textbookPracticePageSize));
+  const requestedPage = Number.isFinite(query.page) ? Math.trunc(query.page || 1) : 1;
+  const page = Math.min(pageCount, Math.max(1, requestedPage));
+  return {
+    questions: questions.slice((page - 1) * textbookPracticePageSize, page * textbookPracticePageSize).map(questionSummary),
+    total: questions.length,
+    page,
+    pageSize: textbookPracticePageSize,
+  };
+}
+
+/** Builds only the first visible result page; later filters and pages are requested on demand. */
+export function createTextbookPracticeLibraryPayload(textbook: TextbookRegistration, initialChapterId?: string): TextbookPracticeLibraryPayload {
+  const exerciseQuestions = textbook.dataset.questions.filter((question) => question.isExercise);
+  const chapterId = textbook.dataset.chapters.some((chapter) => chapter.id === initialChapterId) ? initialChapterId : "all";
   return {
     ...payloadBase(textbook),
     stats: {
@@ -197,7 +222,9 @@ export function createTextbookPracticeLibraryPayload(textbook: TextbookRegistrat
       answersVerified: textbook.dataset.stats.answersVerified,
     },
     chapters: chapterSummaries(textbook),
-    exerciseQuestions: textbook.dataset.questions.filter((question) => question.isExercise).map(questionSummary),
+    questionTypes: [...new Set(exerciseQuestions.map((question) => question.type))],
+    exerciseQuestionIds: exerciseQuestions.map((question) => question.id),
+    initialResults: createTextbookPracticeResults(textbook, { chapterId }),
   };
 }
 

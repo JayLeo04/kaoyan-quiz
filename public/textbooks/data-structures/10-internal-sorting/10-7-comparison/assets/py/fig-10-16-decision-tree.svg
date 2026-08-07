@@ -1,1 +1,83 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="330" viewBox="0 0 800 330"><style>text{font-family:Arial,Microsoft YaHei,sans-serif;font-size:15px}.b{fill:#fff;stroke:#111;stroke-width:1.5}.l{stroke:#111;stroke-width:1.5;fill:none}</style><path class="l" d="M400 49L230 97"/><text x="315.0" y="68.0" text-anchor="middle">否</text><path class="l" d="M400 49L570 97"/><text x="485.0" y="68.0" text-anchor="middle">是</text><path class="l" d="M230 127L120 175"/><text x="175.0" y="146.0" text-anchor="middle">否</text><path class="l" d="M230 127L320 175"/><text x="275.0" y="146.0" text-anchor="middle">是</text><path class="l" d="M570 127L480 175"/><text x="525.0" y="146.0" text-anchor="middle">否</text><path class="l" d="M570 127L680 175"/><text x="625.0" y="146.0" text-anchor="middle">是</text><path class="l" d="M120 205L50 253"/><text x="85.0" y="224.0" text-anchor="middle">否</text><path class="l" d="M120 205L190 253"/><text x="155.0" y="224.0" text-anchor="middle">是</text><path class="l" d="M480 205L430 253"/><text x="455.0" y="224.0" text-anchor="middle">否</text><path class="l" d="M480 205L570 253"/><text x="525.0" y="224.0" text-anchor="middle">是</text><ellipse class="b" cx="400" cy="34" rx="52" ry="18"/><text x="400" y="39" text-anchor="middle">K1 &lt; K2</text><ellipse class="b" cx="230" cy="112" rx="52" ry="18"/><text x="230" y="117" text-anchor="middle">K1 &lt; K3</text><ellipse class="b" cx="570" cy="112" rx="52" ry="18"/><text x="570" y="117" text-anchor="middle">K2 &lt; K3</text><ellipse class="b" cx="120" cy="190" rx="52" ry="18"/><text x="120" y="195" text-anchor="middle">K2 &lt; K3</text><ellipse class="b" cx="480" cy="190" rx="52" ry="18"/><text x="480" y="195" text-anchor="middle">K1 &lt; K3</text><rect class="b" x="262" y="175" width="116" height="30"/><text x="320" y="195" text-anchor="middle">K2 &lt; K1 &lt; K3</text><text x="320" y="228" text-anchor="middle">④</text><rect class="b" x="622" y="175" width="116" height="30"/><text x="680" y="195" text-anchor="middle">K1 &lt; K2 &lt; K3</text><text x="680" y="228" text-anchor="middle">①</text><rect class="b" x="-8" y="253" width="116" height="30"/><text x="50" y="273" text-anchor="middle">K3 &lt; K2 &lt; K1</text><text x="50" y="306" text-anchor="middle">⑥</text><rect class="b" x="132" y="253" width="116" height="30"/><text x="190" y="273" text-anchor="middle">K2 &lt; K3 &lt; K1</text><text x="190" y="306" text-anchor="middle">⑤</text><rect class="b" x="372" y="253" width="116" height="30"/><text x="430" y="273" text-anchor="middle">K3 &lt; K1 &lt; K2</text><text x="430" y="306" text-anchor="middle">③</text><rect class="b" x="512" y="253" width="116" height="30"/><text x="570" y="273" text-anchor="middle">K1 &lt; K3 &lt; K2</text><text x="570" y="306" text-anchor="middle">②</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="790" height="510" viewBox="-30 0 790 510" role="img" aria-labelledby="fig-title fig-desc">
+  <title id="fig-title">图 10.16：对 K1、K2、K3 插入排序过程的比较判定树</title>
+  <desc id="fig-desc">五个关键字比较节点构成的判定树，左分支为否，右分支为是，六个终端结点表示 K1、K2、K3 的六种有序排列，并标有①至⑥。</desc>
+  <style>
+    text { font-family: Arial, "Microsoft YaHei", "PingFang SC", sans-serif; fill: #111; }
+    .node, .leaf { fill: #fff; stroke: #111; stroke-width: 2; }
+    .edge { fill: none; stroke: #111; stroke-width: 2; }
+    .comparison { font-size: 19px; }
+    .branch { font-size: 18px; }
+    .permutation { font-size: 18px; }
+    .marker { font-size: 21px; }
+  </style>
+
+  <!-- root comparison: K1 < K2 -->
+  <path class="edge" d="M365 74 L190 136"/>
+  <text class="branch" x="278" y="108" text-anchor="middle">否</text>
+  <path class="edge" d="M365 74 L540 136"/>
+  <text class="branch" x="452" y="108" text-anchor="middle">是</text>
+
+  <!-- second-level comparisons -->
+  <path class="edge" d="M190 184 L138 256"/>
+  <text class="branch" x="162" y="224" text-anchor="middle">否</text>
+  <path class="edge" d="M190 184 L350 252"/>
+  <text class="branch" x="270" y="224" text-anchor="middle">是</text>
+
+  <path class="edge" d="M540 184 L500 256"/>
+  <text class="branch" x="520" y="224" text-anchor="middle">否</text>
+  <path class="edge" d="M540 184 L680 252"/>
+  <text class="branch" x="610" y="224" text-anchor="middle">是</text>
+
+  <!-- third-level comparisons -->
+  <path class="edge" d="M138 304 L60 376"/>
+  <text class="branch" x="99" y="344" text-anchor="middle">否</text>
+  <path class="edge" d="M138 304 L215 376"/>
+  <text class="branch" x="177" y="344" text-anchor="middle">是</text>
+
+  <path class="edge" d="M500 304 L425 376"/>
+  <text class="branch" x="462" y="344" text-anchor="middle">否</text>
+  <path class="edge" d="M500 304 L575 376"/>
+  <text class="branch" x="538" y="344" text-anchor="middle">是</text>
+
+  <!-- comparison nodes -->
+  <ellipse class="node" cx="365" cy="50" rx="72" ry="24"/>
+  <text class="comparison" x="365" y="57" text-anchor="middle">K1 &lt; K2</text>
+
+  <ellipse class="node" cx="190" cy="160" rx="72" ry="24"/>
+  <text class="comparison" x="190" y="167" text-anchor="middle">K1 &lt; K3</text>
+
+  <ellipse class="node" cx="540" cy="160" rx="72" ry="24"/>
+  <text class="comparison" x="540" y="167" text-anchor="middle">K2 &lt; K3</text>
+
+  <ellipse class="node" cx="138" cy="280" rx="72" ry="24"/>
+  <text class="comparison" x="138" y="287" text-anchor="middle">K2 &lt; K3</text>
+
+  <ellipse class="node" cx="500" cy="280" rx="72" ry="24"/>
+  <text class="comparison" x="500" y="287" text-anchor="middle">K1 &lt; K3</text>
+
+  <!-- intermediate leaves -->
+  <rect class="leaf" x="278" y="252" width="144" height="50"/>
+  <text class="permutation" x="350" y="284" text-anchor="middle">K2 &lt; K1 &lt; K3</text>
+  <text class="marker" x="350" y="331" text-anchor="middle">④</text>
+
+  <rect class="leaf" x="608" y="252" width="144" height="50"/>
+  <text class="permutation" x="680" y="284" text-anchor="middle">K1 &lt; K2 &lt; K3</text>
+  <text class="marker" x="680" y="331" text-anchor="middle">①</text>
+
+  <!-- bottom leaves; the viewBox leaves a margin around the former clipped left leaf -->
+  <rect class="leaf" x="-12" y="376" width="144" height="50"/>
+  <text class="permutation" x="60" y="408" text-anchor="middle">K3 &lt; K2 &lt; K1</text>
+  <text class="marker" x="60" y="468" text-anchor="middle">⑥</text>
+
+  <rect class="leaf" x="143" y="376" width="144" height="50"/>
+  <text class="permutation" x="215" y="408" text-anchor="middle">K2 &lt; K3 &lt; K1</text>
+  <text class="marker" x="215" y="468" text-anchor="middle">⑤</text>
+
+  <rect class="leaf" x="353" y="376" width="144" height="50"/>
+  <text class="permutation" x="425" y="408" text-anchor="middle">K3 &lt; K1 &lt; K2</text>
+  <text class="marker" x="425" y="468" text-anchor="middle">③</text>
+
+  <rect class="leaf" x="503" y="376" width="144" height="50"/>
+  <text class="permutation" x="575" y="408" text-anchor="middle">K1 &lt; K3 &lt; K2</text>
+  <text class="marker" x="575" y="468" text-anchor="middle">②</text>
+</svg>

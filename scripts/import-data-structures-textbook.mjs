@@ -6,12 +6,15 @@ import katex from "katex";
 const projectRoot = path.resolve(import.meta.dirname, "..");
 const textbookSourceRoot = path.join(projectRoot, "source-materials", "data-structures-yan-weimin");
 const exerciseSourceRoot = path.join(projectRoot, "source-materials", "data-structures-yan-weimin-exercises");
+const condensedSourceRoot = path.join(projectRoot, "examples", "408-knowledge-distillation");
 const outputPath = path.join(projectRoot, "app", "data", "textbook-data-structures.json");
 const textbookPublicRoot = path.join(projectRoot, "public", "textbooks", "data-structures");
 const textbookPublicBase = "/textbooks/data-structures";
+const condensedPublicRoot = path.join(textbookPublicRoot, "condensed");
+const condensedPublicBase = `${textbookPublicBase}/condensed`;
 const exercisePublicRoot = path.join(textbookPublicRoot, "exercises");
 const exercisePublicBase = `${textbookPublicBase}/exercises`;
-const skippedDirectories = new Set(["assets", "audits", "tmp", "work", "__page_review", "review"]);
+const skippedDirectories = new Set(["assets", "audits", "tmp", "work", "__page_review", "__detail-render", "__page-render", "review"]);
 const mediaExtension = /\.(?:svg|png|jpe?g|gif|webp)$/i;
 const visualTypes = new Set([
   "growth-curves",
@@ -30,8 +33,11 @@ const visualTypes = new Set([
 ]);
 const visualMarkerPattern = /<!--\s*knowledge-visual:([a-z0-9]+(?:-[a-z0-9]+)*)\s*-->/g;
 const visualMarkerExactPattern = /^<!--\s*knowledge-visual:([a-z0-9]+(?:-[a-z0-9]+)*)\s*-->$/;
+const textbookPageBreakMarker = "<!-- textbook-page-break -->";
+const textbookPageBreakExactPattern = /^<!--\s*textbook-page-break\s*-->$/;
 const visualIdPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const forbiddenVisualKey = /^(html|script|style|src|url|href|onclick|onchange|oninput)$/i;
+const imageDimensionCache = new Map();
 
 function asPosix(value) {
   return value.split(path.sep).join("/");
@@ -82,33 +88,25 @@ function copyMedia(sourceRoot, destinationRoot) {
   return count;
 }
 
-function copyExerciseImageAliases(questions) {
-  const byName = new Map();
-  const walk = (directory) => {
-    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
-      const target = path.join(directory, entry.name);
-      if (entry.isDirectory()) {
-        if (!new Set(["audits", "tmp", "work", "__page_review", "review"]).has(entry.name)) walk(target);
-      } else if (entry.isFile() && mediaExtension.test(entry.name)) {
-        const records = byName.get(entry.name) || [];
-        records.push(target);
-        byName.set(entry.name, records);
-      }
-    }
-  };
-  walk(exerciseSourceRoot);
+function copyExerciseMedia(questions) {
   let copied = 0;
-  const copiedOutputs = new Set();
+  const copiedPaths = new Set();
   for (const question of questions) {
     for (const image of question.images) {
-      const output = path.resolve(exercisePublicRoot, image.path);
-      if (!output.startsWith(`${exercisePublicRoot}${path.sep}`)) continue;
-      if (copiedOutputs.has(output)) continue;
-      const source = byName.get(path.basename(image.path))?.[0];
-      if (!source) continue;
+      const relative = path.posix.normalize(String(image.path || "").replace(/\\/g, "/"));
+      if (!relative || relative.startsWith("../") || path.posix.isAbsolute(relative) || !mediaExtension.test(relative)) {
+        throw new Error(`${question.id}: 非法习题图片路径 ${image.path}`);
+      }
+      if (copiedPaths.has(relative)) continue;
+      const source = path.resolve(exerciseSourceRoot, ...relative.split("/"));
+      const output = path.resolve(exercisePublicRoot, ...relative.split("/"));
+      if (!source.startsWith(`${exerciseSourceRoot}${path.sep}`) || !output.startsWith(`${exercisePublicRoot}${path.sep}`)) {
+        throw new Error(`${question.id}: 习题图片越出托管目录 ${relative}`);
+      }
+      if (!fs.existsSync(source)) throw new Error(`${question.id}: 习题图片不存在 ${relative}`);
       fs.mkdirSync(path.dirname(output), { recursive: true });
       copyMediaFile(source, output);
-      copiedOutputs.add(output);
+      copiedPaths.add(relative);
       copied += 1;
     }
   }
@@ -238,7 +236,9 @@ function loadTextbookVisualManifest(sourceRoot) {
 }
 
 function cleanForRender(markdown) {
-  return markdown.replace(/<!--\s*luna:[\s\S]*?-->/g, "");
+  return markdown
+    .replace(/<!--\s*luna:page\b[\s\S]*?-->/g, `\n${textbookPageBreakMarker}\n`)
+    .replace(/<!--\s*luna:[\s\S]*?-->/g, "");
 }
 
 function expandFootnotes(markdown) {
@@ -322,6 +322,48 @@ function localAssetHref(href, sourcePath, publicBase, rootAssetFallback = false)
   return `${publicBase}/${resolved}${suffix}`;
 }
 
+function svgLength(value) {
+  const match = String(value || "").trim().match(/^(\d+(?:\.\d+)?)(?:px)?$/i);
+  const number = match ? Number(match[1]) : 0;
+  return Number.isFinite(number) && number > 0 ? number : 0;
+}
+
+function svgDimensions(sourceFile) {
+  if (imageDimensionCache.has(sourceFile)) return imageDimensionCache.get(sourceFile);
+  let dimensions = null;
+  if (path.extname(sourceFile).toLowerCase() === ".svg" && fs.existsSync(sourceFile)) {
+    const svgTag = fs.readFileSync(sourceFile, "utf8").match(/<svg\b[^>]*>/i)?.[0] || "";
+    const attribute = (name) => svgTag.match(new RegExp(`\\b${name}\\s*=\\s*["']([^"']+)["']`, "i"))?.[1] || "";
+    let width = svgLength(attribute("width"));
+    let height = svgLength(attribute("height"));
+    const viewBox = attribute("viewBox").trim().split(/[\s,]+/).map(Number);
+    if (viewBox.length === 4 && viewBox.every(Number.isFinite) && viewBox[2] > 0 && viewBox[3] > 0) {
+      width ||= viewBox[2];
+      height ||= viewBox[3];
+    }
+    if (width > 0 && height > 0) dimensions = { width: Math.round(width), height: Math.round(height) };
+  }
+  imageDimensionCache.set(sourceFile, dimensions);
+  return dimensions;
+}
+
+function localImageDimensions(href, sourcePath, sourceRoot, rootAssetFallback) {
+  if (!sourceRoot) return null;
+  const value = safeHref(href);
+  if (!value || /^(?:https?:|data:|javascript:)/i.test(value) || value.startsWith("/")) return null;
+  const { pathname } = splitHref(value);
+  const normalizedPathname = pathname.replace(/^\.\//, "");
+  const sourceDirectory = path.posix.dirname(sourcePath);
+  const relative = rootAssetFallback && normalizedPathname.startsWith("assets/")
+    ? normalizedPathname
+    : path.posix.normalize(path.posix.join(sourceDirectory === "." ? "" : sourceDirectory, pathname));
+  if (!relative || relative.startsWith("../")) return null;
+  const resolvedRoot = path.resolve(sourceRoot);
+  const sourceFile = path.resolve(resolvedRoot, relative);
+  if (sourceFile !== resolvedRoot && !sourceFile.startsWith(`${resolvedRoot}${path.sep}`)) return null;
+  return svgDimensions(sourceFile);
+}
+
 function localPageHref(href, sourcePath, pagesByPath, publicBase, rootAssetFallback) {
   const value = safeHref(href);
   if (!value || /^javascript:/i.test(value) || /^data:/i.test(value)) return "";
@@ -338,16 +380,10 @@ function localPageHref(href, sourcePath, pagesByPath, publicBase, rootAssetFallb
   return mediaExtension.test(pathname) ? localAssetHref(value, sourcePath, publicBase, rootAssetFallback) : "";
 }
 
-function exerciseImageHref(imagePath, source) {
-  const candidates = [source?.question?.markdown, source?.answer?.markdown, "index.md"].filter(Boolean);
-  for (const sourcePath of candidates) {
-    const sourceDirectory = path.posix.dirname(sourcePath);
-    const resolved = path.resolve(exerciseSourceRoot, sourceDirectory === "." ? "" : sourceDirectory, imagePath);
-    if (resolved.startsWith(`${exerciseSourceRoot}${path.sep}`) && fs.existsSync(resolved)) {
-      return localAssetHref(imagePath, sourcePath, exercisePublicBase, true);
-    }
-  }
-  return localAssetHref(imagePath, "index.md", exercisePublicBase, true);
+function exerciseImageHref(imagePath) {
+  const relative = path.posix.normalize(String(imagePath || "").replace(/\\/g, "/"));
+  if (!relative || relative.startsWith("../") || path.posix.isAbsolute(relative)) return "";
+  return `${exercisePublicBase}/${relative}`;
 }
 
 function prepareMath(markdown) {
@@ -360,6 +396,7 @@ function prepareMath(markdown) {
     const marker = `TEXTBOOK_MATH_${replacements.length}_END`;
     replacements.push({
       marker,
+      source,
       html: katex.renderToString(source, { displayMode, throwOnError: false, strict: "ignore", trust: false }),
     });
     return marker;
@@ -375,14 +412,19 @@ function prepareMath(markdown) {
   return { markdown: replaced, formulas: [...formulas], replacements };
 }
 
-function renderMarkdown(markdown, { sourcePath, pagesByPath, publicBase, rootAssetFallback = false }) {
+function renderMarkdown(markdown, { sourcePath, sourceRoot, pagesByPath, publicBase, rootAssetFallback = false }) {
   const prepared = prepareMath(expandFootnotes(cleanForRender(markdown)));
+  const plainMath = (value) => prepared.replacements.reduce(
+    (current, replacement) => current.replaceAll(replacement.marker, replacement.source),
+    String(value || ""),
+  );
   const renderer = new Renderer();
   renderer.html = ({ text }) => {
     const trimmed = text.trim();
     // The reader hydrates only approved visual markers into React components;
     // all other raw HTML remains escaped or removed as before.
     if (visualMarkerExactPattern.test(trimmed)) return trimmed;
+    if (textbookPageBreakExactPattern.test(trimmed)) return trimmed;
     return text.startsWith("<!--") ? "" : escapeHtml(text);
   };
   renderer.link = function link({ href, title, tokens }) {
@@ -390,131 +432,69 @@ function renderMarkdown(markdown, { sourcePath, pagesByPath, publicBase, rootAss
     const label = this.parser.parseInline(tokens);
     if (!safe) return label;
     const external = /^https?:\/\//i.test(safe) || /^mailto:/i.test(safe);
-    return `<a href="${escapeHtml(safe)}"${title ? ` title="${escapeHtml(title)}"` : ""}${external ? ' target="_blank" rel="noreferrer"' : ""}>${label}</a>`;
+    return `<a href="${escapeHtml(safe)}"${title ? ` title="${escapeHtml(plainMath(title))}"` : ""}${external ? ' target="_blank" rel="noreferrer"' : ""}>${label}</a>`;
   };
   renderer.image = ({ href, title, text }) => {
     const safe = localAssetHref(href, sourcePath, publicBase, rootAssetFallback);
-    const alt = escapeHtml(text || "教材插图");
+    const alt = escapeHtml(plainMath(text || "教材插图"));
     if (!safe) return `<span class="textbook-missing-image">[图片：${alt}]</span>`;
-    return `<img src="${escapeHtml(safe)}" alt="${alt}"${title ? ` title="${escapeHtml(title)}"` : ""} loading="lazy" decoding="async">`;
+    const dimensions = localImageDimensions(href, sourcePath, sourceRoot, rootAssetFallback);
+    const size = dimensions ? ` width="${dimensions.width}" height="${dimensions.height}"` : "";
+    return `<img src="${escapeHtml(safe)}" alt="${alt}"${title ? ` title="${escapeHtml(plainMath(title))}"` : ""}${size} loading="lazy" decoding="async">`;
   };
   const parsed = marked.parse(prepared.markdown, { gfm: true, breaks: false, renderer });
   const html = prepared.replacements.reduce((current, replacement) => current.replaceAll(replacement.marker, replacement.html), String(parsed));
   return { html, sourceLatex: prepared.formulas };
 }
 
-function findInlineImageNames(markdown) {
-  return new Set([...String(markdown || "").matchAll(/!\[[^\]]*\]\(([^)]+)\)/g)].map((match) => path.posix.basename(splitHref(match[1]).pathname)));
-}
+function loadCondensedPages(sourceRoot, canonicalPages, pagesByPath) {
+  const condensedBySlug = new Map();
+  if (!fs.existsSync(sourceRoot)) return condensedBySlug;
+  const originalsBySlug = new Map(canonicalPages.map((page) => [page.slug, page]));
+  const sourceFiles = walkMarkdown(sourceRoot).filter((sourceFile) => path.basename(sourceFile) === "index.md");
 
-function sectionNumberFromHeading(markdown) {
-  return String(markdown || "").match(/^#\s+(\d+\.\d+)(?:\s|　)/m)?.[1] || null;
-}
+  for (const sourceFile of sourceFiles) {
+    const sourcePath = asPosix(path.relative(sourceRoot, sourceFile));
+    const slug = slugFor(sourcePath);
+    const originalPage = originalsBySlug.get(slug);
+    if (!originalPage) throw new Error(`${sourcePath}: 精简版没有匹配的教材页面`);
+    if (condensedBySlug.has(slug)) throw new Error(`${sourcePath}: 精简版页面路径重复`);
 
-function pageShell(markdown) {
-  const title = String(markdown || "").match(/^#\s+.+$/m);
-  if (!title || title.index === undefined) return String(markdown || "").trimEnd();
-  const preamble = markdown.slice(0, title.index).trimEnd();
-  return `${preamble}${preamble ? "\n" : ""}${title[0]}`;
-}
+    const reviewPath = path.join(path.dirname(sourceFile), "review.json");
+    if (!fs.existsSync(reviewPath)) throw new Error(`${sourcePath}: 精简版缺少 review.json`);
+    const review = JSON.parse(fs.readFileSync(reviewPath, "utf8"));
+    if (review.status !== "distilled") throw new Error(`${sourcePath}: 只有 distilled 精简稿可以进入教材页面`);
 
-function figureImages(markdown) {
-  const byNumber = new Map();
-  const unnamed = [];
-  for (const match of String(markdown || "").matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)) {
-    const alt = match[1].trim();
-    const image = `![${alt}](${match[2].trim()})`;
-    const figureNumber = alt.match(/图\s*(\d+(?:\.\d+)+)/)?.[1];
-    if (figureNumber) {
-      byNumber.set(figureNumber, image);
-    } else {
-      unnamed.push(image);
-    }
-  }
-  return { byNumber, unnamed };
-}
-
-function cleanFigurePlaceholderText(value) {
-  return String(value || "")
-    .replace(/^\[|\]$/g, "")
-    .replaceAll("占位，", "，")
-    .replaceAll("占位：", "：")
-    .replaceAll("占位", "")
-    .replace(/后续应据此重绘。?$/, "")
-    .replace(/此图应按原图重绘(?:为[^。]*)?。?$/, "")
-    .replace(/应按原图重绘。?$/, "")
-    .trim();
-}
-
-function figurePlaceholderNote(attributes) {
-  const { figure, pdf_page: pdfPage, book_page: bookPage, structure } = extractAttributes(attributes);
-  const pages = [pdfPage && `PDF p${pdfPage}`, bookPage && `书内 p${bookPage}`].filter(Boolean).join("，");
-  const label = figure ? `图 ${figure}` : "结构示意图";
-  return `> **${label}${pages ? `（${pages}）` : ""}**${structure ? `：${structure}` : ""}`;
-}
-
-/**
- * Page-segment transcriptions are deliberately kept out of the navigation tree,
- * but some legacy OCR batches left a chapter's only full text in work/sections.
- * Reassemble those source-verified segments into their canonical section pages
- * during import so the public reader never turns a chapter into an outline.
- */
-function workSectionBodies(sourceRoot) {
-  const bodies = new Map();
-  for (const chapter of fs.readdirSync(sourceRoot, { withFileTypes: true })) {
-    if (!chapter.isDirectory()) continue;
-    const sectionsRoot = path.join(sourceRoot, chapter.name, "work", "sections");
-    if (!fs.existsSync(sectionsRoot)) continue;
-    const segmentFiles = fs.readdirSync(sectionsRoot, { withFileTypes: true })
-      .filter((entry) => entry.isDirectory() && fs.existsSync(path.join(sectionsRoot, entry.name, "index.md")))
-      .sort((left, right) => left.name.localeCompare(right.name, "en", { numeric: true }))
-      .map((entry) => path.join(sectionsRoot, entry.name, "index.md"));
-    const combined = segmentFiles.map((file) => fs.readFileSync(file, "utf8")
-      // The section page already supplies the one public chapter title.
-      .replace(/^#\s+.+\r?\n?/m, "").trim()).join("\n\n");
-    // A continuation batch can restart a chapter/section at H1, while true
-    // children such as 8.3.2 remain H1 in legacy OCR. Split only on a two-part
-    // section number and retain the deeper headings inside its parent section.
-    const headings = [...combined.matchAll(/^#+\s+(\d+\.\d+)(?!\.)(?:\s|　).+$/gm)];
-    for (let index = 0; index < headings.length; index += 1) {
-      const current = headings[index];
-      const next = headings[index + 1];
-      const start = (current.index || 0) + current[0].length;
-      const body = combined.slice(start, next?.index).trim()
-        .replace(/^#\s+(\d+\.\d+\.\d+)(?:\s|　)/gm, "### $1 ");
-      if (!body) continue;
-      const key = `${chapter.name}:${current[1]}`;
-      const existing = bodies.get(key);
-      bodies.set(key, existing ? `${existing}\n\n${body}` : body);
-    }
-  }
-  return bodies;
-}
-
-function injectWorkFigureImages(markdown, canonicalMarkdown) {
-  const images = figureImages(canonicalMarkdown);
-  let unnamedIndex = 0;
-  const imageFor = (figureNumber) => figureNumber ? images.byNumber.get(figureNumber) : images.unnamed[unnamedIndex++];
-  const withCommentFigures = String(markdown || "").replace(/<!--\s*luna:figure-placeholder\s+([\s\S]*?)-->/g, (placeholder, attributes) => {
-    const image = imageFor(extractAttributes(attributes).figure);
-    return image ? `${image}\n\n${figurePlaceholderNote(attributes)}` : figurePlaceholderNote(attributes);
-  });
-  const withQuotedFigures = withCommentFigures.replace(/^>\s+\*\*图\s*(\d+(?:\.\d+)+)[^\r\n]*占位[^\r\n]*$/gm, (placeholder, figureNumber) => {
-    const image = imageFor(figureNumber);
-    const note = cleanFigurePlaceholderText(placeholder);
-    return image ? `${image}\n\n${note}` : note;
-  });
-  return withQuotedFigures
-    .replace(/\[图\s*(\d+(?:\.\d+)+)\s*占位[^\]]*\]/g, (placeholder, figureNumber) => {
-      const image = imageFor(figureNumber);
-      const note = `> ${cleanFigurePlaceholderText(placeholder)}`;
-      return image ? `${image}\n\n${note}` : note;
-    })
-    .replace(/\[结构示意图占位[^\]]*\]/g, (placeholder) => {
-      const image = imageFor();
-      const note = `> ${cleanFigurePlaceholderText(placeholder)}`;
-      return image ? `${image}\n\n${note}` : note;
+    const markdown = fs.readFileSync(sourceFile, "utf8");
+    const rendered = renderMarkdown(markdown, {
+      sourcePath,
+      sourceRoot,
+      pagesByPath,
+      publicBase: condensedPublicBase,
     });
+    condensedBySlug.set(slug, {
+      sourcePath,
+      title: markdown.match(/^#\s+(.+)$/m)?.[1]?.trim() || originalPage.title,
+      summary: firstSummary(markdown, originalPage.title),
+      headings: [...markdown.matchAll(/^#{2,4}\s+(.+)$/gm)].map((match) => cleanText(match[1])).filter(Boolean),
+      sourceLatex: rendered.sourceLatex,
+      visualizations: [],
+      source: sourceMetadata(markdown),
+      markdown,
+      html: rendered.html,
+      audit: {
+        status: "distilled",
+        sourceFiles: Number(review.stats?.source_files ?? review.coverage?.length ?? 0),
+        omitted: Number(review.stats?.omitted ?? 0),
+        risks: Array.isArray(review.risks) ? review.risks.length : 0,
+      },
+    });
+  }
+  return condensedBySlug;
+}
+
+function findInlineImageNames(markdown) {
+  return new Set([...String(markdown || "").matchAll(/!\[[^\r\n]*?\]\(([^)\r\n]+)\)/g)].map((match) => path.posix.basename(splitHref(match[1]).pathname)));
 }
 
 function sortPages(left, right, chapterOrder) {
@@ -538,6 +518,12 @@ if (!fs.existsSync(textbookSourceRoot) || !fs.existsSync(exerciseSourceRoot)) {
 
 const manifest = JSON.parse(fs.readFileSync(path.join(textbookSourceRoot, "manifest.json"), "utf8"));
 const exerciseCatalog = JSON.parse(fs.readFileSync(path.join(exerciseSourceRoot, "questions", "index.json"), "utf8"));
+if (exerciseCatalog.schemaVersion !== "luna-exercise-question-catalog-2") {
+  throw new Error(`未知习题目录格式：${exerciseCatalog.schemaVersion || "missing"}`);
+}
+if (exerciseCatalog.stats?.questions !== 457 || exerciseCatalog.questions?.length !== 457) {
+  throw new Error(`习题目录必须包含 457 道编号题，当前为 ${exerciseCatalog.questions?.length ?? 0}`);
+}
 const chapterOrder = new Map(manifest.chapters.map((chapter, index) => [chapter.id, index]));
 const sourceFiles = walkMarkdown(textbookSourceRoot);
 const rawPages = sourceFiles.map((sourceFile) => {
@@ -560,19 +546,7 @@ const rawPages = sourceFiles.map((sourceFile) => {
     markdown,
   };
 });
-const segmentedBodies = workSectionBodies(textbookSourceRoot);
-const canonicalPages = rawPages.map((page) => {
-  const sectionNumber = sectionNumberFromHeading(page.markdown);
-  const workBody = sectionNumber ? segmentedBodies.get(`${page.chapterId}:${sectionNumber}`) : null;
-  if (!workBody) return page;
-  const markdown = `${pageShell(page.markdown)}\n\n${injectWorkFigureImages(workBody, page.markdown).trim()}\n`;
-  return {
-    ...page,
-    headings: [...markdown.matchAll(/^#{2,4}\s+(.+)$/gm)].map((match) => cleanText(match[1])).filter(Boolean),
-    source: sourceMetadata(markdown),
-    markdown,
-  };
-});
+const canonicalPages = rawPages;
 const visualManifest = loadTextbookVisualManifest(textbookSourceRoot);
 for (const route of visualManifest.byRoute.keys()) {
   if (!canonicalPages.some((page) => page.slug === route)) {
@@ -580,6 +554,7 @@ for (const route of visualManifest.byRoute.keys()) {
   }
 }
 const pagesByPath = new Map(canonicalPages.map((page) => [page.sourcePath, page]));
+const condensedPagesBySlug = loadCondensedPages(condensedSourceRoot, canonicalPages, pagesByPath);
 const resolvedVisualIds = new Set();
 const pages = canonicalPages.map((page) => {
   const declaredVisualizations = visualManifest.byRoute.get(page.slug) || [];
@@ -599,20 +574,21 @@ const pages = canonicalPages.map((page) => {
   }
   const visualById = new Map(declaredVisualizations.map((spec) => [spec.id, spec]));
   const pageVisualizations = pageMarkers.map((markerId) => visualById.get(markerId));
-  const rendered = renderMarkdown(page.markdown, { sourcePath: page.sourcePath, pagesByPath, publicBase: textbookPublicBase });
+  const rendered = renderMarkdown(page.markdown, { sourcePath: page.sourcePath, sourceRoot: textbookSourceRoot, pagesByPath, publicBase: textbookPublicBase });
   return {
     ...page,
     summary: firstSummary(page.markdown, page.title),
     sourceLatex: [...new Set([...rendered.sourceLatex, ...pageVisualizations.flatMap((spec) => spec.sourceLatex || [])])],
     visualizations: pageVisualizations,
     html: rendered.html,
+    condensed: condensedPagesBySlug.get(page.slug),
   };
 }).sort((left, right) => sortPages(left, right, chapterOrder));
 if (resolvedVisualIds.size !== visualManifest.ids.size) {
   throw new Error(`${visualManifest.manifestPath}: 有可视化 spec 未被解析到对应教材页`);
 }
 
-const chapters = exerciseCatalog.chapters.map((chapter) => ({
+const chapters = exerciseCatalog.units.map((chapter) => ({
   id: chapter.id,
   title: chapter.title,
   bookPages: chapter.bookPages,
@@ -622,25 +598,28 @@ const chapters = exerciseCatalog.chapters.map((chapter) => ({
   part: chapter.part,
 }));
 
+const exerciseKnowledgePoints = new Map(exerciseCatalog.knowledgePoints.map((point) => [point.id, point]));
 const questions = exerciseCatalog.questions.map((question) => {
   const questionPath = question.source?.question?.markdown || "index.md";
   const answerPath = question.source?.answer?.markdown || questionPath;
   const promptMarkdown = question.prompt?.markdown || "";
   const answerOriginal = question.answer?.original || "";
-  const prompt = renderMarkdown(promptMarkdown, { sourcePath: questionPath, pagesByPath: new Map(), publicBase: exercisePublicBase, rootAssetFallback: true });
-  const answer = renderMarkdown(answerOriginal, { sourcePath: answerPath, pagesByPath: new Map(), publicBase: exercisePublicBase, rootAssetFallback: true });
+  const prompt = renderMarkdown(promptMarkdown, { sourcePath: questionPath, sourceRoot: exerciseSourceRoot, pagesByPath: new Map(), publicBase: exercisePublicBase });
+  const answer = renderMarkdown(answerOriginal, { sourcePath: answerPath, sourceRoot: exerciseSourceRoot, pagesByPath: new Map(), publicBase: exercisePublicBase });
   const inlineNames = new Set([...findInlineImageNames(promptMarkdown), ...findInlineImageNames(answerOriginal)]);
   return {
     id: question.id,
     number: question.number,
     type: question.type,
-    chapterId: question.chapterId,
+    chapterId: question.unitId,
     section: question.section,
+    difficulty: question.difficulty,
+    recommended: question.recommended,
     prompt: { markdown: promptMarkdown, html: prompt.html, plain: cleanText(promptMarkdown) },
     options: (question.options || []).map((option) => ({
       label: option.label,
       markdown: option.markdown || "",
-      html: renderMarkdown(option.markdown || "", { sourcePath: questionPath, pagesByPath: new Map(), publicBase: exercisePublicBase, rootAssetFallback: true }).html,
+      html: renderMarkdown(option.markdown || "", { sourcePath: questionPath, sourceRoot: exerciseSourceRoot, pagesByPath: new Map(), publicBase: exercisePublicBase }).html,
     })),
     answer: {
       status: question.answer?.status || "missing",
@@ -648,25 +627,37 @@ const questions = exerciseCatalog.questions.map((question) => {
       original: answerOriginal,
       html: answer.html,
     },
-    knowledgePoints: question.knowledgePoints || [],
+    knowledgePoints: (question.knowledgeIds || []).map((id) => {
+      const point = exerciseKnowledgePoints.get(id);
+      if (!point) throw new Error(`${question.id}: 未知知识点 ${id}`);
+      return { id, title: point.title, relation: "primary", confidence: "confirmed" };
+    }),
     images: (question.images || []).map((image) => ({
       ...image,
-      src: exerciseImageHref(image.path, question.source),
+      src: exerciseImageHref(image.path),
       inline: inlineNames.has(path.posix.basename(image.path)),
     })),
     source: question.source || {},
     review: question.review || { status: "pending", flags: [] },
-    isExercise: !(question.review?.flags || []).some((flag) => flag.code === "NO_INDEPENDENT_EXERCISES"),
+    isExercise: true,
   };
 });
 
+const managedTextbookRoot = path.resolve(projectRoot, "public", "textbooks");
+const resolvedTextbookPublicRoot = path.resolve(textbookPublicRoot);
+if (!resolvedTextbookPublicRoot.startsWith(`${managedTextbookRoot}${path.sep}`)) {
+  throw new Error(`拒绝清理托管教材目录之外的路径：${resolvedTextbookPublicRoot}`);
+}
+fs.rmSync(resolvedTextbookPublicRoot, { recursive: true, force: true });
+fs.mkdirSync(resolvedTextbookPublicRoot, { recursive: true });
+
 const knowledgeImageCount = copyMedia(textbookSourceRoot, textbookPublicRoot);
-const exerciseImageCount = copyMedia(exerciseSourceRoot, exercisePublicRoot);
-const exerciseImageAliases = copyExerciseImageAliases(questions);
+const condensedImageCount = fs.existsSync(condensedSourceRoot) ? copyMedia(condensedSourceRoot, condensedPublicRoot) : 0;
+const exerciseImageCount = copyExerciseMedia(questions);
 const answersByStatus = Object.fromEntries(["provided", "missing", "hint-only"].map((status) => [status, questions.filter((question) => question.answer.status === status).length]));
 const openReviewFlags = questions.flatMap((question) => question.review.flags).filter((flag) => flag.status === "open").length;
 const dataset = {
-  version: 1,
+  version: 2,
   generatedAt: new Date().toISOString(),
   book: {
     id: "data-structures-yan-weimin",
@@ -677,6 +668,8 @@ const dataset = {
   stats: {
     knowledgePages: pages.length,
     knowledgeImages: knowledgeImageCount,
+    condensedPages: condensedPagesBySlug.size,
+    condensedImages: condensedImageCount,
     chapters: manifest.chapters.length,
     exerciseRecords: questions.length,
     exerciseQuestions: questions.filter((question) => question.isExercise).length,
@@ -694,4 +687,4 @@ const dataset = {
 
 fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 fs.writeFileSync(outputPath, `${JSON.stringify(dataset, null, 2)}\n`);
-console.log(`已导入 ${pages.length} 篇教材页、${questions.length} 条习题记录和 ${knowledgeImageCount + exerciseImageCount + exerciseImageAliases} 张图资产。`);
+console.log(`已导入 ${pages.length} 篇教材页（其中 ${condensedPagesBySlug.size} 篇含精简版）、${questions.length} 道习题和 ${knowledgeImageCount + condensedImageCount + exerciseImageCount} 张图资产。`);

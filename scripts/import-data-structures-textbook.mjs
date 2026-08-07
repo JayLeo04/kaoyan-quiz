@@ -8,6 +8,7 @@ const textbookSourceRoot = path.join(projectRoot, "source-materials", "data-stru
 const exerciseSourceRoot = path.join(projectRoot, "source-materials", "data-structures-yan-weimin-exercises");
 const condensedSourceRoot = path.join(projectRoot, "examples", "408-knowledge-distillation");
 const outputPath = path.join(projectRoot, "app", "data", "textbook-data-structures.json");
+const knowledgeLinksOutputPath = path.join(projectRoot, "app", "data", "textbook-knowledge-links.json");
 const textbookPublicRoot = path.join(projectRoot, "public", "textbooks", "data-structures");
 const textbookPublicBase = "/textbooks/data-structures";
 const condensedPublicRoot = path.join(textbookPublicRoot, "condensed");
@@ -61,7 +62,7 @@ function walkMarkdown(root) {
 
 function copyMediaFile(source, output) {
   if (path.extname(source).toLowerCase() === ".svg") {
-    const svg = fs.readFileSync(source, "utf8").replace(/[ \t]+(?=\r?\n)/g, "");
+    const svg = fs.readFileSync(source, "utf8").replace(/\r\n/g, "\n").replace(/[ \t]+(?=\n)/g, "");
     fs.writeFileSync(output, svg);
     return;
   }
@@ -85,6 +86,20 @@ function copyMedia(sourceRoot, destinationRoot) {
     }
   };
   walk(sourceRoot);
+  return count;
+}
+
+function countMediaFiles(root) {
+  if (!fs.existsSync(root)) return 0;
+  let count = 0;
+  const walk = (directory) => {
+    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      const target = path.join(directory, entry.name);
+      if (entry.isDirectory()) walk(target);
+      else if (entry.isFile() && mediaExtension.test(entry.name)) count += 1;
+    }
+  };
+  walk(root);
   return count;
 }
 
@@ -518,6 +533,8 @@ if (!fs.existsSync(textbookSourceRoot) || !fs.existsSync(exerciseSourceRoot)) {
 
 const manifest = JSON.parse(fs.readFileSync(path.join(textbookSourceRoot, "manifest.json"), "utf8"));
 const exerciseCatalog = JSON.parse(fs.readFileSync(path.join(exerciseSourceRoot, "questions", "index.json"), "utf8"));
+const previousDataset = fs.existsSync(outputPath) ? JSON.parse(fs.readFileSync(outputPath, "utf8").replace(/^\uFEFF/, "")) : null;
+const hasCondensedSource = fs.existsSync(condensedSourceRoot);
 if (exerciseCatalog.schemaVersion !== "luna-exercise-question-catalog-2") {
   throw new Error(`未知习题目录格式：${exerciseCatalog.schemaVersion || "missing"}`);
 }
@@ -554,7 +571,11 @@ for (const route of visualManifest.byRoute.keys()) {
   }
 }
 const pagesByPath = new Map(canonicalPages.map((page) => [page.sourcePath, page]));
-const condensedPagesBySlug = loadCondensedPages(condensedSourceRoot, canonicalPages, pagesByPath);
+const condensedPagesBySlug = hasCondensedSource
+  ? loadCondensedPages(condensedSourceRoot, canonicalPages, pagesByPath)
+  : new Map((previousDataset?.pages || [])
+    .filter((page) => page.condensed && canonicalPages.some((candidate) => candidate.slug === page.slug))
+    .map((page) => [page.slug, page.condensed]));
 const resolvedVisualIds = new Set();
 const pages = canonicalPages.map((page) => {
   const declaredVisualizations = visualManifest.byRoute.get(page.slug) || [];
@@ -627,10 +648,18 @@ const questions = exerciseCatalog.questions.map((question) => {
       original: answerOriginal,
       html: answer.html,
     },
-    knowledgePoints: (question.knowledgeIds || []).map((id) => {
+    tags: [...(question.tags || [])],
+    quality: { ...question.quality },
+    knowledgePoints: (question.knowledgeIds || []).map((id, index) => {
       const point = exerciseKnowledgePoints.get(id);
       if (!point) throw new Error(`${question.id}: 未知知识点 ${id}`);
-      return { id, title: point.title, relation: "primary", confidence: "confirmed" };
+      return {
+        id,
+        title: point.title,
+        href: `/knowledge/${id.replace(":", "/")}`,
+        relation: index === 0 ? "primary" : "related",
+        confidence: "confirmed",
+      };
     }),
     images: (question.images || []).map((image) => ({
       ...image,
@@ -648,11 +677,16 @@ const resolvedTextbookPublicRoot = path.resolve(textbookPublicRoot);
 if (!resolvedTextbookPublicRoot.startsWith(`${managedTextbookRoot}${path.sep}`)) {
   throw new Error(`拒绝清理托管教材目录之外的路径：${resolvedTextbookPublicRoot}`);
 }
-fs.rmSync(resolvedTextbookPublicRoot, { recursive: true, force: true });
+if (fs.existsSync(resolvedTextbookPublicRoot)) {
+  for (const entry of fs.readdirSync(resolvedTextbookPublicRoot, { withFileTypes: true })) {
+    if (!hasCondensedSource && entry.isDirectory() && entry.name === "condensed") continue;
+    fs.rmSync(path.join(resolvedTextbookPublicRoot, entry.name), { recursive: true, force: true });
+  }
+}
 fs.mkdirSync(resolvedTextbookPublicRoot, { recursive: true });
 
 const knowledgeImageCount = copyMedia(textbookSourceRoot, textbookPublicRoot);
-const condensedImageCount = fs.existsSync(condensedSourceRoot) ? copyMedia(condensedSourceRoot, condensedPublicRoot) : 0;
+const condensedImageCount = hasCondensedSource ? copyMedia(condensedSourceRoot, condensedPublicRoot) : countMediaFiles(condensedPublicRoot);
 const exerciseImageCount = copyExerciseMedia(questions);
 const answersByStatus = Object.fromEntries(["provided", "missing", "hint-only"].map((status) => [status, questions.filter((question) => question.answer.status === status).length]));
 const openReviewFlags = questions.flatMap((question) => question.review.flags).filter((flag) => flag.status === "open").length;
@@ -687,4 +721,17 @@ const dataset = {
 
 fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 fs.writeFileSync(outputPath, `${JSON.stringify(dataset, null, 2)}\n`);
+const textbookKnowledgeLinks = {
+  schemaVersion: "textbook-knowledge-links-v1",
+  books: {
+    "data-structures": {
+      bookId: dataset.book.id,
+      knowledge: Object.fromEntries(dataset.knowledgePoints.map((point) => [point.id, {
+        title: point.title,
+        questionIds: [...point.questionIds],
+      }])),
+    },
+  },
+};
+fs.writeFileSync(knowledgeLinksOutputPath, `${JSON.stringify(textbookKnowledgeLinks, null, 2)}\n`);
 console.log(`已导入 ${pages.length} 篇教材页（其中 ${condensedPagesBySlug.size} 篇含精简版）、${questions.length} 道习题和 ${knowledgeImageCount + condensedImageCount + exerciseImageCount} 张图资产。`);

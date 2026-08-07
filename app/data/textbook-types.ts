@@ -72,6 +72,14 @@ export type TextbookQuestionOption = {
   html: string;
 };
 
+export type TextbookQuestionQuality = {
+  statement: "clear" | "minor-issue" | "broken";
+  answerability: "complete" | "needs-assumption" | "unanswerable";
+  examRelevance: "core" | "supporting" | "legacy";
+  disposition: "keep" | "revise" | "hide";
+  notes: string;
+};
+
 export type TextbookQuestion = {
   id: string;
   number: string;
@@ -100,9 +108,12 @@ export type TextbookQuestion = {
     verifiedHtml?: string;
     explanation?: string;
   };
+  tags: string[];
+  quality: TextbookQuestionQuality;
   knowledgePoints: Array<{
     id: string;
     title: string;
+    href: string;
     relation: string;
     confidence: string;
   }>;
@@ -183,7 +194,9 @@ export type TextbookQuestionSummary = Pick<TextbookQuestion, "id" | "number" | "
   section: Pick<TextbookQuestion["section"], "id" | "title">;
   prompt: Pick<TextbookQuestion["prompt"], "markdown" | "plain">;
   answer: Pick<TextbookQuestion["answer"], "status" | "origin"> & { hasVerified: boolean };
-  knowledgePoints: Array<Pick<TextbookQuestion["knowledgePoints"][number], "id" | "title">>;
+  tags: string[];
+  quality: TextbookQuestionQuality;
+  knowledgePoints: Array<Pick<TextbookQuestion["knowledgePoints"][number], "id" | "title" | "href">>;
 };
 
 export type TextbookPracticeQuery = {
@@ -191,6 +204,8 @@ export type TextbookPracticeQuery = {
   type?: string;
   answer?: string;
   learning?: string;
+  disposition?: "recommended" | "all" | "keep" | "revise" | "hide";
+  knowledgeId?: string;
   query?: string;
   page?: number;
   masteredIds?: string[];
@@ -209,7 +224,9 @@ export type TextbookQuestionContent = Pick<TextbookQuestion, "id" | "number" | "
   prompt: Pick<TextbookQuestion["prompt"], "html">;
   options: Array<Pick<TextbookQuestionOption, "label" | "html">>;
   answer: Pick<TextbookQuestion["answer"], "status" | "originalStatus" | "origin" | "html" | "verifiedHtml" | "explanation">;
-  knowledgePoints: Array<Pick<TextbookQuestion["knowledgePoints"][number], "id" | "title">>;
+  tags: string[];
+  quality: TextbookQuestionQuality;
+  knowledgePoints: Array<Pick<TextbookQuestion["knowledgePoints"][number], "id" | "title" | "href">>;
   source: {
     question?: Pick<NonNullable<TextbookQuestion["source"]["question"]>, "pdfPages" | "bookPages">;
     answer?: Pick<NonNullable<TextbookQuestion["source"]["answer"]>, "pdfPages" | "bookPages">;
@@ -232,6 +249,7 @@ export type TextbookReaderPayload = {
 
 export type TextbookPracticeLibraryPayload = {
   bookSlug: string;
+  initialKnowledgeId?: string;
   presentation: TextbookPresentation;
   book: Pick<TextbookDataset["book"], "id" | "title" | "author">;
   stats: Pick<TextbookDataset["stats"], "exerciseQuestions" | "answersProvided" | "answersHintOnly" | "answersVerified">;

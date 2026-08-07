@@ -239,7 +239,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "独立复核答案：\n\n完整选择：a（删 P 的直接后继）=(11)(3)(14)；c（删 P）=(10)(12)(7)(3)(14)；d（删首元）=(12)(11)(3)(14)；e（删尾元）=(9)(11)(3)(14)。b 删除 P 的直接前驱不能只凭 P 回退：必须从头结点扫描，维护 preprev、prev，直到 prev->next==P，再令 preprev->next=P 并释放 prev。所有删除都先保存数据和后继，空表/首元边界须先判定。",
-        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。",
+        "correction": {
+          "verified": "**完整答案**\n\n各小问所选语句序列为：\n\n| 小问 | 语句序列 |\n| --- | --- |\n| a. 删除 P 的直接后继 | (11)(3)(14) |\n| b. 删除 P 的直接前驱 | **(10)(12)(8)(11)(3)(14)** |\n| c. 删除 P | (10)(12)(7)(3)(14) |\n| d. 删除首元结点 | (12)(11)(3)(14) |\n| e. 删除尾元结点 | (9)(11)(3)(14) |\n\nb 的关键是先用 (10) 令 Q 保存原来的 P，再令 P 从头结点 L 出发。当循环 (8) 结束时，P 指向“待删结点的前驱”，即原 P 的前驱的前驱；随后 (11) 令 Q 指向待删结点，(3) 越过它，最后 (14) 释放它。\n\ne 中题设保证原 P 不是尾结点，故可直接从原 P 向后扫描到尾结点的前驱；若希望不依赖这一可用起点，也可在最前面加 (12)，结果相同。所有删除均先保存待释放结点 Q，再改链，最后 free(Q)。",
+          "explanation": "逐项覆盖原题要求，补齐结论、推导或可执行过程，并纠正交叉审校发现的实质性错误。",
+          "reason": "全量交叉审校：按原题重算并改写为可独立阅读、可核验的完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -255,7 +260,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "独立复核答案：\n\n（1）当 L 长度至少2时将首元移到表尾。（2）对单循环表 AA(pa,pb)：设 pa、pb 分别指向待切分环上的两个断点，先保存 pa->next 和 pb->next；令 pa->next 指回第一段首元、pb->next 指回第二段首元，从而得到两个互不共享结点的循环表。若两断点相同或相邻，应先判定空段并按题设保留空循环/拒绝分割；仅改常数条链，时间 O(1)。",
-        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。",
+        "correction": {
+          "verified": "**完整答案**\n\n（1）A 在链表长度至少为 2 时，把首元结点移到表尾。设原表为\n\n$$q_1\\to q_2\\to\\cdots\\to q_n\\to\\mathrm{NULL},$$\n\n执行后为\n\n$$q_2\\to q_3\\to\\cdots\\to q_n\\to q_1\\to\\mathrm{NULL}.$$\n\n函数形参 L 按值传入，所以调用者若仍保存原首指针 q1，它不会自动变成 q2；该函数只改了结点间的链。寻找原尾结点需要扫描，时间为 $\\Theta(n)$，附加空间为 $O(1)$。\n\n（2）BB(s,q) 从 s 沿循环链查找 q 的前驱 p，再令 p->next=s，于是把从 s 到 p 的那一段闭合成一个循环链表。AA(pa,pb) 先闭合从 pa 到 pb 前驱的弧段，再闭合从 pb 到 pa 前驱的另一弧段，因此把原单循环链表在 pa、pb 两处断开，分成分别以 pa、pb 为入口的两个单循环链表。\n\n两个 BB 的 while 扫描合计走过原环的结点，故 AA 的时间为 $\\Theta(n)$、附加空间为 $O(1)$。题给接口没有保存两个断点的前驱，不能把它说成 $O(1)$；只有额外直接给出这两个前驱时，改链本身才是常数时间。",
+          "explanation": "逐项覆盖原题要求，补齐结论、推导或可执行过程，并纠正交叉审校发现的实质性错误。",
+          "reason": "全量交叉审校：按原题重算并改写为可独立阅读、可核验的完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -575,7 +585,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "独立复核答案：\n\n栈调度中 435612 不可得：输出4、3后，1、2仍在栈且5、6必须按到达顺序处理，不能先出5再出6而保持后续1、2。135426 可得，操作序列为 SXSSXSSXXXSX。入栈前缀与出栈时栈顶逐步模拟即可验证；每节车厢至多进、出栈一次。",
-        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。",
+        "correction": {
+          "verified": "**完整答案**\n\n（1）输入 123 时，单栈可能得到的全部出站序列为\n\n$$123,\\ 132,\\ 213,\\ 231,\\ 321.$$\n\n它们正好是 3 个元素的 5 个合法栈排列；312 不可能，因为要先输出 3，1、2 必须已经依次入栈，此时 2 压在 1 上面，不能先输出 1。\n\n（2）135426 可以得到。一组操作为\n\n$$\\mathtt{S\\ X\\ S\\ S\\ X\\ S\\ S\\ X\\ X\\ X\\ S\\ X},$$\n\n依次输出 1、3、5、4、2、6。\n\n435612 不可能：输出 4 后栈内自底向上为 1、2、3；再输出 3，随后可压入并输出 5、6，但此时栈顶仍是 2，故只能先出 2 后出 1，不可能得到末尾的 1、2。",
+          "explanation": "逐项覆盖原题要求，补齐结论、推导或可执行过程，并纠正交叉审校发现的实质性错误。",
+          "reason": "全量交叉审校：按原题重算并改写为可独立阅读、可核验的完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -655,7 +670,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "独立复核答案：\n\n表达式的栈表在关键末两步为：第10步操作数栈 OPND=T3；第11步运算符栈为 # + / T3（按题表记号）。完整归约后后缀式为 ABC*D/-EF^+，即 A-(B*C)/D+E^F。",
-        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。",
+        "correction": {
+          "verified": "**完整答案**\n\n约定栈底写在左侧，# 为结束哨兵；$T_i$ 表示一次归约所得的中间值。完整过程如下：\n\n| 读入/动作 | OPND | OPTR | 说明 |\n| --- | --- | --- | --- |\n| 初始 | 空 | # | 初始化 |\n| 读 A | A | # | 操作数入栈 |\n| 读 - | A | # - | - 入栈 |\n| 读 B | A B | # - | 操作数入栈 |\n| 读 * | A B | # - * | * 的优先级高于 - |\n| 读 C | A B C | # - * | 操作数入栈 |\n| 遇 /，先归约 * | A T1 | # - | $T_1=B*C$ |\n| / 入栈 | A T1 | # - / | *、/ 同级且左结合 |\n| 读 D | A T1 D | # - / | 操作数入栈 |\n| 遇 +，归约 / | A T2 | # - | $T_2=T_1/D$ |\n| 继续归约 - | T3 | # | $T_3=A-T_2$ |\n| + 入栈 | T3 | # + | 当前栈顶可接收 + |\n| 读 E | T3 E | # + | 操作数入栈 |\n| 读 ↑ | T3 E | # + ↑ | 幂运算优先级最高 |\n| 读 F | T3 E F | # + ↑ | 操作数入栈 |\n| 遇 #，归约 ↑ | T3 T4 | # + | $T_4=E\\uparrow F$ |\n| 继续归约 + | T5 | # | $T_5=T_3+T_4$ |\n| # 与 # 相遇 | T5 | # | 接受并返回 T5 |\n\n所以实际求值次序是\n\n$$T_1=B*C,\\quad T_2=T_1/D,\\quad T_3=A-T_2,\\quad T_4=E\\uparrow F,\\quad T_5=T_3+T_4.$$\n",
+          "explanation": "逐项覆盖原题要求，补齐结论、推导或可执行过程，并纠正交叉审校发现的实质性错误。",
+          "reason": "全量交叉审校：按原题重算并改写为可独立阅读、可核验的完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -687,7 +707,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "独立复核答案：\n\n将题给递推的基例直接写为 return，递推分支写为 return F(下一状态)；该调用在 return 位置，无后续运算，故为尾递归。完整递归过程须保留题给的参数更新、终止条件和返回值，尾递归可改为等价 while 循环而不改变状态序列。\n\n关键实现与边界：\n以尾递归求和为例，完整形式为 Sum(n,acc)：若 n==0 返回 acc；否则返回 Sum(n-1,acc+n)。acc 是已累计的后缀和，n 每次减一，故必到基例；调用后无额外计算，所以是尾递归。初始调用 Sum(N,0)，时间 O(N)、递归栈 O(N)，可直接改 while。",
-        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。",
+        "correction": {
+          "verified": "**完整答案**\n\n原过程依次输出 $n,n-1,\\ldots,2$。等价递归过程为：\n\n~~~~c\nvoid digui(int n) {\n    if (n <= 1) return;\n    printf(\"%d\", n);\n    digui(n - 1);\n}\n~~~~\n\n必须先打印 n 再递归，否则输出顺序会反过来。$n\\le1$ 是终止条件。该写法是尾递归，时间 $O(n)$；按通常递归实现，调用栈为 $O(n)$。",
+          "explanation": "逐项覆盖原题要求，补齐结论、推导或可执行过程，并纠正交叉审校发现的实质性错误。",
+          "reason": "全量交叉审校：按原题重算并改写为可独立阅读、可核验的完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -703,7 +728,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "独立复核答案：\n\n非递归求和用栈帧保存参数 n 与阶段：下降阶段持续压入 n,n-1,...,1；遇0令 sum=0，随后每弹一帧执行 sum+=n，直到栈空返回。每一帧恰对应一次递归调用与一次回退，故结果等于递归和；时间O(n)、栈O(n)。\n\n关键实现与边界：\n显式栈帧含 n 与 state。先压(n,0)；state0 且n>0时改当前帧为state1并压(n-1,0)，n==0置 ret=0；state1 时把子调用 ret 加到本帧 n，弹栈并把 ret 交给父帧。栈空时 ret 为1..N和。该压栈/回退顺序与递归调用、返回一一对应。",
-        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。",
+        "correction": {
+          "verified": "**完整答案**\n\n递归阶段把每个非零输入 x 保存在各层局部变量中；读到 0 时先令 sum=0 并打印 0，随后回退，各层按输入的逆序执行 sum+=x 并打印。因此必须用显式栈保存这些 x：\n\n~~~~c\nvoid test_non_recursive(int *sum) {\n    Stack S;\n    int x;\n    InitStack(&S);\n\n    while (scanf(\"%d\", &x) == 1 && x != 0)\n        Push(&S, x);\n\n    *sum = 0;\n    printf(\"%d\", *sum);          /* 对应读到 0 的最深递归层 */\n    while (!StackEmpty(S)) {\n        Pop(&S, &x);\n        *sum += x;\n        printf(\"%d\", *sum);      /* 对应一层递归回退 */\n    }\n    DestroyStack(&S);\n}\n~~~~\n\n若输入为 $x_1,x_2,\\ldots,x_k,0$，输出依次为\n\n$$0,\\ x_k,\\ x_k+x_{k-1},\\ldots,\\sum_{i=1}^{k}x_i.$$\n\n时间和辅助栈空间均为 $O(k)$。",
+          "explanation": "逐项覆盖原题要求，补齐结论、推导或可执行过程，并纠正交叉审校发现的实质性错误。",
+          "reason": "全量交叉审校：按原题重算并改写为可独立阅读、可核验的完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -719,7 +749,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "独立复核答案：\n\n队列元素类型为 char，按题给 EnQueue/DeQueue 的执行顺序模拟，输出必须按字符逐个写出，不能写成 int 或地址；front 指向待出元素、rear 指向下一可写位置，循环回绕不改变 FIFO 次序。",
-        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。",
+        "correction": {
+          "verified": "**完整答案**\n\n入队 h、r、c 后，队列为 h r c。\n\n1. 第一次出队得到 x=h，再把 h 入队，队列变为 r c h；\n2. 第二次出队得到 x=r，再把 a 入队，队列变为 c h a；\n3. while 循环依次打印 c、h、a；循环后 x 仍为 r，再打印 r。\n\n因此最终输出为\n\n~~~~text\nchar\n~~~~",
+          "explanation": "逐项覆盖原题要求，补齐结论、推导或可执行过程，并纠正交叉审校发现的实质性错误。",
+          "reason": "全量交叉审校：按原题重算并改写为可独立阅读、可核验的完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -879,7 +914,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "独立复核答案：\n\nakm(2,1)=5。非递归栈法压入 m：循环若栈顶m==0则弹出并 n++；若n==0则把栈顶改为m-1并令n=1；否则把当前栈顶改为m-1、再压入原m并令n--。栈帧精确模拟 akm(m-1,akm(m,n-1))，m,n非负；终止时栈空返回n。\n\n关键实现与边界：\n非递归实现应使用整数栈存待处理 m：先 Push(m)。循环取栈顶 t；t==0 时 Pop、n++；t>0且n==0时栈顶改为t-1、n=1；否则栈顶改为t-1，再 Push(t)、n--。栈从顶到下表示尚待执行的外层 akm，故三分支与定义一致。m,n非负，akm(2,1)最终为5。",
-        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。",
+        "correction": {
+          "verified": "**完整答案**\n\n（1）递归算法直接对应三条定义：\n\n~~~~c\nlong akm(long m, long n) {\n    if (m == 0) return n + 1;\n    if (n == 0) return akm(m - 1, 1);\n    return akm(m - 1, akm(m, n - 1));\n}\n~~~~\n\n（2）非递归算法只需在栈中保存尚待计算的 m。栈底写在左侧：\n\n~~~~c\nlong akm_iter(int m, long n) {\n    Stack S;\n    InitStack(&S);\n    Push(&S, m);\n    while (!StackEmpty(S)) {\n        int t = Top(S);\n        if (t == 0) {             /* A(0,n)=n+1 */\n            Pop(&S, &t);\n            ++n;\n        } else if (n == 0) {      /* A(t,0)=A(t-1,1) */\n            SetTop(&S, t - 1);\n            n = 1;\n        } else {                  /* 先算 A(t,n-1)，外层 A(t-1,·) 待定 */\n            SetTop(&S, t - 1);\n            Push(&S, t);\n            --n;\n        }\n    }\n    return n;\n}\n~~~~\n\n（3）求 $\\operatorname{akm}(2,1)$ 时的状态如下；每行是一次规则执行后的“m 栈；n”：\n\n| 步 | m 栈（底→顶） | n |\n| ---: | --- | ---: |\n| 初始 | [2] | 1 |\n| 1 | [1,2] | 0 |\n| 2 | [1,1] | 1 |\n| 3 | [1,0,1] | 0 |\n| 4 | [1,0,0] | 1 |\n| 5 | [1,0] | 2 |\n| 6 | [1] | 3 |\n| 7 | [0,1] | 2 |\n| 8 | [0,0,1] | 1 |\n| 9 | [0,0,0,1] | 0 |\n| 10 | [0,0,0,0] | 1 |\n| 11 | [0,0,0] | 2 |\n| 12 | [0,0] | 3 |\n| 13 | [0] | 4 |\n| 14 | [] | 5 |\n\n故 $\\operatorname{akm}(2,1)=5$。",
+          "explanation": "逐项覆盖原题要求，补齐结论、推导或可执行过程，并纠正交叉审校发现的实质性错误。",
+          "reason": "全量交叉审校：按原题重算并改写为可独立阅读、可核验的完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -895,7 +935,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "独立复核答案：\n\n循环链队列始终保留头结点：空队 rear=head 且 head->next=head。入队在 rear 后插新结点、rear=new；出队删除 head->next，若删后为空令rear=head。队头不直接用rear表示，三操作O(1)。\n\n关键实现与边界：\ntypedef含头结点head与尾指针rear。Init 分配head，head->next=head，rear=head；EnQueue 分配s，s->next=head，rear->next=s，rear=s；DeQueue 判 rear==head 为空，否则 q=head->next，取值，head->next=q->next，若q==rear则rear=head，free(q)。每步 O(1)，头结点永不删除。",
-        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。",
+        "correction": {
+          "verified": "**完整答案**\n\n只保留一个 rear 指针。非空时 rear 指向队尾数据结点，rear->next 永远指向头结点；空队时 rear 就指向头结点本身，且 rear->next==rear。因此不需要另存头指针。\n\n~~~~c\ntypedef struct QNode {\n    QElemType data;\n    struct QNode *next;\n} QNode;\n\nStatus InitQueue(QNode **rear) {\n    *rear = (QNode *)malloc(sizeof(QNode));\n    if (!*rear) return OVERFLOW;\n    (*rear)->next = *rear;              /* rear 此时就是头结点 */\n    return OK;\n}\n\nStatus EnQueue(QNode **rear, QElemType e) {\n    QNode *s = (QNode *)malloc(sizeof(QNode));\n    if (!s) return OVERFLOW;\n    s->data = e;\n    s->next = (*rear)->next;            /* 新结点后接头结点 */\n    (*rear)->next = s;                  /* 原队尾后接新结点 */\n    *rear = s;\n    return OK;\n}\n\nStatus DeQueue(QNode **rear, QElemType *e) {\n    QNode *head = (*rear)->next;        /* 临时取得头结点，不长期保存 */\n    QNode *first = head->next;\n    if (first == head) return ERROR;    /* 空队 */\n    *e = first->data;\n    head->next = first->next;\n    if (first == *rear) {               /* 原队列只有一个数据结点 */\n        *rear = head;\n        head->next = head;\n    }\n    free(first);\n    return OK;\n}\n~~~~\n\n初始化、入队、出队均为 $O(1)$。销毁时从 rear->next 所指头结点开始释放整环即可。",
+          "explanation": "逐项覆盖原题要求，补齐结论、推导或可执行过程，并纠正交叉审校发现的实质性错误。",
+          "reason": "全量交叉审校：按原题重算并改写为可独立阅读、可核验的完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -975,7 +1020,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "独立复核答案：\n\nStrAssign、StrCopy、StrCompare、StrLength、Concat、SubString 前五类基本操作应独立实现，不能循环互相调用；Index 可由逐起点比较构造，Replace 可由 Index、SubString、Concat 构造。这样基本集有明确终止和构造能力。",
-        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。",
+        "correction": {
+          "verified": "**完整答案**\n\n教材给出的 13 种操作中，以下 5 种构成最小操作子集：\n\n$$\\text{StrAssign, StrCompare, StrLength, Concat, SubString}.$$\n\n在抽象操作层面，任意删去其中一种，都无法仅靠其余操作同时获得它所提供的能力：从字符常量建串、按字典序比较、取得长度、联接两个完整串、按位置截取。因此这 5 种不应彼此循环定义。\n\n其余操作可按下表构造：\n\n| 操作 | 用最小子集构造的方法 |\n| --- | --- |\n| StrCopy(T,S) | 先 StrAssign(E,\"\")，再 Concat(T,S,E)；即复制 S 的值 |\n| StrEmpty(S) | 判断 StrLength(S)==0 |\n| Index(S,T,pos) | 令 m=StrLength(T)，从 pos 起逐位取 SubString(S,i,m)，用 StrCompare 与 T 比较，首次相等即返回 i，否则返回 0 |\n| StrInsert(S,pos,T) | 取 S 的前缀和后缀，依次 Concat(前缀,T,后缀)；pos=1 或 len+1 时相应前/后缀为空 |\n| StrDelete(S,pos,len) | 取被删区间前后的两个子串，再 Concat |\n| Replace(S,T,V) | 反复用 Index 找到下一个不重叠的 T，把未处理前缀、V 和剩余后缀联接；每次从替换段之后继续 |\n\nClearString 与 DestroyString 涉及存储生命周期，教材明确把它们排除在“由最小值操作子集构造”的结论之外。仅从串值看，StrAssign(S,\"\") 能把值置空；但真正的 ClearString 还应释放旧串占用的空间。DestroyString 更要释放表示并使该串不再存在，必须依赖实现层的释放原语，不能由纯值操作得到。\n\n所以：5 个最小原语直接实现；StrCopy、StrEmpty、Index、Replace、StrInsert、StrDelete 由它们组合；ClearString、DestroyString 由具体存储管理实现。",
+          "explanation": "逐项覆盖原题要求，补齐结论、推导或可执行过程，并纠正交叉审校发现的实质性错误。",
+          "reason": "全量交叉审校：按原题重算并改写为可独立阅读、可核验的完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -1007,7 +1057,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "独立复核答案：\n\nb 是空串。s=THIS SAMPLE IS，t=A GOOD，u=ONE，v=THIS SAMPLE ISA GOODONE；StrLength(s)=14，Index(v,IS)=3，Index(u,IS)=0。空串连接不增加字符，位置按1基计。",
-        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。",
+        "correction": {
+          "verified": "**完整答案**\n\n各中间结果为：\n\n$$\\operatorname{SubString}(f,2,7)=\\texttt{\" SAMPLE\"},$$\n\n$$\\operatorname{SubString}(a,3,2)=\\texttt{\"IS\"}.$$\n\n因此\n\n| 量 | 结果 |\n| --- | --- |\n| s | THIS SAMPLEIS |\n| t | A GOOD |\n| u | ONE |\n| v | THIS SAMPLEISA GOODONE |\n| StrLength(s) | 13 |\n| Index(v,g) | 3 |\n| Index(u,g) | 0 |\n\nIndex 按 1 起始计数。v 中第一次出现 IS 是 THIS 的第 3、4 个字符；u=ONE 中不存在 IS。注意 b 是空串，不会在联接时自动补空格。",
+          "explanation": "逐项覆盖原题要求，补齐结论、推导或可执行过程，并纠正交叉审校发现的实质性错误。",
+          "reason": "全量交叉审校：按原题重算并改写为可独立阅读、可核验的完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -1055,7 +1110,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "独立复核答案：\n\n块大小4k、每块另含一个4字节指针，长度l的串需 ceil(l/(4k)) 块，故存储密度 d(4k,l)=l/[4(k+1)ceil(l/(4k))]；l=0时为0。分子是有效字符字节，分母含全部块和链指针。",
-        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。",
+        "correction": {
+          "verified": "**完整答案**\n\n每个结点的总大小是 $4k$ 字节，其中指针占 4 字节，所以实际可存字符数为\n\n$$c=4k-4.$$\n\n要能存字符必须 $k\\ge2$。当 $l>0$ 时所需结点数为\n\n$$N(l)=\\left\\lceil\\frac{l}{4k-4}\\right\\rceil,$$\n\n故存储密度为“有效字符字节数 / 实际分配总字节数”：\n\n$$\nd(4k,l)=\n\\frac{l}{4k\\left\\lceil l/(4k-4)\\right\\rceil},\\qquad l>0.\n$$\n\n空串不分配数据结点时单列为 $d(4k,0)=0$。最后一个结点未装满的字符区也计入已分配空间，这正是密度通常小于 $(4k-4)/(4k)$ 的原因。",
+          "explanation": "逐项覆盖原题要求，补齐结论、推导或可执行过程，并纠正交叉审校发现的实质性错误。",
+          "reason": "全量交叉审校：按原题重算并改写为可独立阅读、可核验的完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -1423,7 +1483,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "独立核验答案：\n\n按 hp 为表头、tp 为表尾逐结点回读：(1)为((x,(y)),((()),(),(z)))；(2)为(((a,b,()),(),(a,(b)),())。核对时空表必须保留为()，而非省略；每一个同层逗号对应一次 tp 链接。\n\n补充核验：（1）$((x,(y)),((()),(),(z)))$\n\n（2）$(((a,b,()),(),(a,(b)),())$\n\n关键实现与边界：\n按图从头结点沿 hp 读表头、沿 tp 读同层后继；tag=ATOM 输出原子，tag=LIST 时递归加括号，tp为空结束该层。图(1)得到((x,(y)),((()),(),(z)))，图(2)得到(((a,b,()),(),(a,(b)),())。空表()必须保留，逐条hp/tp边可与图一一核对，遍历时间O(N)。",
-        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。",
+        "correction": {
+          "verified": "**完整答案**\n\n按头尾链表的规则递归读取：表结点的 hp 指向当前表头元素，tp 指向表尾；hp 为空而该表结点作为某个元素时表示空表 ()。\n\n（1）外层有两个元素。第一个元素为 $(x,(y))$；第二个元素依次为 $(())$、$()$、$(z)$，所以\n\n$$\\boxed{((x,(y)),((()),(),(z)))}.$$\n\n（2）外层有三个元素。第一个元素的表头为 $(a,b,())$、表尾还有一个空表，故为 $((a,b,()),())$；第二个元素为 $(a,(b))$；第三个元素为空表。因此\n\n$$\\boxed{(((a,b,()),()),(a,(b)),())}.$$\n\n两式均已按字符逐一扫描核验括号：第一式和第二式的左右括号数分别相等，且每个逗号都处于同一层的一对相邻元素之间。",
+          "explanation": "逐项覆盖原题要求，补齐结论、推导或可执行过程，并纠正交叉审校发现的实质性错误。",
+          "reason": "全量交叉审校：按原题重算并改写为可独立阅读、可核验的完整答案。"
+        }
       },
       "review": {
         "status": "passed",

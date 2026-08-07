@@ -68,10 +68,12 @@ export function KnowledgeWorkspace({
   subjectId,
   data,
   currentSlug,
+  textbookPractice,
 }: {
   subjectId: SubjectId;
   data: LocalKnowledgeSubject;
   currentSlug: string;
+  textbookPractice?: { href: string; count: number } | null;
 }) {
   const [completedCount, setCompletedCount] = useState(0);
   const [query, setQuery] = useState("");
@@ -183,11 +185,12 @@ export function KnowledgeWorkspace({
               <small>{currentPage.headings.length} 个小节</small>
               {currentPage.years.length ? <small>覆盖真题 {currentPage.years[0]}—{currentPage.years.at(-1)}</small> : null}
             </div>
-            {currentPage.tags.length ? (
+            {currentPage.tags.length || textbookPractice ? (
               <div className="local-knowledge-tags">
                 <span>关联考点</span>
                 {currentPage.tags.slice(0, 8).map((tag) => <b key={tag.name}>{tag.name}<small>{tag.questionCount}</small></b>)}
                 {practiceHref ? <Link href={practiceHref}>做相关真题 · {currentPage.questionIds.length} 道 →</Link> : null}
+                {textbookPractice ? <Link href={textbookPractice.href}>做教材习题 · {textbookPractice.count} 道 →</Link> : null}
               </div>
             ) : null}
             <StudyResourceTools resource={learningResource} practiceHref={practiceHref} practiceLabel={`做相关真题${currentPage.questionIds.length ? ` · ${currentPage.questionIds.length} 道` : ""}`} />

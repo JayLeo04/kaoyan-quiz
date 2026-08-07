@@ -6,6 +6,9 @@ const bookRoot = path.join(projectRoot, "source-materials", "data-structures-yan
 const questionsRoot = path.join(bookRoot, "questions");
 const annotationsPath = path.join(questionsRoot, "annotations.json");
 const catalogPath = path.join(questionsRoot, "index.json");
+const knowledgeDatasetPath = path.join(projectRoot, "app", "data", "knowledge.json");
+const knowledgeIndexPath = path.join(projectRoot, "app", "data", "knowledge-index.json");
+const questionReviewDirectory = path.join(projectRoot, "app", "data", "textbook-question-reviews");
 const bootstrap = process.argv.includes("--bootstrap-annotations");
 const force = process.argv.includes("--force");
 
@@ -51,6 +54,68 @@ function readJson(file) {
 function writeJson(file, value) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, `${JSON.stringify(value, null, 2)}\n`);
+}
+
+function loadCanonicalKnowledge() {
+  const knowledgeDataset = readJson(knowledgeDatasetPath);
+  const knowledgeIndex = readJson(knowledgeIndexPath);
+  const pages = knowledgeDataset.subjects?.ds?.pages || [];
+  const knowledgePoints = new Map(
+    pages
+      .filter((page) => String(page.id || "").startsWith("ds:") && page.id !== "ds:root")
+      .map((page) => [page.id, page.title]),
+  );
+  const tags = new Map(Object.entries(knowledgeIndex.subjects?.ds?.tagRoutes || {}).map(([tag, route]) => [
+    tag,
+    String(route.href || "").replace(/^\/knowledge\/([^/]+)\//, "$1:") || null,
+  ]));
+  if (!knowledgePoints.size || !tags.size) throw new Error("数据结构知识页或真题标签词表为空。");
+  return { knowledgePoints, tags };
+}
+
+function loadQuestionReviews(knownKnowledge, knownTags) {
+  if (!fs.existsSync(questionReviewDirectory)) {
+    throw new Error(`缺少 ${asPosix(path.relative(projectRoot, questionReviewDirectory))}；题目必须先完成统一知识点与质量审校。`);
+  }
+  const files = fs.readdirSync(questionReviewDirectory).filter((name) => name.endsWith(".json")).sort();
+  const reviews = new Map();
+  const allowedQuality = {
+    statement: new Set(["clear", "minor-issue", "broken"]),
+    answerability: new Set(["complete", "needs-assumption", "unanswerable"]),
+    examRelevance: new Set(["core", "supporting", "legacy"]),
+    disposition: new Set(["keep", "revise", "hide"]),
+  };
+  for (const fileName of files) {
+    const review = readJson(path.join(questionReviewDirectory, fileName));
+    if (review.schemaVersion !== "textbook-question-review-v1") throw new Error(`${fileName} 的 schemaVersion 无效。`);
+    if (review.bookId !== "data-structures-yan-weimin") throw new Error(`${fileName} 的 bookId 无效。`);
+    if (!Array.isArray(review.scope) || !review.scope.length || !Array.isArray(review.updates)) throw new Error(`${fileName} 缺少 scope 或 updates。`);
+    for (const update of review.updates) {
+      if (!String(update.id || "").trim()) throw new Error(`${fileName} 含无 ID 的审校记录。`);
+      if (reviews.has(update.id)) throw new Error(`${update.id} 在题目审校文件中重复。`);
+      if (!update.quality || !String(update.quality.notes || "").trim()) throw new Error(`${update.id} 缺少质量审校说明。`);
+      for (const [field, values] of Object.entries(allowedQuality)) {
+        if (!values.has(update.quality[field])) throw new Error(`${update.id} 的 quality.${field} 无效。`);
+      }
+      if (!Array.isArray(update.knowledgeIds) || update.knowledgeIds.length > 3) throw new Error(`${update.id} 的 knowledgeIds 格式无效。`);
+      if (!update.knowledgeIds.length && update.quality.examRelevance !== "legacy") {
+        throw new Error(`${update.id} 不是历史内容，必须关联 1–3 个现有知识页。`);
+      }
+      if (new Set(update.knowledgeIds).size !== update.knowledgeIds.length) throw new Error(`${update.id} 的 knowledgeIds 重复。`);
+      for (const id of update.knowledgeIds) if (!knownKnowledge.has(id)) throw new Error(`${update.id} 引用了不存在的知识页 ${id}。`);
+      if (!Array.isArray(update.tags) || new Set(update.tags).size !== update.tags.length) throw new Error(`${update.id} 的 tags 格式无效。`);
+      if (!update.knowledgeIds.length && update.tags.length) throw new Error(`${update.id} 没有知识页映射时不得保留真题标签。`);
+      for (const tag of update.tags) {
+        if (!knownTags.has(tag)) throw new Error(`${update.id} 自造了真题标签 ${tag}。`);
+        const routedKnowledgeId = knownTags.get(tag);
+        if (routedKnowledgeId && !update.knowledgeIds.includes(routedKnowledgeId)) {
+          throw new Error(`${update.id} 的标签 ${tag} 与现有真题路由 ${routedKnowledgeId} 不一致。`);
+        }
+      }
+      reviews.set(update.id, { ...update, scope: review.scope, sourceFile: fileName });
+    }
+  }
+  return reviews;
 }
 
 function asPosix(value) {
@@ -324,6 +389,8 @@ function buildCatalog() {
   const annotationFile = readJson(annotationsPath);
   if (annotationFile.schemaVersion !== "luna-exercise-annotations-1") throw new Error("未知的题目人工元数据 schema。 ");
   const annotations = annotationFile.annotations || {};
+  const { knowledgePoints: knownKnowledge, tags: knownTags } = loadCanonicalKnowledge();
+  const questionReviews = loadQuestionReviews(knownKnowledge, knownTags);
   const answers = extractAnswers();
   const allQuestions = [];
   const unitOutputs = [];
@@ -335,7 +402,10 @@ function buildCatalog() {
       const annotation = annotations[key];
       if (!annotation) throw new Error(`缺少人工元数据：${key}`);
       if (!sourceQuestion.mark || !difficultyMarks.has(sourceQuestion.mark)) throw new Error(`${key} 缺少原书难度圈号。`);
-      if (!Array.isArray(annotation.knowledgeIds) || !annotation.knowledgeIds.length) throw new Error(`${key} 缺少 knowledgeIds。`);
+      const id = stableId(unit.id, sourceQuestion.number);
+      const questionReview = questionReviews.get(id);
+      if (!questionReview) throw new Error(`${key} 缺少统一知识点与质量审校。`);
+      if (!questionReview.scope.includes(unit.id)) throw new Error(`${questionReview.sourceFile} 的 ${id} 超出 scope。`);
       const answerSource = answers.get(key) || null;
       if (answerSource && annotation.answerStatus === "missing") throw new Error(`${key} 在答案篇存在，但元数据标为 missing。`);
       if (!answerSource && annotation.answerStatus !== "missing") throw new Error(`${key} 在答案篇不存在，但元数据标为 ${annotation.answerStatus}。`);
@@ -373,7 +443,7 @@ function buildCatalog() {
         }
       }
       return {
-        id: stableId(unit.id, sourceQuestion.number),
+        id,
         number: sourceQuestion.number,
         type: annotation.type,
         unitId: unit.id,
@@ -383,7 +453,9 @@ function buildCatalog() {
         prompt: { markdown: sourceQuestion.markdown },
         options: annotation.options || [],
         answer,
-        knowledgeIds: [...annotation.knowledgeIds],
+        tags: [...questionReview.tags],
+        knowledgeIds: [...questionReview.knowledgeIds],
+        quality: { ...questionReview.quality },
         images,
         source,
         review: {
@@ -417,6 +489,9 @@ function buildCatalog() {
 
   const ids = new Set(allQuestions.map((question) => question.id));
   if (allQuestions.length !== 457 || ids.size !== 457) throw new Error(`题目总数/ID 唯一性错误：${allQuestions.length}/${ids.size}。`);
+  if (questionReviews.size !== allQuestions.length || [...questionReviews.keys()].some((id) => !ids.has(id))) {
+    throw new Error(`题目审校覆盖必须与 457 道题一一对应，当前为 ${questionReviews.size}。`);
+  }
   if (allQuestions.some((question) => /<!--\s*luna:/i.test(question.prompt.markdown))) throw new Error("派生题干残留 luna 注释。 ");
   const matrixQuestion = allQuestions.find((question) => question.unitId === "practice-4" && question.number === "4.1");
   if (!matrixQuestion || matrixQuestion.prompt.markdown.includes("\\\\n0")) throw new Error("实习 4.1 矩阵仍含字面量 \\\\n。 ");
@@ -427,7 +502,6 @@ function buildCatalog() {
     if (answerStats[status] !== expected) throw new Error(`答案状态 ${status}：期望 ${expected}，得到 ${answerStats[status]}。`);
   }
 
-  const knownKnowledge = new Map((annotationFile.knowledgePoints || []).map((point) => [point.id, point.title]));
   for (const question of allQuestions) {
     for (const id of question.knowledgeIds) if (!knownKnowledge.has(id)) throw new Error(`${question.id} 引用了未知知识点 ${id}。`);
   }

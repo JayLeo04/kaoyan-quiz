@@ -77,7 +77,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "**独立核校参考答案（非原书摘录）**\n\n先顺序检查第 8、16、…、8N 个记录。判定树的上部是一条 N 个索引键的顺查链：第 j 个索引键的“未命中且 K 小于该索引键”分支挂接第 j 块（8 个记录）的折半判定树；最后一个索引键的相等分支也属于第 N 块。每一块的 8 个真实键在其折半子树内的成功比较次数分布为 1,2,4,1。\n\n等概率成功时，索引链平均比较次数为 \\((N+1)/2\\)，块内折半平均比较次数为\n\n\\[\n\\frac{1\\times1+2\\times2+3\\times4+4\\times1}{8}=\\frac{17}{8}.\n\\]\n\n因此 \\(ASL_{succ}=(N+1)/2+17/8\\)。索引比较和块内第一次比较分别计一次，不能重复计数。",
-        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。",
+        "correction": {
+          "verified": "**完整答案**\n\n把第 $j$ 块记为\n\n$$a_{8j-7},a_{8j-6},\\ldots,a_{8j-1},a_{8j}.$$\n\n判定树上层是一条索引链：先比较 $a_8$，若 $K>a_8$ 再比较 $a_{16}$，依次直到 $a_{8N}$。在结点 $a_{8j}$：相等分支直接成功；小于分支接一棵只含前 7 个记录 $a_{8j-7}\\ldots a_{8j-1}$ 的平衡折半判定树；大于分支接下一个索引结点。也就是说，$a_{8j}$ 已经在索引链中比较，不能再放进块内折半树重复计算。\n\n第 $j$ 块中：\n\n- 查到索引记录 $a_{8j}$ 需要 $j$ 次比较；\n- 其余 7 个记录各先做 $j$ 次索引比较，再进入 7 结点平衡树。该树成功深度分布为 1 个深度 1、2 个深度 2、4 个深度 3，块内比较总数为 $1+2\\times2+4\\times3=17$。\n\n因此第 $j$ 块 8 个记录的比较次数总和为\n\n$$j+7j+17=8j+17.$$\n\n等概率成功查找的平均查找长度为\n\n$$\nASL=\\frac{\\sum_{j=1}^{N}(8j+17)}{8N}\n=\\frac{N+1}{2}+\\frac{17}{8}.\n$$\n\n这与原书给出的数值一致，但推导严格区分了“索引键命中”和“前 7 项折半查找”，没有重复计数。",
+          "explanation": "按教材字段、计数规则和循环不变式给出完整推导或算法，并说明边界与复杂度。",
+          "reason": "全量交叉审校：重新按教材的存储结构、计数约定和算法不变式推导，替换不能执行或证明不成立的版本。"
+        }
       },
       "review": {
         "status": "passed",
@@ -161,7 +166,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "**独立核校参考答案（非原书摘录）**\n\n至少含 4 个非叶结点；至多含 8 个非叶结点。 计数以孩子数而非关键字数为准，且根允许少于非根的最低孩子数；这正是最少与最多构造的边界。 构造时应从根向下验证每层孩子数，避免把叶结点数误当作关键字数。",
-        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。",
+        "correction": {
+          "verified": "**完整答案**\n\n结论仍是：9 个叶子时至少 **4** 个非叶结点；10 个叶子时至多 **8** 个非叶结点。\n\n3 阶 B-树的每个非叶结点有 2 或 3 个孩子，根非叶时也至少有 2 个孩子；所有叶子（失败结点）同层。\n\n1. 9 个叶子的最少构造：根取 3 个孩子，这 3 个第二层非叶结点各取 3 个叶孩子。非叶结点数为 $1+3=4$。少于 4 个非叶结点时，除根外至多只有 2 个第二层结点，最多只能产生 $2\\times3=6$ 个同层叶子，故 4 已是下界。\n2. 10 个叶子的最多构造：根取 2 个孩子；第二层两个结点的孩子数分别取 2 和 3，于是第三层有 5 个非叶结点；这 5 个结点各取 2 个叶孩子，恰得 10 个叶子。非叶结点总数为 $1+2+5=8$。\n\n上界也成立：若叶子的上一层有 $t$ 个非叶结点，则 $2t\\le10$，故 $t\\le5$；再上一层在同样的最小度约束下至多需要 2 个结点，根至多 1 个，所以非叶结点不超过 $1+2+5=8$。再多一层至少会有 $2^4=16$ 个叶子，不可能。\n\n因此把第二问改成 7 是错误的；$1+2+5$ 的合法层次构造已经给出了 8 的反例。",
+          "explanation": "按教材字段、计数规则和循环不变式给出完整推导或算法，并说明边界与复杂度。",
+          "reason": "全量交叉审校：重新按教材的存储结构、计数约定和算法不变式推导，替换不能执行或证明不成立的版本。"
+        }
       },
       "review": {
         "status": "passed",
@@ -427,7 +437,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "**独立核校参考答案（非原书摘录）**\n\n最坏关键字比较数：① n-1；② sum(i, i=2..n)=n(n+1)/2-1；③ n-1+sum(i, i=1..floor(n/2))；④ floor(n/2)-1+sum(i, i=floor(n/2)+1..n)。逐次插入时累计其可能跨越的有序前缀即可。",
-        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。",
+        "correction": {
+          "verified": "**完整答案**\n\n必须沿用教材算法 10.1 的计数约定：每趟至少比较 1 次；若本趟待插记录与已有 $i-1$ 个记录形成 $t_i$ 个逆序对，则本趟计 $t_i+1$ 次（插到最前面时最后一次是与监视哨兵比较）。所以总比较数\n\n$$C=(n-1)+I,$$\n\n其中 $I$ 为初始序列的逆序对数。由此得到：\n\n1. 正序：$I=0$，故 $C_1=n-1$。\n2. 逆序：$I=n(n-1)/2$，故\n   $$C_2=\\sum_{i=2}^{n}i=\\frac{(n+2)(n-1)}2.$$\n3. 奇数位置自身递增、偶数位置自身递增。令 $r=\\lfloor n/2\\rfloor$，逆序只可能出现在两条递增子序列之间，最多为\n   $$r+(r-1)+\\cdots+1=\\frac{r(r+1)}2,$$\n   因而\n   $$C_3=n-1+\\frac{r(r+1)}2.$$\n   $n=2r$ 时可由 $(r+1,1,r+2,2,\\ldots,2r,r)$ 达到；$n=2r+1$ 时可由 $(1,r+2,2,r+3,\\ldots,r,2r+1,r+1)$ 达到。\n4. 令 $p=\\lfloor n/2\\rfloor, q=\\lceil n/2\\rceil$。后半段内部最多有 $q(q-1)/2$ 个逆序；令前半段所有键都大于后半段所有键，又得到 $pq$ 个跨段逆序。因此\n   $$C_4=n-1+pq+\\frac{q(q-1)}2\n   =p-1+\\sum_{i=p+1}^{n}i.$$\n   若 $n=2r$，闭式为 $(3r^2+3r-2)/2$；若 $n=2r+1$，闭式为 $(3r^2+7r)/2$。\n\n核验：$n=4$ 时，第 3 问序列 $(3,1,4,2)$ 分别比较 $2,1,3$ 次，共 6 次；第 4 问序列 $(3,4,2,1)$ 比较 $1,3,4$ 次，共 8 次。$n=5$ 时，相应可取 $(1,4,2,5,3)$ 得 7 次、$(4,5,3,2,1)$ 得 13 次。\n\n若另行约定“不计与哨兵的比较”，数值会不同；但本题明确依托教材直接插入算法，应采用上述教材约定。",
+          "explanation": "按教材字段、计数规则和循环不变式给出完整推导或算法，并说明边界与复杂度。",
+          "reason": "全量交叉审校：重新按教材的存储结构、计数约定和算法不变式推导，替换不能执行或证明不成立的版本。"
+        }
       },
       "review": {
         "status": "passed",
@@ -483,7 +498,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "**独立核校参考答案（非原书摘录）**\n\n对近似有序的序列可用直接插入排序法，其时间复杂度为 $O(k\\cdot n)$，当 $k<<<n$ 且 $n$ 很大时，将比快速排序更有效。而起泡排序和简单选择排序的时间复杂度均为 $O(n^2)$，和 $k$ 无关。本题旨在提醒读者注意算法效率讨论的前提条件。",
-        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。",
+        "correction": {
+          "verified": "**完整答案**\n\n删除 $k$ 个记录后余下序列有序，因此每个逆序对至少含一个被删除记录。逆序数满足\n\n$$\nI\\le k(n-k)+\\frac{k(k-1)}2\n=kn-\\frac{k(k+1)}2=O(kn).\n$$\n\n据此分别讨论：\n\n| 方法 | 比较/移动特征 | 最好与最坏结论 |\n| --- | --- | --- |\n| 直接插入排序 | 比较为 $\\Theta(n+I)$，移动也为 $\\Theta(n+I)$ | $k=0$ 时 $\\Theta(n)$；$k\\ge1$ 时最坏 $O(kn)$，且可达到同阶 |\n| 带交换标志的起泡排序 | 交换次数恰为 $I=O(kn)$，但相邻比较次数不只由 $I$ 决定 | 已有序时 $\\Theta(n)$；即使 $k=1$，最坏仍可为 $\\Theta(n^2)$ |\n| 不带提前终止的起泡排序 | 固定做各趟比较 | 始终 $\\Theta(n^2)$ |\n| 简单选择排序 | 每趟扫描未排序区，与逆序数无关 | 比较始终 $\\Theta(n^2)$，交换 $O(n)$ |\n\n起泡排序的反例：采用从左到右、每趟把最大值推向右端的实现时，把最小记录放在末尾，其余 $n-1$ 个记录已有序。只删除这 1 个记录序列就有序，但它每趟只能向左移动一个位置，仍需 $n-1$ 趟，比较数为 $\\Theta(n^2)$；反向起泡可用“最大记录在开头”的镜像反例。\n\n所以这类近似有序序列首选直接插入排序：它的运行量可由逆序界直接控制。不能笼统地说“起泡与 $k$ 完全无关”，因为它的交换次数确实受 $I$ 限制；也不能由交换少推出比较必为 $O(kn)$。",
+          "explanation": "按教材字段、计数规则和循环不变式给出完整推导或算法，并说明边界与复杂度。",
+          "reason": "全量交叉审校：重新按教材的存储结构、计数约定和算法不变式推导，替换不能执行或证明不成立的版本。"
+        }
       },
       "review": {
         "status": "passed",
@@ -525,7 +545,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "**独立核校参考答案（非原书摘录）**\n\n用长度 n 的循环数组 d 保存已处理的有序段，first、last 指向该段两端。初始化 d[0]=r[0]，first=last=0。依次读 r[i]：\n\n1. 若 x<d[first]，在循环有序段 [first,last] 中二分找最后一个 <=x 的位置 p；比较从 first 到 p 与从 p+1 到 last 的移动数，题设的双向插入取靠 first 的空槽，将 first=(first-1+n)%n，并把 first..p-1 逐项前移，再写 d[p]=x。\n2. 若 x>=d[first]，同样二分定位 p；若靠 last 的移动较少，则 last=(last+1)%n，把 last..p+1 逐项后移后写 d[p+1]=x；否则走前移分支。\n3. 输出时从 first 起连续取 n 项。\n\n每次二分定位后只移动较短的一侧，且移动前后 d[first..last] 仍按非降序并恰含已读记录，归纳得正确。比较 O(n log n)，最坏移动 O(n^2)，循环下标都按 mod n 处理。",
-        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。",
+        "correction": {
+          "verified": "**完整答案：可执行的循环数组 2-路插入排序**\n\nd 中的有序段用 first 和 last 表示；逻辑第 $j$ 项位于 d[(first+j)%n]。二分查找采用 upper_bound，即新记录插在所有相等键之后，从而保持稳定。\n\n~~~~c\nstatic int at(int first, int off, int n) { return (first + off) % n; }\nstatic int dec(int x, int n) { return (x + n - 1) % n; }\nstatic int inc(int x, int n) { return (x + 1) % n; }\n\n/* 返回逻辑有序段中第一个 key>x.key 的位置，范围 0..len。 */\nstatic int UpperBound(Record d[], int first, int len, int n, Record x) {\n    int lo = 0, hi = len;\n    while (lo < hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (d[at(first, mid, n)].key <= x.key) lo = mid + 1;\n        else                                    hi = mid;\n    }\n    return lo;\n}\n\nvoid TwoWayInsertSort(Record r[], Record d[], int n) {\n    if (n <= 0) return;\n    int first = 0, last = 0, len = 1;\n    d[0] = r[0];\n\n    for (int i = 1; i < n; ++i) {\n        Record x = r[i];\n        int pos = UpperBound(d, first, len, n, x);\n\n        if (pos <= len - pos) {              /* 移动左侧较短前缀 */\n            int newFirst = dec(first, n);\n            for (int j = 0; j < pos; ++j)    /* 正向复制，覆盖安全 */\n                d[at(newFirst, j, n)] = d[at(first, j, n)];\n            first = newFirst;\n            d[at(first, pos, n)] = x;\n            /* last 不变 */\n        } else {                             /* 移动右侧较短后缀 */\n            int newLast = inc(last, n);\n            for (int j = len - 1; j >= pos; --j) /* 反向复制 */\n                d[at(first, j + 1, n)] = d[at(first, j, n)];\n            last = newLast;\n            d[at(first, pos, n)] = x;\n        }\n        ++len;\n    }\n\n    for (int j = 0; j < n; ++j)\n        r[j] = d[at(first, j, n)];\n}\n~~~~\n\n当 $x$ 小于首元时 pos=0，直接令 first 左移后写入；当 $x$ 大于等于末元时 pos=len，直接令 last 右移后写入。这两个边界不再错误地查找一个不存在的“最后一个 $\\le x$”位置。\n\n循环不变式是：处理完前 len 个输入后，从 first 起的 len 个循环单元非降序，且恰含这 len 个记录。插入时只把位置 pos 一侧整体挪一格，所以不变式保持。关键字比较 $O(n\\log n)$，最坏移动 $O(n^2)$；除题目规定的第二数组 d[0..n-1] 外只用 $O(1)$ 空间。",
+          "explanation": "按教材字段、计数规则和循环不变式给出完整推导或算法，并说明边界与复杂度。",
+          "reason": "全量交叉审校：重新按教材的存储结构、计数约定和算法不变式推导，替换不能执行或证明不成立的版本。"
+        }
       },
       "review": {
         "status": "passed",
@@ -539,7 +564,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "**独立核校参考答案（非原书摘录）**\n\nvoid BiBubbleSort(Record r[], int n) {\n  int lo=0, hi=n-1, d=1;\n  bool exchanged=true;\n  while (lo<hi && exchanged) {\n    exchanged=false;\n    if (d==1) {\n      for (int i=lo;i<hi;++i)\n        if (r[i].key>r[i+1].key) {\n          Record tmp=r[i]; r[i]=r[i+1]; r[i+1]=tmp;\n          exchanged=true;\n        }\n      --hi;\n    } else {\n      for (int i=hi;i>lo;--i)\n        if (r[i-1].key>r[i].key) {\n          Record tmp=r[i]; r[i]=r[i-1]; r[i-1]=tmp;\n          exchanged=true;\n        }\n      ++lo;\n    }\n    d=-d;\n  }\n}\n\n变量 exchanged 只表示本趟是否发生真实交换；正向扫描后 hi 位置为最大键，反向扫描后 lo 位置为最小键。区间外始终有序，终止时全表有序。最坏 O(n^2)、空间 O(1)，已排序输入一趟结束。",
-        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。",
+        "correction": {
+          "verified": "**完整答案：只保留一个扫描循环**\n\n用方向量 d=1/-1 同时决定起点、终点、步长和相邻对的左下标：\n\n~~~~c\nvoid BiBubbleSort(Record r[], int n) {\n    int lo = 0, hi = n - 1, d = 1;\n\n    while (lo < hi) {\n        int changed = 0;\n        int i    = (d == 1) ? lo : hi;\n        int stop = (d == 1) ? hi : lo;\n\n        while (i != stop) {                 /* 唯一的起泡扫描循环 */\n            int left = i + (d - 1) / 2;     /* d=1: i；d=-1: i-1 */\n            if (r[left].key > r[left + 1].key) {\n                Record t = r[left]; r[left] = r[left + 1]; r[left + 1] = t;\n                changed = 1;\n            }\n            i += d;\n        }\n\n        if (!changed) break;\n        lo += (1 - d) / 2;                  /* 反向趟后 lo++ */\n        hi -= (1 + d) / 2;                  /* 正向趟后 hi-- */\n        d = -d;\n    }\n}\n~~~~\n\n正向趟结束后当前最大键固定在 hi，反向趟结束后当前最小键固定在 lo，故区间外始终已有序；任一整趟无交换说明活动区间也已非降序，可立即结束。最坏时间 $O(n^2)$，最好时间 $O(n)$，附加空间 $O(1)$。",
+          "explanation": "按教材字段、计数规则和循环不变式给出完整推导或算法，并说明边界与复杂度。",
+          "reason": "全量交叉审校：重新按教材的存储结构、计数约定和算法不变式推导，替换不能执行或证明不成立的版本。"
+        }
       },
       "review": {
         "status": "passed",
@@ -595,7 +625,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "**独立核校参考答案（非原书摘录）**\n\n如果第一个序列的记录个数少于 $s$，则确定其第一个记录在归并后的序列中的位置 $k$，并从该位置开始进行 $k-1$ 个位置的循环移位（参见 5.18 题及其提示）。这次循环移位仅涉及第一个序列中的记录和第二个序列中的前 $k-1$ 个记录，使得前 $k$ 个记录就\n\n位于其归并后的最终位置。如此继续下去，依次对原来第一个序列的第二个及随后的每个记录重复上述过程。",
-        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。",
+        "correction": {
+          "verified": "**完整答案：短段在左和短段在右都覆盖**\n\n先定义相邻块旋转。区间均为左闭右开；三次逆置把 $[l,m)[m,r)$ 稳定地变成 $[m,r)[l,m)$：\n\n~~~~c\nvoid Reverse(Record a[], int l, int r) {\n    for (--r; l < r; ++l, --r) { Record t=a[l]; a[l]=a[r]; a[r]=t; }\n}\nvoid Rotate(Record a[], int l, int m, int r) {\n    Reverse(a,l,m); Reverse(a,m,r); Reverse(a,l,r);\n}\n~~~~\n\n若左段较短，维持布局“已归并前缀、A 剩余、B 剩余”：\n\n~~~~c\nvoid MergeLeftShort(Record a[], int first, int mid, int last) {\n    int p = first, alen = mid - first, b = mid;\n    while (alen > 0 && b < last) {\n        if (a[p].key <= a[b].key) {         /* 相等时先取原左段，稳定 */\n            ++p; --alen;\n        } else {\n            int e = b;\n            while (e < last && a[e].key < a[p].key) ++e;\n            Rotate(a, p, b, e);             /* [A剩余][B前缀] -> 反序块 */\n            int t = e - b;\n            p += t; b += t;                 /* B前缀已经到最终位置 */\n        }\n    }\n}\n~~~~\n\n上面注释中的“反序块”是“交换两相邻块”的意思，两个块内部次序由三次逆置恢复。每次旋转取走 B 中所有严格小于当前 A 首元的最大前缀；下一次比较必能固定一个 A 元素，所以每个 A 元素至多触发一次旋转。\n\n若右段较短，完全对称地从右向左做；相等时先固定原右段元素，才能保持原左段的相等元素仍在它前面：\n\n~~~~c\nvoid MergeRightShort(Record a[], int first, int mid, int last) {\n    int end = last, blen = last - mid;\n    while (blen > 0) {\n        int b = end - blen;                  /* A、B 当前分界 */\n        if (b == first) break;\n        if (a[b-1].key <= a[end-1].key) {\n            --end; --blen;                  /* B末元已在最终位置 */\n        } else {\n            int c = b;\n            while (c > first && a[c-1].key > a[end-1].key) --c;\n            Rotate(a, c, b, end);            /* [A后缀][B剩余] -> [B剩余][A后缀] */\n            end -= b - c;                    /* A后缀已经固定 */\n        }\n    }\n}\n\nvoid ShortMerge(Record a[], int first, int mid, int last) {\n    if (mid-first <= last-mid) MergeLeftShort(a,first,mid,last);\n    else                       MergeRightShort(a,first,mid,last);\n}\n~~~~\n\n设短段长度为 $h<s=\\lfloor\\sqrt n\\rfloor$。长段元素在寻找各个最大前缀/后缀时总共只扫描一次，为 $O(n)$；第 $i$ 次旋转还会搬动至多 $h-i+1$ 个短段元素，所以额外搬动\n\n$$h+(h-1)+\\cdots+1=O(h^2)=O(n).$$\n\n因此总时间 $O(n)$，三次逆置只用一个临时记录，附加空间 $O(1)$，并且严格/非严格比较的选择保证稳定。",
+          "explanation": "按教材字段、计数规则和循环不变式给出完整推导或算法，并说明边界与复杂度。",
+          "reason": "全量交叉审校：重新按教材的存储结构、计数约定和算法不变式推导，替换不能执行或证明不成立的版本。"
+        }
       },
       "review": {
         "status": "passed",
@@ -609,7 +644,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "**独立核校参考答案（非原书摘录）**\n\n令 s=floor(sqrt(n))，把两段有序序列各自分为完整 s 块和一个不足 s 的尾块。先把两端不足 s 的块通过块旋转移到边界，使用 10.39 的“短段逐项定位+循环移位”原地稳定归并；对中间完整块，比较两块首键，取首键较小的块作为下一输出块。若该块与输出位置不连续，利用三次翻转完成相邻块轮换，保持块内顺序。\n\n每个完整块只被选择、轮换一次，块边界的不足段长度均小于 s，交给 10.39 后总工作仍为 O(n)；三次翻转只使用常数临时变量。相等键时总是先取原左段的块，且块内 Merge 也先取左键，因此输出稳定。边界：任一序列为空直接返回；s=0 时返回；最后不足块不参与“完整块”比较。",
-        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。",
+        "correction": {
+          "verified": "**完整答案：块轮转与内部缓冲归并**\n\n本题没有要求稳定；下面给出与原书提示同类的 **非稳定** 线性原地归并。不能只按每块首键把整块输出，因为两个块的键域可能交叠。\n\n令 $N$ 为两段总长，$s=\\lfloor\\sqrt N\\rfloor$，取块长 $b=s-1$（$N$ 很小时直接用常数规模排序）。使用三个原地原语：\n\n1. **Rotate(X,Y)**：用三次逆置交换相邻区间 $XY\\to YX$，时间 $O(|X|+|Y|)$、空间 $O(1)$。\n2. **ShortMerge**：调用 10.39 的算法；只要一侧长度小于 $s$，就在 $O(|X|+|Y|)$ 时间、$O(1)$ 空间内归并。\n3. **BufferedMerge(X,Y,W)**：$X$ 已排序且 $|X|\\le b$，$Y$ 已排序，$W$ 是数组内部长度为 $b$ 的工作块。先交换 $X$ 与 $W$，再像普通二路归并那样扫描“工作块中的 $X$”和 $Y$；每输出一个工作块元素，就与输出位置交换，使被覆盖的工作记录回到 $W$。结束后 $X\\cup Y$ 已排序，$W$ 原有记录的集合仍完整保存在工作块中，只是次序被打乱。每个记录只读写常数次，故为线性时间且不另开数组。\n\n主过程如下（C 是尚未处理的 A 块轮，D 是尚未处理的原右段）：\n\n~~~~text\nBlockInSituMerge(A | B)\n1  把 A 划为 A0,A1,...,Ak：A1..Ak 长度均为 b，A0 长度在 [b,2b)；\n   B 的两端不足 b 的余段稍后交给 ShortMerge。\n2  对每个 Ai，在仍有序的 B 中顺序切出 Bi：Bi 是尚未使用的最大前缀，\n   其键不大于 Ai 的末键；相等键可固定放在任一侧，因为本算法不要求稳定。\n   于是最终归并可分解为\n       merge(A0,B0), merge(A1,B1), ..., merge(Ak,Bk)，\n   且前一对的所有键都不大于后一对的所有键。\n3  先把 A0 与 B0 搬到相邻位置并归并；从已经处理的区域中留下一个长度 b\n   的内部工作块 W。W 的记录集合以后始终保留，只允许内部次序改变。\n4  while C 非空：\n     a. 在 C 的块轮中找到原 A 的下一块 Ai。旋转可能使至多一个 Ai 被截成\n        首尾两片；用该块的首键和末键共同识别，若被截断，先用 Rotate 拼回。\n        不能只比较首键。\n     b. 用 Rotate 把 Ai 移到 C 的最前端。\n     c. D 的首部就是步骤 2 所定义的 Bi；用 Rotate 把 Bi 搬到 Ai 后面。\n     d. 调用 BufferedMerge(Ai,Bi,W)，把这一整对写入已完成前缀。\n5  C 为空后，用选择排序整理 W，代价 O(b^2)；再用 ShortMerge 把 W 及两端\n   不足 b 的余段并回相邻有序区，得到最终非降序序列。\n~~~~\n\n块轮无需保存 $O(\\sqrt N)$ 个标签：剩余 A 块原本来自同一有序段，扫描各候选块的首、末键即可找出下一块；轮转后只记录 C 起点、块数和一次截断量。共有 $O(N/b)=O(\\sqrt N)$ 个块，每次找下一块扫描 $O(\\sqrt N)$ 个块，所以块定位总计 $O(N)$ 次比较。块轮不变式保证每个记录只参加常数次 Rotate 或局部归并，合计 $O(N)$ 次移动；整理工作块为 $O(b^2)=O(N)$，余段归并也是 $O(N)$。因此总时间 $O(N)$，除若干下标和一个交换临时记录外附加空间 $O(1)$。\n\n关键正确性不变式是：已完成前缀已经是全局最小的一段；C 仅含尚未处理的 A 块轮，D 仍按原右段顺序；步骤 2 的分界保证 merge(Ai,Bi) 的最大键不大于下一对的最小键。这样处理的是实际交叠范围，而不是错误地把“首键较小的整块”直接输出。若题目另加稳定性要求，应换用带稳定标签和稳定内部缓冲恢复的版本，不能把上述交换块算法宣称为稳定。",
+          "explanation": "按教材字段、计数规则和循环不变式给出完整推导或算法，并说明边界与复杂度。",
+          "reason": "全量交叉审校：重新按教材的存储结构、计数约定和算法不变式推导，替换不能执行或证明不成立的版本。"
+        }
       },
       "review": {
         "status": "passed",

@@ -30,6 +30,8 @@ export async function POST(request: Request, { params }: { params: Promise<{ boo
     type: shortString(value.type),
     answer: shortString(value.answer),
     learning: shortString(value.learning),
+    disposition: shortString(value.disposition, "recommended") as TextbookPracticeQuery["disposition"],
+    knowledgeId: shortString(value.knowledgeId, ""),
     query: shortString(value.query, ""),
     page: typeof value.page === "number" ? value.page : 1,
     masteredIds: idList(value.masteredIds),

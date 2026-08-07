@@ -1,8 +1,8 @@
-# 教材习题答案审计覆盖层
+# 教材习题完整答案审计
 
-这里保存独立核验后的补充答案，而不是原书答案的替代副本。每个并行批次使用独立 JSON 文件，最后仅在 `index.ts` 汇总，避免多人修改同一份大型题库数据。
+这里保存 457 道教材题的独立完整解答。原书答案或提示仍保留在生成题库的 `answer.original` 中，用于来源追溯；网页默认展示这里的完整解答。
 
-每份文件的固定结构为：
+每个并行批次使用独立 JSON 文件，固定格式为：
 
 ```json
 {
@@ -11,17 +11,17 @@
   "scope": ["01-introduction"],
   "updates": [
     {
-        "id": "book-ds-yan-01-introduction-1-1",
+      "id": "book-ds-yan-01-introduction-1-1",
       "answer": {
         "status": "provided",
         "origin": "verified",
-        "verified": "独立推导的 Markdown 解答",
-        "explanation": "核验依据、边界或复杂度"
+        "verified": "完整 Markdown 解答",
+        "explanation": "核验依据、假设、边界或复杂度说明"
       },
       "review": {
         "status": "passed",
         "resolvedFlagCodes": ["ANSWER_MISSING"],
-        "notes": "审计结论"
+        "notes": "审校结论"
       }
     }
   ],
@@ -29,11 +29,11 @@
 }
 ```
 
-规则：
+约束：
 
-- 不直接修改 `textbook-data-structures.json`；它是从教材源稿导出的基线。
-- 所有题号只使用 `book-ds-yan-{单元 ID}-{题号}` 这一种规范格式，不保留旧题号兼容层。
-- 不得把自行推导内容写进 `answer.original`，也不得称为原书答案。
-- 题干不足或无法安全确认时放进 `unresolved`，附具体原因。
-- 经交叉审计发现错误时，在原 `answer` 旁增加 `correction`（含新 `verified`、`reason` 和可选 `explanation`）；加载器只呈现修正后的内容，旧草稿仍可追溯。
-- 新增 JSON 后，在 `index.ts` 注册，并运行 `npm run textbook:answers:audit` 与 `npm run build`。
+- 457 道题必须全部拥有 `verified`，不能用提示、解题方向或原书短答冒充完整答案。
+- 计算题包含过程和最终结果；算法题包含针对本题的步骤、边界、正确性与复杂度；讨论题逐项作答。
+- 独立推导不得写入 `answer.original`，也不得称为原书答案。
+- 题干不足时要在答案中声明合理假设，并同步记录在题目质量审校中。
+- 每个答案批次必须有 `reviews/` 下的交叉复核文件；严重错误必须通过 `answer.correction` 留下可追溯修正。
+- 新增批次后在 `index.ts` 注册，并运行 `npm run textbook:answers:complete`、`npm run textbook:ds` 和 `npm run build`。

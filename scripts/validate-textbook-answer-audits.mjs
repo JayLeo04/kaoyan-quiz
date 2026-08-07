@@ -28,6 +28,7 @@ const peerReviewFiles = fs.existsSync(reviewDirectory)
   : [];
 const seenUpdates = new Map();
 const seenUnresolved = new Map();
+const seenVerifiedAnswers = new Map();
 const auditsByFile = new Map();
 const coverageByChapter = new Map(dataset.chapters.map((chapter) => [chapter.id, {
   chapter: chapter.title,
@@ -38,6 +39,17 @@ const coverageByChapter = new Map(dataset.chapters.map((chapter) => [chapter.id,
   independentlyVerified: 0,
   unresolved: 0,
 }]));
+const minimumAnswerLength = {
+  algorithm: 160,
+  programming: 160,
+  practical: 150,
+  calculation: 100,
+  discussion: 100,
+  "short-answer": 70,
+  choice: 30,
+  "true-false": 30,
+  "fill-blank": 30,
+};
 
 for (const question of dataset.questions) {
   const row = coverageByChapter.get(question.chapterId);
@@ -65,6 +77,18 @@ for (const fileName of auditFiles) {
     if (!update.answer || update.answer.origin !== "verified" || !String(verified || "").trim()) {
       fail(`${fileName} 的 ${update.id} 未提供独立核验答案`);
     }
+    const characterCount = [...String(verified).trim()].length;
+    const requiredLength = Math.max(
+      minimumAnswerLength[question.type] || 80,
+      question.prompt?.markdown?.includes("![") ? 220 : 0,
+    );
+    if (characterCount < requiredLength) fail(`${fileName} 的 ${update.id} 只有 ${characterCount} 字符，未达到 ${question.type} 完整解答最低要求 ${requiredLength}`);
+    const normalizedVerified = String(verified).replace(/\s+/g, " ").trim();
+    const normalizedOriginal = String(question.answer?.original || "").replace(/\s+/g, " ").trim();
+    if (normalizedOriginal && normalizedVerified === normalizedOriginal) fail(`${fileName} 的 ${update.id} 只是复制原书答案或提示，没有完成独立重写`);
+    if (seenVerifiedAnswers.has(normalizedVerified)) fail(`${fileName} 的 ${update.id} 与 ${seenVerifiedAnswers.get(normalizedVerified)} 使用了完全相同的核验答案`);
+    seenVerifiedAnswers.set(normalizedVerified, update.id);
+    if (/\?{3,}|\uFFFD/.test(String(verified))) fail(`${fileName} 的 ${update.id} 含乱码或占位符，不能作为可发布答案`);
     if (update.answer?.correction && !String(update.answer.correction.reason || "").trim()) fail(`${fileName} 的 ${update.id} 核验修正未说明原因`);
     if (update.answer.status !== "provided") fail(`${fileName} 的 ${update.id} 应将补充结果标记为 provided`);
     seenUpdates.set(update.id, fileName);
@@ -83,6 +107,7 @@ for (const fileName of auditFiles) {
 }
 
 let peerFindings = 0;
+const peerReviewedAuditFiles = new Set();
 for (const fileName of peerReviewFiles) {
   const review = readJson(path.join(reviewDirectory, fileName));
   const audit = auditsByFile.get(review.reviewedFile);
@@ -110,16 +135,17 @@ for (const fileName of peerReviewFiles) {
     }
   }
   peerFindings += review.findings.length;
+  peerReviewedAuditFiles.add(review.reviewedFile);
 }
 
-const remainingExerciseMissing = dataset.questions.filter((question) => (
-  question.isExercise
-  && question.answer.status === "missing"
-  && !seenUpdates.has(question.id)
-));
+const remainingIndependentAnswers = dataset.questions.filter((question) => question.isExercise && !seenUpdates.has(question.id));
+const unreviewedAuditFiles = auditFiles.filter((fileName) => !peerReviewedAuditFiles.has(fileName));
 
-if (process.argv.includes("--require-complete") && remainingExerciseMissing.length) {
-  fail(`仍有 ${remainingExerciseMissing.length} 道可练习的原书缺答题未获得独立核验补充：${remainingExerciseMissing.slice(0, 12).map((question) => question.id).join("、")}`);
+if (process.argv.includes("--require-complete") && remainingIndependentAnswers.length) {
+  fail(`仍有 ${remainingIndependentAnswers.length} 道题没有独立完整解答：${remainingIndependentAnswers.slice(0, 12).map((question) => question.id).join("、")}`);
+}
+if (process.argv.includes("--require-complete") && unreviewedAuditFiles.length) {
+  fail(`仍有答案批次未完成交叉复核：${unreviewedAuditFiles.join("、")}`);
 }
 
 const rows = [...coverageByChapter.entries()].map(([id, row]) => ({ id, ...row }));
@@ -135,7 +161,8 @@ const summary = {
     independentlyVerified: seenUpdates.size,
     unresolved: seenUnresolved.size,
     peerFindings,
-    remainingExerciseMissing: remainingExerciseMissing.length,
+    remainingIndependentAnswers: remainingIndependentAnswers.length,
+    unreviewedAuditFiles: unreviewedAuditFiles.length,
   },
   chapters: rows,
 };
@@ -143,7 +170,7 @@ const summary = {
 if (process.argv.includes("--json")) {
   console.log(JSON.stringify(summary, null, 2));
 } else {
-  console.log(`已检查 ${auditFiles.length} 份答案审计覆盖文件和 ${peerReviewFiles.length} 份交叉复核；独立核验补充 ${seenUpdates.size} 道，未决 ${seenUnresolved.size} 道，复核发现 ${peerFindings} 项，仍缺独立补充 ${remainingExerciseMissing.length} 道。`);
+  console.log(`已检查 ${auditFiles.length} 份答案审计覆盖文件和 ${peerReviewFiles.length} 份交叉复核；独立完整解答 ${seenUpdates.size} 道，未决 ${seenUnresolved.size} 道，复核发现 ${peerFindings} 项，仍缺独立解答 ${remainingIndependentAnswers.length} 道，未复核批次 ${unreviewedAuditFiles.length} 份。`);
   for (const row of rows) {
     if (!row.originalMissing && !row.originalPendingReview && !row.independentlyVerified && !row.unresolved) continue;
     console.log(`${row.id}: 原书缺答 ${row.originalMissing}，待复核 ${row.originalPendingReview}，核验补充 ${row.independentlyVerified}，未决 ${row.unresolved}`);

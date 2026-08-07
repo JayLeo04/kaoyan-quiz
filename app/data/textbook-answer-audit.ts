@@ -102,6 +102,7 @@ function validateAudits(dataset: TextbookDataset, audits: readonly TextbookAnswe
   const questionById = new Map(dataset.questions.map((question) => [question.id, question]));
   const seenUpdates = new Set<string>();
   const seenUnresolved = new Set<string>();
+  const seenVerifiedAnswers = new Map<string, string>();
 
   for (const audit of audits) {
     if (audit.schemaVersion !== "textbook-answer-audit-v1") throw new Error(`未知答案审计格式：${audit.schemaVersion}`);
@@ -112,6 +113,20 @@ function validateAudits(dataset: TextbookDataset, audits: readonly TextbookAnswe
       if (!audit.scope.includes(question.chapterId)) throw new Error(`答案审计越界：${update.id} 不属于声明的 scope`);
       if (seenUpdates.has(update.id)) throw new Error(`同一道题被多个答案审计重复补写：${update.id}`);
       if (update.answer.origin !== "verified" || !verifiedContent(update).trim()) throw new Error(`核验答案格式无效：${update.id}`);
+      const typeMinimumLength = ["algorithm", "programming"].includes(question.type) ? 160
+        : question.type === "practical" ? 150
+          : ["calculation", "discussion"].includes(question.type) ? 100
+            : question.type === "short-answer" ? 70
+              : 30;
+      const minimumLength = Math.max(typeMinimumLength, question.prompt.markdown.includes("![") ? 220 : 0);
+      if ([...verifiedContent(update).trim()].length < minimumLength) throw new Error(`核验答案过短，不能视为完整解答：${update.id}`);
+      const normalizedVerified = verifiedContent(update).replace(/\s+/g, " ").trim();
+      const normalizedOriginal = question.answer.original.replace(/\s+/g, " ").trim();
+      if (normalizedOriginal && normalizedVerified === normalizedOriginal) throw new Error(`核验答案不能只是复制原书内容：${update.id}`);
+      const duplicateOf = seenVerifiedAnswers.get(normalizedVerified);
+      if (duplicateOf) throw new Error(`核验答案内容重复：${duplicateOf} 与 ${update.id}`);
+      seenVerifiedAnswers.set(normalizedVerified, update.id);
+      if (/\?{3,}|\uFFFD/.test(verifiedContent(update))) throw new Error(`核验答案含乱码或占位符：${update.id}`);
       if (update.answer.correction && !update.answer.correction.reason.trim()) throw new Error(`核验修正缺少原因：${update.id}`);
       seenUpdates.add(update.id);
     }

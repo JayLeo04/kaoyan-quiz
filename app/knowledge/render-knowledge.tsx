@@ -1,9 +1,11 @@
 import knowledgeData from "@/app/data/knowledge.json";
+import textbookKnowledgeLinks from "@/app/data/textbook-knowledge-links.json";
 import Link from "@/app/components/SiteLink";
 import { KnowledgeWorkspace, type LocalKnowledgeSubject } from "@/app/components/KnowledgeWorkspace";
 import { subjectById, type SubjectId } from "@/app/data/catalog";
 
 type KnowledgeDataset = { subjects: Record<SubjectId, LocalKnowledgeSubject> };
+type TextbookKnowledgeLinks = { books: { "data-structures": { knowledge: Record<string, { title: string; questionIds: string[] }> } } };
 
 export function renderKnowledge(subjectValue: string, slug: string[]) {
   const subjectId = subjectValue as SubjectId;
@@ -14,5 +16,13 @@ export function renderKnowledge(subjectValue: string, slug: string[]) {
   if (!subject || !data || !currentPage) {
     return <main className="missing-page"><span>404</span><h1>没有找到这篇本地知识点。</h1><Link href="/">返回 408 首页</Link></main>;
   }
-  return <KnowledgeWorkspace subjectId={subjectId} data={data} currentSlug={currentSlug} />;
+  const textbookLink = subjectId === "ds"
+    ? (textbookKnowledgeLinks as TextbookKnowledgeLinks).books["data-structures"].knowledge[currentPage.id]
+    : undefined;
+  const textbookCount = textbookLink?.questionIds.length || 0;
+  const textbookPractice = textbookCount ? {
+    href: `/textbook/data-structures/practice?knowledge=${encodeURIComponent(currentPage.id)}`,
+    count: textbookCount,
+  } : null;
+  return <KnowledgeWorkspace subjectId={subjectId} data={data} currentSlug={currentSlug} textbookPractice={textbookPractice} />;
 }

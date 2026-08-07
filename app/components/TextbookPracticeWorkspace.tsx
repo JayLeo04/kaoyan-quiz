@@ -37,6 +37,10 @@ const typeLabels: Record<string, string> = {
   unknown: "待分类",
 };
 
+const examRelevanceLabels = { core: "408 核心", supporting: "拓展训练", legacy: "历史内容" } as const;
+const dispositionLabels = { keep: "建议保留", revise: "修订后使用", hide: "不建议练习" } as const;
+const statementLabels = { clear: "题干清晰", "minor-issue": "题干有小问题", broken: "题干不完整" } as const;
+
 function questionTypeLabel(type: string) {
   return typeLabels[type] || "习题";
 }
@@ -48,7 +52,7 @@ type AnswerPresentation = Pick<TextbookQuestion["answer"], "status" | "origin"> 
 
 function answerLabel(question: { answer: AnswerPresentation }) {
   if (question.answer.hasVerified || question.answer.verifiedHtml) {
-    return question.answer.origin === "book+verified" ? "原书内容 · 核验补充" : "独立核验解答";
+    return "完整核验解答";
   }
   if (question.answer.status === "provided") return "原书答案";
   if (question.answer.status === "hint-only") return "原书提示";
@@ -82,7 +86,7 @@ function PracticeLibraryCard({ question, progress, bookSlug, chapters }: { quest
         dangerouslySetInnerHTML={{ __html: renderQuestionPreviewMarkdown(question.prompt.markdown, question.number) }}
       />
       <div className="textbook-question-card-bottom">
-        <span>{chapter?.title || question.section.title}</span>
+        <span>{chapter?.title || question.section.title}<small>{examRelevanceLabels[question.quality.examRelevance]}</small></span>
         <b>{answerLabel(question)} →</b>
       </div>
     </Link>
@@ -97,6 +101,8 @@ export function TextbookPracticeWorkspace({ initialChapterId, library }: { initi
   const [type, setType] = useState("all");
   const [answer, setAnswer] = useState("all");
   const [learning, setLearning] = useState("all");
+  const [disposition, setDisposition] = useState<"recommended" | "all" | "keep" | "revise" | "hide">("recommended");
+  const [knowledgeId, setKnowledgeId] = useState(library.initialKnowledgeId || "");
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(library.initialResults.page);
   const [progress, setProgress] = useState<TextbookProgress>(EMPTY_TEXTBOOK_PROGRESS);
@@ -130,6 +136,8 @@ export function TextbookPracticeWorkspace({ initialChapterId, library }: { initi
         type,
         answer,
         learning,
+        disposition,
+        knowledgeId,
         query,
         page,
         masteredIds: progress.mastered,
@@ -154,7 +162,7 @@ export function TextbookPracticeWorkspace({ initialChapterId, library }: { initi
         if (!controller.signal.aborted) setLoading(false);
       });
     return () => controller.abort();
-  }, [answer, chapterId, learning, library.bookSlug, page, progress.mastered, progress.review, progressLoaded, query, type]);
+  }, [answer, chapterId, disposition, knowledgeId, learning, library.bookSlug, page, progress.mastered, progress.review, progressLoaded, query, type]);
 
   const pageSize = library.initialResults.pageSize;
   const pageCount = Math.max(1, Math.ceil(resultTotal / pageSize));
@@ -162,13 +170,21 @@ export function TextbookPracticeWorkspace({ initialChapterId, library }: { initi
   const chapterOptions = dataset.chapters.filter((chapter) => chapter.questionCount > 0);
   const continueQuestionId = library.exerciseQuestionIds.find((questionId) => !progress.mastered.includes(questionId));
   const resetPage = () => setPage(1);
+  const clearKnowledgeFilter = () => {
+    setKnowledgeId("");
+    setPage(1);
+    const url = new URL(window.location.href);
+    url.searchParams.delete("knowledge");
+    window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
+  };
   const resetAll = () => {
     setChapterId("all");
     setType("all");
     setAnswer("all");
     setLearning("all");
+    setDisposition("recommended");
+    clearKnowledgeFilter();
     setQuery("");
-    setPage(1);
   };
 
   return (
@@ -180,7 +196,7 @@ export function TextbookPracticeWorkspace({ initialChapterId, library }: { initi
             <Link href={textbookHref(textbook)} className="back-link">← 返回教材阅读</Link>
             <p>TEXTBOOK PRACTICE / {dataset.book.title}</p>
             <h1>按章节，做完这本书的题</h1>
-            <span>{dataset.stats.exerciseQuestions} 道可练习题 · {dataset.stats.answersProvided} 道含原书完整答案 · {dataset.stats.answersHintOnly} 道仅原书提示 · {dataset.stats.answersVerified} 道有独立核验补充</span>
+            <span>{dataset.stats.exerciseQuestions} 道可练习题 · {dataset.stats.answersVerified} 道含独立完整解答 · 原书完整答案 {dataset.stats.answersProvided} 道 · 原书仅提示 {dataset.stats.answersHintOnly} 道</span>
           </div>
           <div className="textbook-practice-progress">
             <strong>{progress.mastered.length}</strong><span>已掌握</span>
@@ -210,9 +226,9 @@ export function TextbookPracticeWorkspace({ initialChapterId, library }: { initi
             <select value={answer} onChange={(event) => { setAnswer(event.target.value); resetPage(); }}>
               <option value="all">全部答案状态</option>
               <option value="provided">有完整参考解答</option>
-              <option value="hint-only">仅原书提示</option>
+              <option value="hint-only">原书仅提示（另看完整解答）</option>
               <option value="verified">独立核验补充</option>
-              <option value="missing">未收录完整参考内容</option>
+              <option value="missing">原书缺答（另看完整解答）</option>
               <option value="pending-review">待复核</option>
             </select>
           </label>
@@ -225,6 +241,16 @@ export function TextbookPracticeWorkspace({ initialChapterId, library }: { initi
               <option value="review">需复习</option>
             </select>
           </label>
+          <label>
+            <span>题目质量</span>
+            <select value={disposition} onChange={(event) => { setDisposition(event.target.value as typeof disposition); resetPage(); }}>
+              <option value="recommended">默认练习（排除不建议题）</option>
+              <option value="all">全部质量结论</option>
+              <option value="keep">建议保留</option>
+              <option value="revise">修订后使用</option>
+              <option value="hide">不建议练习</option>
+            </select>
+          </label>
           <label className="textbook-library-search">
             <span>⌕</span>
             <input value={query} onChange={(event) => { setQuery(event.target.value); resetPage(); }} placeholder="搜索题干、章节或知识点" />
@@ -235,7 +261,7 @@ export function TextbookPracticeWorkspace({ initialChapterId, library }: { initi
         <section className="textbook-library-results" aria-busy={loading}>
           <div className="textbook-library-results-head">
             <div><span>QUESTION BANK</span><strong>{resultTotal} 道匹配题目</strong></div>
-            <small>{loading ? "正在更新当前页…" : "每题保留对应章节、图片、答案状态与来源页码。"}</small>
+            <small>{loading ? "正在更新当前页…" : knowledgeId ? <button type="button" onClick={clearKnowledgeFilter}>已按知识点筛选 · 清除</button> : "每题保留对应章节、图片、答案状态与来源页码。"}</small>
           </div>
           <div className="textbook-question-grid">
             {resultQuestions.map((question) => <PracticeLibraryCard key={question.id} question={question} progress={progress} bookSlug={library.bookSlug} chapters={library.chapters} />)}
@@ -369,12 +395,12 @@ export function TextbookQuestionWorkspace({ questionData }: { questionData: Text
                 if (!hasVerifiedAnswer) return <div className="textbook-answer-html" data-study-annotatable="true" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.answer.html) }} />;
                 return (
                   <div className="textbook-answer-composite">
-                    {hasBookAnswer ? <section className="textbook-book-answer"><span>原书保留内容</span><div className="textbook-answer-html" data-study-annotatable="true" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.answer.html) }} /></section> : null}
                     <section className="textbook-verified-answer">
-                      <header><span>独立核验补充</span><small>非原书答案</small></header>
+                      <header><span>完整参考解答</span><small>独立推导并复核</small></header>
                       <div className="textbook-answer-html" data-study-annotatable="true" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.answer.verifiedHtml || "") }} />
                       {question.answer.explanation ? <p className="textbook-verified-note">核验说明：{question.answer.explanation}</p> : null}
                     </section>
+                    {hasBookAnswer ? <details className="textbook-book-answer"><summary>查看原书保留答案 / 提示</summary><div className="textbook-answer-html" data-study-annotatable="true" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(question.answer.html) }} /></details> : null}
                   </div>
                 );
               })() : <div className="textbook-answer-closed"><strong>先独立作答</strong><span>点击“显示”后查看原书保留内容或独立核验补充。</span></div>}
@@ -384,7 +410,16 @@ export function TextbookQuestionWorkspace({ questionData }: { questionData: Text
             <section className="textbook-question-context">
               <span>KNOWLEDGE CONNECTION</span>
               <strong>对应知识点</strong>
-              <div className="textbook-question-tags">{question.knowledgePoints.map((point) => <b key={point.id}>{point.title}</b>)}</div>
+              {question.knowledgePoints.length
+                ? <div className="textbook-question-tags">{question.knowledgePoints.map((point) => <Link key={point.id} href={point.href}>{point.title}</Link>)}</div>
+                : <p className="textbook-question-unmapped">当前 408 真题知识体系暂无精确对应页。</p>}
+              {question.tags.length ? <div className="textbook-question-fine-tags">{question.tags.map((tag) => <span key={tag}>{tag}</span>)}</div> : null}
+              <div className="textbook-question-quality" data-disposition={question.quality.disposition}>
+                <b>{examRelevanceLabels[question.quality.examRelevance]}</b>
+                <span>{statementLabels[question.quality.statement]}</span>
+                <span>{dispositionLabels[question.quality.disposition]}</span>
+                <p>{question.quality.notes}</p>
+              </div>
               <Link href={chapterKnowledgeHref}>阅读对应教材章节 <b>→</b></Link>
             </section>
 
@@ -393,7 +428,7 @@ export function TextbookQuestionWorkspace({ questionData }: { questionData: Text
               <strong>题目与答案来源</strong>
               <p>{pagesLabel(sourceQuestion?.bookPages)} · PDF {sourceQuestion?.pdfPages?.join("、") || "未标注"}</p>
               {sourceAnswer ? <p>答案：{pagesLabel(sourceAnswer.bookPages)} · PDF {sourceAnswer.pdfPages?.join("、") || "未标注"}</p> : <p>答案篇未建立对应条目。</p>}
-              {question.answer.verifiedHtml ? <p>补充：独立核验解答，不替代原书内容。</p> : null}
+              {question.answer.verifiedHtml ? <p>参考解答：独立完整重写；原书内容仅作为可追溯资料保留。</p> : null}
             </section>
 
             {openFlags.length ? <details className="textbook-review-flags"><summary>来源审校提示 · {openFlags.length}</summary><ul>{openFlags.map((flag) => <li key={`${flag.code}-${flag.message}`}><b>{flag.code}</b>{flag.message}</li>)}</ul></details> : null}

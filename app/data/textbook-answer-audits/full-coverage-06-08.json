@@ -189,7 +189,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "It is possible, but a parent cannot be read directly from an inorder thread. To find parent a of p, inspect the left-subtree right boundary and right-subtree left boundary: follow candidate predecessor/successor threads and then verify by real-child links that a.lchild==p or a.rchild==p. Once a is known, if p is a.rchild or a has no right subtree, postorder successor is a; otherwise it is the first postorder node of a.rchild, obtained by repeatedly taking a left child when present, otherwise a right child. This is O(h) under a valid threaded-tree invariant.",
-        "explanation": "中序线索不直接给后序关系，关键是恢复父结点。"
+        "explanation": "中序线索不直接给后序关系，关键是恢复父结点。",
+        "correction": {
+          "verified": "**完整答案**\n\n可以查找，但中序全线索结点没有双亲域，不能假定能沿线索在 $O(h)$ 内直接得到双亲。可靠做法是从根只沿真实孩子边查找 p 的双亲：\n\n~~~~c\nTNode *Parent(TNode *r, TNode *p) {\n    if (!r || r == p) return NULL;\n    if (r->ltag == 0 && r->lchild == p) return r;\n    if (r->rtag == 0 && r->rchild == p) return r;\n    TNode *q = NULL;\n    if (r->ltag == 0 && (q = Parent(r->lchild, p))) return q;\n    if (r->rtag == 0) return Parent(r->rchild, p);\n    return NULL;\n}\n\nTNode *FirstPost(TNode *x) {\n    while (x) {\n        if (x->ltag == 0) x = x->lchild;\n        else if (x->rtag == 0) x = x->rchild;\n        else return x;\n    }\n    return NULL;\n}\n\nTNode *PostSuccessor(TNode *root, TNode *p) {\n    if (!root || !p || p == root) return NULL;\n    TNode *q = Parent(root, p);\n    if (!q) return NULL;\n    if (q->rtag == 1 || q->rchild == p) return q;\n    return FirstPost(q->rchild);\n}\n~~~~\n\n理由：后序次序是“左子树、右子树、根”。若 p 是双亲 q 的右孩子，或 q 根本没有真实右孩子，则 p 所在子树结束后马上访问 q；否则 p 是 q 的左孩子，后继是 q 的右子树中第一个按后序访问的结点，即不断优先走真实左孩子、没有左孩子才走真实右孩子所到达的第一个叶结点。\n\nParent 最坏访问整棵树，时间 $O(n)$；FirstPost 至多走树高，故总时间 $O(n)$、递归栈 $O(h)$。若结点另设双亲域，才可把主要查找降为 $O(h)$。",
+          "explanation": "按题图给出具体结构或数值，并补齐可执行算法、边界和复杂度。",
+          "reason": "全量交叉审校：按题图、原始结构和算法不变量重算，补成完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -221,7 +226,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "The forest is T1: 1->{2}; 2->{3,4,5}; 5->{6,7}; 6->{8}; T2:9->{10}; T3:{11}; T4:12->{13,14};13->{15}. Its binary links are 1.l=2,1.r=9,2.l=3,3.r=4,4.r=5,5.l=6,6.l=8,6.r=7,9.l=10,9.r=11,11.r=12,12.l=13,13.l=15,13.r=14. Preorder is 1,2,3,4,5,6,8,7,9,10,11,12,13,15,14; inorder is 3,4,8,6,7,5,2,1,10,9,11,15,13,14,12; postorder is 3,8,7,6,5,4,2,10,15,14,13,12,11,9,1. Use these exact orders for predecessor/successor threads.",
-        "explanation": "原书图中的虚线均由这一定义产生，避免把森林根间右链误当普通孩子。"
+        "explanation": "原书图中的虚线均由这一定义产生，避免把森林根间右链误当普通孩子。",
+        "correction": {
+          "verified": "**完整答案**\n\n先按“左孩子=第一个孩子，右孩子=下一个兄弟”转换。森林各树为\n\n$$1\\{2\\{3,4,5\\{6\\{8\\},7\\}\\}\\},\\quad9\\{10\\},\\quad11,\\quad12\\{13\\{15\\},14\\}.$$\n\n所得二叉树的真实孩子边为：\n\n| 结点 | 左孩子 | 右孩子 |\n| ---: | ---: | ---: |\n| 1 | 2 | 9 |\n| 2 | 3 | 空 |\n| 3 | 空 | 4 |\n| 4 | 空 | 5 |\n| 5 | 6 | 空 |\n| 6 | 8 | 7 |\n| 7 | 空 | 空 |\n| 8 | 空 | 空 |\n| 9 | 10 | 11 |\n| 10 | 空 | 空 |\n| 11 | 空 | 12 |\n| 12 | 13 | 空 |\n| 13 | 15 | 14 |\n| 14 | 空 | 空 |\n| 15 | 空 | 空 |\n\n三种遍历序列分别为：\n\n- 先序：1,2,3,4,5,6,8,7,9,10,11,12,13,15,14；\n- 中序：3,4,8,6,7,5,2,1,10,9,11,15,13,14,12；\n- 后序：3,8,7,6,5,4,2,10,15,14,13,12,11,9,1。\n\n只把原来为空的指针改作线索，具体为：\n\n1. **先序前驱线索**（空左指针指向先序前驱）：3←2，4←3，8←6，7←8，10←9，11←10，15←13，14←15。\n2. **中序全线索**：空左指针为 3←空、4←3、8←4、7←6、10←1、11←9、15←11、14←13；空右指针为 8→6、7→5、5→2、2→1、10→9、15→13、14→12、12→空。\n3. **后序后继线索**（空右指针指向后序后继）：8→7，7→6，5→4，2→10，10→15，15→14，14→13，12→11。\n\n若实现中设置头结点，可把表中的“空”改为头结点；所有真实孩子指针及其 tag 保持不变。",
+          "explanation": "按题图给出具体结构或数值，并补齐可执行算法、边界和复杂度。",
+          "reason": "全量交叉审校：按题图、原始结构和算法不变量重算，补成完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -237,7 +247,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "The corresponding forests are: (a) one tree A. (b) one chain A->B->C (both binary links are left links). (c) three single-node trees A | B | C (both binary links are right links). (d) one tree A with ordered children B,C. For (e), read every left link as first-child and every right link as next-sibling, starting at A and then following its root-level right chain; this produces the forest roots and ordered child lists without retaining any right link as a tree child.",
-        "explanation": "规则与树/森林到二叉树的转换互逆。"
+        "explanation": "规则与树/森林到二叉树的转换互逆。",
+        "correction": {
+          "verified": "**完整答案**\n\n逆转换规则是：二叉树左孩子变为该结点的第一个孩子，右孩子变为该结点的下一个兄弟；根结点的右链给出森林中的后续树根。\n\n据此：\n\n1. （a）森林只有一棵单结点树 A。\n2. （b）A 的左孩子是 B，B 的左孩子是 C，故为一棵链式树 A{B{C}}。\n3. （c）A、B、C 由右孩子相连，故为三棵单结点树 A｜B｜C。\n4. （d）A 的左孩子为 B，B 的右兄弟为 C，故为一棵树 A{B,C}。\n5. （e）二叉树真实边为 A左B、A右C、B左D、B右E、C左F、D左G、D右H、F左I、H左J、H右K、I左M。转换后森林有两棵树：\n\n$$\nT_1=A\\{B\\{D\\{G\\},H\\{J,K\\}\\},E\\},\n$$\n\n$$\nT_2=C\\{F\\{I\\{M\\}\\}\\}.\n$$\n\n因此（e）的森林根依次为 A、C；A 的孩子为 B、E，B 的孩子为 D、H，H 的孩子为 J、K；C 的孩子链为 F、I、M。",
+          "explanation": "按题图给出具体结构或数值，并补齐可执行算法、边界和复杂度。",
+          "reason": "全量交叉审校：按题图、原始结构和算法不变量重算，补成完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -317,7 +332,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "从 v 深度优先搜索其 L、R 子树，若访问到 u 返回真：\n```c\nbool Desc(int v,int u){return v&& (v==u || Desc(L[v],u)||Desc(R[v],u));}\n```\n若“子孙”不含自身，调用时改为 `Desc(L[v],u)||Desc(R[v],u)`。每个结点至多访问一次，时间 O(n)、递归栈 O(h)。先检查 v/u 是否在 1..n，且输入必须是一棵树，否则共享孩子会破坏“至多一次”结论。",
-        "explanation": "L、R 是静态二叉链表，搜索覆盖且只覆盖 v 的子树。"
+        "explanation": "L、R 是静态二叉链表，搜索覆盖且只覆盖 v 的子树。",
+        "correction": {
+          "verified": "**完整答案**\n\n“u 是 v 的子孙”通常不包含 v 自身，所以应从 v 的两个孩子开始搜索，而不是一进入函数就用 v==u 判真：\n\n~~~~c\nbool InSubtree(int x, int u, const int L[], const int R[], int n) {\n    if (x == 0) return false;\n    if (x == u) return true;\n    return InSubtree(L[x], u, L, R, n) ||\n           InSubtree(R[x], u, L, R, n);\n}\n\nbool IsDescendant(int u, int v, const int L[], const int R[], int n) {\n    if (u < 1 || u > n || v < 1 || v > n || u == v) return false;\n    return InSubtree(L[v], u, L, R, n) ||\n           InSubtree(R[v], u, L, R, n);\n}\n~~~~\n\n搜索恰好覆盖 v 的真子树；访问到 u 当且仅当从 v 经至少一条孩子边可达 u。最坏时间 $O(n)$，递归栈 $O(h)$。若题目另行约定“后代包含自身”，才把入口改为 InSubtree(v,u,...)。输入应满足 L、R 确实描述一棵二叉树。",
+          "explanation": "按题图给出具体结构或数值，并补齐可执行算法、边界和复杂度。",
+          "reason": "全量交叉审校：按题图、原始结构和算法不变量重算，补成完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -573,7 +593,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "Implement recursive descent for the grammar in the figure. Read an uppercase letter to create one node. If the next character is not an opening parenthesis, both children are NULL. Otherwise consume (, recursively parse the left subtree (or NULL at comma), consume comma, recursively parse the right subtree (or NULL at )), then require and consume ). A global input cursor is advanced exactly once per token. Reject an unexpected comma, right parenthesis, end of string, or extra suffix. Every node and delimiter is processed once: O(n) time and O(h) stack space.",
-        "explanation": "以题图语法为准，输入不匹配时报告语法错误。"
+        "explanation": "以题图语法为准，输入不匹配时报告语法错误。",
+        "correction": {
+          "verified": "**完整答案**\n\n可按语法做递归下降。# 明确表示空子树；大写字母建立结点；若字母后有括号，就依次分析左子树、逗号、右子树和右括号。\n\n~~~~c\ntypedef struct BiNode {\n    char data;\n    struct BiNode *lchild, *rchild;\n} BiNode;\n\nstatic const char *src;\nstatic int pos, ok;\n\nstatic BiNode *ParseTree(void) {\n    if (!ok) return NULL;\n    if (src[pos] == '#') {                 /* 空子树 */\n        ++pos;\n        return NULL;\n    }\n    if (src[pos] < 'A' || src[pos] > 'Z') {\n        ok = 0;\n        return NULL;\n    }\n\n    BiNode *p = malloc(sizeof *p);\n    if (!p) exit(OVERFLOW);\n    p->data = src[pos++];\n    p->lchild = p->rchild = NULL;\n\n    if (src[pos] == '(') {\n        ++pos;\n        p->lchild = ParseTree();\n        if (src[pos++] != ',') ok = 0;\n        p->rchild = ParseTree();\n        if (src[pos++] != ')') ok = 0;\n    }\n    return p;\n}\n\nBiNode *CreateTree(const char *s) {\n    src = s; pos = 0; ok = 1;\n    BiNode *root = ParseTree();\n    if (!ok || src[pos] != '\\0') {\n        DestroyTree(root);\n        return NULL;                       /* 语法错误或有多余后缀 */\n    }\n    return root;\n}\n~~~~\n\n例如 A(B(#,D),C(E(#,F),#)) 中，B 的左子树由 # 置空，D 为右孩子；C 的右子树也由 # 置空。每个字母、# 和分隔符只读一次，时间 $O(n)$，递归栈 $O(h)$。",
+          "explanation": "按题图给出具体结构或数值，并补齐可执行算法、边界和复杂度。",
+          "reason": "全量交叉审校：按题图、原始结构和算法不变量重算，补成完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -653,7 +678,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "邻接表中每个顶点表头保存顶点，边结点保存相邻顶点及 next；无向边必须在两个表中各出现一次，有向弧只出现在其尾顶点表。逐边插入后，表长分别给出无向度或有向出度。",
-        "explanation": "与邻接矩阵的度数交叉核验。"
+        "explanation": "与邻接矩阵的度数交叉核验。",
+        "correction": {
+          "verified": "**完整答案**\n\n按题图采用字母顺序中给定的邻接访问次序，从 A 开始做 BFS。图有 3 个连通分量，广度优先生成森林为：\n\n~~~~text\nA\n├─ L\n│  ├─ M\n│  └─ J\n├─ F\n├─ C\n└─ B\n\nD\n└─ E\n\nG\n├─ K\n├─ H\n└─ I\n~~~~\n\n也就是生成树边集\n\n$$\\{AL,AF,AC,AB,LM,LJ,DE,GK,GH,GI\\}.$$\n\nBFS 队列过程的分量根依次为 A、D、G：A 首次发现 L、F、C、B，随后 L 首次发现 M、J；第一分量结束后从未访问的 D 开始并发现 E；最后从 G 开始并发现 K、H、I。邻接点枚举次序若改变，合法 BFS 树的兄弟顺序可能改变，但层次和“首次发现边”原则不变。",
+          "explanation": "按题图给出具体结构或数值，并补齐可执行算法、边界和复杂度。",
+          "reason": "全量交叉审校：按题图、原始结构和算法不变量重算，补成完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -685,7 +715,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "Build the weighted adjacency matrix symmetrically, with diagonal 0 and infinity for absent edges. Prim starts from the required first vertex, repeatedly chooses the minimum crossing edge, records its parent, and stops after |V|-1 selections. Kruskal sorts the same edge set by weight and uses union-find, accepting an edge only when its endpoints are in different components; it also ends with |V|-1 edges. The two selected edge sets may differ on ties but have the same minimum total weight. Prim matrix form costs O(V^2); Kruskal costs O(E log E). Disconnected input yields a forest, not one MST.",
-        "explanation": "按题图边端点字段检查每条边出现一次。"
+        "explanation": "按题图边端点字段检查每条边出现一次。",
+        "correction": {
+          "verified": "**完整答案**\n\n顶点次序取 a,b,c,d,e,f,g,h。邻接矩阵为：\n\n|   | a | b | c | d | e | f | g | h |\n| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |\n| a | 0 | 4 | 3 | ∞ | ∞ | ∞ | ∞ | ∞ |\n| b | 4 | 0 | 5 | 5 | 9 | ∞ | ∞ | ∞ |\n| c | 3 | 5 | 0 | 5 | ∞ | ∞ | ∞ | 5 |\n| d | ∞ | 5 | 5 | 0 | 7 | 6 | 5 | 4 |\n| e | ∞ | 9 | ∞ | 7 | 0 | 3 | ∞ | ∞ |\n| f | ∞ | ∞ | ∞ | 6 | 3 | 0 | 2 | ∞ |\n| g | ∞ | ∞ | ∞ | 5 | ∞ | 2 | 0 | 6 |\n| h | ∞ | ∞ | 5 | 4 | ∞ | ∞ | 6 | 0 |\n\n对应邻接表（括号内为权）为：\n\n~~~~text\na: b(4), c(3)\nb: a(4), c(5), d(5), e(9)\nc: a(3), b(5), d(5), h(5)\nd: b(5), c(5), e(7), f(6), g(5), h(4)\ne: b(9), d(7), f(3)\nf: d(6), e(3), g(2)\ng: d(5), f(2), h(6)\nh: c(5), d(4), g(6)\n~~~~\n\n从 a 开始执行 Prim，可按如下次序选边：\n\n| 步 | 新选边 | 权 | 已纳入顶点 |\n| ---: | --- | ---: | --- |\n| 1 | a-c | 3 | a,c |\n| 2 | a-b | 4 | a,b,c |\n| 3 | b-d | 5 | a,b,c,d |\n| 4 | d-h | 4 | a,b,c,d,h |\n| 5 | d-g | 5 | a,b,c,d,g,h |\n| 6 | g-f | 2 | a,b,c,d,f,g,h |\n| 7 | f-e | 3 | 全部 |\n\nKruskal 按非降权处理：先取 fg(2)、ac(3)、ef(3)、ab(4)、dh(4)；权 5 的边中 bc 构成环而舍弃，取 bd，cd 与 ch 随后构成环而舍弃，再取 dg。得到同一棵最小生成树\n\n$$\\{ac,ab,bd,dh,dg,gf,fe\\},$$\n\n总权为 $3+4+5+4+5+2+3=26$。权 5 有并列，采用其他并列次序可得到边集不同但总权仍为 26 的 MST。",
+          "explanation": "按题图给出具体结构或数值，并补齐可执行算法、边界和复杂度。",
+          "reason": "全量交叉审校：按题图、原始结构和算法不变量重算，补成完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -733,7 +768,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "Event pairs ve/vl are alpha 0/0, A 1/20, B 6/24, C 17/26, D 3/19, E 34/34, F 4/8, G 3/3, H 13/13, I 1/7, J 31/31, K 22/22, omega 44/44. The zero-slack arcs are alpha-G, G-H, H-K, K-J, J-E, E-omega; hence the only critical path is alpha-G-H-K-J-E-omega, length 44. The remaining arc slacks are exactly the l-e values in the source table; all are positive.",
-        "explanation": "原书 ve/vl/e/l 表已按上述递推核验。"
+        "explanation": "原书 ve/vl/e/l 表已按上述递推核验。",
+        "correction": {
+          "verified": "**完整答案**\n\n先按拓扑序正向求事件最早发生时间 ve，再从汇点 $\\omega$ 反向求 vl。结果为：\n\n| 事件 | α | A | B | C | D | E | F | G | H | I | J | K | ω |\n| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |\n| ve | 0 | 1 | 6 | 17 | 3 | 34 | 4 | 3 | 13 | 1 | 31 | 22 | 44 |\n| vl | 0 | 20 | 24 | 26 | 19 | 34 | 8 | 3 | 13 | 7 | 31 | 22 | 44 |\n\n活动 $(u,v)$、持续时间 $w$ 满足 $e=ve(u)$、$l=vl(v)-w$。逐弧结果如下：\n\n| 活动弧 | e | l | l-e |\n| --- | ---: | ---: | ---: |\n| (α,A) | 0 | 19 | 19 |\n| (α,B) | 0 | 18 | 18 |\n| (α,D) | 0 | 16 | 16 |\n| (α,F) | 0 | 4 | 4 |\n| (α,G) | 0 | 0 | 0 |\n| (α,I) | 0 | 6 | 6 |\n| (A,C) | 1 | 20 | 19 |\n| (B,C) | 6 | 24 | 18 |\n| (D,C) | 3 | 19 | 16 |\n| (D,E) | 3 | 26 | 23 |\n| (D,J) | 3 | 25 | 22 |\n| (F,E) | 4 | 23 | 19 |\n| (F,H) | 4 | 8 | 4 |\n| (G,ω) | 3 | 23 | 20 |\n| (G,H) | 3 | 3 | 0 |\n| (I,H) | 1 | 7 | 6 |\n| (C,E) | 17 | 26 | 9 |\n| (H,C) | 13 | 22 | 9 |\n| (H,J) | 13 | 27 | 14 |\n| (H,K) | 13 | 13 | 0 |\n| (K,J) | 22 | 22 | 0 |\n| (J,E) | 31 | 31 | 0 |\n| (J,ω) | 31 | 32 | 1 |\n| (E,ω) | 34 | 34 | 0 |\n\n零时差活动依次连成唯一关键路径\n\n$$\\boxed{\\alpha\\to G\\to H\\to K\\to J\\to E\\to\\omega},$$\n\n其长度为 44。",
+          "explanation": "按题图给出具体结构或数值，并补齐可执行算法、边界和复杂度。",
+          "reason": "全量交叉审校：按题图、原始结构和算法不变量重算，补成完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -749,7 +789,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "Dijkstra from a finalizes vertices in order c,f,e,d,g,b. Final distances and paths are c=2 (a-c), f=6 (a-c-f), e=10 (a-c-e), d=11 (a-c-f-d), g=14 (a-c-f-d-g), b=15 (a-b). At each round choose the unfinalized minimum tentative distance and relax all outgoing arcs; predecessor records reconstruct the listed paths. All weights must be nonnegative; unreachable vertices retain infinity. Array implementation is O(V^2), while a binary heap adjacency-list implementation is O((V+E)log V).",
-        "explanation": "与原书状态表的确定次序 c、f、e、d、g、b 一致。"
+        "explanation": "与原书状态表的确定次序 c、f、e、d、g、b 一致。",
+        "correction": {
+          "verified": "**完整答案**\n\n所有边权非负，取 $S=\\{a\\}$ 初始化。表中每个未定点写作“距离(前驱)”；加粗选择次序依次为 c、f、e、d、g、b。\n\n| 轮次结束后的 S | b | c | d | e | f | g |\n| --- | --- | --- | --- | --- | --- | --- |\n| {a} | 15(a) | 2(a) | 12(a) | ∞ | ∞ | ∞ |\n| {a,c} | 15(a) | 2(a) | 12(a) | 10(c) | 6(c) | ∞ |\n| {a,c,f} | 15(a) | 2(a) | 11(f) | 10(c) | 6(c) | 16(f) |\n| {a,c,f,e} | 15(a) | 2(a) | 11(f) | 10(c) | 6(c) | 16(f) |\n| {a,c,f,e,d} | 15(a) | 2(a) | 11(f) | 10(c) | 6(c) | 14(d) |\n| {a,c,f,e,d,g} | 15(a) | 2(a) | 11(f) | 10(c) | 6(c) | 14(d) |\n| {a,c,f,e,d,g,b} | 15(a) | 2(a) | 11(f) | 10(c) | 6(c) | 14(d) |\n\n由前驱反向恢复路径：\n\n| 终点 | 最短距离 | 最短路径 |\n| --- | ---: | --- |\n| b | 15 | a→b |\n| c | 2 | a→c |\n| d | 11 | a→c→f→d |\n| e | 10 | a→c→e |\n| f | 6 | a→c→f |\n| g | 14 | a→c→f→d→g |\n\n例如选定 f 后把 d 从 12 松弛为 11、把 g 松弛为 16；选定 d 后再把 g 改为 14。邻接矩阵实现为 $O(V^2)$，邻接表加二叉堆为 $O((V+E)\\log V)$。",
+          "explanation": "按题图给出具体结构或数值，并补齐可执行算法、边界和复杂度。",
+          "reason": "全量交叉审校：按题图、原始结构和算法不变量重算，补成完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -781,7 +826,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "Floyd initializes d with direct arc weights, zero diagonal, and infinity otherwise, then for k=1..4 applies d[i][j]=min(d[i][j],d[i][k]+d[k][j]). The final matrix is [0,1,2,3]; [6,0,1,3]; [5,6,0,2]; [10,4,5,0]. Representative reconstructed paths are 2-3-4 for 2 to 4 and 4-2-3-1 for 4 to 1. Never add through infinity. The method allows negative edges but not a reachable negative cycle; a negative d[i][i] detects one. Time O(V^3), space O(V^2).",
-        "explanation": "不可达项参与加法前必须先判 INF。"
+        "explanation": "不可达项参与加法前必须先判 INF。",
+        "correction": {
+          "verified": "**完整答案**\n\n以 A、B、C、D 为中间点依次执行 Floyd。最终距离矩阵为：\n\n| 从/到 | A | B | C | D |\n| --- | ---: | ---: | ---: | ---: |\n| A | 0 | 1 | 2 | 3 |\n| B | 6 | 0 | 1 | 3 |\n| C | 5 | 6 | 0 | 2 |\n| D | 10 | 4 | 5 | 0 |\n\n用于重建路径的 next 矩阵（单元格为离开行顶点后的下一顶点）为：\n\n| 从/到 | A | B | C | D |\n| --- | --- | --- | --- | --- |\n| A | A | B | B | D |\n| B | C | B | C | C |\n| C | A | A | C | D |\n| D | B | B | B | D |\n\n因而所有非平凡最短路径为：\n\n~~~~text\nA→B: A-B       A→C: A-B-C       A→D: A-D\nB→A: B-C-A     B→C: B-C         B→D: B-C-D\nC→A: C-A       C→B: C-A-B       C→D: C-D\nD→A: D-B-C-A   D→B: D-B         D→C: D-B-C\n~~~~\n\n更新规则为\n\n$$d_{ij}\\leftarrow\\min(d_{ij},d_{ik}+d_{kj}),$$\n\n若经 k 变短，则令 next[i][j]=next[i][k]。不可把 $\\infty$ 参与普通加法。时间 $O(V^3)$、空间 $O(V^2)$。",
+          "explanation": "按题图给出具体结构或数值，并补齐可执行算法、边界和复杂度。",
+          "reason": "全量交叉审校：按题图、原始结构和算法不变量重算，补成完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -845,7 +895,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "Maintain path[0..depth] and onPath. Start with u; DFS(x) prints path and returns when x==v. Otherwise scan each outgoing neighbor y not onPath, append y, mark it, recurse, then unmark and pop it. This lists every u-to-v simple path exactly once: each output follows a distinct DFS branch, and every simple path is reachable by its next vertex choices. Do not expand after reaching v. The search tree for the figure is obtained by these push/pop events; its output cost is proportional to total printed path length, with exponential worst case and O(V) working space.",
-        "explanation": "题图的搜索树可按每次入栈/回退画出。"
+        "explanation": "题图的搜索树可按每次入栈/回退画出。",
+        "correction": {
+          "verified": "**完整答案**\n\n用 onPath 标记“当前递归路径”而不是“全局访问过”，这样回溯后同一顶点仍可出现在另一条简单路径中：\n\n~~~~c\nvoid AllPath(Graph *G, int x, int v, int path[], int depth,\n             bool onPath[]) {\n    path[depth] = x;\n    onPath[x] = true;\n    if (x == v) {\n        PrintPath(path, depth + 1);\n    } else {\n        for (Arc *p = G->first[x]; p; p = p->next) {\n            int y = p->to;\n            if (!onPath[y])\n                AllPath(G, y, v, path, depth + 1, onPath);\n        }\n    }\n    onPath[x] = false;\n}\n\n/* onPath 全 false 后调用 AllPath(G,u,v,path,0,onPath)。 */\n~~~~\n\n题图的弧为 u→a、a→b、u→c、c→d、d→e、d→v、e→u、e→f、e→v、f→b、v→b。按 a、c 及图示邻接顺序展开，搜索过程为：\n\n~~~~text\nu\n├─ a\n│  └─ b                 （死路）\n└─ c\n   └─ d\n      ├─ e\n      │  ├─ u            （已在当前路径，跳过）\n      │  ├─ f\n      │  │  └─ b         （死路）\n      │  └─ v            （输出）\n      └─ v                （输出）\n~~~~\n\n所以全部简单路径恰为\n\n$$\\boxed{u\\to c\\to d\\to e\\to v},\\qquad\n\\boxed{u\\to c\\to d\\to v}.$$\n\n到达 v 后立即输出并停止向下扩展；每次返回都撤销 onPath[x]。辅助空间 $O(V)$，总时间与搜索树规模及全部输出路径总长度成正比，最坏可为指数级。",
+          "explanation": "按题图给出具体结构或数值，并补齐可执行算法、边界和复杂度。",
+          "reason": "全量交叉审校：按题图、原始结构和算法不变量重算，补成完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -861,7 +916,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "Initialize a union-find singleton for every vertex and an empty child-sibling forest. While GetMinEdge returns (u,v), call DelMinEdge; if Find(u)!=Find(v), add the selected edge to the result forest and Union their sets. Stop once V-1 edges are chosen. If the source edge set is exhausted first, the graph is disconnected and has no spanning tree. The cut property proves every accepted current minimum cross-component edge is safe; rejected edges would create a cycle. With union by rank and path compression the union-find work is O(E alpha(V)), plus the cost of obtaining sorted minimum edges.",
-        "explanation": "同类端点边必须丢弃，不能加入成环。"
+        "explanation": "同类端点边必须丢弃，不能加入成环。",
+        "correction": {
+          "verified": "**完整答案**\n\n用并查集判断是否成环；孩子-兄弟结点保存 firstChild、nextSibling，并另用 parent 数组便于把一棵已选树重新定根。接受边 (u,v) 时，两端必属不同分量：先把 v 所在树重定根为 v，再把 v 挂成 u 的一个孩子，这样新增的父子边恰好就是原图边 (u,v)。\n\n~~~~c\ntypedef struct CSNode {\n    int v;\n    struct CSNode *firstChild, *nextSibling;\n} CSNode;\n\nvoid Detach(CSNode *par, CSNode *child) {\n    CSNode **p = &par->firstChild;\n    while (*p != child) p = &(*p)->nextSibling;\n    *p = child->nextSibling;\n    child->nextSibling = NULL;\n}\n\nvoid Reroot(int v, CSNode node[], int parent[]) {\n    int child = v, par = parent[child];\n    parent[child] = 0;\n    while (par != 0) {\n        int grand = parent[par];\n        Detach(&node[par], &node[child]);\n        node[par].nextSibling = node[child].firstChild;\n        node[child].firstChild = &node[par];\n        parent[par] = child;\n        child = par;\n        par = grand;\n    }\n}\n\nStatus KruskalCS(EdgeSetType *E, int n, CSNode node[], int parent[]) {\n    MakeSet(1, n);                       /* 并查集 */\n    for (int i=1;i<=n;i++) {\n        node[i]=(CSNode){i,NULL,NULL}; parent[i]=0;\n    }\n    int chosen=0, u, v;\n    while (GetMinEdge(*E,&u,&v)) {\n        DelMinEdge(E,u,v);\n        if (Find(u)==Find(v)) continue;\n        Reroot(v,node,parent);\n        node[v].nextSibling=node[u].firstChild;\n        node[u].firstChild=&node[v];\n        parent[v]=u;\n        Union(u,v);\n        if (++chosen==n-1) return OK;\n    }\n    return ERROR;                         /* 不连通，只得到生成森林 */\n}\n~~~~\n\nReroot 只反转 v 到原树根路径上的父子方向，不改变所选无向边集合；随后挂接恰增加 (u,v)。并查集保证每次连接两个不同分量，故始终无环；选满 $n-1$ 条时得到 MST。\n\n测试：$G_1$ 无边，返回 ERROR；$G_2$ 依次取 $v_1v_2(10)$、$v_2v_3(20)$，舍弃 $v_3v_1(30)$；$G_3$ 依次取 $v_1v_2(10)$、$v_3v_4(20)$、$v_2v_3(30)$，最终孩子-兄弟树可定根为 $v_1$，形成链 $v_1-v_2-v_3-v_4$。若要优化重定根代价，也可先保存所选边，最后一次 DFS 在 $O(V)$ 内生成孩子-兄弟表示。",
+          "explanation": "按题图给出具体结构或数值，并补齐可执行算法、边界和复杂度。",
+          "reason": "全量交叉审校：按题图、原始结构和算法不变量重算，补成完整答案。"
+        }
       },
       "review": {
         "status": "passed",
@@ -1021,7 +1081,12 @@
         "status": "provided",
         "origin": "verified",
         "verified": "(1) 每个 L、L1…L4 设表头计数；外部或其他表每引用一次其头结点计数加一，结构按题图连接。(2) 从 L 删除 L1 只释放 L 中指向 L1 的首元结点，并把 L1 头计数减一；L1 仍被保留（其计数未必为零）。(3) 若 L2=(L3,L4)，L2→L4→L2 形成间接环，纯引用计数无法使环内计数归零，产生泄漏。",
-        "explanation": "引用计数不具备环回收能力。"
+        "explanation": "引用计数不具备环回收能力。",
+        "correction": {
+          "verified": "**完整答案**\n\n只把真正的外部根指针 Htag→L 计作外部引用；图中 L1～L4 的文字只是说明标签，不额外增加计数。初始引用计数为：\n\n| 表 | 引用来源 | 计数 |\n| --- | --- | ---: |\n| L | Htag | 1 |\n| L1 | L | 1 |\n| L2 | L1、L4 | 2 |\n| L3 | L、L1、L2 | 3 |\n| L4 | L1 | 1 |\n\n删除 L 中指向 L1 的首元结点后，按“计数降为 0 就递归释放其元素并递减所引用子表”的规则：\n\n1. L1：1→0，释放 L1 的表头及三个表项；这使 L2：2→1，L3：3→2，L4：1→0。\n2. L4：1→0，释放 L4；它对 L2 的引用撤销，使 L2：1→0。\n3. L2：1→0，释放 L2；它对 L3 的引用撤销，使 L3：2→1。\n4. L3 仍由 L 直接引用，计数为 1，不释放；L 自身仍为 1。\n\n所以可释放的是 L 中被删的元素结点，以及 L1、L4、L2 的表头和各自表项；L3 保留。\n\n若改成 $L_2=(L_3,L_4)$，则出现 $L_2\\to L_4\\to L_2$ 的环。外部引用即使全部删除，环内两个计数仍会互相支撑而不能降到 0，产生不可达但无法回收的空间泄漏；这正是纯引用计数不能回收循环垃圾的典型缺陷。",
+          "explanation": "按题图给出具体结构或数值，并补齐可执行算法、边界和复杂度。",
+          "reason": "全量交叉审校：按题图、原始结构和算法不变量重算，补成完整答案。"
+        }
       },
       "review": {
         "status": "passed",

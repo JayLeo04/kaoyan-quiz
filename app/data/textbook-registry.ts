@@ -113,7 +113,9 @@ function questionSummary(question: TextbookDataset["questions"][number]): Textbo
       origin: question.answer.origin,
       hasVerified: Boolean(question.answer.verified?.trim()),
     },
-    knowledgePoints: question.knowledgePoints.map((point) => ({ id: point.id, title: point.title })),
+    tags: [...question.tags],
+    quality: { ...question.quality },
+    knowledgePoints: question.knowledgePoints.map((point) => ({ id: point.id, title: point.title, href: point.href })),
   };
 }
 
@@ -136,7 +138,9 @@ function questionContent(question: TextbookDataset["questions"][number]): Textbo
       verifiedHtml: question.answer.verifiedHtml,
       explanation: question.answer.explanation,
     },
-    knowledgePoints: question.knowledgePoints.map((point) => ({ id: point.id, title: point.title })),
+    tags: [...question.tags],
+    quality: { ...question.quality },
+    knowledgePoints: question.knowledgePoints.map((point) => ({ id: point.id, title: point.title, href: point.href })),
     source: {
       question: sourceQuestion ? {
         pdfPages: sourceQuestion.pdfPages ? [...sourceQuestion.pdfPages] : undefined,
@@ -188,6 +192,10 @@ export function createTextbookPracticeResults(textbook: TextbookRegistration, qu
     if (!question.isExercise) return false;
     const chapterMatch = !query.chapterId || query.chapterId === "all" || question.chapterId === query.chapterId;
     const typeMatch = !query.type || query.type === "all" || question.type === query.type;
+    const knowledgeMatch = !query.knowledgeId || question.knowledgePoints.some((point) => point.id === query.knowledgeId);
+    const disposition = query.disposition || "recommended";
+    const dispositionMatch = disposition === "all"
+      || (disposition === "recommended" ? question.quality.disposition !== "hide" : question.quality.disposition === disposition);
     const hasVerified = Boolean(question.answer.verified?.trim());
     const answerMatch = !query.answer || query.answer === "all"
       || (query.answer === "verified" ? hasVerified : question.answer.status === query.answer);
@@ -195,8 +203,8 @@ export function createTextbookPracticeResults(textbook: TextbookRegistration, qu
       || (query.learning === "mastered" && masteredIds.has(question.id))
       || (query.learning === "review" && reviewIds.has(question.id))
       || (query.learning === "unmarked" && !masteredIds.has(question.id) && !reviewIds.has(question.id));
-    const queryMatch = !normalized || `${question.number} ${question.prompt.plain} ${question.section.title} ${question.knowledgePoints.map((point) => point.title).join(" ")}`.toLocaleLowerCase().includes(normalized);
-    return chapterMatch && typeMatch && answerMatch && learningMatch && queryMatch;
+    const queryMatch = !normalized || `${question.number} ${question.prompt.plain} ${question.section.title} ${question.tags.join(" ")} ${question.knowledgePoints.map((point) => point.title).join(" ")}`.toLocaleLowerCase().includes(normalized);
+    return chapterMatch && typeMatch && knowledgeMatch && dispositionMatch && answerMatch && learningMatch && queryMatch;
   });
   const pageCount = Math.max(1, Math.ceil(questions.length / textbookPracticePageSize));
   const requestedPage = Number.isFinite(query.page) ? Math.trunc(query.page || 1) : 1;
@@ -210,11 +218,13 @@ export function createTextbookPracticeResults(textbook: TextbookRegistration, qu
 }
 
 /** Builds only the first visible result page; later filters and pages are requested on demand. */
-export function createTextbookPracticeLibraryPayload(textbook: TextbookRegistration, initialChapterId?: string): TextbookPracticeLibraryPayload {
+export function createTextbookPracticeLibraryPayload(textbook: TextbookRegistration, initialChapterId?: string, initialKnowledgeId?: string): TextbookPracticeLibraryPayload {
   const exerciseQuestions = textbook.dataset.questions.filter((question) => question.isExercise);
   const chapterId = textbook.dataset.chapters.some((chapter) => chapter.id === initialChapterId) ? initialChapterId : "all";
+  const knowledgeId = exerciseQuestions.some((question) => question.knowledgePoints.some((point) => point.id === initialKnowledgeId)) ? initialKnowledgeId : undefined;
   return {
     ...payloadBase(textbook),
+    initialKnowledgeId: knowledgeId,
     stats: {
       exerciseQuestions: textbook.dataset.stats.exerciseQuestions,
       answersProvided: textbook.dataset.stats.answersProvided,
@@ -224,7 +234,7 @@ export function createTextbookPracticeLibraryPayload(textbook: TextbookRegistrat
     chapters: chapterSummaries(textbook),
     questionTypes: [...new Set(exerciseQuestions.map((question) => question.type))],
     exerciseQuestionIds: exerciseQuestions.map((question) => question.id),
-    initialResults: createTextbookPracticeResults(textbook, { chapterId }),
+    initialResults: createTextbookPracticeResults(textbook, { chapterId, knowledgeId }),
   };
 }
 

@@ -13,6 +13,9 @@ import batch06SortingExternal from "@/app/data/textbook-answer-audits/batch-06-s
 import batch07ExternalFilePractice1 from "@/app/data/textbook-answer-audits/batch-07-external-file-practice1.json";
 import batch08Practice1To3 from "@/app/data/textbook-answer-audits/batch-08-practice1-3.json";
 import batch09Practice4To6 from "@/app/data/textbook-answer-audits/batch-09-practice4-6.json";
+import fullCoverage01To05 from "@/app/data/textbook-answer-audits/full-coverage-01-05.json";
+import fullCoverage06To08 from "@/app/data/textbook-answer-audits/full-coverage-06-08.json";
+import fullCoverage09Practice from "@/app/data/textbook-answer-audits/full-coverage-09-practice.json";
 
 // Each chapter batch owns its own JSON file. Keeping this registry as the only
 // aggregation point prevents parallel content reviewers from editing one file.
@@ -31,4 +34,7 @@ export const dataStructuresAnswerAudits: readonly TextbookAnswerAudit[] = [
   batch07ExternalFilePractice1 as unknown as TextbookAnswerAudit,
   batch08Practice1To3 as unknown as TextbookAnswerAudit,
   batch09Practice4To6 as unknown as TextbookAnswerAudit,
+  fullCoverage01To05 as unknown as TextbookAnswerAudit,
+  fullCoverage06To08 as unknown as TextbookAnswerAudit,
+  fullCoverage09Practice as unknown as TextbookAnswerAudit,
 ];

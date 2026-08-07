@@ -243,8 +243,8 @@ test("renders textbook practice and preserves answer provenance", async () => {
   const libraryHtml = await libraryResponse.text();
   assert.match(libraryHtml, /按章节，做完这本书的题/);
   assert.match(libraryHtml, /457(?:<!-- -->)? 道可练习题/);
-  assert.match(libraryHtml, /原书答案/);
-  assert.match(libraryHtml, /独立核验解答/);
+  assert.match(libraryHtml, /原书完整答案/);
+  assert.match(libraryHtml, /完整核验解答/);
   assert.ok(Buffer.byteLength(libraryHtml) < 250_000, "the practice landing page must serialize only its visible result page");
   assert.match(libraryHtml, /question-card-markdown textbook-question-card-markdown/);
   assert.match(libraryHtml, /class="katex"/);
@@ -253,7 +253,8 @@ test("renders textbook practice and preserves answer provenance", async () => {
   assert.equal(questionResponse.status, 200);
   const questionHtml = await questionResponse.text();
   assert.match(questionHtml, /头指针，头结点，首元结点/);
-  assert.match(questionHtml, /查看原书答案 \/ 提示/);
+  assert.match(questionHtml, /完整核验解答/);
+  assert.match(questionHtml, /查看原书保留内容或独立核验补充/);
   assert.match(questionHtml, /对应知识点/);
   assert.match(questionHtml, /题目与答案来源/);
   assert.match(questionHtml, /textbook-question-note-tools/);

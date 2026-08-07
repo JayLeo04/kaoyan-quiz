@@ -1,0 +1,1678 @@
+{
+  "schemaVersion": "textbook-answer-audit-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "01-introduction",
+    "02-linear-list",
+    "03-stack-and-queue",
+    "04-string",
+    "05-array-and-generalized-list"
+  ],
+  "updates": [
+    {
+      "id": "book-ds-yan-01-introduction-1-2",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n数据结构只说明数据元素及其逻辑关系；抽象数据类型还规定这组数据及允许操作的语义。语言的数据类型是实现层的机制，规定值域、存储表示和可用运算。一个 ADT 可由多种语言类型实现，同一语言类型也能承载不同数据结构，因此三者不等同。\n\n补充核验：简单地说，数据结构定义了一组按某些关系结合在一起的数据元素。数据类型不仅定义了一组带结构的数据元素，而且还在其上定义了一组操作。",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-7",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n三种方式各有适用边界。\n\n1. scanf/printf 直接读写标准输入输出，代码短，适合小程序、测试和命令行工具；缺点是算法与交互、格式、设备强耦合，难以复用和自动测试。\n2. 通过形参传递数据使输入、处理、输出模块的接口明确，依赖可见，便于单元测试、复用和替换输入源；代价是接口设计与参数传递更繁琐。应作为普通程序模块通信的首选。\n3. 全局变量书写方便、不必逐层传参，但任一模块都可改写状态，数据流隐藏、耦合强、并发与测试困难，错误不易局部化；只宜用于受严格封装控制的少量全局配置。\n\n因此，交互层可使用 scanf/printf，业务模块以参数（或明确的返回值）通信，不把可变业务状态作为普通全局变量。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-8",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n八段 @ 语句频度依次为：（1）n-1；（2）max(1,n-1)；（3）n-1；（4）n(n+1)/2；（5）n(n+1)(n+2)/6；（6）n；（7）floor(sqrt(n))；（8）1100 次，其中 x++ 执行 1000 次。前七项分别由循环变量的取值个数、三重求和和平方根循环上界直接得到；第八项按题给 McCarthy 91 的等价循环逐轮计数。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-10",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n比较依据是：0<2/3<1 的指数趋零；常数随后；对数低于任意正幂；指数底数较大的增长更快；n^(log2 n) 介于普通指数与 n! 之间。逐项检查可得原列顺序，且对足够大 n 成立。\n\n补充核验：各函数的排列次序如下：\n\n$$\n(2/3)^n,\\ 2^{100},\\ \\log_2(\\log_2 n),\\ \\log_2n,\\ (\\log_2n)^2,\\ \\sqrt n,\\ n^{2/3},\\ n/\\log_2n,\\ n,\\ n\\log_2n,\\ n^{3/2},\\ (4/3)^n,\\ (3/2)^n,\\ n^{\\log_2n},\\ n!,\\ n^n.\n$$",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-11",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n可执行基本操作总数为 10^7×10^5=10^12。2^n≤10^12 时 n≤39，因为2^39<10^12<2^40；n^10≤10^12 时 n≤floor(10^1.2)=15，因为15^10<10^12<16^10。故在该机器和期限内指数算法可解 n=0..39，高次多项式算法仅可解 n=0..15；本题条件下前者更适宜，说明必须比较实际常数和规模。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-13",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n比较 n² 与 50n log2 n。n>0 时约去 n，需比较 n 与 50log2 n。整数解的交界为 n=1 及 n=439：n=438 时 n<50log2 n，n=439 时 n>50log2 n。因此 n²>50nlog2 n 当且仅当 n=1 或 n≥439；n=0 时两式同为0。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-16",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n可执行的三比较交换如下：\n\n~~~c\nvoid Desc3(int *x,int *y,int *z){ int t;\n if(*x<*y){t=*x;*x=*y;*y=t;}\n if(*x<*z){t=*x;*x=*z;*z=t;}\n if(*y<*z){t=*y;*y=*z;*z=t;}\n}\n~~~\n\n第一次使 x≥y，第二次使 x 不小于 z，第三次在剩余两数间排序，故结果 x≥y≥z。恰三次比较、最多三次交换，时间 O(1)、空间 O(1)。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-17",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n令循环队列保存最近 k 项。边界为 m<0 或 k<2 时出错；0≤m<k−1 返回 0，m=k−1 返回 1。之后每次新项等于窗口和，并用“新和 = 旧和 + 新项 − 最旧项”维护。\n\n~~~c\nlong long KFib(int k, int m) {\n  if (k < 2 || m < 0) error();\n  if (m < k-1) return 0;\n  if (m == k-1) return 1;\n  long long q[k], sum = 1; int front = 0;\n  for (int i=0;i<k-1;i++) q[i]=0; q[k-1]=1;\n  for (int i=k;i<=m;i++) {\n    long long x=sum; sum += x-q[front]; q[front]=x; front=(front+1)%k;\n  }\n  return q[(front+k-1)%k];\n}\n~~~\n\n循环不变式是 q 恰存放最近 k 项、sum 是它们之和，故新项满足定义；每轮 O(1)，总时间 O(m)，额外空间 O(k)。实际实现还应检查加法溢出。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-18",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n先对五所学校的 male、female、total 全部置0。扫描每条记录 r：total[r.school]+=r.points；若 r.sex==MALE 则 male[r.school]+=r.points，否则 female[r.school]+=r.points；最后逐校输出三项。必须累加题目中的得分 points，不能把比赛成绩 score 当分数。每条记录一次，时间 O(n)，五校固定时额外空间 O(1)。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-19",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n不能先计算 (i!2^i) 再比较 MAXINT，因为乘法可能已经溢出。维护当前值 v=(i−1)!2^(i−1)，在乘 2i 前先判 (v>MAXINT/(2i))。\n\n~~~c\nStatus Fill(long long a[], int arrsize, int n, long long MAXINT) {\n  if (n<0 || n>arrsize) return ERROR;\n  long long v=1;\n  for (int i=1;i<=n;i++) {\n    if (v > MAXINT/(2LL*i)) return OVERFLOW;\n    v *= 2LL*i; a[i-1]=v;\n  }\n  return OK;\n}\n~~~\n\n循环后 v=i!2^i，归纳可证；预判保证每次乘法安全。时间 O(n)，额外空间 O(1)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-20",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\nHorner 规则为 p=a[n]；随后 i 从 n-1 到 0（循环条件 i>=0）重复 p=p*x0+a[i]，最后输出 p。初始化取系数一次；循环条件检查 n+1 次，循环体执行 n 次，乘法恰 n 次、加法恰 n 次、i-- 恰 n 次。故时间 Theta(n)、额外空间 O(1)；循环不变式是 p 已为从 a[n] 到 a[i+1] 的嵌套值。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-1",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n首元结点存放第一个数据元素；头结点是可选的辅助结点，位于首元结点之前且通常不存业务数据；头指针是外部指向链表第一个结点的指针。带头结点时空表的头指针仍非空，未带头结点时空表头指针为 NULL。\n\n补充核验：首元结点是指链表中存储线性表中第一个数据元素 $a_1$ 的结点。为了操作方便，通常在链表的首元结点之前附设一个结点，称为头结点，该结点的数据域中不存储线性表的数据元素，其作用是为了对链表进行操作时，可以对空表、非空表的情况以及对首元结点进行统一处理。头指针是指向链表中第一个结点（或为头结点或为首元结点）的指针。若链表中附设头结点，则不管线性表是否为空表，头指针均不为空，否则表示空表的链表的头指针为空。这三个概念对单链表、双向链表和循环链表均适用。是否设置头结点，是不同的存储结构表示同一逻辑结构的问题。",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-2",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n填空结论依次为：平均移动表中一半元素，个数取决于操作位置；顺序表物理位置必相邻，单链表不一定相邻；单链表结点位置由其直接前驱的链域给出；设置头结点可统一空表、非空表以及首元结点的插删处理。\n\n补充核验：(1) 表中一半，该元素的位置。\n\n(2) 必定，不一定。\n\n(3) 其直接前驱结点的链域的值。\n\n(4) 插入和删除首元素时不必进行特殊处理。",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-6",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n依原题编号语句，四项完整选择为：a（P 后插 S）=(4)(1)；b（P 前插 S）=(7)(11)(8)(4)(1)；c（表首插 S）=(5)(12)；d（表尾插 S）=(11)(9)(6)(1)。指针改动必须先保存/设置 S 的后继，再接入前驱，才能避免断开原链。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-7",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n完整选择：a（删 P 的直接后继）=(11)(3)(14)；c（删 P）=(10)(12)(7)(3)(14)；d（删首元）=(12)(11)(3)(14)；e（删尾元）=(9)(11)(3)(14)。b 删除 P 的直接前驱不能只凭 P 回退：必须从头结点扫描，维护 preprev、prev，直到 prev->next==P，再令 preprev->next=P 并释放 prev。所有删除都先保存数据和后继，空表/首元边界须先判定。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-9",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n（1）当 L 长度至少2时将首元移到表尾。（2）对单循环表 AA(pa,pb)：设 pa、pb 分别指向待切分环上的两个断点，先保存 pa->next 和 pb->next；令 pa->next 指回第一段首元、pb->next 指回第二段首元，从而得到两个互不共享结点的循环表。若两断点相同或相邻，应先判定空段并按题设保留空循环/拒绝分割；仅改常数条链，时间 O(1)。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-10",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（含明确假设）：\n\n合理假设：当前题干遗漏了待改写的算法正文。可由原书答案确定的任务是顺序表从第 i 个元素起删除 k 个元素，合法条件为 0<i≤a.length 且 0≤k≤a.length−i；原解的错误是参数判定不完整、前移方向错误，低效点是逐个删除。一次搬移的正确改写为：\n\n~~~c\nStatus DeleteK(SqList *a,int i,int k){\n if(i<1||i>a->length||k<0||k>a->length-i) return ERROR;\n for(int j=i-1;j+k<a->length;++j) a->elem[j]=a->elem[j+k];\n a->length-=k; return OK;\n}\n~~~\n\n循环把删除段后的每个元素向左恰搬 k 位，故结果正确；时间 O(a.length−i−k+1)，空间 O(1)。",
+        "explanation": "根据原书可核验条件补成一次搬移算法，并说明缺失原代码。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案已按本题题设核验；未以通用模板替代具体结论。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-11",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n顺序表递增插入的可执行实现：\n\n~~~c\nStatus InsertOrder(SqList *a,ElemType x){\n if(a->length>=a->listsize) return OVERFLOW;\n int i=a->length-1;\n while(i>=0 && x<a->elem[i]){a->elem[i+1]=a->elem[i];--i;}\n a->elem[i+1]=x; ++a->length; return OK;\n}\n~~~\n\n循环条件是比较 i>=0 和 x<a->elem[i]，不是赋值表达式；右移后前段不大于 x、后段大于 x，故仍递增。最坏 O(n)、空间 O(1)。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-12",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n用两个下标同步扫描最大公共前缀；随后按词典序处理结束和首个不同元素，原表不被修改。\n\n~~~c\nint Compare(SqList A, SqList B) {\n  int i=0;\n  while(i<A.length && i<B.length && A.elem[i]==B.elem[i]) ++i;\n  if(i==A.length && i==B.length) return 0;\n  if(i==A.length) return -1;\n  if(i==B.length) return 1;\n  return A.elem[i]<B.elem[i] ? -1 : 1;\n}\n~~~\n\n退出时 i 正是最长公共前缀长度，随后分支完全对应题设定义；时间 (O(min(m,n)))，空间 (O(1))。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-15",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n为少走结点，遍历较短的链表寻找尾结点；把较短表接到较长表之后，并释放较长表的头结点，使短表的头结点成为 hc。\n\n若 m≤n：令 p=ha，走到 p->next==NULL；令 p->next=hb->next，释放 hb，hc=ha。若 m>n 对称处理。空表也可处理：把另一表的首元链接到保留头结点后。时间 (O(min(m,n)))，仅用常数指针空间。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-16",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n必须在改动任一链之前同时验证两表位置：先定位 la 的第 i 个 p、第 i+len-1 个 q 及前驱 pre；再定位 lb 第 j-1 个 s（j=1 时 s=NULL）。任一不存在即返回 ERROR。验证后保存 after=q->next，令 pre?pre->next:la=after；再若 j==1，q->next=lb，lb=p，否则 q->next=s->next，s->next=p。注意条件必须是 if(j==1)，不能写 if(j=1)。时间 O(|la|+|lb|)、空间 O(1)。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-17",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n无头结点表必须单独处理 i=1，因为首指针本身会改变。\n\n~~~c\nStatus Insert(Node **L,int i,Elem x){\n if(i<1) return ERROR; Node *s=New(x); if(!s)return OVERFLOW;\n if(i==1){s->next=*L;*L=s;return OK;}\n Node *p=*L; for(int k=1;k<i-1&&p;k++,p=p->next);\n if(!p){Free(s);return ERROR;} s->next=p->next;p->next=s;return OK;\n}\n~~~\n\n带头结点时从头结点统一寻找第 i−1 个前驱，不需要 i=1 特判，空表也自然成立；两者查找时间均 O(i)，无头表接口必须以 Node** 传入以便更新首指针。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-18",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n无头结点表删除第 i 个结点：\n\n~~~c\nStatus Delete(Node **L,int i,Elem *x){\n if(i<1||!*L)return ERROR; Node *q;\n if(i==1){q=*L;*L=q->next;*x=q->data;Free(q);return OK;}\n Node *p=*L; for(int k=1;k<i-1&&p;k++,p=p->next);\n if(!p||!p->next)return ERROR; q=p->next;p->next=q->next;*x=q->data;Free(q);return OK;\n}\n~~~\n\n先定位前驱再改链，保证不会丢失后继；i=1 单独更新首指针。时间 O(i)，空间 O(1)。带头结点实现可从头结点统一定位前驱。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-19",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n带头结点递增单链表删除：\n\n~~~c\nvoid DeleteOpen(Node *H,ElemType lo,ElemType hi){\n if(lo>=hi)return; Node *p=H;\n while(p->next && p->next->data<=lo)p=p->next;\n while(p->next && p->next->data<hi){Node*q=p->next;p->next=q->next;free(q);}\n}\n~~~\n\n第一循环定位最后一个值不大于 lo 的前驱，第二循环仅删除严格在 (lo,hi) 内的连续结点；递增性保证后面无需再查找。时间 O(n)、空间 O(1)。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-22",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n带头结点单链表可用头插法原地逆置：\n\n~~~c\nvoid Reverse(Node *H){\n Node *p=H->next; H->next=NULL;\n while(p){ Node *q=p->next; p->next=H->next; H->next=p; p=q; }\n}\n~~~\n\n每轮把未处理首结点移到新表表头；不变式是 H 后已处理部分恰为原前缀的逆序，结束即得全表逆序。每结点处理一次，时间 O(n)、空间 O(1)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-23",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n令 C 复用 A 的头结点，pa=A->next、pb=B->next、pc=C。只要 pa 和 pb 都非空，依次接入 pa、pb；某表耗尽后把另一余链直接接到 pc，最后释放 B 的头结点。\n\n~~~c\nwhile(pa&&pb){pc->next=pa;pc=pa;pa=pa->next;pc->next=pb;pc=pb;pb=pb->next;}\npc->next=pa?pa:pb; Free(B);\n~~~\n\n每次连接都保存后继，所有结点恰接一次，交替顺序与题设相符。时间 O(m+n)，空间 O(1)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-24",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n归并前必须保存两个源首元：pa=A->next、pb=B->next；随后令 C=A、C->next=NULL，不能先清空再取 pa。每次从 pa/pb 取较小结点 x，先保存 x 的 next，再头插 x 到 C；一表耗尽后逐个头插另一表。取出顺序非递减、头插后即非递增；所有结点一次，时间 O(m+n)、空间 O(1)，最后释放 B 的头结点。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-27",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n本题要求的是有序表交集且 C 无重复，不是并集。同步扫描 A、B：较小指针前进；相等时若 C 为空或 C 尾值不同才写入该值，然后 A、B 都前进；跳过两表内的连续相同值。C 写回 A 的前端。两指针单调，时间 O(m+n)、额外空间 O(1)。\n\n关键实现与边界：\n设 i=j=w=0。循环中跳过 A、B 各自连续重复值；若 A[i]<B[j] 则只增 i，若大于则只增 j，相等时把该值写入 A[w++]，然后同时推进两边所有相等项。结束令 A.length=w。这样只写共同元素，空表直接得到空交集，时间 O(m+n)、额外空间 O(1)。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-28",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n链表交集版只保留同时出现的值。pa、pb 并行扫描：pa<pb 时释放 pa 并前进；pb<pa 时只前进 pb；相等时摘下 pa 尾插 C、两指针都前进，并跳过重复值；扫描结束释放 A 的余结点。C 可复用 A 头结点，所有未保留结点均释放，时间 O(m+n)、空间 O(1)。\n\n关键实现与边界：\n设 pa=A->next、pb=B->next、tail=C。每轮先跳过同表重复值；pa 值较小时保存其后继并释放该结点，pb 较小时仅推进 pb；相等时摘下 pa 令 tail->next=pa、tail=pa，再同步推进两表。循环后释放 A 剩余链并令 tail->next=NULL。C 只含交集，时间 O(m+n)。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-29",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n顺序表多重集删除：对当前 A[i]，先推进 B、C 中小于它的元素；若 B[j]==A[i] 且 C[k]==A[i]，则删除/跳过该 A 元素，并同时 ++j、++k；否则写回 A[w++]。匹配成功后 B、C 指针必须一起消费一个出现次数，才能正确实现 A-(B∩C) 并避免重复值被过删。时间 O(m+n+r)、空间 O(1)。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-30",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n链表版维护 A 前驱 pre、当前 pa 以及 pb、pc。先把 pb、pc 各自推进到不小于 pa->data；若二者都相等，保存 pa->next，令 pre->next=next，释放 pa，pa=next，同时 pb=pb->next、pc=pc->next；否则 pre=pa、pa=pa->next。匹配后两表指针同步消费，故重复值按多重集次数正确删除。时间 O(m+n+r)、空间 O(1)。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-33",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n分别初始化三组 (head,tail) 为 (NULL,NULL)，对应字母、数字、其他字符。遍历原链：先保存 next，令 p->next=NULL；按类别若 head 为空则 head=tail=p，否则 tail->next=p、tail=p。结束时对每个非空类令 tail->next=head 形成循环表；空类保持 head=tail=NULL。每结点一次分类，时间 O(n)、额外空间 O(1)。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-34",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n从左向右遍历时保存 prev 和 cur，下一结点为 prev XOR cur->LRPtr；输出 cur->data 后令 prev=cur、cur=next。反向遍历对称地从 Right 出发。NULL 参与异或即零指针，首轮 prev=NULL；每结点访问一次，时间 O(n)、空间 O(1)。\n\n补充核验：设指针 p 指向当前结点，left 指向它的左邻结点，right 指向它的右邻结点，则有\n\n$$\n\\texttt{right}=\\texttt{left}\\oplus\\texttt{p->LRPtr}\n\\quad\\text{和}\\quad\n\\texttt{left}=\\texttt{p->LRPtr}\\oplus\\texttt{right}.\n$$\n\n一般而言，设指针 r 的初值为 NULL。若从左到右遍历，则 p 的初值为链表的左端指针 L.Left；若从右到左遍历，p 的初值为链表的右端指针 L.Right。访问 p 结点后，下一个结点的指针\n\n$$\n\\texttt{q}=\\texttt{r}\\oplus\\texttt{p->LRPtr}\n\\quad\\text{或}\\quad\n\\texttt{q}=\\texttt{p->LRPtr}\\oplus\\texttt{r}.\n$$",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-39",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n稀疏项按指数递减存 term[0..m-1]。令 v=term[0].coef，prev=term[0].exp；对 i=1..m-1，先重复 prev-term[i].exp 次 v*=x0，再 v+=term[i].coef，prev=term[i].exp；最后重复 prev 次 v*=x0。指数差逐次乘而非重复从头求幂，所有乘法次数不超过最高指数 n，故时间 O(n)、存储 O(m)（计算额外 O(1)）；x0=0 同样可按循环得到常数项。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-42",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n设原循环链有头结点 H，空表 H->next==H 时直接令 odd/even 均为空循环。否则初始化两个头结点 OH、EH，尾指针 ot=OH、et=EH；从 p=H->next 循环到 H：保存 next=p->next，断开 p->next，按 p->exp%2 尾插到 ot 或 et。结束后 ot->next=OH、et->next=EH，并令 H->next=H 或释放 H。这样无结点丢失、两结果均有头结点循环结构，时间 O(m)、空间 O(1)。",
+        "explanation": "已按第 01–02 章只读审校逐项修正结论、边界、代码与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审具体意见复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-1",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n栈调度中 435612 不可得：输出4、3后，1、2仍在栈且5、6必须按到达顺序处理，不能先出5再出6而保持后续1、2。135426 可得，操作序列为 SXSSXSSXXXSX。入栈前缀与出栈时栈顶逐步模拟即可验证；每节车厢至多进、出栈一次。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-3",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n按给定 char 栈程序逐句模拟，依次输出字符为 stack。关键是 Pop 后栈顶回退，输出顺序为最后入栈字符先出，不能把入栈顺序直接当输出。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-4",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n算法(1)把依次弹出的元素压入辅助栈（或逐结点头插），功能为逆置线性结构。算法(2)顺序扫描，用写指针仅复制不等于 e 的元素，因此删除所有 e 且保留其他元素相对次序；各元素常数次处理，时间O(n)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-5",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n合法当且仅当任意前缀 #S≥#X 且全串 #S=#X。唯一性：固定输入下，给定合法 S/X 序列在每个 X 时栈顶唯一，故输出唯一；若两合法序列首次不同，一者 S 一者 X，则该时刻一方已输出、另一方未输出的元素实体不同，最终输出排列不可能相同。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-6",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n反证：若输出中存在 i<j<k 且 pj<pk<pi，则 pj、pk 在 pi 输出前都已到达并入栈；pk 后入，必位于 pj 上方。pi 若在二者之后输出，必须在它们下方等待；因此 pk 必在 pi 前弹出，和 pi 位于 pk 前的输出次序矛盾。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-7",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n表达式的栈表在关键末两步为：第10步操作数栈 OPND=T3；第11步运算符栈为 # + / T3（按题表记号）。完整归约后后缀式为 ABC*D/-EF^+，即 A-(B*C)/D+E^F。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-8",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n设 T(1)=1；移动 n 阶时必须先移动 n-1 阶到辅助柱、移动最大盘一次、再移动 n-1 阶到目标柱，所以 T(n)=2T(n-1)+1。令 S(n)=T(n)+1，则 S(n)=2S(n-1)、S(1)=2，故 T(n)=2^n-1；该递归也给出可达方案，故为最少次数。\n\n补充核验：设至少要执行 $M(n)$ 次 move 操作，则\n\n$$\nM(n)=\n\\begin{cases}\n1, & n=1,\\\\\n2M(n-1)+1, & n>1.\n\\end{cases}\n$$\n\n解此差分方程可求得解为 $M(n)=2^n-1$。",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-9",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n将题给递推的基例直接写为 return，递推分支写为 return F(下一状态)；该调用在 return 位置，无后续运算，故为尾递归。完整递归过程须保留题给的参数更新、终止条件和返回值，尾递归可改为等价 while 循环而不改变状态序列。\n\n关键实现与边界：\n以尾递归求和为例，完整形式为 Sum(n,acc)：若 n==0 返回 acc；否则返回 Sum(n-1,acc+n)。acc 是已累计的后缀和，n 每次减一，故必到基例；调用后无额外计算，所以是尾递归。初始调用 Sum(N,0)，时间 O(N)、递归栈 O(N)，可直接改 while。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-10",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n非递归求和用栈帧保存参数 n 与阶段：下降阶段持续压入 n,n-1,...,1；遇0令 sum=0，随后每弹一帧执行 sum+=n，直到栈空返回。每一帧恰对应一次递归调用与一次回退，故结果等于递归和；时间O(n)、栈O(n)。\n\n关键实现与边界：\n显式栈帧含 n 与 state。先压(n,0)；state0 且n>0时改当前帧为state1并压(n-1,0)，n==0置 ret=0；state1 时把子调用 ret 加到本帧 n，弹栈并把 ret 交给父帧。栈空时 ret 为1..N和。该压栈/回退顺序与递归调用、返回一一对应。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-12",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n队列元素类型为 char，按题给 EnQueue/DeQueue 的执行顺序模拟，输出必须按字符逐个写出，不能写成 int 或地址；front 指向待出元素、rear 指向下一可写位置，循环回绕不改变 FIFO 次序。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-13",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n先不断出队并压栈，再不断出栈入队，即可将队列逆置。队列给原正序，栈给反序，第二阶段入队后队首至队尾正为原尾至原首；每元素一次入/出队和入/出栈，时间O(n)、辅助栈O(n)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-14",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n统一示例：(1)4132 可由输入受限双端队列得到但不能由输出受限得到；(2)4213 可由输出受限得到但不能由输入受限得到；(3)4231 两者均不能得到。逐次按各模型允许端点操作模拟即可验证。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-15",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n令 top[0]=-1，top[1]=MAX；0 栈向右长，1 栈向左长。满条件为 top[0]+1==top[1]。\n\n~~~c\nvoid Init(TwoStack *s){s->top[0]=-1;s->top[1]=MAX;}\nStatus Push(TwoStack*s,int i,Elem x){if(i<0||i>1||s->top[0]+1==s->top[1])return OVERFLOW; if(i==0)s->a[++s->top[0]]=x;else s->a[--s->top[1]]=x;return OK;}\nStatus Pop(TwoStack*s,int i,Elem*x){if(i==0){if(s->top[0]<0)return ERROR;*x=s->a[s->top[0]--];}else{if(s->top[1]>=MAX)return ERROR;*x=s->a[s->top[1]++];}return OK;}\n~~~\n\n两个栈共享闲置空间，三操作均 O(1)。过程可用状态变参同时返回元素和状态，调用直观；函数返回状态而把元素作指针参数更易组合，二者关键是不得把出错状态与合法元素值混淆。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-16",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n正确调度：H 车厢入栈；读到 S 时执行入栈后立即出栈，即操作 SX，使 S 立即输出；输入结束后对栈中每个 H 执行 X。故输出所有 S 在前、H 在后，且每节车厢恰一次入栈、一次出栈，时间O(n)。\n\n关键实现与边界：\n维护栈 S。读 H：Push(S,H)，不输出；读 S：Push(S,S)，立即 Pop 并输出 S，操作记为 SX。输入结束后 while 非空 Pop 并输出 H，每个操作记 X。因所有 S 立即离开、H 仅在结束后离开，输出为所有 S 在前、所有 H 在后；栈容量至多H数，时间 O(n)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-17",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n初始化栈为空、phase=0；读到 & 前压栈，读到第一个 & 后 phase=1，之后每个字符先判栈非空再 Pop 比较；条件必须写为 if(phase==0) 而非依赖逗号表达式优先级。读到 @ 时 phase==1 且栈空才成功。\n\n关键实现与边界：\n函数先 InitStack，读字符 c 直到@。phase==0 时若 c==& 则 phase=1，否则 Push(c)；phase==1 时 c==& 立即失败，否则若栈空失败，Pop(x) 后比较 x==c。结束返回 phase==1&&StackEmpty。比较发生在 Pop 后且条件用括号分隔，能处理空串两侧与多余字符；时间 O(n)、空间 O(n)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-18",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n只含一种括号时用计数器 c：左括号 c++，右括号前若c==0失败否则c--；扫描结束 c==0 才配对。无需栈，时间O(n)、空间O(1)。\n\n关键实现与边界：\nint balance=0；顺扫字符：若为左括号 balance++；若为右括号且 balance==0 立即返回 false，否则 balance--；其他字符忽略；结束时返回 balance==0。该题只有一种括号，计数就是未闭合左括号数；任何前缀为负表示右括号无匹配。时间 O(n)、空间 O(1)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-19",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n扫描顺序表。左括号（、[、{ 入栈；右括号必须与栈顶分别配对 ）、]、}，否则立即失败；扫描完成且栈空才成功。\n\n~~~c\nbool Match(char a[],int n){for(int i=0;i<n;i++){if(left(a[i]))Push(S,a[i]);else if(right(a[i])){char x;if(Empty(S)||!pair(x=Top(S),a[i]))return false;Pop(S,&x);}}return Empty(S);}\n~~~\n\n栈顶正是最近未配对左括号，LIFO 与嵌套规则一致，故算法充要；时间 O(n)、空间 O(n)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-21",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n采用运算符栈（栈底放 #）。读变量即输出；读运算符 op 时，反复弹出栈顶优先级不低于 op 的运算符后输出，再压 op；左括号压栈，右括号弹到左括号并丢弃左括号；读完再清栈。\n\n~~~c\nfor token t: if(var(t)) out(t); else if(t=='(')push(t); else if(t==')'){while(top()!='(')out(pop());pop();} else {while(!empty()&&top()!='('&&prec(top())>=prec(t))out(pop());push(t);}\nwhile(!empty())out(pop());\n~~~\n\n栈中运算符等待其右操作数，弹出顺序保证优先级和左结合性，故输出为等价后缀式；时间 O(n)、空间 O(n)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-23",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n扫描后缀式：变量压入“字符串栈”；每遇二元运算符就弹出右串 R、左串 L，压入 op+L+R。结束时栈恰有一项才是正确后缀式，该项即其波兰式。\n\n~~~c\nfor(t of expr) if(var(t)) push(str(t)); else if(binary(t)){if(size()<2)return ERROR;R=pop();L=pop();push(t+L+R);}else return ERROR;\nif(size()!=1)return ERROR; return pop();\n~~~\n\n栈元素始终是已读后缀子式对应的前缀式；二元运算要求两个操作数，因此过程既验证又转换。时间 O(n²)（字符串拼接）；用表达式树可降为 O(n)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-27",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\nakm(2,1)=5。非递归栈法压入 m：循环若栈顶m==0则弹出并 n++；若n==0则把栈顶改为m-1并令n=1；否则把当前栈顶改为m-1、再压入原m并令n--。栈帧精确模拟 akm(m-1,akm(m,n-1))，m,n非负；终止时栈空返回n。\n\n关键实现与边界：\n非递归实现应使用整数栈存待处理 m：先 Push(m)。循环取栈顶 t；t==0 时 Pop、n++；t>0且n==0时栈顶改为t-1、n=1；否则栈顶改为t-1，再 Push(t)、n--。栈从顶到下表示尚待执行的外层 akm，故三分支与定义一致。m,n非负，akm(2,1)最终为5。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-28",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n循环链队列始终保留头结点：空队 rear=head 且 head->next=head。入队在 rear 后插新结点、rear=new；出队删除 head->next，若删后为空令rear=head。队头不直接用rear表示，三操作O(1)。\n\n关键实现与边界：\ntypedef含头结点head与尾指针rear。Init 分配head，head->next=head，rear=head；EnQueue 分配s，s->next=head，rear->next=s，rear=s；DeQueue 判 rear==head 为空，否则 q=head->next，取值，head->next=q->next，若q==rear则rear=head，free(q)。每步 O(1)，头结点永不删除。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-29",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n设 front 指向队头、rear 指向下一可写位置；front==rear 时 tag=0 表示空、tag=1 表示满。入队先判 front==rear&&tag==1；写 a[rear]、rear=(rear+1)%MAX、tag=1。出队先判 front==rear&&tag==0；取 a[front]、front=(front+1)%MAX、tag=0。\n\n标志法多用一个标志位但可使用全部 MAX 个槽；留空一槽法无标志、实现稍简洁但只用 MAX−1 槽。元素很大、队列容量小且一个槽代价高时应选标志法；元素很小或实现优先时留空一槽也合适。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-30",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n容量为 MAX，满条件 length==MAX，空条件 length==0；队头下标为 (rear-length+1+MAX)%MAX。入队先判满，再 rear=(rear+1)%MAX、a[rear]=x、length++；出队先判空，front=(rear-length+1+MAX)%MAX，取 a[front] 后 length--。每次仅更新常数域，均为 O(1)，可使用全部 MAX 个单元。\n\n补充核验：设 head 指示循环队列中队头元素的位置，则有\n\n$$\nhead=((q.rear+MAXLEN)-q.length+1)\\%MAXLEN\n$$\n\n其中 MAXLEN 为队列可用的最大空间。",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-31",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n读入到 @ 前，一边把字符入循环队列，一边入栈；随后每次同时出队和出栈比较，任一不等即非回文。\n\n~~~c\nwhile((c=getchar())!='@'){EnQueue(Q,c);Push(S,c);}while(!QueueEmpty(Q)){DeQueue(Q,&a);Pop(S,&b);if(a!=b)return false;}return true;\n~~~\n\n队列给正序、栈给反序，逐项相等当且仅当正反读相同。时间 O(n)，空间 O(n)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-32",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n先输出并入队初始 k 项 f0..f(k-1)，再维护窗口和；每轮先计算并输出下一项，再出队最旧、入队新项。超过max停止，因此不能遗漏初始k项；队列始终保存最后k项，时间O(n)、空间O(k)。\n\n关键实现与边界：\n先检查 k>=2、max>=1；初始化容量k循环队列为 f0..f(k-2)=0、f(k-1)=1，并逐项输出这些初值。sum=1；循环令 x=sum，若x>max停止，否则输出x，DeQueue(old)，EnQueue(x)，sum=sum-old+x。队列不变式为最近k项，故输出到 fn且下一项超限。时间 O(n)、空间 O(k)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-2",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\nStrAssign、StrCopy、StrCompare、StrLength、Concat、SubString 前五类基本操作应独立实现，不能循环互相调用；Index 可由逐起点比较构造，Replace 可由 Index、SubString、Concat 构造。这样基本集有明确终止和构造能力。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-3",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n结果：StrLength(s)=14，StrLength(t)=4，SubString(s,8,7)=STUDENT，SubString(t,2,1)=O，Index(s,A)=3，Index(s,t)=0，Replace(s,STUDENT,q)=I AM A WORKER，最后 Concat 式为 A GOOD STUDENT。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-4",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\nb 是空串。s=THIS SAMPLE IS，t=A GOOD，u=ONE，v=THIS SAMPLE ISA GOODONE；StrLength(s)=14，Index(v,IS)=3，Index(u,IS)=0。空串连接不增加字符，位置按1基计。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-5",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n三段函数输出依次为：THESE ARE BOOKS；YXY；XWXWXW。输出由题给循环/递归的每次打印顺序决定，应按调用返回次序逐字符核对。\n\n关键实现与边界：\n按函数调用栈逐行记录 Print 的实参而非只猜最终行：第一段循环依次输出 THESE、ARE、BOOKS 并以空格连接，故为 THESE ARE BOOKS；第二段递归先输出Y、回退输出X、再Y，故YXY；第三段每层先后输出X/W，回退得到XWXWXW。三项均以题给换行结束。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-7",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\nnext/nextval 必须依教材约定的1基下标和 next[1]=0 计算。构造时若 j=0 或字符相等则 i、j 同增并写值，否则 j=next[j]；nextval 在相等时继承 nextval[j]。按此表法逐列填写 s、t、u 即可复核，不能混用0基实现，否则所有值整体错位。\n\n补充核验：| $j$ | 1 | 2 | 3 | 4 |\n| --- | --- | --- | --- | --- |\n| 串 $s$ | a | a | a | b |\n| next[j] | 0 | 1 | 2 | 3 |\n| nextval[j] | 0 | 0 | 0 | 3 |\n\n| $j$ | 1 | 2 | 3 | 4 | 5 | 6 | 7 |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| 串 $t$ | a | b | c | a | b | a | a |\n| next[j] | 0 | 1 | 1 | 1 | 2 | 3 | 2 |\n| nextval[j] | 0 | 1 | 1 | 0 | 1 | 3 | 2 |\n\n| $j$ | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 串 $u$ | a | b | c | a | a | b | b | a | b | c | a | b | a | a | c | b | a | c | b | a |\n| Next[j] | 0 | 1 | 1 | 1 | 2 | 2 | 3 | 1 | 2 | 3 | 4 | 5 | 3 | 2 | 2 | 1 | 1 | 2 | 1 | 1 |\n| Nextval[j] | 0 | 1 | 1 | 0 | 2 | 1 | 3 | 0 | 1 | 1 | 0 | 5 | 3 | 2 | 2 | 1 | 0 | 2 | 1 | 0 |",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-9",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n块大小4k、每块另含一个4字节指针，长度l的串需 ceil(l/(4k)) 块，故存储密度 d(4k,l)=l/[4(k+1)ceil(l/(4k))]；l=0时为0。分子是有效字符字节，分母含全部块和链指针。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-11",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n从左到右扫描 s。对字符 c，先在线性串 t 中查找；若 t 不含 c，再在 r 中查找，只有 r 也不含时才把 c 追加到 r，并记录当前位置 i。\n\n~~~c\nfor(i=1;i<=Len(s);i++) if(Index(t,s[i])==0&&Index(r,s[i])==0){Append(r,s[i]);pos[++cnt]=i;}\n~~~\n\n首次追加保证 r 无重复且保留 s 中首次位置；时间 O(|s|(|s|+|t|))，空间 O(|s|)。用 256 位出现表可改为 O(|s|+|t|)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-12",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n约定 Replace(&S,T,V) 替换 S 中所有非重叠的 T。T 为空返回 ERROR；从左到右用 Index 在未处理后缀中找 T，把“前缀 + V + 剩余后缀”构造为新串并继续从 V 后扫描。若只要求首次替换，则找到第一个位置后构造一次即可。\n\n每次替换都保留未匹配字符、以 V 代替恰一段 T，因此正确；朴素定位的最坏时间为 O(|S|²|T|)，使用 KMP 和可增长缓冲可降到线性级别。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-17",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n替换所有不重叠T：若|T|=0返回ERROR；读指针r从1开始，找到下一匹配p时复制S[r..p-1]、复制V、令r=p+|T|；无匹配后复制S[r..|S|]。结果串另建，完成后再替换S，故T/V与S别名也安全；时间取决于Index，KMP版O(|S|+|T|+输出长)。\n\n关键实现与边界：\n实现使用只读源 S 和新结果 R：pos=1；while ((p=KMPIndex(S,T,pos))!=0) { AppendRange(R,S,pos,p-pos); Append(R,V); pos=p+Len(T); } AppendRange(R,S,pos,Len(S)-pos+1); 若T为空返回ERROR；构造结束再释放旧S并令S=R，因此V或T与S别名不破坏未扫描内容。KMP定位总时间 O(|S|+|T|+|R|)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-18",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n维护 distinct[256] 与 count[256]（初值 0）。扫描 s 的每个字符 c：若 count[c] 为 0，different++；再 count[c]++。最后遍历 0..255 输出 count>0 的字符及其次数。\n\n每个字符只被计数一次，different 正是出现过的不同字符数；时间 O(|s|+|Σ|)，固定字符集下 O(|s|)，空间 O(|Σ|)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-21",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n六操作均逐结点实现：Assign/COPY新建结点；Compare并行比较；Length计数；Concat新建结果并复制两串；SubString先验1≤pos≤len+1、0≤n≤len-pos+1后复制n项。结果与实参不共享结点，允许目标与源别名时先建临时结果再替换。\n\n关键实现与边界：\nStrAssign 逐字符尾插且先清目标；StrCopy 逐结点新建；StrCompare 并行前进到首异或一方结束；StrLength 计数；Concat 新头结点后复制S再复制T；SubString 校验 pos、len 后跳过pos-1项并复制len项。所有函数不调用彼此、不共享结点；目标别名时先完成临时链再交换，非法范围返回ERROR。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-22",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n在 t 中定位首次出现的目标字符；在该字符所在块后切分，保存原后缀，将 s 的首块接到前段、s 尾块接原后缀。未找到则接到 t 尾。只局部重连块和处理边界空位，避免全串移动，时间线性于访问块/字符。\n\n关键实现与边界：\n定位 t 中第一次目标字符的逻辑位置，记录该块 b 与块内偏移 r。把 b 在 r 后分裂为前块/后块（后段可新块），保存 old=b->next；令前块->next=s.head，s.tail->next=后块或old。目标不存在时令 t.tail->next=s.head。块恰满、s为空、目标在块尾均按同一回接处理，访问时间 O(|t|+块数)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-23",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n设 n=StrLength(S)。扫描前 floor(n/2) 个逻辑字符入栈；n 为奇数跳过中间字符；扫描后半逐项与栈顶比较。空串和单字符直接为真，块中填充位不计入逻辑长度；每字符一次，时间O(n)、空间O(n)。\n\n关键实现与边界：\n令逻辑长度 n 排除块内填充符。迭代器从首块逐字符取前floor(n/2)项压栈；奇数n跳过一个逻辑字符；后半每取一字符先判栈非空、再与Pop比较。读完栈应空。空串/单字符直接真，跨块时迭代器自动转后继块；每逻辑字符一次，时间O(n)、空间O(n)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-27",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n对每个候选起点 i，先比 t[1] 与 s[i]、t[m] 与 s[i+m-1]，两端均等再比较中间2..m-1；m=1 只比较一次。对 a^n b 与 a^k b，原 Index 比较 (k+1)(n-k+1) 次；改进法前 n-k 个失败起点各两次，最后成功 k+1 次，共 2(n-k)+(k+1)。时间仍最坏 O(nk)，但该输入显著减少比较。\n\n补充核验：当 $k\\leq n$ 时，原算法的比较次数为 $(k+1)(n-k+1)$，改进算法的比较次数为 $2(n-k)+(k+1)$。",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-28",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n沿模式链表构造 next 指针。令第一个模式结点的 next 指向头结点；维护 i（已确定 next 的结点）与 j（候选最长相等真前后缀结点）。若 j 是头结点或 i->chdata==j->chdata，则 i=i->succ、j=j->succ，并令 i->next=j；否则 j=j->next。直到 i 到尾。\n\n这与顺序表 KMP 的 next[i]=j 完全同构，只把下标改为结点指针；j 始终表示最长可复用前缀，失配沿 next 回退，构造时间 O(m)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-29",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n令 p、q 分别指向主串和模式首结点。若 q 为模式头结点（表示回退到 0）或 p->chdata==q->chdata，则 p=p->succ、q=q->succ；否则 q=q->next。q 到模式尾后返回 p 所在位置减去模式长度；p 到主串尾仍未完成则失败。\n\n主串指针不回退，模式失配只沿 next 回退，因此匹配正确且时间 O(|S|+|T|)，额外空间除已存 next 外 O(1)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-30",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n允许重叠：例如aaaa的最长重复子串为aaa，位置1和2。沿所有 i-j 对角线扫描，维护相邻相等字符的连续长度并记录最大值；严格更大才更新以保留第一次出现。每个字符对一次，时间O(n²)、可用O(1)额外状态。\n\n关键实现与边界：\n对每条 i-j=d>0 的对角线从左到右扫描，若 s[i]==s[j] 则 run++，否则run=0；run 是以(i,j)结尾的共同后缀长度，允许重叠且不限制run≤d。run>best 时记录子串起点i-run+1、j-run+1；按d和位置扫描并仅严格更新得到第一次。共有O(n²)字符对，时间O(n²)、空间O(1)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-31",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\ndp[i][j]表示以s[i]、t[j]结尾的公共子串长，相等则dp[i-1][j-1]+1否则0。出现更大值时清空候选并加入该结束位置；出现相等值时追加。输出一个时按最左位置选首项，输出全部时按候选位置逐个截取；时间O(|s||t|)。\n\n关键实现与边界：\n二维DP逐行计算：相等时cur[j]=prev[j-1]+1，否则0。若cur[j]>best，best=cur[j]并清空候选后加入(i,j)；若相等且best>0则追加(i,j)。一个答案取候选中s起点最小、再t起点最小者；全部答案按候选分别截取长度best的子串（可去重内容）。滚动数组空间O(|t|)，时间O(|s||t|)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-2",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n低下标优先偏移为 i1+9*i2+27*i3+135*i4，地址=100+4×偏移：A0000=100，A1111=788，A3125=3064，A8247=4416。各下标必须落在维长范围内。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-3",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n高下标优先使最左下标变化最快。顺序为：\n(0,0,0,0),(1,0,0,0),(0,1,0,0),(1,1,0,0),\n(0,0,1,0),(1,0,1,0),(0,1,1,0),(1,1,1,0),\n(0,0,2,0),(1,0,2,0),(0,1,2,0),(1,1,2,0)，\n随后 l=1、2 时重复同一 12 项的 k=0,1,2 枚举。即循环次序为 for l、for k、for j、for i。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-4",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n设 i≥j 时，下三角按行存储，i 前共有 i(i-1)/2 个元素，本行中 j 的偏移为 j-1，故 k=i(i-1)/2+j-1。令 a=max(i,j)、b=min(i,j)，统一写为 k=a(a-1)/2+b-1；适用于对称矩阵只存下三角且下标从1开始。\n\n补充核验：$$\nk=\\frac{a\\times(a-1)}{2}+b-1，\n\\quad\\text{其中 }a=\\operatorname{Max}(i,j)，\\ b=\\operatorname{Min}(i,j).\n$$",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-5",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n第 i 行在其前已有 Σ(r=1..i-1)(n-r+1)=(i-1)(n+1)-i(i-1)/2 个元素，本行 aij 的偏移为 j-i。故 k=(i-1)(n+1)-i(i-1)/2+j-i = ni-(n-j)-i(i-1)/2-1。分离常数得 f1(i)=(n+1/2)i-i²/2，f2(j)=j，c=-(n+1)。\n\n补充核验：$$\nk=ni-(n-j)-\\frac{i(i-1)}{2}-1,\\qquad(i\\leq j)\n$$\n\n则得\n\n$$\nf_1(i)=\\left(n+\\frac{1}{2}\\right)i-\\frac{1}{2}i^2,\\qquad\nf_2(j)=j,\\qquad\nc=-(n+1).\n$$",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-6",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n三对角仅在 |i-j|≤1 时存储。以 u 表示对角线编号：上对角 i-j=-1 对应u=0，主对角0对应u=1，下对角1对应u=2，故u=i-j+1；每条对角按列j放置，v=j-1。边界 i,j 在1..n 且|i-j|≤1，否则元素不在压缩表中。\n\n补充核验：一种答案是：$u=i-j+1,\\ v=j-1$。",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-7",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n逐行压缩的正变换为k=2(i-1)+j-1，条件|i-j|≤1；反变换i=(k+1) DIV 3+1，j=k+1-2(i-1)，统一范围0≤k≤3n-3，并在首尾行检查j仍在1..n。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-8",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n从图示可见奇数行按相邻元素顺序少一个偏移、偶数行多一个偏移：奇 i 时k=i+j-2，偶 i 时k=i+j-1。用 i%2 合并为 k=i+j-(i%2)-1，也可写 k=2(i DIV 2)+j-1。公式只对图示准对角的有效(i,j)成立。\n\n补充核验：$i$ 为奇数时 $k=i+j-2$；\n\n$i$ 为偶数时 $k=i+j-1$。\n\n合并成一个公式，可写成\n\n$$\nk=i+j-(i\\%2)-1\n$$\n\n或\n\n$$\nk=2(i\\ \\mathrm{div}\\ 2)+j-1.\n$$",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-10",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n依 GetHead 取首元素、GetTail 取余表逐层计算，八项分别为：p；(k,p,h)；(a,b)；((c,d))；(c,d)；(b)；b；(d)。例如第5项先取尾得((c,d))，再取头即(c,d)，可检验括号层次没有被误删。\n\n补充核验：（1）$p$；　　（2）$(k,p,h)$；　　（3）$(a,b)$；　　（4）$((c,d))$；\n\n（5）$(c,d)$；　　（6）$(b)$；　　（7）$b$；　　（8）$(d)$。",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-11",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "（1）GetHead[GetTail[GetTail(L1)]]；\n\n```text\n(2) GetHead[GetHead[GetTail(L2)]];\n(3) GetHead[GetHead[GetTail[GetTail[GetHead(L3)]]]];\n(4) GetHead[GetHead[GetHead[GetTail[GetTail(L4)]]]];\n(5) GetHead[GetHead[GetTail[GetTail(L5)]]];\n(6) GetHead[GetTail[GetHead(L6)]];\n(7) GetHead[GetHead[GetTail[GetHead[GetTail(L7)]]]]].\n```",
+        "explanation": "按本题原书答案逐项核验并保留题设的对象、条件和结论。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案已按本题题设核验；未以通用模板替代具体结论。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-12",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n深度按原子为0、空表为1、非空表为各子表深度最大值加1。第(1)表中 () 深度1，(())为2，(((e)))为3，故总深度4；第(2)中左子表深度3，右子表含((),d)和(e,f)深度2，故总深度4。存储图中每个表项为表结点，hp 指表头（原子或子表），tp 指余表，按逗号顺序串联即可画出。\n\n补充核验：（1）和（2）的广义表存储结构如下图所示。\n\n![5.12 的两种广义表存储结构，含表头、表尾、子表与原子结点](../../assets/py/fig-05-12-generalized-list-layout.svg)",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-13",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n按 hp 为表头、tp 为表尾逐结点回读：(1)为((x,(y)),((()),(),(z)))；(2)为(((a,b,()),(),(a,(b)),())。核对时空表必须保留为()，而非省略；每一个同层逗号对应一次 tp 链接。\n\n补充核验：（1）$((x,(y)),((()),(),(z)))$\n\n（2）$(((a,b,()),(),(a,(b)),())$\n\n关键实现与边界：\n按图从头结点沿 hp 读表头、沿 tp 读同层后继；tag=ATOM 输出原子，tag=LIST 时递归加括号，tp为空结束该层。图(1)得到((x,(y)),((()),(),(z)))，图(2)得到(((a,b,()),(),(a,(b)),())。空表()必须保留，逐条hp/tp边可与图一一核对，遍历时间O(N)。",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-15",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n取任一a∈A。基例 P(∅)={∅}；递推 P(A)=P(A-{a}) ∪ {X∪{a}|X∈P(A-{a})}。前半是不含a的所有子集，后半是一一对应的含a子集，二者不交且穷尽，故正确；递归树产生2^|A|个集合。\n\n补充核验：用 $P(A)$ 表示 $A$ 的幂集，定义谓词 $beset(X)$ 表示 $X$ 是一个集合。则\n\n$$\nP(A)=\n\\begin{cases}\n\\{\\Phi\\}, & \\text{当 }|A|=0\\text{ 时}\\\\\nP(A-\\{a\\})\\cup I(P(A-\\{a\\}),a), & \\text{当 }|A|\\ne0\\text{ 时}\n\\end{cases}\n$$\n\n其中，$a\\in A$，且\n\n$$\nI(X,y)=\\{x\\mid(\\exists x_0)(x_0\\in X\\land beset(x_0)\\land x=x_0\\cup\\{y\\})\\}。\n$$",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-16",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\n对非负整数定义 add(a,0)=a，add(a,b)=add(++a,--b)（b>0）。每次调用保持 a+b 不变而使 b 减1，b=0 时返回a，所以终止且正确；递归深度 b，时间与栈空间均 O(b)。实现中应避免对同一表达式的a、b产生未定义求值顺序。\n\n补充核验：记 $a+b$ 为 $add(a,b)$，一种写法为\n\n$$\n\\operatorname{add}(a,b)=\n\\begin{cases}\na, & \\text{当 }b=0\\text{ 时}\\\\\n(\\operatorname{add}(++a,--b)), & \\text{当 }b>0\\text{ 时}\n\\end{cases}\n$$",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-17",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n令 F(a,n) 处理前 n 项（n≥1）：Max(a,n)=n==1?a[0]:max(a[n-1],Max(a,n-1))；Min 类似；Sum(a,n)=n==0?0:a[n-1]+Sum(a,n-1)；Prod(a,n)=n==0?1:a[n-1]*Prod(a,n-1)；Avg(a,n)=Sum(a,n)/(double)n。\n\n平均值不能递归地把“前 n−1 项平均值”和最后项简单平均；必须按和除以 n。各函数时间 O(n)、递归栈 O(n)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-18",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n先令 k%=n；用三次原地逆置实现右移：逆置整个 A，再逆置前 k 项，再逆置后 n−k 项。\n\n~~~c\nReverse(A,0,n-1); Reverse(A,0,k-1); Reverse(A,k,n-1);\n~~~\n\n第一次逆置后原末 k 项到了前端但内部倒序，后两次恢复两段内部次序，结果即循环右移 k 位。每次逆置线性，总交换 O(n)、额外空间 O(1)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-19",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n先为每行求最小值 rowMin[i]，为每列求最大值 colMax[j]；再扫描所有元素，若 A[i][j]==rowMin[i] 且 A[i][j]==colMax[j] 就输出。\n\n三次扫描均为 O(mn)，额外空间 O(m+n)。行、列极值的定义直接保证输出点是马鞍点；任何马鞍点也必通过两个等式，故无遗漏。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-20",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n指数向量必须逐项满足0≤ei≤n；递归枚举前检查该界，不能将总次数约束误当单指数界。按总次数递减、同次数按字典序输出非零系数项，数组访问A[e1..em]始终合法。\n\n关键实现与边界：\n递归 Enum(pos,remain)：若pos==m，令 e[m]=remain，先检查0<=remain<=n再访问A[e]；否则令 e[pos] 从min(n,remain)降到0，调用Enum(pos+1,remain-e[pos])。外层总次数d从mn降至0。每个指数均受0..n约束，因而不越界；非零项按题设打印，访问数为(n+1)^m。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-22",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n可以做到 O(m+n)。先把 A 的 m 个三元组整体搬到其数组尾部，从尾部的 A 与从头的 B 合并，结果从 A.data[0] 正向写入；按 (i,j) 比较，较小者写入，相等则相加且和非零才写入。\n\n源 A 在高端、源 B 在其自身数组，写指针在低端，故不会覆盖未读 A；两指针各单调前进一次，时间 O(m+n)，不需 A、B 之外空间。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-23",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n行号i按1基，二元组下标按0基；设rpos[m]=tu为哨兵，第i行搜索区间为[rpos[i-1],rpos[i])。只比较该区间的列号j，找到返回值，否则0；这消除了越界和最后一行无终点问题。\n\n关键实现与边界：\n约定行号1基、二元组数组0基，rpos[0]=0，rpos[m]=tu。查(i,j)先验1<=i<=m；for k=rpos[i-1];k<rpos[i];k++，若data[k].j==j返回data[k].e，因该行列递增可在大于j时提前停止；循环结束返回0。区间哨兵使最后一行安全，最坏O(该行非零数)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-30",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案：\n\nDepth(LS)：若LS为原子返回0；若为空表返回1；否则返回 max(Depth(GetHead(LS))+1,Depth(GetTail(LS)))。Head 分支计算首元素（子表需多嵌一层），Tail 分支继续比较同层其余元素；结构归纳可证等价于所有嵌套层数最大值。每个表项访问一次，时间O(N)、栈O(depth)。\n\n补充核验：广义表的深度 $DEPTH(LS)$ 也可定义：\n\n$$\n\\operatorname{DEPTH}(LS)=\n\\begin{cases}\n1, & \\text{当 }LS\\text{ 为空表}\\\\\n0, & \\text{当 }LS\\text{ 为单原子}\\\\\n\\operatorname{MAX}\\{\\operatorname{DEPTH}(\\operatorname{GetHead}(LS))+1,\\operatorname{DEPTH}(\\operatorname{GetTail}(LS))\\}, & \\text{其他情况}\n\\end{cases}\n$$",
+        "explanation": "针对本题对象、条件、边界和结果重新组织，并补入可复核的推理或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已从原书短答/提示重写为针对本题的完整核验答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-31",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n按图 5.10 的结点，复制函数应同时复制 hp 与 tp（原子结点也有表尾域）。\n\n~~~c\nNode* Copy(Node *p){if(!p)return NULL;Node*q=New();q->tag=p->tag;if(p->tag==ATOM)q->atom=p->atom;else q->hp=Copy(p->hp);q->tp=Copy(p->tp);return q;}\n~~~\n\n每个源结点恰新建一结点，并递归复制所有可达域，结构与原表同构且不共享结点；时间、空间均 O(N)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-32",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立核验答案（非原书摘录）：\n\n递归比较：两指针同空为真，一空为假；tag 不同为假；两个原子比较 atom；两个表结点则 Equal(p->hp,q->hp) && Equal(p->tp,q->tp)。\n\n这正是广义表“表头相等且表尾相等”的递归定义；每对对应结点至多比较一次，时间 O(N)，递归空间 O(depth)。",
+        "explanation": "已补为可直接学习的核验答案；算法题明确了主要思路、边界或复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已完成独立答案核验；不将本批内容标注为原书摘录。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-34",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n递归返回(head,tail)：空表返回(NULL,NULL)，原子复制为单项；对表项先递归逆转hp，再把结果追加到已逆转tp的尾部并维护tail，从而避免反复找尾。所有hp/tp重链接后表头与表尾次序均反转，时间O(N)。\n\n关键实现与边界：\n函数 Rev(p) 返回{head,tail}。p==NULL返回{NULL,NULL}；原子复制为单节点；表项先对hp递归得到h，再对tp递归得到t，把h接到t.tail之后，若t为空则h为结果；同时每个复制表项重新设置tp。空表、原子和子表均有基例，维护tail避免重复扫描，时间O(N)、栈O(depth)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-35",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n输入空表统一为“( )”，NULL也表示空表。读“(”后跳过空格，若立刻“)”返回NULL；否则按MP/广义表结点建立hp，读逗号递归建tp，读“)”结束。非法字符返回ERROR，逐字符O(n)。\n\n关键实现与边界：\nParse 在读到“(”后跳过空格：若下一字符为“)”，返回NULL表示空表“( )”；否则读一个原子或递归Parse子表作为hp，再读分隔符：逗号则递归建立tp，右括号则tp=NULL，其他返回ERROR。分配结点后设置tag与hp/tp；输入结束、括号不配对、malloc失败均返回错误。每字符处理一次，时间O(n)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-36",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n输出时NULL打印“( )”；非空表打印“(”，依次输出hp（原子或递归子表），tp非空才打印逗号并继续，最后打印“)”。原子不额外加括号，故读回语法与5.35一致。\n\n关键实现与边界：\nPrint(p)：p==NULL打印“( )”；否则打印“(”，循环处理当前表项的hp（原子打印字符，子表递归Print），若tp非NULL打印逗号并令当前=tp，结束打印“)”。这样原子不会被错误包成单元素表，且Print(Parse(s))保留逗号和括号结构。遍历每结点一次，时间O(N)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-37",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "独立复核答案：\n\n对表结点p：先递归处理p->hp；若hp是值为x的原子，保存p->tp，释放该原子和承载表项p，并把前驱回接到保存的tp；否则递归处理p->tp。不能对原子结点访问tp；空表直接返回NULL。\n\n关键实现与边界：\nDel(p,x) 仅把p视为表项：若p==NULL返回NULL；先检查p->hp是否原子且值x，若是保存next=p->tp、释放hp和p并返回Del(next,x)；若hp为子表则p->hp=Del(p->hp,x)，随后p->tp=Del(p->tp,x)，返回p。原子结点从不访问tp，删除后由返回值回接前驱，时间O(N)。",
+        "explanation": "已按第 03–05 章审校逐项补全具体结论、算法、边界和复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "已按主审意见逐条复核并改写。"
+      }
+    }
+  ],
+  "unresolved": []
+}

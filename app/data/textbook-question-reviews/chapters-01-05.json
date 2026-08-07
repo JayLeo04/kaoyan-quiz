@@ -1,0 +1,2505 @@
+{
+  "schemaVersion": "textbook-question-review-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "01-introduction",
+    "02-linear-list",
+    "03-stack-and-queue",
+    "04-string",
+    "05-array-and-generalized-list"
+  ],
+  "updates": [
+    {
+      "id": "book-ds-yan-01-introduction-1-1",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:basic/ds"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-2",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:basic/ds"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-3",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:basic/ds"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-4",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:basic/ds"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-5",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:basic/ds"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-6",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:basic/ds"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-7",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:basic/ds"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-8",
+      "tags": [
+        "复杂度分析"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "minor-issue",
+        "answerability": "needs-assumption",
+        "examRelevance": "core",
+        "disposition": "revise",
+        "notes": "当前题库遗漏题目引用的程序段、语句选项或图示；答案已明确采用的假设和可核验部分，展示前应补回原始材料。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-9",
+      "tags": [
+        "复杂度分析"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-10",
+      "tags": [
+        "复杂度分析"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-11",
+      "tags": [
+        "复杂度分析"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-12",
+      "tags": [
+        "复杂度分析"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-13",
+      "tags": [
+        "复杂度分析"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-14",
+      "tags": [
+        "复杂度分析"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-15",
+      "tags": [
+        "复杂度分析"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-16",
+      "tags": [
+        "复杂度分析"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-17",
+      "tags": [
+        "复杂度分析"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-18",
+      "tags": [
+        "复杂度分析"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-19",
+      "tags": [
+        "复杂度分析"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-01-introduction-1-20",
+      "tags": [
+        "复杂度分析"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-1",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-2",
+      "tags": [
+        "顺序表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/sequential"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-3",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-4",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-5",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-6",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "minor-issue",
+        "answerability": "needs-assumption",
+        "examRelevance": "supporting",
+        "disposition": "revise",
+        "notes": "当前题库遗漏题目引用的程序段、语句选项或图示；答案已明确采用的假设和可核验部分，展示前应补回原始材料。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-7",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "minor-issue",
+        "answerability": "needs-assumption",
+        "examRelevance": "supporting",
+        "disposition": "revise",
+        "notes": "当前题库遗漏题目引用的程序段、语句选项或图示；答案已明确采用的假设和可核验部分，展示前应补回原始材料。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-8",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-9",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "minor-issue",
+        "answerability": "needs-assumption",
+        "examRelevance": "supporting",
+        "disposition": "revise",
+        "notes": "当前题库遗漏题目引用的程序段、语句选项或图示；答案已明确采用的假设和可核验部分，展示前应补回原始材料。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-10",
+      "tags": [
+        "顺序表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/sequential"
+      ],
+      "quality": {
+        "statement": "minor-issue",
+        "answerability": "needs-assumption",
+        "examRelevance": "supporting",
+        "disposition": "revise",
+        "notes": "当前题库遗漏题目引用的程序段、语句选项或图示；答案已明确采用的假设和可核验部分，展示前应补回原始材料。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-11",
+      "tags": [
+        "顺序表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/sequential"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-12",
+      "tags": [
+        "顺序表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/sequential"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-13",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-14",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-15",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-16",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-17",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-18",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-19",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-20",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-21",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-22",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-23",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-24",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-25",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-26",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-27",
+      "tags": [
+        "顺序表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/sequential"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-28",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-29",
+      "tags": [
+        "顺序表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/sequential"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-30",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-31",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-32",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-33",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-34",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-35",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-36",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-37",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-38",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-39",
+      "tags": [
+        "顺序表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/sequential"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-40",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-41",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-02-linear-list-2-42",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-1",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-2",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-3",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "minor-issue",
+        "answerability": "needs-assumption",
+        "examRelevance": "supporting",
+        "disposition": "revise",
+        "notes": "当前题库遗漏题目引用的程序段、语句选项或图示；答案已明确采用的假设和可核验部分，展示前应补回原始材料。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-4",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "minor-issue",
+        "answerability": "needs-assumption",
+        "examRelevance": "supporting",
+        "disposition": "revise",
+        "notes": "当前题库遗漏题目引用的程序段、语句选项或图示；答案已明确采用的假设和可核验部分，展示前应补回原始材料。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-5",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-6",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-7",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-8",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-9",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-10",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-11",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-12",
+      "tags": [
+        "队列"
+      ],
+      "knowledgeIds": [
+        "ds:array/queue"
+      ],
+      "quality": {
+        "statement": "minor-issue",
+        "answerability": "needs-assumption",
+        "examRelevance": "supporting",
+        "disposition": "revise",
+        "notes": "当前题库遗漏题目引用的程序段、语句选项或图示；答案已明确采用的假设和可核验部分，展示前应补回原始材料。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-13",
+      "tags": [
+        "栈",
+        "队列"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack",
+        "ds:array/queue"
+      ],
+      "quality": {
+        "statement": "minor-issue",
+        "answerability": "needs-assumption",
+        "examRelevance": "supporting",
+        "disposition": "revise",
+        "notes": "当前题库遗漏题目引用的程序段、语句选项或图示；答案已明确采用的假设和可核验部分，展示前应补回原始材料。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-14",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-15",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-16",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-17",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-18",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-19",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-20",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-21",
+      "tags": [
+        "中缀转后缀"
+      ],
+      "knowledgeIds": [
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-22",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-23",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-24",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-25",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-26",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-27",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-28",
+      "tags": [
+        "队列"
+      ],
+      "knowledgeIds": [
+        "ds:array/queue"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-29",
+      "tags": [
+        "队列"
+      ],
+      "knowledgeIds": [
+        "ds:array/queue"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-30",
+      "tags": [
+        "队列"
+      ],
+      "knowledgeIds": [
+        "ds:array/queue"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-31",
+      "tags": [
+        "队列"
+      ],
+      "knowledgeIds": [
+        "ds:array/queue"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-32",
+      "tags": [
+        "队列"
+      ],
+      "knowledgeIds": [
+        "ds:array/queue"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-33",
+      "tags": [
+        "队列"
+      ],
+      "knowledgeIds": [
+        "ds:array/queue"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-03-stack-and-queue-3-34",
+      "tags": [
+        "队列"
+      ],
+      "knowledgeIds": [
+        "ds:array/queue"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-1",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-2",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-3",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-4",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-5",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-6",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-7",
+      "tags": [
+        "KMP算法"
+      ],
+      "knowledgeIds": [
+        "ds:strings/match"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-8",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-9",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-10",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-11",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-12",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-13",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-14",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-15",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-16",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-17",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-18",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-19",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-20",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-21",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-22",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-23",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-24",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-25",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-26",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-27",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/match"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-28",
+      "tags": [
+        "KMP算法"
+      ],
+      "knowledgeIds": [
+        "ds:strings/match"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-29",
+      "tags": [
+        "KMP算法"
+      ],
+      "knowledgeIds": [
+        "ds:strings/match"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-30",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-04-string-4-31",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干可独立作答；映射按题目考查的具体结构重判。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-1",
+      "tags": [
+        "二维数组"
+      ],
+      "knowledgeIds": [
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "数组、压缩矩阵或稀疏矩阵存储题，映射到矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-2",
+      "tags": [
+        "二维数组"
+      ],
+      "knowledgeIds": [
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "数组、压缩矩阵或稀疏矩阵存储题，映射到矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-3",
+      "tags": [
+        "二维数组"
+      ],
+      "knowledgeIds": [
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "数组、压缩矩阵或稀疏矩阵存储题，映射到矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-4",
+      "tags": [
+        "特殊矩阵"
+      ],
+      "knowledgeIds": [
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "数组、压缩矩阵或稀疏矩阵存储题，映射到矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-5",
+      "tags": [
+        "特殊矩阵"
+      ],
+      "knowledgeIds": [
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "数组、压缩矩阵或稀疏矩阵存储题，映射到矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-6",
+      "tags": [
+        "三对角矩阵"
+      ],
+      "knowledgeIds": [
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "数组、压缩矩阵或稀疏矩阵存储题，映射到矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-7",
+      "tags": [
+        "三对角矩阵"
+      ],
+      "knowledgeIds": [
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "数组、压缩矩阵或稀疏矩阵存储题，映射到矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-8",
+      "tags": [
+        "特殊矩阵"
+      ],
+      "knowledgeIds": [
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "数组、压缩矩阵或稀疏矩阵存储题，映射到矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-9",
+      "tags": [
+        "三元组表"
+      ],
+      "knowledgeIds": [
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "数组、压缩矩阵或稀疏矩阵存储题，映射到矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-10",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-11",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-12",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-13",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-14",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "递归定义题，映射到算法基本概念。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-15",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "递归定义题，映射到算法基本概念。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-16",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "递归定义题，映射到算法基本概念。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-17",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:basic/algorithm",
+        "ds:linearlist/sequential"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "顺序表上的递归或原地算法，双映射到算法与顺序表知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-18",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "顺序表上的递归或原地算法，双映射到算法与顺序表知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-19",
+      "tags": [
+        "二维数组"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm",
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "数组或稀疏矩阵算法题，映射到算法与矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-20",
+      "tags": [
+        "二维数组"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm",
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "数组或稀疏矩阵算法题，映射到算法与矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-21",
+      "tags": [
+        "三元组表"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm",
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "数组或稀疏矩阵算法题，映射到算法与矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-22",
+      "tags": [
+        "三元组表"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm",
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "数组或稀疏矩阵算法题，映射到算法与矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-23",
+      "tags": [
+        "三元组表"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm",
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "数组或稀疏矩阵算法题，映射到算法与矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-24",
+      "tags": [
+        "三元组表"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm",
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "数组或稀疏矩阵算法题，映射到算法与矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-25",
+      "tags": [
+        "二维数组"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm",
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "数组或稀疏矩阵算法题，映射到算法与矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-26",
+      "tags": [
+        "三元组表"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm",
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "数组或稀疏矩阵算法题，映射到算法与矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-27",
+      "tags": [
+        "三元组表"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm",
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "数组或稀疏矩阵算法题，映射到算法与矩阵知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-28",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-29",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-30",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-31",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-32",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-33",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-34",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-35",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-36",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-37",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-05-array-and-generalized-list-5-38",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系没有对应的真实知识页；按 legacy 政策不作伪映射。"
+      }
+    }
+  ]
+}

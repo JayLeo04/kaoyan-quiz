@@ -1,0 +1,1084 @@
+{
+  "schemaVersion": "textbook-answer-audit-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "06-tree-and-binary-tree",
+    "07-graph",
+    "08-dynamic-storage"
+  ],
+  "updates": [
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-1",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "根为 A；叶为 D、M、N、F、J、K、L；G 的双亲为 C、祖先为 A/C、孩子为 J/K；E 的子孙为 I/M/N，E 的兄弟为 D，F 的兄弟为 G/H。B 和 N 的层次分别为 2、5；树深为 5；以 C 为根的子树深为 3。",
+        "explanation": "逐边建立父子关系后按根到结点的路径计层。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书解答已逐项核对。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-3",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "3 个结点的有根树有两种：根有两个孩子，或根—孩子—孙子的链。3 个结点的二叉树有 5 种：根仅左孩子且该孩子仅左/仅右孩子，根仅右孩子且该孩子仅左/仅右孩子，以及根同时有左右孩子。二叉树中左右孩子有别，交换左右链接即为不同形态；两类树形不要混同。",
+        "explanation": "按根的左、右子树规模分拆：0+2、1+1、2+0。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "补全了图示所表达的全部形态。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-4",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Level i has k^(i-1) nodes. Node 1 has no parent; for p>1 its parent is floor((p+k-2)/k). Its i-th child, if within the tree, is kp-k+1+i (1<=i<=k). Node p has a right sibling exactly when p mod k != 1, equivalently (p-1) mod k != 0; that sibling has number p+1. This uses the stated level-order numbering with each parent group beginning at residue 1.",
+        "explanation": "层序编号把每 k 个连续编号对应为同一父结点的孩子组。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "对原书第 3 问的排版歧义按标准 k 叉堆编号校正。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-5",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "叶子数 n0=1+Σ(i-1)ni（i=1..k）。证明：树边数为 n-1，又等于所有结点度之和 Σ i·ni；代入 n=n0+Σni 后整理即得。这里 n_i 是度恰为 i 的结点数，根也计入相应 n_i；公式对任意有限有根树成立。",
+        "explanation": "使用树的边数恒为结点数减一。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "公式与推导均已核验。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-7",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "最大深度为 n：令每个非叶结点仅有一个孩子即可。最小深度 h 满足 1+k+…+k^(h-1)≥n，故 h=ceil(log_k((k-1)n+1))（k≥2）；取最后一层从左向右填充的完全 k 叉树可达到。若 k=1，则只有链形，最大和最小深度都为 n。",
+        "explanation": "题中“k 叉”按每结点至多 k 个孩子理解。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "将原书提示补为闭式答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-11",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "With 1-based sequence storage, the last occupied position m requires m information fields, hence mk bytes. An ordinary binary linked tree has n information fields and 2n child pointers, hence n(k+8) bytes because each pointer is 4 bytes. Sequence storage is smaller iff mk<n(k+8), i.e. k(m-n)<8n, or k<8n/(m-n) when m>n. If m=n, sequence storage is always smaller; the comparison assumes no separate parent or tag field.",
+        "explanation": "指针域按题设每个 4 字节；教材提示采用含辅助标志的 12n 口径。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "保留并说明了教材的存储口径。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-12",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "五种形态的前序均为 ABC；中序依次为 CBA、BCA、BAC、ACB、ABC；后序依次为 CBA、CBA、BCA、CBA、CBA。这里 A 是每种形态的根，B/C 依题 6.3 的编号沿链接出现；用“根—左—右”等规则逐树检查即可。",
+        "explanation": "按 6.3 图中的（1）—（5）顺序递归遍历。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书表格已核对。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-13",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "表中各行（前序/中序/后序）依次为：n 在 m 左方：1/1/1；n 在 m 右方：0/0/0；n 是 m 祖先：1/Φ/0；n 是 m 子孙：0/Φ/1。Φ 表示不能由已知条件唯一确定。",
+        "explanation": "祖先总先于子孙被前序访问、总后于子孙被后序访问；中序取决于左右子树位置。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补出了判断依据。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-15",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Postorder is G,D,B,E,H,F,C,A. The real child links are A:(B,C), B:(D,NULL), C:(E,F), D:(NULL,G), E:(NULL,NULL), F:(H,NULL), G:(NULL,NULL), H:(NULL,NULL). Thus the non-null threads are B.r->E, D.l->G, E.l->B, E.r->H, F.r->C, G.r->D, H.l->E, H.r->F; G.l and the final A.r are NULL boundary threads. All real links have tag 0; these listed links have tag 1.",
+        "explanation": "题目答案为图示；此规则可唯一复原图中所有虚线线索。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "将仅图示答案补成可执行的线索化规则。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-16",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "The preorder is A,B,D,E,G,J,M,N,K,H,C,F,I,L. Keep every original nonzero child field with tag 0. For each zero field install the adjacent preorder predecessor/successor with tag 1. In particular H has no real children, so H.ltag=1,H.lchild=N and H.rtag=1,H.rchild=C. The remaining empty links are D:(B,E), J:(G,M), M:(J,N), N:(M,K), K:(N,H), C:(H,F), F:(C,I), I:(F,L), L:(I,NULL), where each pair is (left-thread,right-thread).",
+        "explanation": "与原书表逐项一致；非空链不改作线索。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书表格按先序关系复核。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-17",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "中序后继应为：若 q->rtag==1，后继就是 q->rchild；否则先到 q 的右孩子，再沿左孩子链下降到最左结点。\n```c\nBiTree InSucc(BiTree q){ BiTree r=q->rchild; if(!q->rtag) while(!r->ltag) r=r->lchild; return r; }\n```\n正确性：右子树的最左结点正是中序后继；无右子树时右线索即后继。时间 O(h)、额外空间 O(1)。",
+        "explanation": "修正了未声明 r、错误检查 rtag 和错误沿右链下降三处。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补全可编译的更正算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-18",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "It is possible, but a parent cannot be read directly from an inorder thread. To find parent a of p, inspect the left-subtree right boundary and right-subtree left boundary: follow candidate predecessor/successor threads and then verify by real-child links that a.lchild==p or a.rchild==p. Once a is known, if p is a.rchild or a has no right subtree, postorder successor is a; otherwise it is the first postorder node of a.rchild, obtained by repeatedly taking a left child when present, otherwise a right child. This is O(h) under a valid threaded-tree invariant.",
+        "explanation": "中序线索不直接给后序关系，关键是恢复父结点。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "明确了可行性、分支规则和复杂度。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-19",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "The four left-child/right-sibling binary trees are: (a) A alone. (b) A.l=B and B.l=C. (c) A.l=B and B.r=C. (d) A.l=B, B.r=C, C.r=D; C.l=E, E.r=F, F.r=G, G.r=H; E.l=I, I.r=J; G.l=K. Every unlisted child pointer is NULL. This explicitly preserves the original child order.",
+        "explanation": "转换是可逆的：左边还原父子、右边还原兄弟。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "图形题补为确定的构造步骤。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-20",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "The forest is T1: 1->{2}; 2->{3,4,5}; 5->{6,7}; 6->{8}; T2:9->{10}; T3:{11}; T4:12->{13,14};13->{15}. Its binary links are 1.l=2,1.r=9,2.l=3,3.r=4,4.r=5,5.l=6,6.l=8,6.r=7,9.l=10,9.r=11,11.r=12,12.l=13,13.l=15,13.r=14. Preorder is 1,2,3,4,5,6,8,7,9,10,11,12,13,15,14; inorder is 3,4,8,6,7,5,2,1,10,9,11,15,13,14,12; postorder is 3,8,7,6,5,4,2,10,15,14,13,12,11,9,1. Use these exact orders for predecessor/successor threads.",
+        "explanation": "原书图中的虚线均由这一定义产生，避免把森林根间右链误当普通孩子。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "图示答案已转述为可复算规则。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-21",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "The corresponding forests are: (a) one tree A. (b) one chain A->B->C (both binary links are left links). (c) three single-node trees A | B | C (both binary links are right links). (d) one tree A with ordered children B,C. For (e), read every left link as first-child and every right link as next-sibling, starting at A and then following its root-level right chain; this produces the forest roots and ordered child lists without retaining any right link as a tree child.",
+        "explanation": "规则与树/森林到二叉树的转换互逆。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "图形答案已给出可验证的反转换。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-22",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "先根序列：(a) A；(b) ABC；(c) ABC；(d) ABCEIJFGKHD。后根序列：(a) A；(b) CBA；(c) BCA；(d) BIJEFKGHCDA。先根遍历先访问根再按从左到右次序遍历各子树；后根遍历则在全部孩子子树之后访问根，故题中 (b)/(c) 的后根次序不同。",
+        "explanation": "按孩子从左至右，先根为根后子树，后根为子树后根。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书结果已核验。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-26",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "For the eight frequencies in question order 0.07,0.19,0.02,0.06,0.32,0.03,0.21,0.10, one valid Huffman code is 1110, 00, 11010, 1100, 10, 11011, 01, 1111. It is prefix-free and has WPL 2.61. The fixed 3-bit codes 000 through 111 have WPL 3. Huffman coding saves 0.39 bit per symbol on average, whereas fixed coding has simpler uniform decoding and direct fixed-width addressing.",
+        "explanation": "交换左右边只会得到等价的另一组 0/1 编码。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "给出构造、结果和比较。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-31",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "归纳证明。前序首元 u1 唯一是根；它在中序中的位置唯一把其余结点分为左、右子树，中序两段长度又唯一确定前序中紧随根的左、右两段。对两段递归应用同一规则；空树为基，故树唯一。前提是结点关键字互异；若值重复，只凭两个值序列无法定位根在中序中的分割点。",
+        "explanation": "重复关键字会破坏“在中序中的唯一位置”。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补全归纳证明和必要前提。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-32",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "将前序出现次序记作 1..n。遍历树时，首次到达结点入栈；当其左子树处理完且该结点应在中序输出时弹栈，于是弹出次序正是 p1..pn，故可由栈得到。反向地，任一可由栈得到的排列满足栈的嵌套区间性质；以 1 为根，出栈前已入栈的连续部分递归作左子树，其余部分作右子树，即构造出前序为 u1..un、中序为 u_p1..u_pn 的二叉树。",
+        "explanation": "两方向均可按 n 归纳；可栈排列是构造存在性的充分条件。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补全双向证明。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-33",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "从 v 深度优先搜索其 L、R 子树，若访问到 u 返回真：\n```c\nbool Desc(int v,int u){return v&& (v==u || Desc(L[v],u)||Desc(R[v],u));}\n```\n若“子孙”不含自身，调用时改为 `Desc(L[v],u)||Desc(R[v],u)`。每个结点至多访问一次，时间 O(n)、递归栈 O(h)。先检查 v/u 是否在 1..n，且输入必须是一棵树，否则共享孩子会破坏“至多一次”结论。",
+        "explanation": "L、R 是静态二叉链表，搜索覆盖且只覆盖 v 的子树。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "给出边界定义和算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-34",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "先令 T[1..n]=0，扫描 i=1..n：若 L[i] 非零则 T[L[i]]=i，若 R[i] 非零则 T[R[i]]=i。随后从 u 沿 T 向上，遇到 v 则 u 是 v 的子孙，遇 0 则否。\n```c\nbool Desc(int u,int v){while(u){if(u==v)return true;u=T[u];}return false;}\n```\n建表 O(n)，单次判定 O(h)；若不含自身先令 u=T[u]。",
+        "explanation": "题源答案块损坏，按题意独立补全。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "唯一需特别关注的源答案损坏题，已完整补答。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-35",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "With the added head node, its right edge is bit 1; thereafter a left edge appends 0 and a right edge appends 1. In a 1-based sequential binary-tree representation this bit string is exactly the binary representation of the occupied array subscript i. Therefore return i directly. For example i=6 is binary 110, so the route is head-right, root-right, then left. The result assumes the stated sequential representation; holes or zero-based indexing change the conclusion. The algorithm is O(1) time and O(1) space.",
+        "explanation": "题设头结点使根的路径码为 1。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书结论已说明原因。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-39",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "令 mark=0/1/2 分别表示尚未处理左子树、尚未处理右子树、可访问。循环中 mark=0 时置 1 并下走左孩子；mark=1 时置 2 并下走右孩子；mark=2 时访问、复位 0 并沿 parent 上走。每结点三次状态转换，故时间 O(n)、额外空间 O(1)（使用题设 parent/mark）。空孩子时不下走而留在当前结点进入下一状态，根访问后 parent 为 NULL 从而终止。",
+        "explanation": "状态机等价于递归后序的三次返回点。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "算法逻辑与原书代码核验。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-45",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "采用后序释放，且由父指针的引用传入以便断链：\n```c\nvoid Free(BiTree p){if(!p)return;Free(p->lchild);Free(p->rchild);free(p);}\nvoid DelX(BiTree *p,ElemType x){if(!*p)return;if((*p)->data==x){Free(*p);*p=NULL;return;}DelX(&(*p)->lchild,x);DelX(&(*p)->rchild,x);}\n```\n命中结点后不再递归其已释放子树。时间 O(n)，栈 O(h)。",
+        "explanation": "后序保证释放前仍能访问孩子指针。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补全两段算法及安全断链。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-47",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "```c\nvoid Level(BiTree t){Queue q;InitQueue(&q);if(t)EnQueue(&q,t);while(!QueueEmpty(q)){DeQueue(&q,&t);visit(t);if(t->lchild)EnQueue(&q,t->lchild);if(t->rchild)EnQueue(&q,t->rchild);}}\n```\n队列保证先入队的同层结点先处理，且左孩子先于右孩子入队，故访问次序为逐层自左至右。时间 O(n)，队列最坏 O(n)。",
+        "explanation": "补全原书提示。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "给出完整层序遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-48",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Use a nonrecursive postorder traversal whose stack is the root-to-current path. If p==q, return p immediately. Otherwise snapshot the stack at the first visit of p and q; their last equal entry from the bottom is the nearest common ancestor. Return NULL if either is absent. Comparing only min(|P|,|Q|) entries handles the case where one node is an ancestor of the other. Time is O(n), and the traversal plus snapshots use O(h) space.",
+        "explanation": "共同祖先恰为两条根路径的最长公共前缀末结点。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "按题目建议采用非递归栈。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-49",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Use level order including missing child positions. Enqueue root; if root is NULL return true. Maintain seenGap=false. For each dequeued nonnull node, if seenGap is already true return false; for each of its left then right children, enqueue it if nonnull, otherwise set seenGap=true. If traversal finishes, return true. A complete tree has no nonnull position after the first missing level-order position, and that condition is also sufficient. Thus a node with missing left child but real right child fails immediately. Time O(n), queue O(n).",
+        "explanation": "必须把空孩子也作为“缺口”记录，不能只遍历非空结点。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补为判定算法及充要性说明。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-50",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Read triples until C==^, which alone is the terminator. If F==^, create C as the root (and ignore L/R for that record); it must occur exactly once. Otherwise look up existing parent F, create C, and assign it to F.lchild for L or F.rchild for R. Reject a missing parent, duplicate child side, or duplicate node identifier. The specified level order ensures each ordinary parent was already created. The lookup table makes construction O(n).",
+        "explanation": "层序出现条件保证无需延迟挂接。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补全构建和输入校验。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-51",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Perform inorder output. Put parentheses around a left subtree when its root operator has lower precedence than the parent operator. Put parentheses around a right subtree when its root precedence is less than or equal to the parent precedence; this preserves subtraction and division order. Leaves are printed directly. Thus the emitted infix expression evaluates exactly like the expression tree; the traversal is O(n) with O(h) recursion stack.",
+        "explanation": "括号判断需区分右结合/非结合，不能只比较优先级。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补充同优先级的关键边界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-54",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Allocate pointer array p[1..last]. For i=1..last allocate p[i] and copy sa.elem[i]. Then for each i set p[i].lchild to p[2i] when 2i<=last, otherwise NULL; set p[i].rchild to p[2i+1] when 2i+1<=last, otherwise NULL. Return NULL for last==0 and p[1] otherwise. The complete-tree array relation proves the links are correct. If allocation fails, free already allocated nodes and return failure. Time O(n), auxiliary pointer array O(n).",
+        "explanation": "题设完全二叉树，故不存在中间空洞。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补出完整建链算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-59",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "```c\nvoid Edges(CSNode*p,CSNode*fa){for(;p;p=p->nextsibling){if(fa)printf(\"(%c,%c)\",fa->data,p->data);Edges(p->firstchild,p);}}\n```\n初始调用 `Edges(T,NULL)`。每个结点仅作为当前结点一次，且非根恰输出一条父边，故无重复、时间 O(n)、栈 O(h)。",
+        "explanation": "firstchild 是父子边，nextsibling 只推进同层扫描。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补为可执行递归。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-60",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "```c\nint Leaves(CSNode*p){int s=0;for(;p;p=p->nextsibling) s+=(p->firstchild?Leaves(p->firstchild):1);return s;}\n```\n初始调用 `Leaves(T)`。孩子—兄弟表示中 `firstchild==NULL` 当且仅当该树结点为叶；每结点一次，时间 O(n)、栈 O(h)。",
+        "explanation": "不能把 nextsibling==NULL 误判为叶。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "给出叶的正确判据。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-62",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "```c\nint Depth(CSNode*p){int best=0;for(;p;p=p->nextsibling){int d=1+Depth(p->firstchild);if(d>best)best=d;}return best;}\n```\n空树深度 0。对子树逐一取深度最大值再加根层，右兄弟不是孩子，不能像普通二叉树对左右子树直接取 max。时间 O(n)、栈 O(h)。",
+        "explanation": "准确区分孩子—兄弟二叉化与原树深度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补全递推。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-65",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "取前序段首元为根，在中序段找其位置 k；左子树大小为 k-inL，递归建立对应的前序左段/中序左段和右段。\n```c\nBiTree Build(pre,pl,pr,in,il,ir){if(pl>pr)return NULL;int k=find(in,il,ir,pre[pl]),s=k-il;node*t=new(pre[pl]);t->l=Build(pre,pl+1,pl+s,in,il,k-1);t->r=Build(pre,pl+s+1,pr,in,k+1,ir);return t;}\n```\n互异关键字下正确且唯一；哈希定位可使总时间 O(n)，递归栈 O(h)。",
+        "explanation": "与 6.31 的唯一性证明一致。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "给出参数划分和复杂度。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-66",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "为每个双亲表项 i 建结点 p[i]，复制数据，`firstchild=nextsibling=NULL`；维护 `tail[parent]`。扫描 i：若 parent[i] 为根标记则置根，否则若 `firstchild` 空则挂 p[i]，否则令 tail[parent]->nextsibling=p[i]，再更新 tail[parent]=p[i]。扫描一次，时间 O(n)、辅助 O(n)。",
+        "explanation": "tail 保证孩子按表中次序连接且不反复扫描兄弟链。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补全孩子—兄弟建表。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-70",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Implement recursive descent for the grammar in the figure. Read an uppercase letter to create one node. If the next character is not an opening parenthesis, both children are NULL. Otherwise consume (, recursively parse the left subtree (or NULL at comma), consume comma, recursively parse the right subtree (or NULL at )), then require and consume ). A global input cursor is advanced exactly once per token. Reject an unexpected comma, right parenthesis, end of string, or extra suffix. Every node and delimiter is processed once: O(n) time and O(h) stack space.",
+        "explanation": "以题图语法为准，输入不匹配时报告语法错误。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "图示语法题补为递归下降构造。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-73",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "This is a tree/forest construction problem, not a generalized-list problem. Use mutually recursive CreateT and CreateF for the child-sibling representation: CreateT reads one root, creates it, and calls CreateF for its ordered children; CreateF creates the first child with CreateT and links each following child by nextsibling until the closing delimiter. An empty child list returns NULL. Each input node is allocated once, so time O(n) and recursion stack O(h).",
+        "explanation": "原书给出结构图；这里补足构造步骤与复杂度。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "图示型答案已转为可实现说明。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-1",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Indegree/outdegree for vertices 1..6 are (3,0),(2,2),(1,2),(1,3),(2,1),(2,3). The adjacency matrix rows 1..6 are 000000,100100,010001,001011,100000,110010. Adjacency lists: 1: empty; 2:4,1; 3:6,2; 4:6,5,3; 5:1; 6:5,2,1. Reverse lists: 1:6,5,2; 2:6,3; 3:4; 4:2; 5:6,4; 6:4,3. The strongly connected components are {1}, {5}, and {2,3,4,6}: the last set has return paths among all four vertices, while 1 and 5 cannot return to any other vertex.",
+        "explanation": "原题为读图计算，答案以图中边集为唯一依据。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "补上通用验算准则。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-2",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "对邻接矩阵 A，A^r 的 (i,j) 元等于从 vi 到 vj 长度恰为 r 的游走数。归纳：r=1 即邻接定义；由矩阵乘法，A^(r+1)[i,j]=Σk A^r[i,k]A[k,j]，恰把长度 r 游走接上一条 k→j 边。",
+        "explanation": "“游走”允许重复顶点/边，不能误称为简单路径数。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补成标准归纳证明。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-3",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Using ascending adjacent-vertex order, the multilist edges are (1,2),(1,3),(2,3),(2,4),(3,4),(3,5),(4,5),(4,6),(5,6). For each edge node (i,j), i<j; it occurs in i's ilink chain and j's jlink chain. DFS from 1 visits 1,2,3,4,5,6 with tree edges (1,2),(2,3),(3,4),(4,5),(5,6). BFS visits 1,2,3,4,5,6 with tree edges (1,2),(1,3),(2,4),(3,5),(4,6).",
+        "explanation": "原书解答的结果由这一规则直接得到。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "核验读图题的矩阵判据。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-4",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "邻接表中每个顶点表头保存顶点，边结点保存相邻顶点及 next；无向边必须在两个表中各出现一次，有向弧只出现在其尾顶点表。逐边插入后，表长分别给出无向度或有向出度。",
+        "explanation": "与邻接矩阵的度数交叉核验。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "图示答案补为构造规则。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-5",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "With matrix rows scanned in increasing vertex order, DFS tree edges are (1,7),(7,3),(3,4),(4,5),(5,6),(6,2),(3,8),(4,9),(5,10). BFS tree edges are (1,7),(1,9),(7,3),(7,10),(9,5),(3,4),(3,8),(10,6),(6,2). Both start at 1 and use the directed arcs represented by the matrix.",
+        "explanation": "原书图示的每条弧仅存一次。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "补清存储语义。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-7",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Build the weighted adjacency matrix symmetrically, with diagonal 0 and infinity for absent edges. Prim starts from the required first vertex, repeatedly chooses the minimum crossing edge, records its parent, and stops after |V|-1 selections. Kruskal sorts the same edge set by weight and uses union-find, accepting an edge only when its endpoints are in different components; it also ends with |V|-1 edges. The two selected edge sets may differ on ties but have the same minimum total weight. Prim matrix form costs O(V^2); Kruskal costs O(E log E). Disconnected input yields a forest, not one MST.",
+        "explanation": "按题图边端点字段检查每条边出现一次。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原图示的结构语义已核对。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-8",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "For vertices V1..V8, visited values are 1,2,6,3,5,7,8,4 and low values are 1,1,1,2,2,6,6,2. The corresponding low-producing visited numbers are 1,4,7,3,1,6,5,2. These are the exact values obtained by the textbook articulation-point DFS on Figure 7.13(a).",
+        "explanation": "若题图未规定邻接次序，DFS 序不唯一；按图给定顺序判。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "补上序不唯一的限定。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-9",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "All topological sequences for the figure are: 5,6,1,2,3,4; 5,1,6,2,3,4; 5,1,2,6,3,4; 5,1,2,3,6,4; 1,5,6,2,3,4; 1,5,2,6,3,4; 1,5,2,3,6,4. The textbook Topological Sort produces the first sequence under its adjacency-list insertion/order convention. Each sequence is valid because every arc tail appears before its head; no other order is possible because 2 precedes 3, 3 precedes 4, and the independent choices of 1,5,6 are constrained as listed.",
+        "explanation": "按 Kahn 算法逐步验算题图。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "明确了多解和成环判据。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-10",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Event pairs ve/vl are alpha 0/0, A 1/20, B 6/24, C 17/26, D 3/19, E 34/34, F 4/8, G 3/3, H 13/13, I 1/7, J 31/31, K 22/22, omega 44/44. The zero-slack arcs are alpha-G, G-H, H-K, K-J, J-E, E-omega; hence the only critical path is alpha-G-H-K-J-E-omega, length 44. The remaining arc slacks are exactly the l-e values in the source table; all are positive.",
+        "explanation": "原书 ve/vl/e/l 表已按上述递推核验。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "保留计算结论与判定公式。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-11",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Dijkstra from a finalizes vertices in order c,f,e,d,g,b. Final distances and paths are c=2 (a-c), f=6 (a-c-f), e=10 (a-c-e), d=11 (a-c-f-d), g=14 (a-c-f-d-g), b=15 (a-b). At each round choose the unfinalized minimum tentative distance and relax all outgoing arcs; predecessor records reconstruct the listed paths. All weights must be nonnegative; unreachable vertices retain infinity. Array implementation is O(V^2), while a binary heap adjacency-list implementation is O((V+E)log V).",
+        "explanation": "与原书状态表的确定次序 c、f、e、d、g、b 一致。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "给出最终路径和算法前提。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-12",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "不变式：S 中顶点的 dist 已等于源到该点的最短距离；S 外 dist 是内部顶点均在 S 的路径的最短长度。初态成立。选 dist 最小的 u 时，任何经 S 外顶点的替代路径都因边权非负而不短于 dist[u]，故 u 可最终确定；对 u 的出弧松弛恢复不变式。归纳至全部可达点即正确。",
+        "explanation": "非负权是贪心定点的必要条件。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补全不变式证明。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-13",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Floyd initializes d with direct arc weights, zero diagonal, and infinity otherwise, then for k=1..4 applies d[i][j]=min(d[i][j],d[i][k]+d[k][j]). The final matrix is [0,1,2,3]; [6,0,1,3]; [5,6,0,2]; [10,4,5,0]. Representative reconstructed paths are 2-3-4 for 2 to 4 and 4-2-3-1 for 4 to 1. Never add through infinity. The method allows negative edges but not a reachable negative cycle; a negative d[i][i] detects one. Time O(V^3), space O(V^2).",
+        "explanation": "不可达项参与加法前必须先判 INF。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "浓缩原书逐轮矩阵并保留最终结果。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-25",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Use color[1..n] with 0 unvisited, 1 on the current DFS path, and 2 finished. For every unvisited u call dfs(u): set color[u]=1; for i=fst[u] through lst[u], let v=s[i]; if color[v]==1 return true; if color[v]==0 and dfs(v) return true; after the loop set color[u]=2 and return false. Treat fst[u]>lst[u] as no successors. Scanning all u handles disconnected graphs. A gray edge is exactly a directed cycle witness. Each vertex and stored successor is examined once, giving O(n+max) time and O(n) stack/color space.",
+        "explanation": "颜色 1 精确表示当前简单路径，避免把已完成的交叉边误报为环。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "以给定压缩邻接表实现。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-26",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "If a numbering makes the adjacency matrix strictly lower triangular, every arc goes from a larger number to a smaller one, so a directed cycle would force a strict decrease back to its start, impossible. Conversely, a DAG has a topological order t1..tn; assign new(ti)=n-i+1. Every arc then goes from larger new number to smaller, so the matrix is lower triangular with zero diagonal. Compute a topological order, report a cycle if fewer than n vertices are output, otherwise print each old ti with new n-i+1. Kahn implementation is O(V+E).",
+        "explanation": "明确了下三角方向对应反向拓扑编号。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补全充要证明和编号算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-27",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "For vertices s,t and length k, use depth-limited DFS with path-local marks. Set onPath[s]=true and call Search(s,0). If d==k return whether u==t; if d>k return false. Otherwise recursively test each adjacent v with onPath[v]==false, setting it before recursion and clearing it after. This accepts exactly simple s-to-t paths with k edges, including the k=0 case only when s==t. A global permanent visited array is wrong because it prunes valid alternate paths. Worst case is O(Delta^k) time and O(k) stack/path space.",
+        "explanation": "普通 visited 全局不回退会错误剪去另一条候选简单路径。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补全路径状态和复杂度。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-28",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Maintain path[0..depth] and onPath. Start with u; DFS(x) prints path and returns when x==v. Otherwise scan each outgoing neighbor y not onPath, append y, mark it, recurse, then unmark and pop it. This lists every u-to-v simple path exactly once: each output follows a distinct DFS branch, and every simple path is reachable by its next vertex choices. Do not expand after reaching v. The search tree for the figure is obtained by these push/pop events; its output cost is proportional to total printed path length, with exponential worst case and O(V) working space.",
+        "explanation": "题图的搜索树可按每次入栈/回退画出。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "答案不冒充唯一的图形搜索顺序。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-33",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Initialize a union-find singleton for every vertex and an empty child-sibling forest. While GetMinEdge returns (u,v), call DelMinEdge; if Find(u)!=Find(v), add the selected edge to the result forest and Union their sets. Stop once V-1 edges are chosen. If the source edge set is exhausted first, the graph is disconnected and has no spanning tree. The cut property proves every accepted current minimum cross-component edge is safe; rejected edges would create a cycle. With union by rank and path compression the union-find work is O(E alpha(V)), plus the cost of obtaining sorted minimum edges.",
+        "explanation": "同类端点边必须丢弃，不能加入成环。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补齐连通性和表示边界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-35",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "In a DAG, a root exists exactly when there is one indegree-zero vertex r. If two sources existed neither could be reached from the other. Conversely, follow incoming arcs backward from any vertex; acyclicity forces the walk to end at a source, so with one source it must be r, giving an r-to-vertex path when reversed. Compute indegrees while scanning arcs, count zeros, and return the sole candidate only if the count is one. For defensive code, DFS from r must reach all V vertices. Time O(V+E), space O(V).",
+        "explanation": "仅适用于 DAG；一般有向图的唯一源不足以保证可达。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "给出充要条件证明。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-37",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "For a DAG, first obtain a topological order. In reverse order set dp[u]=0 for a sink and otherwise dp[u]=max over arcs u->v of (w(u,v)+dp[v]); store next[u] achieving the maximum. For a specified source, dp[source] is the longest-path value and following next reconstructs the path. For an unweighted graph use w=1. Reverse-topological induction proves each subproblem is final when processed. Time O(V+E), space O(V). This fails for general directed graphs because positive cycles make the longest walk unbounded and longest simple path is hard.",
+        "explanation": "边无权时令 w=1。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_HINT_ONLY"
+        ],
+        "notes": "补充权值约定和输出恢复。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-1",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "For the boundary-tag first-fit list, freeing the block at address 559 with size 45 coalesces with its adjacent free block, so the corresponding free-list block becomes start 559, size 167 (replacing the shown 604/122 block). After allocating 100 and then freeing start 515 size 44, the second free block becomes start 330 size 17 and the two trailing adjacent free regions coalesce into start 462 size 264. Sizes include both boundary tags. The calculation must test both physical neighbors before list insertion; at a heap boundary the missing neighbor is treated occupied.",
+        "explanation": "按边界标志检查左右相邻块的占用标志。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书数值已核验。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-2",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Make the circular free list nondecreasing by block size and keep the header at a smallest block. First fit then stops at the first sufficient block, which is necessarily a smallest sufficient block, exactly best fit. Equal-size blocks may be chosen in any order. The invariant must also be restored after freeing and coalescing: insert the merged block at its size position and reset the header to a minimum; mere sorting without a fixed minimum header does not make a circular first scan equivalent to best fit.",
+        "explanation": "仅排序而不把表头置于最小块，循环扫描起点仍可能破坏等价性。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "补足等价证明。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-3",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "Assume the circular free list is scanned from its first block (100), a split remainder stays in its original list position, and the search pointer never moves. Then one example where best fit succeeds and first fit fails is requests 110,80,100; one where first fit succeeds and best fit fails is 110,80,90,20. Without those conventions, a different scan start or moved pointer can change the allocation trace, so the question is not uniquely determined.",
+        "explanation": "按题设“依次顺序链接”和分割后位置不变进行模拟；不同表头约定须明确。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "采用原书给出的两组反例，并标明链表约定。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-5",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "(1) 最佳适配空闲块按大小递增链接，表头为最小块；首次适配通常使用循环表并移动表头以均匀利用地址空间。(2) 两者的切割分配本质相同，都是找首个合格块后分割/摘链。(3) 回收合并后，最佳适配还必须按大小有序插入；首次适配按循环地址/搜索策略维护。",
+        "explanation": "差异核心在空闲表组织与插入位置。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书三项比较已核验。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-6",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "伙伴地址等于地址与块大小做异或：011011110000 XOR 000000000100 = 011011110100；块大小 16 时 XOR 000000010000，得 011011100000。",
+        "explanation": "块大小必须是 2 的幂，异或只翻转对应阶位。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "给出计算过程。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-7",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "初始仅一个 2^9 块。六次申请按上取整 2 的幂分配：23→2^5@0，45→2^6@64，52→2^6@128，100→2^7@256，11→2^4@32，19→2^5@192；此时空闲块为 2^4、2^5、2^7 各一。按序释放 45、52、11 后合并，空闲为 2^5 两块、2^6 两块、2^7 一块。",
+        "explanation": "伙伴仅在同阶且地址互为 XOR 的空闲块之间合并。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书分配表和最终计数已核验。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-8",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "最小序列可为 (2^4+1,1)，即 (17,1)，或 (1,17)。第一次请求被向上取整为 32，耗尽全部 2^5 空间，第二个最小正请求 1 无块可分配；总和 18。任何使第一次失败的单请求至少为 33，总和更大。",
+        "explanation": "假定申请量为正整数且无释放。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "补充最小性理由。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-9",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "(1) 每个 L、L1…L4 设表头计数；外部或其他表每引用一次其头结点计数加一，结构按题图连接。(2) 从 L 删除 L1 只释放 L 中指向 L1 的首元结点，并把 L1 头计数减一；L1 仍被保留（其计数未必为零）。(3) 若 L2=(L3,L4)，L2→L4→L2 形成间接环，纯引用计数无法使环内计数归零，产生泄漏。",
+        "explanation": "引用计数不具备环回收能力。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "图示题补上环泄漏解释。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-13",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "For a released block p, inspect the left footer and right header tags. If both neighbors are occupied, mark p free and insert it. If only left is free, remove/extend the left free-list node. If only right is free, remove/extend the right node using p as new start. If both are free, remove both list nodes and form one three-block region. In every case write consistent size/tag fields in the resulting header and footer, then repair predecessor/successor list links. At low/high heap boundaries treat the absent neighbor as occupied. This is O(1) with boundary tags and a doubly linked free list.",
+        "explanation": "块 size 含头尾，右邻头为 p+p->size。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "把原书核心框架补成四分支完整算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-14",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "令 k=p->kval、newblock=p。循环：buddy=newblock XOR 2^k；若 buddy 越界、已占用、阶数不等于 k 或不在第 k 阶空闲链中，则停止；否则从 AVAIL[k] 摘除 buddy，令 newblock=min(newblock,buddy)，k++，继续。最后写回 tag=0/kval=k 并把 newblock 插入 AVAIL[k]。连续合并直到最大阶或不能合并。",
+        "explanation": "tag=0 不足以证明可合并，必须同时验证 buddy 的 kval 与空闲链成员资格。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "补足停止条件和链表一致性。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-15",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "令 `avail=NULL`，从 `p=highbound-cellsize+1` 向低地址每次减 cellsize 扫描；若 p 的 tag 为 0，将其头插 avail。循环条件为 `p>=lowbound`，并假定 `(highbound-lowbound+1)%cellsize==0`。由于从高向低头插，最终链表恰为地址递增。时间 O(块数)，额外 O(1)。",
+        "explanation": "扫描方向与头插法共同保证有序。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [
+          "ANSWER_MISSING"
+        ],
+        "notes": "原书答案已补出有序性说明。"
+      }
+    }
+  ],
+  "unresolved": []
+}

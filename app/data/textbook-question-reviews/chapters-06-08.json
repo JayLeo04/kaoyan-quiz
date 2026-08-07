@@ -1,0 +1,2105 @@
+{
+  "schemaVersion": "textbook-question-review-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "06-tree-and-binary-tree",
+    "07-graph",
+    "08-dynamic-storage"
+  ],
+  "updates": [
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-1",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "树的结点关系、层次与深度。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-2",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "树的度与边数关系。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-3",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree",
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "小规模树与二叉树形态枚举。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-4",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "满 k 叉树层序编号。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-5",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "树的度数计数公式。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-6",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "树的结点数与度。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-7",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "k 叉树深度界。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-8",
+      "tags": [
+        "完全二叉树"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "完全二叉树性质。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-9",
+      "tags": [
+        "完全二叉树"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "完全二叉树编号。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-10",
+      "tags": [
+        "满二叉树"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "满二叉树计数性质。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-11",
+      "tags": [
+        "二叉树存储"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "minor-issue",
+        "answerability": "needs-assumption",
+        "examRelevance": "supporting",
+        "disposition": "revise",
+        "notes": "存储字节口径须以题设/教材约定为准。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-12",
+      "tags": [
+        "二叉树遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "遍历序列比较。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-13",
+      "tags": [
+        "二叉树遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "遍历相对次序判断。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-14",
+      "tags": [
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树遍历应用。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-15",
+      "tags": [
+        "线索二叉树"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "后序线索化图示题。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-16",
+      "tags": [
+        "线索二叉树"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "先序线索链表填表。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-17",
+      "tags": [
+        "线索二叉树"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "中序线索后继算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-18",
+      "tags": [
+        "线索二叉树"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "线索树的后序后继。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-19",
+      "tags": [
+        "树和二叉树的转换"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "树转二叉树。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-20",
+      "tags": [
+        "二叉树和森林的转换"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree",
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "森林转换与线索化。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-21",
+      "tags": [
+        "二叉树和森林的转换"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree",
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树还原森林。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-22",
+      "tags": [
+        "森林的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "树的先根/后根遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-23",
+      "tags": [
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-24",
+      "tags": [
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-25",
+      "tags": [
+        "哈夫曼树"
+      ],
+      "knowledgeIds": [
+        "ds:tree/app"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "哈夫曼树构造。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-26",
+      "tags": [
+        "哈夫曼编码",
+        "带权路径长度",
+        "前缀编码"
+      ],
+      "knowledgeIds": [
+        "ds:tree/app"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "哈夫曼编码与等长编码比较。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-27",
+      "tags": [
+        "哈夫曼树"
+      ],
+      "knowledgeIds": [
+        "ds:tree/app"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "哈夫曼树性质。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-28",
+      "tags": [
+        "带权路径长度"
+      ],
+      "knowledgeIds": [
+        "ds:tree/app"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "带权路径长度。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-29",
+      "tags": [
+        "前缀编码"
+      ],
+      "knowledgeIds": [
+        "ds:tree/app"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "前缀编码判定。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-30",
+      "tags": [
+        "哈夫曼编码"
+      ],
+      "knowledgeIds": [
+        "ds:tree/app"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "哈夫曼编码。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-31",
+      "tags": [
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "前序中序唯一建树。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-32",
+      "tags": [
+        "入栈出栈序列",
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree",
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "遍历序列与栈排列。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-33",
+      "tags": [
+        "二叉树存储"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "静态二叉链表祖先关系。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-34",
+      "tags": [
+        "二叉树存储"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "双亲数组辅助查询。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-35",
+      "tags": [
+        "二叉树存储",
+        "完全二叉树"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "顺序存储的路径编码。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-36",
+      "tags": [
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树递归遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-37",
+      "tags": [
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树遍历变形。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-38",
+      "tags": [
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "遍历算法设计。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-39",
+      "tags": [
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "带双亲指针的非递归后序。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-40",
+      "tags": [
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树遍历算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-41",
+      "tags": [
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树遍历算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-42",
+      "tags": [
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树遍历算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-43",
+      "tags": [
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树递归算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-44",
+      "tags": [
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树递归算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-45",
+      "tags": [
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "删除匹配子树。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-46",
+      "tags": [
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-47",
+      "tags": [
+        "队列",
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree",
+        "ds:array/queue"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "层序遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-48",
+      "tags": [
+        "栈",
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree",
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "最近共同祖先。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-49",
+      "tags": [
+        "完全二叉树",
+        "队列"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree",
+        "ds:array/queue"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "完全二叉树判定。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-50",
+      "tags": [
+        "二叉树构建",
+        "队列"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree",
+        "ds:array/queue"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "按层序边输入建树。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-51",
+      "tags": [
+        "中缀转后缀",
+        "二叉树的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree",
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "表达式树中缀输出。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-52",
+      "tags": [
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树构建。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-53",
+      "tags": [
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树构建。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-54",
+      "tags": [
+        "完全二叉树",
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "顺序表转二叉链表。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-55",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "树的表示。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-56",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "树的存储。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-57",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "树的存储。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-58",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "孩子—兄弟表示。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-59",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "孩子—兄弟树输出边。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-60",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "孩子—兄弟树叶计数。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-61",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "树的遍历/表示。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-62",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "孩子—兄弟树深度。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-63",
+      "tags": [
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树构建。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-64",
+      "tags": [
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树构建。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-65",
+      "tags": [
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "前序中序建树。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-66",
+      "tags": [
+        "树的概念"
+      ],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "双亲表转孩子—兄弟表。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-67",
+      "tags": [
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树构建。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-68",
+      "tags": [
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树构建。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-69",
+      "tags": [
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树构建。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-70",
+      "tags": [
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "语法串递归建树。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-71",
+      "tags": [
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树构建。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-72",
+      "tags": [
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "二叉树构建。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-73",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "广义表链式表示。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-74",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "广义表表示。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-75",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "广义表表示。"
+      }
+    },
+    {
+      "id": "book-ds-yan-06-tree-and-binary-tree-6-76",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:tree/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "广义表表示。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-1",
+      "tags": [
+        "图的概念"
+      ],
+      "knowledgeIds": [
+        "ds:graph/defs"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "图的度。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-2",
+      "tags": [
+        "邻接矩阵"
+      ],
+      "knowledgeIds": [
+        "ds:graph/defs"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "邻接矩阵幂。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-3",
+      "tags": [
+        "邻接矩阵"
+      ],
+      "knowledgeIds": [
+        "ds:graph/defs"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "邻接矩阵。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-4",
+      "tags": [
+        "邻接表"
+      ],
+      "knowledgeIds": [
+        "ds:graph/defs"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "邻接表。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-5",
+      "tags": [
+        "邻接表"
+      ],
+      "knowledgeIds": [
+        "ds:graph/defs"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "十字链表。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-6",
+      "tags": [
+        "图的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "图遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-7",
+      "tags": [
+        "邻接多重表"
+      ],
+      "knowledgeIds": [
+        "ds:graph/defs"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "邻接多重表。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-8",
+      "tags": [
+        "图的遍历",
+        "DFS"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "深度优先遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-9",
+      "tags": [
+        "拓扑排序"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "拓扑序。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-10",
+      "tags": [
+        "关键路径"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "AOE 网络关键路径。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-11",
+      "tags": [
+        "最短路径"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "Dijkstra 手算。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-12",
+      "tags": [
+        "最短路径"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "Dijkstra 正确性。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-13",
+      "tags": [
+        "最短路径"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "Floyd 算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-14",
+      "tags": [
+        "图的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "图遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-15",
+      "tags": [
+        "图的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "图遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-16",
+      "tags": [
+        "图的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "图遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-17",
+      "tags": [
+        "图的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "图遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-18",
+      "tags": [
+        "图的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "图遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-19",
+      "tags": [
+        "图的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "图遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-20",
+      "tags": [
+        "图的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "Unweighted undirected candidate work is sum_y deg(y)(deg(y)-1); for regular graphs O(nd^2)=O(md). Matrix implementation scans O(n^2+mn); a directed interpretation needs a separately stated in/out-neighbor convention."
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-21",
+      "tags": [
+        "图的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "For an undirected adjacency list, total time is O(n+m+sum_y deg(y)(deg(y)-1)); for a d-regular graph it is O(nd^2)=O(md)."
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-22",
+      "tags": [
+        "图的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "图遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-23",
+      "tags": [
+        "图的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "图遍历。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-24",
+      "tags": [
+        "图的遍历"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "Any iterative DFS pseudocode must not call an undefined ReplaceTop: Pop the old frame and Push the updated frame, or explicitly define ReplaceTop in the Graph/stack ADT contract."
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-25",
+      "tags": [
+        "DFS"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "有向图判环。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-26",
+      "tags": [
+        "拓扑排序",
+        "邻接矩阵"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation",
+        "ds:graph/defs"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "DAG 重编号。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-27",
+      "tags": [
+        "DFS"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "定长简单路径。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-28",
+      "tags": [
+        "DFS"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "枚举简单路径。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-29",
+      "tags": [
+        "最小生成树"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "最小生成树。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-30",
+      "tags": [
+        "最小生成树"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "最小生成树。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-31",
+      "tags": [
+        "最小生成树"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "最小生成树。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-32",
+      "tags": [
+        "最小生成树"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "最小生成树。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-33",
+      "tags": [
+        "最小生成树"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "Kruskal 算法。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-34",
+      "tags": [
+        "拓扑排序"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "DAG 性质。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-35",
+      "tags": [
+        "DFS"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "DAG 根判定。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-36",
+      "tags": [
+        "拓扑排序"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "DAG 应用。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-37",
+      "tags": [
+        "拓扑排序"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "DAG 最长路径。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-38",
+      "tags": [
+        "图表示树"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "表达式 DAG。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-39",
+      "tags": [
+        "图表示树"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "表达式 DAG。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-40",
+      "tags": [
+        "图表示树"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "表达式 DAG 求值。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-41",
+      "tags": [
+        "关键路径"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "关键路径算法变形。"
+      }
+    },
+    {
+      "id": "book-ds-yan-07-graph-7-42",
+      "tags": [
+        "最短路径"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "Dijkstra 邻接表实现。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-1",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "边界标志首次适配；现有 408 页无更细粒度页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-2",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "空闲表与适配策略；现有 408 页无更细粒度页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-3",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "minor-issue",
+        "answerability": "needs-assumption",
+        "examRelevance": "legacy",
+        "disposition": "revise",
+        "notes": "Needs the fixed convention: scan from the first block, leave remainders in place, and do not move the search pointer; otherwise the stated counterexamples are not unique."
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-4",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "动态存储管理；现有 408 页无对应细页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-5",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "边界标志策略比较；现有页仅近似映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-6",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "伙伴系统地址计算；现有页仅近似映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-7",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "伙伴系统模拟；现有页仅近似映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-8",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "伙伴系统分配界；现有页仅近似映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-9",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "引用计数回收；现有页仅近似映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-10",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "动态存储管理；现有页无对应细页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-11",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "动态存储管理；现有页无对应细页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-12",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "动态存储管理；现有页无对应细页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-13",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "边界标志回收；现有页仅近似映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-14",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "伙伴系统回收；现有页仅近似映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-15",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "空闲块链接；现有页仅近似映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-08-dynamic-storage-8-16",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "Pointer relocation costs O(B+L+PB) if each pointer linearly scans B relocation records. O(B+L+P log B) is valid only after sorting the map and actually using binary search."
+      }
+    }
+  ]
+}

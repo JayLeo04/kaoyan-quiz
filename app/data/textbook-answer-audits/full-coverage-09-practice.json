@@ -1,0 +1,790 @@
+{
+  "schemaVersion": "textbook-answer-audit-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "09-search",
+    "10-internal-sorting",
+    "11-external-sorting",
+    "12-file",
+    "practice-0-overview",
+    "practice-1",
+    "practice-2",
+    "practice-3",
+    "practice-4",
+    "practice-5",
+    "practice-6"
+  ],
+  "updates": [
+    {
+      "id": "book-ds-yan-09-search-9-3",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n长度为 10 的有序表取中点递归折半时，成功关键字的判定树深度分布为：深度 1 有 1 个结点，深度 2 有 2 个，深度 3 有 4 个，深度 4 有 3 个，合计 10 个。根可取第 5 或第 6 个关键字，另一个选择只是镜像，不影响层数分布。\n\n\\[\nASL_{succ}=\\frac{1\\times1+2\\times2+3\\times4+4\\times3}{10}=2.9.\n\\]\n\n画树时每个内部结点标当前区间中点，左右孩子分别对应小于和大于该键的子区间；未命中叶不计入本题成功平均查找长度。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-4",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n对长度大于 10 的区间作一次折半比较；当子区间长度不大于 10 时，将该叶展开为该区间的顺序查找链。n=50 时，成功结点的比较次数分布为：第 1 层 1 个、第 2 层 2 个、第 3 层 4 个、第 4 至第 8 层各 8 个、第 9 层 3 个，合计 50。\n\n\\[\nASL_{succ}=\\frac{1\\times1+2\\times2+3\\times4+(4+5+6+7+8)\\times8+9\\times3}{50}=5.68.\n\\]\n\n画图时按“折半结点→长度不超过 10 的顺序链”的递归规则展开即可；这是混合查找判定树，不是二叉排序树，故不引用 BST 图片。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-5",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n取最小的不小于 20 的 Fibonacci 数 F_8=21，按 Fibonacci 查找的分割规则递归。第 21 个虚记录的分支只代表失败，不计入成功 ASL。长度 20 的成功结点在比较次数 1、2、3、4、5、6 层的个数分别为 1、2、4、7、5、1。\n\n\\[\nASL_{succ}=\\frac{1\\times1+2\\times2+3\\times4+4\\times7+5\\times5+6\\times1}{20}=3.8.\n\\]\n\n判定树应按 Fibonacci 分割位置标出真实关键字，并单列补位失败叶；它不是由插入生成的二叉排序树，因此不使用 BST 图片。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-6",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n设排列后的条件为 C1,…,Cn，第 k 个判定被执行的概率为 \\(\\prod_{j=1}^{k-1}p_j\\)。若语句 S 的执行时间为 T_S，则总期望时间是\n\n\\[\nE=\\sum_{k=1}^{n}t_k\\prod_{j=1}^{k-1}p_j+T_S\\prod_{j=1}^{n}p_j.\n\\]\n\n第二项与排列无关。交换相邻的 Ca、Cb，并令到达该位置前的概率为 P；“a 在前”减去“b 在前”的期望代价为\n\n\\[\nP\\,[t_a+p_a t_b-t_b-p_b t_a]\n=P\\,[t_a(1-p_b)-t_b(1-p_a)].\n\\]\n\n要使前者不更差，应有 \\(t_a/(1-p_a)\\le t_b/(1-p_b)\\)。因此按 \\(t_i/(1-p_i)\\) 非降序排列；\\(p_i=1\\) 时分母为零，应置于所有 \\(p<1\\) 的条件之后。该交换论证覆盖 k=1,…,n-1 的全部相邻对，故所得序列最优。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-7",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n先顺序检查第 8、16、…、8N 个记录。判定树的上部是一条 N 个索引键的顺查链：第 j 个索引键的“未命中且 K 小于该索引键”分支挂接第 j 块（8 个记录）的折半判定树；最后一个索引键的相等分支也属于第 N 块。每一块的 8 个真实键在其折半子树内的成功比较次数分布为 1,2,4,1。\n\n等概率成功时，索引链平均比较次数为 \\((N+1)/2\\)，块内折半平均比较次数为\n\n\\[\n\\frac{1\\times1+2\\times2+3\\times4+4\\times1}{8}=\\frac{17}{8}.\n\\]\n\n因此 \\(ASL_{succ}=(N+1)/2+17/8\\)。索引比较和块内第一次比较分别计一次，不能重复计数。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-8",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n（1）次优查找树如下所示，其 $PH$ 值为 133；\n\n![题 9.8（1）的次优查找树](../../assets/py/fig-09-08-optimal-tree.svg)\n\n（2）折半查找的判定树的 $PH$ 值为 156。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-9",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n（1）求得的二叉排序树如下图所示，在等概率情况下查找成功的平均查找长度为\n\n$$\nASL_{succ}=\\frac{1}{12}(1\\times1+2\\times2+3\\times3+4\\times3+5\\times2+6\\times1)=\\frac{42}{12}\n$$\n\n![题 9.9（1）月份关键字的二叉排序树](../../assets/py/fig-09-09-month-bst.svg)\n\n（2）经排序后的表及在折半查找时找到表中元素所经比较的次数对照如下：\n\n| | Apr | Aug | Dec | Feb | Jan | July | June | Mar | May | Nov | Oct | Sept |\n| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |\n| 比较次数 | 3 | 4 | 2 | 3 | 4 | 1 | 3 | 4 | 2 | 4 | 3 | 4 |\n\n等概率情况下查找成功时的平均查找长度为\n\n$$\nASL_{succ}=\\frac{1}{12}(1\\times1+2\\times2+3\\times4+4\\times5)=\\frac{37}{12}\n$$\n\n（3）按教材书 9.2.1 节所述求得的平衡二叉树为\n\n![题 9.9（3）的平衡二叉树](../../assets/py/fig-09-09-month-avl.svg)\n\n它在等概率情况下的平均查找长度为\n\n$$\nASL=\\frac{1}{12}(1\\times1+2\\times2+3\\times4+4\\times4+5\\times1)=\\frac{38}{12}\n$$",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-10",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n根 5 必须最先插入。左子树根为 4，随后必须先出现 2，最后 1 和 3 可交换，因此左子树内部只有 4,2,1,3 与 4,2,3,1 两种合法次序。右子树固定为 7,6。\n\n根之后左侧有 4 个键、右侧有 2 个键；保持两个子树内部相对顺序的交织数是 C(6,4)=15。总数为 2×1×C(6,4)=30。\n\n五个初始排列为：\n5,4,2,1,3,7,6；\n5,4,2,3,1,7,6；\n5,4,7,2,1,3,6；\n5,7,4,2,3,6,1；\n5,4,2,7,1,6,3。\n\n逐项插入可核对：根仍为 5，左根 4，2 的两个孩子为 1 和 3，右根 7 的左孩子为 6。因而这些排列都且只会生成题图的 BST，不会把改变树形的排列混入计数。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-11",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n令 N_h 为 h 层 AVL 树最少结点数，N_1=1，N_2=2，N_h=N_(h-1)+N_(h-2)+1，依次为 1,2,4,7,12,20。因此 12 个结点最大深度为 5；画一棵根的左右子树高度分别为 4、3 的最少结点 AVL 树即可达到。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-12",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n特性（3）的目的，是保证除根外结点至少达到规定的装填下限，从而给出空间利用率下界和树高上界。若把最小孩子数改为 \\(\\lceil2m/3\\rceil\\)，一个刚溢出的 m+1 孩子结点分裂为两个结点时，两个新结点所需孩子数之和通常大于 m+1，因此无法维持该下限，故不可行。\n\n改为 \\(\\lceil m/3\\rceil\\) 则可行：分裂后的两个结点可以满足这个较低下限，插入/删除规则需按新下限调整。所得树仍是多路平衡查找树，但结点最低利用率更低、最坏树高更大；不能据此断言分裂次数一定更少或更多。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-13",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n至少含 4 个非叶结点；至多含 8 个非叶结点。 计数以孩子数而非关键字数为准，且根允许少于非根的最低孩子数；这正是最少与最多构造的边界。 构造时应从根向下验证每层孩子数，避免把叶结点数误当作关键字数。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-14",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n用 [x,y] 表示一个含两个关键字的 2--3 树结点，圆括号内列出其孩子。7 次插入的每步状态为：\n\n1. 插入 20： [20]；\n2. 插入 30： [20,30]；\n3. 插入 50： [20,30,50] 溢出，50 所在叶分裂、30 上升，得到 [30]([20],[50])；\n4. 插入 52： [30]([20],[50,52])；\n5. 插入 60：右叶 [50,52,60] 溢出，52 上升，得到 [30,52]([20],[50],[60])；\n6. 插入 68： [30,52]([20],[50],[60,68])；\n7. 插入 70：右叶 [60,68,70] 溢出，68 上升使根暂为 [30,52,68]，根再分裂并令 52 成为新根，得到 [52]([30]([20],[50]),[68]([60],[70]))。\n\n删除 50：叶 [50] 下溢，和 [20] 与分隔键 30 合并为 [20,30]；其父下溢后与根键 52、右内部结点合并，树降高为 [52,68]([20,30],[60],[70])。\n\n删除 68：以右子树最小键 70 替换根内的 68，再删叶 [70]；该叶下溢，和 [60] 及分隔键 70 合并，最终为 [52]([20,30],[60,70])。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-19",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n逐项地址（比较次数）为：22→0(1)，41→2(1)，53→5(1)，46→6(1)，30→3(2)，13→8(2)，01→10(6)，67→1(3)。表 0..10 为 22,67,41,30,空,53,46,空,13,空,01；ASL_succ=(1+1+1+1+2+2+6+3)/8=17/8。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-21",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n（1）$ASL_{succ}=\\frac{31}{12}$，$ASL_{unsucc}=\\frac{60}{14}$\n\n（2）$ASL_{succ}=\\frac{18}{12}$，$ASL_{unsucc}=\\frac{12}{14}$\n\n按照平均查找长度的定义，公式中的“$C_i$”指的是：“关键字和给定值比较的个数”，则在用链地址处理冲突时，和“空指针”的比较不计在内。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-22",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n取长度 m=1511 的素数表，统一将拼音转为小写 ASCII。令 h(s) 为字符串逐字符进行 v=(31v+code) mod 1511 得到的值，冲突采用线性探测，槽中保存完整拼音。\n\n装载因子 alpha=1000/1511≈0.662。在线性探测的均匀散列近似下，\n\n\\[\nASL_{succ}\\approx\\frac12\\left(1+\\frac1{1-\\alpha}\\right)\n=\\frac12\\left(1+\\frac1{0.338}\\right)\\approx1.98<2<3.\n\\]\n\n查找从 h(s) 起逐槽比较完整字符串，遇空槽即失败；插入在找到同名或首个空槽时停止。此设计在题设等概率/均匀分布假设下满足 ASL 不超过 3，且更强地不超过 2。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-23",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n两种策略都不可行：置空会截断探测链，直接前移可能移动非同义词到其探测不可达处。可用三态槽 EMPTY/OCCUPIED/DELETED；删除置 DELETED，查找遇 DELETED 继续、遇 EMPTY 才失败；插入记住首个 DELETED，未命中时优先复用。墓碑过多时重建。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-24",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n令 C12=10c1+c2，C34=10c3+c4，C678=100c6+10c7+c8。四个年级、25 个系、两类学生的极限人数是 4×25×(200+50)=25000，故映射到 0..24999 时 alpha=1。\n\n无冲突直接定址可取\n\n\\[\nH_1(C)=C_{678}+200C_5+250C_{34}+6250(C_{12}-96).\n\\]\n\n本科编号范围 0..199，研究生范围 0..49，所以不同的“年级、系、类别、编号”四元组地址不同；但每一组地址连续，簇聚性强。\n\n15000 人、20000 槽不能保留每组 250 个固定槽仍无冲突。令 l=150，取\n\n\\[\nH_2(C)=(1-2C_5)C_{678}+C_5(l-1)+lC_{34}+25l(C_{12}-96).\n\\]\n\n0..14999 为主区，15000..19999 为公共溢出区。查找过程：计算 p=H2(C)；主槽学号等于 C 则成功；否则沿 p 的溢出链逐项比较完整 8 位学号；链尾为空则失败。以每组本科约 130、研究生约 20 的题设分布，多数记录在主槽一次命中。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-25",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n设顺序表 r[1..n] 按关键字递减，另有可用 r[n+1] 槽。C 形式算法如下：\n\nint DescSeqSearch(Record r[], int n, KeyType K) {\n  KeyType saved=r[n+1].key; r[n+1].key=K;\n  int i=1; while(r[i].key>K) ++i;\n  r[n+1].key=saved;\n  return (i<=n && r[i].key==K) ? i : 0;\n}\n\n成功时第 i 个记录恰比较 i 次，判定树是一条长度 n 的成功链，故 \\(ASL_{succ}=\\frac1n\\sum_{i=1}^{n}i=(n+1)/2\\)。\n\n失败时有 n+1 个间隙，比较次数为 1..n+1，故\n\n\\[\nASL_{unsucc}=\\frac1{n+1}\\left(\\sum_{i=1}^{n}i+(n+1)\\right)=\\frac{n+2}{2}.\n\\]\n\n恢复 r[n+1] 是避免破坏表外数据的边界要求。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-26",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n递归式：若 low>high 返回 0；mid=low+(high-low)/2；相等返回 mid，小于则递归 [mid+1,high]，大于则递归 [low,mid-1]。每步保持目标若存在仍在当前区间且区间缩小，时间、栈空间均为 O(log n)。 调用入口为 BinSearch(r,1,n,K)。若表可含重复键，当前版本返回任一命中位置；要取首个命中时相等后继续收缩 high。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-27",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n维护 ans=0，循环 low<=high：若 r[mid].key<=K，则 ans=mid,low=mid+1；否则 high=mid-1；返回 ans。ans 始终是已知不大于 K 的最大下标，故自然覆盖返回 0 与 n 的边界，时间 O(log n)。 本过程要求 r[1..n] 升序；n=0 时循环不进入并返回 0，正好是所有键均应插在首位前的边界。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-28",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n先在递增的块最大键索引表上做 lower_bound，求首个 maxKey>=K 的块 b；若 b==MaxBlk 则失败。设 lo=idxtab[b].idx，hi=(b+1<MaxBlk?idxtab[b+1].idx:DataNum)，普通实现只扫描 data[lo..hi) 并比较 K。\n\n若要在块内使用监视哨，绝不能覆盖 data[hi-1] 的真实末记录。逻辑块尾应另设一个备用槽 sentinel：对未满块，直接在其预留尾槽写 K；对满块且不是最后一块，临时保存下一块首槽 data[hi]，把 K 写入该备用位置，查找后恢复 data[hi]；对最后满块，表尾必须预留一个额外槽。扫描从 lo 开始直到命中 K，再以 i<hi 且 data[i].key==K 判定成功。\n\n哨兵省去每轮边界判断但增加保存/恢复赋值；索引定位 O(log MaxBlk)，块内 O(BlockSize)，整体 O(log MaxBlk+BlockSize)。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-31",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n中序遍历并维护前驱指针 pre：递归检查左子树；若 pre 非空且 pre.key>=当前键则失败；更新 pre 后检查右子树。中序序列严格递增当且仅当为 BST，故算法正确；时间 O(n)，栈 O(h)。 空树返回真；题设关键字互异，因此比较必须用大于等于而不能只用大于，否则重复键会被错误接受。 前驱指针应只在访问当前根后更新，不能在递归左子树前提前修改。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-33",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n递归过程：若结点为空返回；若 key<x，则其左子树所有键更小，只递归右子树；否则先递归右子树、输出当前键、再递归左子树。输出顺序因此从大到小，且所有不小于 x 的键恰好输出一次。\n\n当访问到 key<x 的结点时立即剪去整个左子树。设 BST 高度为 h、输出数为 m，则搜索边界路径和必要的输出访问合计为 O(h+m)。只有当该 BST 已知为平衡树、h=O(log n) 时，才可进一步写成 O(log n+m)；普通 BST 可能退化到 O(n+m)。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-35",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n假设“后继线索”指中序后继线索。先按 BST 比较从根定位首个 key>a 的结点 p；若不存在或 p.key>=b，结束。随后反复取中序后继，并在 p.key<b 时输出。Next(p) 在 p 有右线索时直接返回线索；否则进入右孩子并连续走左孩子，直到最左结点；无后继返回 NULL。\n\n定位首个候选耗时 O(h)，随后每输出一个结点只做常数次线索/子树边移动，故总时间 O(h+m)，其中 h 为树高、m 为输出键数。a>=b 时输出空序列；该复杂度不假设树平衡。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-40",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n循环：若 k==p.lsize 返回 p；若 k<p.lsize 转左；否则 k-=p.lsize 转右；空指针则不存在。lsize 是该结点的中序排名，故右转时恰跳过 lsize 个结点。平衡树高度 O(log n)，额外空间 O(1)。 k 必须满足 1<=k<=结点总数；插入、删除和旋转后都必须同步更新路径上的 lsize，否则该选择算法不再正确。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-41",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n采用明确的分隔键约定：内部结点 child[0..cnt]，并令 key[i]=max(child[i])，i=0..cnt-1；叶结点保存 key[0..cnt-1] 的实际键、对应记录指针 rec[0..cnt-1] 和叶链 next。内部结点与叶结点用 tag 区分，二者都保存 cnt 和 parent；内部结点不保存记录指针，叶结点不保存 child 指针。\n\n随机查找 K 时，在每个内部结点对 key[0..cnt-1] 做 lower_bound，取第一个 key[i]>=K 的孩子 child[i]；若都小于 K，则取 child[cnt]。到叶后同样对实际键做 lower_bound，返回 (found,leafptr,position)：若 position<cnt 且 leaf.key[position]==K 则 found=true，否则为 K 的插入位置。K 小于最小键时 position=0，大于最大键时 position=cnt；空树返回 false、NULL、0。\n\n该 lower_bound 与 sep=max(child[i]) 的约定一致；若改用 sep=min(child[i+1])，则内部下降必须改为 upper_bound，二者不可混用。树高为 O(log_m n)，每层二分 O(log m)。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-44",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n对每个首字母 i=1..26，从槽 j=i 开始线性探测，直到空槽；若当前关键字的 Hash(key) 等于 i 则输出。Hash 必须定义为标识符第一个字母在字母表中的序号，注释和实现都不能误写为第二个字母。\n\n装载因子 alpha<1 保证表中至少有一个空槽，因此从任意 i 沿探测环都能终止。每轮 j=(j+1) mod m；空键是停止条件，不能把已删除墓碑当空槽。总扫描至多 26m，额外空间 O(1)。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-2",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n三次调用过程 qkpass 的结果分别为\n\n```text\n(Amy, Kay, Eva, Roy, Dot, Jon, Kim, Ann, Guy, Jim) Tim (Tom);\nAmy (Kay, Eva, Roy, Dot, Jon, Kim, Ann, Guy, Jim) Tim (Tom);\nAmy (Jim, Eva, Guy, Dot, Jon, Ann) Kay (Kim, Roy) Tim (Tom);\n```\n\n三次调用过程 merge 的结果分别为\n\n```text\n(Kay, Tim, Eva, Roy, Dot, Jon, Kim, Ann, Tom, Jim, Guy, Amy)\n(Eva, Kay, Tim, Roy, Dot, Jon, Kim, Ann, Tom, Jim, Guy, Amy)\n```\n\n```text\n(Eva, Kay, Tim, Dot, Roy, Jon, Kim, Ann, Tom, Jim, Guy, Amy)\n```",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-3",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n稳定：直接插入、折半插入、冒泡、归并、基数排序；不稳定：希尔、快速、简单选择、堆排序。例：(2,a),(2,b),(1,c) 经简单选择首趟交换可成 (1,c),(2,b),(2,a)，相等键次序已反转。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-4",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n最坏关键字比较数：① n-1；② sum(i, i=2..n)=n(n+1)/2-1；③ n-1+sum(i, i=1..floor(n/2))；④ floor(n/2)-1+sum(i, i=floor(n/2)+1..n)。逐次插入时累计其可能跨越的有序前缀即可。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-5",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n结论是：可能减少，至少不变，绝不会增加。只要考虑序列中位于 $a_i$ 和 $a_j$ 之间的元素 $a_k(i<k<j)$ 的几种情况即可。 这里的逆序元素定义不同于逆序对；结论针对“前面存在更大元素”的记录数，而非所有逆序对数。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-7",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n按每趟分区比较 s-1 个键，最佳分割为 3:3、再各为 1:1，比较数为 6+2+2=10。初始排列可取 4,2,1,3,6,5,7；首元及两个子问题首元均为中位键。 初始排列必须与所用 Partition 的枢轴选择规则一致；本例按首元为枢轴，若实现取中位三数则需重新构造。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-11",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n至少需编排 17 场比赛。 赛程设计必须保存每场胜负关系，不能只保留冠军；否则无法限制第二、第三名候选集合，场数也无法达到此下界。 实现中可把每位运动员的败者集合保存为链表，后续比较只从这些集合合并产生候选。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-13",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n对近似有序的序列可用直接插入排序法，其时间复杂度为 $O(k\\cdot n)$，当 $k<<<n$ 且 $n$ 很大时，将比快速排序更有效。而起泡排序和简单选择排序的时间复杂度均为 $O(n^2)$，和 $k$ 无关。本题旨在提醒读者注意算法效率讨论的前提条件。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-14",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n建最大锦标赛树需 n-1 次比较，并在各内部结点记录败者。最大值确定后，次大只在其败者链中；用堆维护这些候选，重复取最大直到前 k 项。比较为 n-1+O(k log n)，无需全排序。 输出时将候选堆连续弹出 k 次即可得到从大到小的前 k 项；k>n 时应报参数错误，而非访问空败者链。 锦标赛树建成后，每个被淘汰键的来源路径可追溯，因而候选不会遗漏。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-19",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n采用稳定 LSD 多关键字排序：先按姓氏，再按县（区），最后按省（市）。后一趟稳定排序保留较低优先级顺序，最终即省、县、姓氏；可用编码字段和链式桶，避免搬动大记录。 姓氏、县和省应先编码为可比较的定长字段；LSD 的每一趟必须稳定，否则已建立的次关键字次序会被破坏。 对同一省、县、姓氏完全相同的记录，可再以输入序号作最低优先级键保证报表可复现。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-24",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n用长度 n 的循环数组 d 保存已处理的有序段，first、last 指向该段两端。初始化 d[0]=r[0]，first=last=0。依次读 r[i]：\n\n1. 若 x<d[first]，在循环有序段 [first,last] 中二分找最后一个 <=x 的位置 p；比较从 first 到 p 与从 p+1 到 last 的移动数，题设的双向插入取靠 first 的空槽，将 first=(first-1+n)%n，并把 first..p-1 逐项前移，再写 d[p]=x。\n2. 若 x>=d[first]，同样二分定位 p；若靠 last 的移动较少，则 last=(last+1)%n，把 last..p+1 逐项后移后写 d[p+1]=x；否则走前移分支。\n3. 输出时从 first 起连续取 n 项。\n\n每次二分定位后只移动较短的一侧，且移动前后 d[first..last] 仍按非降序并恰含已读记录，归纳得正确。比较 O(n log n)，最坏移动 O(n^2)，循环下标都按 mod n 处理。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-28",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\nvoid BiBubbleSort(Record r[], int n) {\n  int lo=0, hi=n-1, d=1;\n  bool exchanged=true;\n  while (lo<hi && exchanged) {\n    exchanged=false;\n    if (d==1) {\n      for (int i=lo;i<hi;++i)\n        if (r[i].key>r[i+1].key) {\n          Record tmp=r[i]; r[i]=r[i+1]; r[i+1]=tmp;\n          exchanged=true;\n        }\n      --hi;\n    } else {\n      for (int i=hi;i>lo;--i)\n        if (r[i-1].key>r[i].key) {\n          Record tmp=r[i]; r[i]=r[i-1]; r[i-1]=tmp;\n          exchanged=true;\n        }\n      ++lo;\n    }\n    d=-d;\n  }\n}\n\n变量 exchanged 只表示本趟是否发生真实交换；正向扫描后 hi 位置为最大键，反向扫描后 lo 位置为最小键。区间外始终有序，终止时全表有序。最坏 O(n^2)、空间 O(1)，已排序输入一趟结束。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-32",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\nvoid DutchFlag(Color a[], int n) {\n  int low=0, mid=0, high=n-1;\n  while (mid<=high) {\n    if (a[mid]==RED) { swap(a[low],a[mid]); ++low; ++mid; }\n    else if (a[mid]==WHITE) ++mid;\n    else if (a[mid]==BLUE) { swap(a[mid],a[high]); --high; }\n    else error(\"invalid color\");\n  }\n}\n\n循环不变式是 [0,low) 全红、[low,mid) 全白、(high,n) 全蓝、[mid,high] 未分类。每轮 mid 增加或 high 减少，故线性终止；交换蓝色后不能增加 mid，因为换入项尚未判定。时间 O(n)，空间 O(1)，该算法不稳定。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-36",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\nMergePass(src,dst,n,width) 从 lo=0 起，每次令 mid=min(lo+width,n)、hi=min(lo+2*width,n)，把 src[lo..mid) 和 src[mid..hi) 用两个游标稳定归并到 dst；若 mid==n，直接复制这一奇尾段。MergeSort 分配一份 n 长度 tmp，令 src=a、dst=tmp、width=1；循环执行 MergePass(src,dst,n,width)，交换 src/dst 指针，再令 width*=2，直到 width>=n；若最终 src!=a，再复制回 a。\n\n归纳地，width 轮前 src 的每个长度至多 width 的段有序；一趟归并后段长至多 2width 且仍有序。每趟 O(n)，共 ceil(log2 n) 趟，时间 O(n log n)、临时空间 O(n)。width 在翻倍前检查 width>n/2 则最后一趟后停止，避免整数溢出。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-38",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n先扫描单链表，把每个最大非降天然段断开：若 p->key>p->next->key，则保存 q=p->next，置 p->next=NULL，将 q 作为下一段头；所有段头按出现顺序入循环队列。稳定 Merge(x,y) 用尾指针逐个接较小键，相等时先接 x，返回合并段头。\n\n随后当队列长度大于 1，出队 x、y；若只剩 x 则直接入下一轮，否则把 Merge(x,y) 入队。可用两个队列区分轮次，避免本轮新段与未处理旧段混合。初始每段有序，Merge 保持有序，最终唯一段就是排序结果。设天然段数为 r，时间 O(n log r)，仅用 O(r) 个段头队列空间且不移动记录数据。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-39",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n如果第一个序列的记录个数少于 $s$，则确定其第一个记录在归并后的序列中的位置 $k$，并从该位置开始进行 $k-1$ 个位置的循环移位（参见 5.18 题及其提示）。这次循环移位仅涉及第一个序列中的记录和第二个序列中的前 $k-1$ 个记录，使得前 $k$ 个记录就\n\n位于其归并后的最终位置。如此继续下去，依次对原来第一个序列的第二个及随后的每个记录重复上述过程。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-40",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n令 s=floor(sqrt(n))，把两段有序序列各自分为完整 s 块和一个不足 s 的尾块。先把两端不足 s 的块通过块旋转移到边界，使用 10.39 的“短段逐项定位+循环移位”原地稳定归并；对中间完整块，比较两块首键，取首键较小的块作为下一输出块。若该块与输出位置不连续，利用三次翻转完成相邻块轮换，保持块内顺序。\n\n每个完整块只被选择、轮换一次，块边界的不足段长度均小于 s，交给 10.39 后总工作仍为 O(n)；三次翻转只使用常数临时变量。相等键时总是先取原左段的块，且块内 Merge 也先取左键，因此输出稳定。边界：任一序列为空直接返回；s=0 时返回；最后不足块不参与“完整块”比较。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-41",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n键域为整数 0..9999。定义 Node{Record rec;Node*next;} 和 Node* bucket[10000]={0}、tail[10000]={0}。扫描 1000 条记录时检查 0<=key<10000，为每条记录分配节点并追加到 bucket[key] 的尾部；随后 for k=0..9999 顺序取出 bucket[k] 链并写回输出表。尾插保证同键记录保留输入相对次序，故稳定。\n\n没有关键字比较，建桶 O(n)，扫描键域 O(10000)，总 O(n+10000)；每条记录只被链接和写出一次。若键域不是从 0 开始，用 bucket[key-minKey] 作为偏移；范围过大时不宜采用该直接定址方案。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-43",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n先置 c[i]=0。对每个 i<j 仅比较一次：若 a[i].key<a[j].key 则 ++c[j]，否则 ++c[i]；键互异时 c[i] 就是 a[i] 的零基最终排名。第二步按置换环移动：\n\nfor i=0..n-1:\n  while c[i]!=i:\n    j=c[i]; swap(a[i],a[j]); swap(c[i],c[j])\n\n交换后原来位于 i 的记录被送到其最终位置 j，且其排名也随之移动；每轮至少固定一个位置，故终止且不会覆盖记录。第一步比较 n(n-1)/2 次，第二步 O(n) 次交换，额外 c 数组 O(n)。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-44",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n分配 number[v..w] 并清零；扫描 a[0..n) 时验证 v<=key<=w，执行 ++number[key]。为保留带载荷的相等记录，再构造起始位置 start：prefix=0，从 key=v 到 w，令 start[key]=prefix，prefix+=number[key]。第二次按输入顺序扫描 a，把记录写到 out[start[key]++]；最后复制 out 回 a。\n\nnumber 给出每个整数键的个数，start 的前缀和给出该键在有序表的首位置，所以回填后键非降序；按输入顺序写同键段，故稳定。时间 O(n+w-v+1)，空间 O(n+w-v+1)。若只存整数值，可按 number 直接重复输出；范围稀疏很大时不适用。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-46",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n建立轻量索引 d[i]={key:b[i].key,pos:i}，用任一排序算法按 key 排 d；若要求稳定，给 d 再带原序号并稳定排序。排序完成后执行 for j=0..n-1: a[j]=b[d[j].pos]，每个大记录只从 b 拷贝到 a 一次，排序期间只移动小索引项。\n\n链表版本创建数组 d[i]={key,nodePtr}，排序 d 后令 d[i].nodePtr->next=d[i+1].nodePtr，最后一项 next=NULL，头指针=d[0].nodePtr。这样快速排序等算法只交换数组内的指针/键，不交换链表节点中的大记录。n=0 直接返回空头。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-1",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n设初始段数 r=100。三趟完成需 k^3>=100，最低 5 路。文件总数不超过 13 时每趟最多 12 输入+1 输出，12 路两趟即可；若限定两趟，k^2>=100，最低 10 路。 第一问的三趟指三次归并而非初始内部排序；第二问的 13 个文件包含一个输出文件，故输入路数上限是 12。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-2",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n文件为 1000 块；每次内排 750 条即 5 块，得 200 个初始段。4 路归并需 ceil(log4 200)=4 趟。初始内排读写 2000 次，每趟归并读写全文件 2000 次，合计 10000 次 I/O。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-3",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n求最大时 a>b，不能成为最大值的 b 为败者。败者树把参与比较的元素放叶子、内部记录败者，替换叶后只重赛一路；堆则元素直接在完全树节点并满足父子偏序，不显式保存每场败者。 若用于求最小值，则比较中较大的元素为败者；败者概念随锦标目标改变，树的更新路径长度仍为 O(log k)。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-11",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n3 路最佳归并要求叶子数满足 (r-1) mod 2=0。8 个实际段需补 1 个零长虚段。按最短优先归并：\n\n(0,4,7)→11；\n(9,11,12)→32；\n(18,23,32)→73；\n(39,47,73)→159。\n\n归并输出段长度之和为 11+32+73+159=275 个物理块。每次实际归并段完整读一次、输出完整写一次，零长虚段不产生 I/O，因此读写外存总数为 2×275=550 次。最短段优先是 3 叉 Huffman 构造，交换论保证总读写最小。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-12",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n用 5 路最小堆归并：按余数补零长虚段，首轮及后续每轮取当前最短的 5 段归并并压回。这是 5 叉 Huffman 构造，交换论保证最小加权路径长度。给定分布的归并读写总次数为 800。  首轮补多少零段由 (r-1) mod (k-1) 决定；补段只调节树形，不会读写物理块，也不能把它当真实归并段。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-0-overview-0-1",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n核心类型：Complex={double re,im}。接口为 Make(re,im)、Add(a,b)、Sub(a,b)、Mul(a,b)、Real(a)、Imag(a)、Print(a)。Add 返回 (a.re+b.re,a.im+b.im)，Sub 逐分量相减，Mul 返回 (a.re*b.re-a.im*b.im,a.re*b.im+a.im*b.re)，Real/Imag 分别返回字段。\n\n主程序循环读操作码和两个实数；构造后可执行 +、-、*、re、im，未知操作报错。Print 先把 abs(x)<1e-10 规范为 0：实虚皆零输出 0；实部为零输出 i 加虚部；虚部为零只输出实部；否则输出 a+i b 或 a-i|b|。\n\n可复验加法：Make(3.1,0)+Make(4.22,8.9) 输出 7.32+i8.9；(-1.33,2.34)+(0.1,-6.5) 输出 -1.23-i4.16。所有基本运算 O(1)；浮点输入失败或非有限数应拒绝。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-0-overview-0-2",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n核心类型：Rational={long long num,den}，不变式是 den>0 且 gcd(abs(num),den)=1。Make(n,d) 在 d=0 时返回错误；若 d<0 同时取反；再以 gcd 约分。接口 Add、Sub、Mul、Num、Den 和 Print。Add(a,b)=Make(a.num*b.den+b.num*a.den,a.den*b.den)，Sub 只改中间加号，Mul(a,b)=Make(a.num*b.num,a.den*b.den)；实现前可交叉约分以减少溢出风险。\n\n主程序读 p/q、r/s 和操作符，先 Make 两数，失败则报告；成功后输出最简 p/q，分母为 1 时只输出整数。样例 1/6+1/4=5/12，-2/3×9/4=-3/2。除法扩展为 Make(a.num*b.den,a.den*b.num)，必须拒绝 b.num=0；所有 gcd 规范化为 O(log M)。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-0-overview-0-3",
+      "answer": {
+        "status": "provided",
+        "origin": "verified",
+        "verified": "**独立核校参考答案（非原书摘录）**\n\n核心类型 Turtle={double x,y,heading,size; bool penDown; Color color}。后端只需 MoveTo(x,y) 和 LineTo(x1,y1,x2,y2,color)。接口 Init、PenUp、PenDown、Turn(angle)、SetColor、Forward(distance)、Line、Rect、Circle。Forward 计算 nx=x+distance*cos(heading)、ny=y+distance*sin(heading)；落笔时调用 LineTo(x,y,nx,ny,color)，抬笔时只 MoveTo，再更新坐标。\n\nLine 调一次 Forward；Rect(w,h) 重复四次 Forward 后 Turn(90)，输入 w,h<0 报错；Circle(r) 取 segments=max(12,ceil(2πr/size))，每步走弦长 2r sin(π/segments) 后转 360/segments 度，r<0 报错。交互主循环读取命令，未知命令或非有限参数拒绝。样例 Init(0,0,0)、Rect(2,1) 后回到 (0,0)，且产生四条线段。",
+        "explanation": "含可学习结论、必要过程和边界说明；独立补充明确标注。"
+      },
+      "review": {
+        "status": "passed",
+        "resolvedFlagCodes": [],
+        "notes": "已补齐独立 verified 答案。"
+      }
+    }
+  ],
+  "unresolved": []
+}

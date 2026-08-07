@@ -1,0 +1,2505 @@
+{
+  "schemaVersion": "textbook-question-review-v1",
+  "bookId": "data-structures-yan-weimin",
+  "scope": [
+    "09-search",
+    "10-internal-sorting",
+    "11-external-sorting",
+    "12-file",
+    "practice-0-overview",
+    "practice-1",
+    "practice-2",
+    "practice-3",
+    "practice-4",
+    "practice-5",
+    "practice-6"
+  ],
+  "updates": [
+    {
+      "id": "book-ds-yan-09-search-9-1",
+      "tags": [
+        "数组查找"
+      ],
+      "knowledgeIds": [
+        "ds:search/array"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-2",
+      "tags": [
+        "数组查找"
+      ],
+      "knowledgeIds": [
+        "ds:search/array"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-3",
+      "tags": [
+        "数组查找"
+      ],
+      "knowledgeIds": [
+        "ds:search/array"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-4",
+      "tags": [
+        "数组查找"
+      ],
+      "knowledgeIds": [
+        "ds:search/array"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-5",
+      "tags": [
+        "数组查找"
+      ],
+      "knowledgeIds": [
+        "ds:search/array"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-6",
+      "tags": [
+        "数组查找"
+      ],
+      "knowledgeIds": [
+        "ds:search/array"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-7",
+      "tags": [
+        "数组查找"
+      ],
+      "knowledgeIds": [
+        "ds:search/array"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-8",
+      "tags": [
+        "数组查找"
+      ],
+      "knowledgeIds": [
+        "ds:search/array"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-9",
+      "tags": [
+        "数组查找",
+        "二叉排序树",
+        "平衡二叉树"
+      ],
+      "knowledgeIds": [
+        "ds:search/array",
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-10",
+      "tags": [
+        "二叉排序树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-11",
+      "tags": [
+        "平衡二叉树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-12",
+      "tags": [
+        "B树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-13",
+      "tags": [
+        "B树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-14",
+      "tags": [
+        "B树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-15",
+      "tags": [
+        "B树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-16",
+      "tags": [
+        "B树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-17",
+      "tags": [
+        "B+树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-18",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-19",
+      "tags": [
+        "散列表"
+      ],
+      "knowledgeIds": [
+        "ds:search/hash"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-20",
+      "tags": [
+        "散列表"
+      ],
+      "knowledgeIds": [
+        "ds:search/hash"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-21",
+      "tags": [
+        "散列表"
+      ],
+      "knowledgeIds": [
+        "ds:search/hash"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-22",
+      "tags": [
+        "散列表"
+      ],
+      "knowledgeIds": [
+        "ds:search/hash"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-23",
+      "tags": [
+        "散列表"
+      ],
+      "knowledgeIds": [
+        "ds:search/hash"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-24",
+      "tags": [
+        "散列表"
+      ],
+      "knowledgeIds": [
+        "ds:search/hash"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-25",
+      "tags": [
+        "数组查找"
+      ],
+      "knowledgeIds": [
+        "ds:search/array"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-26",
+      "tags": [
+        "数组查找"
+      ],
+      "knowledgeIds": [
+        "ds:search/array"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-27",
+      "tags": [
+        "数组查找"
+      ],
+      "knowledgeIds": [
+        "ds:search/array"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-28",
+      "tags": [
+        "数组查找",
+        "分块查找"
+      ],
+      "knowledgeIds": [
+        "ds:search/array"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-29",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:search/array",
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-30",
+      "tags": [],
+      "knowledgeIds": [
+        "ds:search/array",
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-31",
+      "tags": [
+        "二叉排序树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-32",
+      "tags": [
+        "二叉排序树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-33",
+      "tags": [
+        "二叉排序树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-34",
+      "tags": [
+        "二叉排序树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-35",
+      "tags": [
+        "二叉排序树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-36",
+      "tags": [
+        "二叉排序树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-37",
+      "tags": [
+        "二叉排序树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-38",
+      "tags": [
+        "二叉排序树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-39",
+      "tags": [
+        "二叉排序树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-40",
+      "tags": [
+        "平衡二叉树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-41",
+      "tags": [
+        "B+树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-42",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-43",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-44",
+      "tags": [
+        "散列表"
+      ],
+      "knowledgeIds": [
+        "ds:search/hash"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-45",
+      "tags": [
+        "散列表"
+      ],
+      "knowledgeIds": [
+        "ds:search/hash"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-09-search-9-46",
+      "tags": [
+        "散列表",
+        "三元组表"
+      ],
+      "knowledgeIds": [
+        "ds:search/hash",
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-1",
+      "tags": [
+        "归并排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-2",
+      "tags": [
+        "归并排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-3",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-4",
+      "tags": [
+        "插入排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-5",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-6",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-7",
+      "tags": [
+        "快速排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-8",
+      "tags": [
+        "快速排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-9",
+      "tags": [
+        "快速排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-10",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-11",
+      "tags": [
+        "堆的概念"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-12",
+      "tags": [
+        "堆的概念"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-13",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-14",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-15",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-16",
+      "tags": [
+        "基数排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-17",
+      "tags": [
+        "排序算法",
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal",
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-18",
+      "tags": [
+        "基数排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-19",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-20",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-21",
+      "tags": [
+        "归并排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-22",
+      "tags": [
+        "归并排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-23",
+      "tags": [
+        "插入排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-24",
+      "tags": [
+        "插入排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-25",
+      "tags": [
+        "插入排序",
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal",
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-26",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-27",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-28",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-29",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-30",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal",
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-31",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-32",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-33",
+      "tags": [
+        "排序算法",
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal",
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-34",
+      "tags": [
+        "插入排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-35",
+      "tags": [
+        "堆的概念"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-36",
+      "tags": [
+        "归并排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-37",
+      "tags": [
+        "排序算法",
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal",
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-38",
+      "tags": [
+        "归并排序",
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal",
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-39",
+      "tags": [
+        "归并排序",
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal",
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "needs-assumption",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题目未固定原地归并的块轮换细节；答案已声明稳定循环移位约定。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-40",
+      "tags": [
+        "排序算法",
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal",
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "needs-assumption",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题目未固定原地归并的块轮换细节；答案已声明稳定循环移位约定。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-41",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-42",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-43",
+      "tags": [
+        "排序算法"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-44",
+      "tags": [
+        "基数排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-45",
+      "tags": [
+        "基数排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-10-internal-sorting-10-46",
+      "tags": [
+        "快速排序",
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal",
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-1",
+      "tags": [
+        "外部排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/external"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-2",
+      "tags": [
+        "外部排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/external"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-3",
+      "tags": [
+        "外部排序",
+        "败者树",
+        "堆的概念"
+      ],
+      "knowledgeIds": [
+        "ds:sort/external",
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-4",
+      "tags": [
+        "外部排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/external"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-5",
+      "tags": [
+        "外部排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/external"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-6",
+      "tags": [
+        "外部排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/external"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-7",
+      "tags": [
+        "外部排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/external"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-8",
+      "tags": [
+        "外部排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/external"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-9",
+      "tags": [
+        "外部排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/external"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-10",
+      "tags": [
+        "外部排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/external"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-11",
+      "tags": [
+        "外部排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/external"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-12",
+      "tags": [
+        "外部排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/external"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-11-external-sorting-11-13",
+      "tags": [
+        "外部排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/external"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "core",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-12-file-12-1",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-12-file-12-2",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-12-file-12-3",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-12-file-12-4",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-12-file-12-5",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-12-file-12-6",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-12-file-12-7",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-12-file-12-8",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-12-file-12-9",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-12-file-12-10",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-12-file-12-11",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-0-overview-0-1",
+      "tags": [
+      ],
+      "knowledgeIds": [
+        "ds:basic/ds"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-0-overview-0-2",
+      "tags": [
+      ],
+      "knowledgeIds": [
+        "ds:basic/ds"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-0-overview-0-3",
+      "tags": [
+      ],
+      "knowledgeIds": [
+        "ds:basic/ds"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-1-1-1",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-1-1-2",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-1-1-3",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-1-1-4",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-1-1-5",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-1-1-6",
+      "tags": [
+        "复杂度分析"
+      ],
+      "knowledgeIds": [
+        "ds:basic/algorithm"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-2-2-1",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-2-2-2",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-2-2-3",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/application",
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-2-2-4",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-2-2-5",
+      "tags": [
+        "栈",
+        "后序表达式求值"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack",
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-2-2-6",
+      "tags": [
+        "队列"
+      ],
+      "knowledgeIds": [
+        "ds:array/queue"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-2-2-7",
+      "tags": [
+        "栈"
+      ],
+      "knowledgeIds": [
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-2-2-8",
+      "tags": [
+        "队列"
+      ],
+      "knowledgeIds": [
+        "ds:array/queue"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-2-2-9",
+      "tags": [
+        "栈",
+        "DFS"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation",
+        "ds:array/stack"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-3-3-1",
+      "tags": [
+        "链表"
+      ],
+      "knowledgeIds": [
+        "ds:strings/def",
+        "ds:linearlist/linked"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-3-3-2",
+      "tags": [
+      ],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-3-3-3",
+      "tags": [
+      ],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-3-3-4",
+      "tags": [
+      ],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-3-3-5",
+      "tags": [
+      ],
+      "knowledgeIds": [
+        "ds:strings/def"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-4-4-1",
+      "tags": [
+        "三元组表"
+      ],
+      "knowledgeIds": [
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-4-4-2",
+      "tags": [
+        "二维数组"
+      ],
+      "knowledgeIds": [
+        "ds:array/matrix"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-4-4-3",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-4-4-4",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-5-5-1",
+      "tags": [
+        "后序表达式求值"
+      ],
+      "knowledgeIds": [
+        "ds:array/application"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-5-5-2",
+      "tags": [
+        "哈夫曼树",
+        "哈夫曼编码"
+      ],
+      "knowledgeIds": [
+        "ds:tree/app"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-5-5-3",
+      "tags": [
+        "图的遍历",
+        "邻接多重表"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation",
+        "ds:graph/defs"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-5-5-4",
+      "tags": [
+        "拓扑排序"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-5-5-5",
+      "tags": [
+        "最短路径"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-5-5-6",
+      "tags": [
+        "最小生成树"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-5-5-7",
+      "tags": [
+        "二叉树构建"
+      ],
+      "knowledgeIds": [
+        "ds:tree/btree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-5-5-8",
+      "tags": [
+        "最短路径"
+      ],
+      "knowledgeIds": [
+        "ds:graph/operation"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-6-1",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-6-2",
+      "tags": [
+        "散列表",
+        "平均查找长度"
+      ],
+      "knowledgeIds": [
+        "ds:search/hash"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-6-3",
+      "tags": [
+        "B+树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-6-4",
+      "tags": [
+        "平衡二叉树"
+      ],
+      "knowledgeIds": [
+        "ds:search/tree"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-6-5",
+      "tags": [],
+      "knowledgeIds": [],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "legacy",
+        "disposition": "keep",
+        "notes": "当前知识体系无对应真实页面，按 legacy 保留且不作伪映射。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-6-6",
+      "tags": [
+        "排序算法",
+        "快速排序",
+        "希尔排序",
+        "堆的概念"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    },
+    {
+      "id": "book-ds-yan-practice-6-6-7",
+      "tags": [
+        "基数排序"
+      ],
+      "knowledgeIds": [
+        "ds:sort/internal"
+      ],
+      "quality": {
+        "statement": "clear",
+        "answerability": "complete",
+        "examRelevance": "supporting",
+        "disposition": "keep",
+        "notes": "题干完整，映射至实际相关知识页。"
+      }
+    }
+  ]
+}

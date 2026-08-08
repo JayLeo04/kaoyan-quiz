@@ -1,0 +1,322 @@
+{
+  "schema_version": "1.0",
+  "run_id": "ds-20260808-ch02-ch12",
+  "chapter_id": "04-string",
+  "attempt": 1,
+  "status": "distilled",
+  "renderer": "portable",
+  "source": {
+    "input_root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\04-string",
+    "source_map": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\04-string\\source-map.json",
+    "source_lock_sha256": "ff42d521d8137ccc902915b60e56764d22b4ff235545e1717405d22c0ee1b87f",
+    "expected_files": [
+      "4-1-string-definition/index.md",
+      "4-2-string-representation-and-implementation/index.md",
+      "4-3-string-pattern-matching-algorithms/index.md",
+      "4-4-string-operation-applications/index.md",
+      "index.md"
+    ]
+  },
+  "output": {
+    "root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\candidates\\04-string\\attempt-01",
+    "markdown": "index.md",
+    "assets": [],
+    "visualization_fragment": null
+  },
+  "coverage": [
+    {
+      "source_file": "4-1-string-definition/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "4.1 串的逻辑定义与抽象操作",
+        "定义、位置与相等",
+        "抽象操作及其边界",
+        "算法 4.1：用基本操作实现定位"
+      ],
+      "reason": "定义限定、式(4-1)、空串与空格串边界、13 个抽象操作、最小操作子集及算法 4.1 全部保留；多个变量名示例与叙事说明合并为一个最小例。",
+      "items": [
+        {
+          "source_heading": "4.1　串类型的定义",
+          "disposition": "condensed",
+          "output_heading": "4.1 串的逻辑定义与抽象操作",
+          "reason": "重组为定义、操作合同和算法三层，保留全部条件与可区分概念。"
+        }
+      ]
+    },
+    {
+      "source_file": "4-2-string-representation-and-implementation/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "4.2 串的存储表示与实现",
+        "4.2.1 定长顺序存储",
+        "算法 4.2：定长串联接",
+        "算法 4.3：定长串求子串",
+        "4.2.2 堆分配存储",
+        "算法 4.4：堆串插入",
+        "4.2.3 块链存储"
+      ],
+      "reason": "三种表示的字段、空串状态、截断与填充规则、字符复制机制、存储密度、算法 4.2—4.4 的分支和更新顺序均保留；完整模块样板压成接口行为与关键伪码。图 4.1、4.2 的独有关系已由条件表和块大小对照表等价表达。",
+      "items": [
+        {
+          "source_heading": "4.2 串的表示和实现",
+          "disposition": "condensed",
+          "output_heading": "4.2 串的存储表示与实现",
+          "reason": "开场叙事压成三种表示总览，知识边界未删。"
+        },
+        {
+          "source_heading": "4.2.1 定长顺序存储表示",
+          "disposition": "condensed",
+          "output_heading": "4.2.1 定长顺序存储",
+          "reason": "保留数组布局、两种串长格式、截尾约定和复制成本。"
+        },
+        {
+          "source_heading": "1. 串联接 `Concat(&T, S1, S2)`",
+          "disposition": "condensed",
+          "output_heading": "算法 4.2：定长串联接",
+          "reason": "三种容量分支、返回语义和长度更新被压成表与关键伪码。"
+        },
+        {
+          "source_heading": "2. 求子串 `SubString(&Sub, S, pos, len)`",
+          "disposition": "condensed",
+          "output_heading": "算法 4.3：定长串求子串",
+          "reason": "完整保留合法区间、空子串边界、复制区间和返回值。"
+        },
+        {
+          "source_heading": "4.2.2 堆分配存储表示",
+          "disposition": "condensed",
+          "output_heading": "4.2.2 堆分配存储",
+          "reason": "保留 HString 字段与最小操作子集的全部确定行为；重复的内存分配样板合并，并显式记录 SubString 原型冲突。"
+        },
+        {
+          "source_heading": "4.2.3 串的块链存储表示",
+          "disposition": "condensed",
+          "output_heading": "4.2.3 块链存储",
+          "reason": "保留结点大小、尾块填充、头尾指针、串长、单链理由、联接边界、存储密度公式及字符集因素；源图改为等价对照表。"
+        }
+      ]
+    },
+    {
+      "source_file": "4-3-string-pattern-matching-algorithms/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "4.3 串的模式匹配",
+        "4.3.1 朴素模式匹配",
+        "算法 4.5：直接逐字符匹配",
+        "4.3.2 KMP：主串指针不回溯",
+        "失配回退的前缀—后缀条件",
+        "算法 4.6：KMP 匹配",
+        "算法 4.7：递推求 `next`",
+        "算法 4.8：`nextval` 消除重复比较"
+      ],
+      "reason": "算法 4.5—4.8、式(4-2)—式(4-12)、1 起始 next 定义、循环不变量、复杂度条件、最坏例与 next/nextval 表全部保留；五张过程图转换为正文、状态转移表和数值表，不让知识依赖视觉。",
+      "items": [
+        {
+          "source_heading": "4.3 串的模式匹配算法",
+          "disposition": "condensed",
+          "output_heading": "4.3 串的模式匹配",
+          "reason": "统一先声明主串、模式、位序和返回约定，再分朴素与 KMP 两条算法线。"
+        },
+        {
+          "source_heading": "4.3.1 求子串位置的定位函数 `Index(S, T, pos)`",
+          "disposition": "condensed",
+          "output_heading": "4.3.1 朴素模式匹配",
+          "reason": "保留算法 4.5、候选起点不变量、成功位置、一般表现与 O(nm) 最坏条件；重复叙述压缩。"
+        },
+        {
+          "source_heading": "4.3.2 模式匹配的一种改进算法",
+          "disposition": "condensed",
+          "output_heading": "4.3.2 KMP：主串指针不回溯",
+          "reason": "保留 KMP 动机、完整公式链、next 定义与递推、nextval 修正、代码关键分支和 O(n+m) 结论。"
+        }
+      ]
+    },
+    {
+      "source_file": "4-4-string-operation-applications/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "4.4 串操作的典型应用",
+        "4.4.1 文本编辑：文本串、页表与行表",
+        "4.4.2 书名关键词索引",
+        "算法 4.9：生成索引表的总流程",
+        "算法 4.10—4.14：查询并插入索引项"
+      ],
+      "reason": "文本的页/行层级、页表与行表字段和维护规则，以及关键词索引的数据结构、算法 4.9—4.14 的合同与不变量全部保留；演示源程序字符格和重复书目行压缩为最小表例。",
+      "items": [
+        {
+          "source_heading": "4.4 串操作应用举例",
+          "disposition": "condensed",
+          "output_heading": "4.4 串操作的典型应用",
+          "reason": "按应用对象重组，保留两个完整机制而删除背景铺垫。"
+        },
+        {
+          "source_heading": "4.4.1 文本编辑",
+          "disposition": "condensed",
+          "output_heading": "4.4.1 文本编辑：文本串、页表与行表",
+          "reason": "保留文本串层级、图 4.8 全部表项、指针与四类更新规则；图 4.7 字符格由文字定义和行表替代。"
+        },
+        {
+          "source_heading": "4.4.2 建立词索引表",
+          "disposition": "condensed",
+          "output_heading": "4.4.2 书名关键词索引",
+          "reason": "保留常用词过滤、索引映射、结构选择、查找/新建分支、算法 4.9—4.14 与有序性不变量；重复书目映射缩为能表达一对多关系的最小例。"
+        }
+      ]
+    },
+    {
+      "source_file": "index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "第 4 章 串",
+        "本章知识地图"
+      ],
+      "reason": "章节对象与存储选择动机压入主线和知识地图；纯目录导航在单页产物中无知识增量，单独省略。",
+      "items": [
+        {
+          "source_heading": "第 4 章　串",
+          "disposition": "condensed",
+          "output_heading": "第 4 章 串",
+          "reason": "历史与应用枚举压成串处理对象、存储选择和本章范围。"
+        },
+        {
+          "source_heading": "目录",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "仅提供指向四个已完整覆盖源页的导航；单页重组后由本章知识地图和编号标题承担导航，没有独有知识。"
+        }
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "term": "串",
+      "aliases": ["字符串", "string"],
+      "definition": "由零个或多个字符组成的有限序列。",
+      "source_file": "4-1-string-definition/index.md",
+      "output_heading": "定义、位置与相等"
+    },
+    {
+      "term": "空串",
+      "aliases": ["null string"],
+      "definition": "长度为 0 的串。",
+      "source_file": "4-1-string-definition/index.md",
+      "output_heading": "定义、位置与相等"
+    },
+    {
+      "term": "空格串",
+      "aliases": ["blank string"],
+      "definition": "由一个或多个空格组成、长度等于空格数的非空串。",
+      "source_file": "4-1-string-definition/index.md",
+      "output_heading": "定义、位置与相等"
+    },
+    {
+      "term": "子串",
+      "aliases": [],
+      "definition": "串中任意个连续字符组成的子序列。",
+      "source_file": "4-1-string-definition/index.md",
+      "output_heading": "定义、位置与相等"
+    },
+    {
+      "term": "主串",
+      "aliases": [],
+      "definition": "包含给定子串的串。",
+      "source_file": "4-1-string-definition/index.md",
+      "output_heading": "定义、位置与相等"
+    },
+    {
+      "term": "定长顺序存储",
+      "aliases": ["SString"],
+      "definition": "用固定长度连续数组存放串值，并在教材实现中以 0 号单元保存实际长度。",
+      "source_file": "4-2-string-representation-and-implementation/index.md",
+      "output_heading": "4.2.1 定长顺序存储"
+    },
+    {
+      "term": "堆分配存储",
+      "aliases": ["HString"],
+      "definition": "运行时按实际串长分配连续字符区，并以指针和长度共同表示串。",
+      "source_file": "4-2-string-representation-and-implementation/index.md",
+      "output_heading": "4.2.2 堆分配存储"
+    },
+    {
+      "term": "块链存储",
+      "aliases": ["LString"],
+      "definition": "在单链表结点的字符块中保存串值，并附设头指针、尾指针和当前串长。",
+      "source_file": "4-2-string-representation-and-implementation/index.md",
+      "output_heading": "4.2.3 块链存储"
+    },
+    {
+      "term": "存储密度",
+      "aliases": [],
+      "definition": "串值所占存储位与实际分配存储位之比。",
+      "source_file": "4-2-string-representation-and-implementation/index.md",
+      "output_heading": "4.2.3 块链存储"
+    },
+    {
+      "term": "模式匹配",
+      "aliases": ["子串定位"],
+      "definition": "从主串指定起点开始寻找模式串首次出现位置的操作。",
+      "source_file": "4-3-string-pattern-matching-algorithms/index.md",
+      "output_heading": "4.3 串的模式匹配"
+    },
+    {
+      "term": "next 函数",
+      "aliases": [],
+      "definition": "KMP 中由模式串自身的前缀—后缀关系确定失配回退位置的函数。",
+      "source_file": "4-3-string-pattern-matching-algorithms/index.md",
+      "output_heading": "失配回退的前缀—后缀条件"
+    },
+    {
+      "term": "nextval",
+      "aliases": ["next 修正值"],
+      "definition": "当回退字符与失配字符相同时继续跳过必败比较的修正回退表。",
+      "source_file": "4-3-string-pattern-matching-algorithms/index.md",
+      "output_heading": "算法 4.8：`nextval` 消除重复比较"
+    },
+    {
+      "term": "关键词索引表",
+      "aliases": [],
+      "definition": "按词典序保存关键词，并在每个词项中关联相应书号集合的索引结构。",
+      "source_file": "4-4-string-operation-applications/index.md",
+      "output_heading": "4.4.2 书名关键词索引"
+    }
+  ],
+  "visuals": [],
+  "checks": {
+    "ownership": true,
+    "source_coverage": true,
+    "headings": true,
+    "formulas": true,
+    "code": true,
+    "complexity": true,
+    "links": true,
+    "assets": true,
+    "rendering": true
+  },
+  "risks": [
+    {
+      "severity": "low",
+      "category": "source-risk",
+      "source_file": "4-2-string-representation-and-implementation/index.md",
+      "location": "4.2.2 HString 模块的 SubString 原型与实现",
+      "detail": "原型声明返回 HString，紧随其后的实现改为 Status 返回码并通过引用参数 Sub 输出结果；两处接口形式不一致，但合法区间和结果语义一致。",
+      "action": "正文已显式说明并按可确定的实现语义提炼；若后续需要可编译接口，应回查原版页面后统一签名。"
+    },
+    {
+      "severity": "low",
+      "category": "source-risk",
+      "source_file": "4-4-string-operation-applications/index.md",
+      "location": "算法 4.12—4.14 的函数原型、定义和下标约定",
+      "detail": "原型与定义在类型名、引用传参和是否显式传入 idxlist 上不完全一致，item[0] 哨兵与 last 的完整下标合同也未在本节片段中展开；注释和数据移动语句仍能唯一确定查找、插入与追加机制。",
+      "action": "正文保留算法合同、分支和更新顺序，并明确不把片段当作可直接编译实现；集成代码时需结合前置模块统一接口和下标。"
+    }
+  ],
+  "stats": {
+    "source_files": 5,
+    "kept": 0,
+    "condensed": 5,
+    "omitted": 0,
+    "needs_review": 0,
+    "static_visuals": 0,
+    "interactive_proposals": 0
+  }
+}
+

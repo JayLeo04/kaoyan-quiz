@@ -70,7 +70,7 @@ function chapterSummaries(textbook: TextbookRegistration): TextbookChapterSummar
 }
 
 function pageSummaries(textbook: TextbookRegistration): TextbookPageSummary[] {
-  return textbook.dataset.pages.map(({ id, slug, chapterId, title, summary, depth, headings }) => ({
+  return textbook.dataset.pages.map(({ id, slug, chapterId, title, summary, depth, headings, condensed }) => ({
     id,
     slug,
     chapterId,
@@ -78,6 +78,7 @@ function pageSummaries(textbook: TextbookRegistration): TextbookPageSummary[] {
     summary,
     depth,
     headings: [...headings],
+    hasCondensed: Boolean(condensed),
   }));
 }
 
@@ -195,7 +196,10 @@ export function createTextbookReaderPayload(textbook: TextbookRegistration, curr
   return {
     ...payloadBase(textbook),
     currentSlug,
-    stats: { exerciseQuestions: textbook.dataset.stats.exerciseQuestions },
+    stats: {
+      exerciseQuestions: textbook.dataset.stats.exerciseQuestions,
+      condensedPages: textbook.dataset.stats.condensedPages,
+    },
     parts: textbook.dataset.parts?.map((part) => ({ ...part })),
     chapters: chapterSummaries(textbook),
     pages: pageSummaries(textbook),

@@ -14,6 +14,10 @@ export function textbookHref(target: TextbookRouteTarget, pageSlug = "") {
   return suffix ? `/textbook/${bookSlug}/${suffix}` : `/textbook/${bookSlug}`;
 }
 
+export function textbookCondensedHref(target: TextbookRouteTarget, pageSlug: string) {
+  return `${textbookHref(target, pageSlug)}?mode=condensed`;
+}
+
 export function textbookPracticeHref(target: TextbookRouteTarget, chapterId?: string) {
   const base = `${textbookHref(target)}/practice`;
   return chapterId ? `${base}?chapter=${encodeURIComponent(chapterId)}` : base;

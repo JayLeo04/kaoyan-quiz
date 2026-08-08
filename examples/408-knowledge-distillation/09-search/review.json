@@ -1,0 +1,581 @@
+{
+  "schema_version": "1.0",
+  "run_id": "ds-20260808-ch02-ch12",
+  "chapter_id": "09-search",
+  "attempt": 2,
+  "status": "distilled",
+  "renderer": "portable",
+  "source": {
+    "input_root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\09-search",
+    "source_map": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\09-search\\source-map.json",
+    "source_lock_sha256": "ff42d521d8137ccc902915b60e56764d22b4ff235545e1717405d22c0ee1b87f",
+    "expected_files": [
+      "09-01-static-search/index.md",
+      "09-02-dynamic-search/index.md",
+      "09-03-hash-table/index.md",
+      "index.md"
+    ]
+  },
+  "output": {
+    "root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\candidates\\09-search\\attempt-02",
+    "markdown": "index.md",
+    "assets": [
+      "assets/avl-rotation-cases.svg",
+      "assets/block-index-table.svg",
+      "assets/hash-open-addressing.svg"
+    ],
+    "visualization_fragment": null
+  },
+  "coverage": [
+    {
+      "source_file": "09-01-static-search/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "9.1 静态查找表",
+        "9.1.1 顺序表的查找",
+        "顺序查找的平均查找长度",
+        "9.1.2 有序表的查找",
+        "折半查找的判定树与复杂度",
+        "斐波那契查找与插值查找",
+        "9.1.3 静态树表的查找",
+        "9.1.4 索引顺序表的查找"
+      ],
+      "reason": "顺序、折半、斐波那契、插值、静态树表和分块查找均已重组保留；视觉核验 PDF 226、230、232 后，正文显式保留原插值式的下标冲突，并给出与闭区间及 1/0 基下标均一致的取整公式和边界。",
+      "items": [
+        {
+          "source_heading": "9.1 静态查找表",
+          "disposition": "condensed",
+          "output_heading": "9.1 静态查找表",
+          "reason": "ADT 操作压缩为创建、销毁、查找和一次性遍历的接口语义。"
+        },
+        {
+          "source_heading": "9.1.1 顺序表的查找",
+          "disposition": "condensed",
+          "output_heading": "9.1.1 顺序表的查找",
+          "reason": "保留顺序表示、哨兵算法、返回语义、空表和重复关键字边界。"
+        },
+        {
+          "source_heading": "查找操作的性能分析",
+          "disposition": "kept",
+          "output_heading": "顺序查找的平均查找长度",
+          "reason": "完整保留 ASL 定义、式(9-1)至式(9-4)、概率次序、成功/失败和哨兵计数条件。"
+        },
+        {
+          "source_heading": "9.1.2 有序表的查找",
+          "disposition": "kept",
+          "output_heading": "9.1.2 有序表的查找",
+          "reason": "PDF 226、230 确认本章代码使用 1 基有效记录与闭区间，PDF 232 确认原式确为乘以 (h-l+1) 且无取整；正文保留原式并明确其不能直接作绝对下标，另给一致公式、取整、分母为零和越界判据。"
+        },
+        {
+          "source_heading": "折半查找的性能分析",
+          "disposition": "kept",
+          "output_heading": "折半查找的判定树与复杂度",
+          "reason": "保留成功/失败判定路径、最坏比较次数、满判定树前提及式(9-5)、式(9-6)。"
+        },
+        {
+          "source_heading": "9.1.3 静态树表的查找",
+          "disposition": "condensed",
+          "output_heading": "9.1.3 静态树表的查找",
+          "reason": "保留 PH、累计权值、根选择公式、算法9.3核心、两个调权例和教材复杂度结论；重复叙述压缩。"
+        },
+        {
+          "source_heading": "9.1.4 索引顺序表的查找",
+          "disposition": "condensed",
+          "output_heading": "9.1.4 索引顺序表的查找",
+          "reason": "保留分块有序条件、索引字段、两阶段查找与式(9-14)至式(9-16)，复用图9.6。"
+        }
+      ]
+    },
+    {
+      "source_file": "09-02-dynamic-search/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "9.2 动态查找表",
+        "9.2.1 二叉排序树与平衡二叉树",
+        "二叉排序树的定义、表示与查找",
+        "插入与删除",
+        "二叉排序树的查找分析",
+        "平衡二叉树（AVL 树）",
+        "AVL 树高度与查找复杂度",
+        "9.2.2 B-树与 B+ 树",
+        "B-树定义、结点表示与查找",
+        "B-树查找高度",
+        "B-树插入与删除",
+        "B+ 树",
+        "9.2.3 键树",
+        "双链树表示",
+        "Trie 多重链表表示"
+      ],
+      "reason": "BST、AVL、B-树、B+树和键树的定义、表示、算法、不变量、复杂度与边界均保留；已视觉核验 PDF 237-260，多幅重复状态图改为表格和过程描述。",
+      "items": [
+        {
+          "source_heading": "9.2 动态查找表",
+          "disposition": "condensed",
+          "output_heading": "9.2 动态查找表",
+          "reason": "ADT 压缩为初始化、销毁、查找、插入、删除和遍历的动态语义。"
+        },
+        {
+          "source_heading": "9.2.1 二叉排序树和平均二叉树",
+          "disposition": "condensed",
+          "output_heading": "9.2.1 二叉排序树与平衡二叉树",
+          "reason": "PDF 237 的原书标题清楚写作“二叉排序树和平衡二叉树”，故有效输入中的“平均二叉树”为转写笔误；输出采用原书标题术语。"
+        },
+        {
+          "source_heading": "1. 二叉排序树及其查找过程",
+          "disposition": "condensed",
+          "output_heading": "二叉排序树的定义、表示与查找",
+          "reason": "保留严格左小右大、递归查找、空指针失败和路径不变量。"
+        },
+        {
+          "source_heading": "2. 二叉排序树的插入和删除",
+          "disposition": "kept",
+          "output_heading": "插入与删除",
+          "reason": "保留失败路径插入、重复键处理、删除三类情况和前驱重接核心代码。"
+        },
+        {
+          "source_heading": "3. 二叉排序树的查找分析",
+          "disposition": "kept",
+          "output_heading": "二叉排序树的查找分析",
+          "reason": "保留形态依赖、最好最坏、随机序列模型及式(9-17)至式(9-20)；PDF 243 的 46.5% 陈述缺少事件定义，正文保留数值并明确不可用于计算。"
+        },
+        {
+          "source_heading": "4. 平衡二叉树",
+          "disposition": "kept",
+          "output_heading": "平衡二叉树（AVL 树）",
+          "reason": "保留 BF 定义、最小不平衡子树、四类旋转、指针更新、taller 状态和正确性不变量，复用图9.13。"
+        },
+        {
+          "source_heading": "5. 平衡树查找的分析",
+          "disposition": "kept",
+          "output_heading": "AVL 树高度与查找复杂度",
+          "reason": "保留最少结点递推、斐波那契关系、高度上界和 O(log n) 结论。"
+        },
+        {
+          "source_heading": "9.2.2 B-树和 B+ 树",
+          "disposition": "condensed",
+          "output_heading": "9.2.2 B-树与 B+ 树",
+          "reason": "统一术语后按定义、查找、插删与 B+ 对照重组。"
+        },
+        {
+          "source_heading": "1. B-树及其查找",
+          "disposition": "kept",
+          "output_heading": "B-树定义、结点表示与查找",
+          "reason": "保留阶数约束、根例外、结点信息、外部叶、结点内/结点间查找及插入位置信息；PDF 250 确认 Result.i 注释与代码边界冲突，正文明确成功 1..k、失败/间隙 0..k。"
+        },
+        {
+          "source_heading": "2. B-树查找分析",
+          "disposition": "kept",
+          "output_heading": "B-树查找高度",
+          "reason": "保留失败叶数 N+1、最少分支推导和式(9-21)。"
+        },
+        {
+          "source_heading": "3. B-树的插入和删除",
+          "disposition": "kept",
+          "output_heading": "B-树插入与删除",
+          "reason": "保留溢出分裂、式(9-22)、式(9-23)、向根传播以及删除的直接删、借位、合并三类处理；PDF 252-253 的图9.16已核对，源快照坏 SVG 不复用，等价过程由正文完整承载。"
+        },
+        {
+          "source_heading": "4. B+ 树",
+          "disposition": "kept",
+          "output_heading": "B+ 树",
+          "reason": "保留叶层存全关键字、叶链、内部索引、查找到底、分裂数量与删除边界。"
+        },
+        {
+          "source_heading": "9.2.3 键树",
+          "disposition": "condensed",
+          "output_heading": "9.2.3 键树",
+          "reason": "保留符号路径、结束符、兄弟有序、双链树、Trie、压缩路径、复杂度和插删规则。"
+        }
+      ]
+    },
+    {
+      "source_file": "09-03-hash-table/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "9.3 哈希表",
+        "9.3.1 什么是哈希表",
+        "9.3.2 哈希函数的构造方法",
+        "常用构造方法",
+        "9.3.3 处理冲突的方法",
+        "开放定址法",
+        "再哈希法、链地址法与公共溢出区",
+        "9.3.4 哈希表的查找及其分析",
+        "开放定址查找与插入",
+        "装填因子与平均查找长度",
+        "随机探测失败 ASL 的推导骨架",
+        "完美哈希函数"
+      ],
+      "reason": "哈希概念、六类构造、四类冲突处理、查找插入、删除标记、装填因子、式(9-25)至式(9-34)和必要推导均保留；已视觉核验 PDF 261-272，长人口与编码叙事例压成条件说明。",
+      "items": [
+        {
+          "source_heading": "9.3 哈希表",
+          "disposition": "condensed",
+          "output_heading": "9.3 哈希表",
+          "reason": "按概念、函数、冲突处理和性能分析重组。"
+        },
+        {
+          "source_heading": "9.3.1 什么是哈希表",
+          "disposition": "condensed",
+          "output_heading": "9.3.1 什么是哈希表",
+          "reason": "保留哈希函数、哈希表、哈希地址、冲突、同义词、均匀映射及压缩映像边界；PDF 261 的“34个地区”与 C(1..30) 冲突仅属叙事规模，正文不采用矛盾数字。"
+        },
+        {
+          "source_heading": "9.3.2 哈希函数的构造方法",
+          "disposition": "condensed",
+          "output_heading": "9.3.2 哈希函数的构造方法",
+          "reason": "保留均匀哈希目标和选择函数时的五项因素。"
+        },
+        {
+          "source_heading": "1．直接定址法",
+          "disposition": "condensed",
+          "output_heading": "常用构造方法",
+          "reason": "保留线性函数、无冲突原因与地址空间限制；重复人口表改为条件说明。"
+        },
+        {
+          "source_heading": "2．数字分析法",
+          "disposition": "condensed",
+          "output_heading": "常用构造方法",
+          "reason": "保留已知关键字集合、排除恒定位和选择近似随机位的准则。"
+        },
+        {
+          "source_heading": "3．平方取中法",
+          "disposition": "condensed",
+          "output_heading": "常用构造方法",
+          "reason": "保留中间位受原关键字多位影响及取位数由表长决定的机制；字符编码大表省略。"
+        },
+        {
+          "source_heading": "4．折叠法",
+          "disposition": "condensed",
+          "output_heading": "常用构造方法",
+          "reason": "保留移位叠加、间界叠加、舍进位及适用条件；ISBN 算例压为方法差异。"
+        },
+        {
+          "source_heading": "5．除留余数法",
+          "disposition": "kept",
+          "output_heading": "常用构造方法",
+          "reason": "保留公式、p≤m、小因子导致聚集的推理与教材选 p 经验。"
+        },
+        {
+          "source_heading": "6．随机数法",
+          "disposition": "condensed",
+          "output_heading": "常用构造方法",
+          "reason": "保留公式与关键字长度不等时的教材适用建议。"
+        },
+        {
+          "source_heading": "9.3.3 处理冲突的方法",
+          "disposition": "condensed",
+          "output_heading": "9.3.3 处理冲突的方法",
+          "reason": "保留后继地址序列、空位终止和四类策略框架。"
+        },
+        {
+          "source_heading": "1．开放定址法",
+          "disposition": "kept",
+          "output_heading": "开放定址法",
+          "reason": "保留式(9-25)、三种增量、覆盖条件、聚集现象与关键字38例，并基于 PDF 267 的图9.25确定性重绘；原页地址集 n 与表长 m 的符号切换已显式说明。"
+        },
+        {
+          "source_heading": "2．再哈希法",
+          "disposition": "condensed",
+          "output_heading": "再哈希法、链地址法与公共溢出区",
+          "reason": "保留式(9-26)、减少聚集与额外计算代价。"
+        },
+        {
+          "source_heading": "3．链地址法",
+          "disposition": "kept",
+          "output_heading": "再哈希法、链地址法与公共溢出区",
+          "reason": "保留桶数组、同义词链、链内次序和例9-3的完整分组结果。"
+        },
+        {
+          "source_heading": "4．建立一个公共溢出区",
+          "disposition": "condensed",
+          "output_heading": "再哈希法、链地址法与公共溢出区",
+          "reason": "保留基本表、溢出表和冲突记录统一进入溢出区的规则。"
+        },
+        {
+          "source_heading": "9.3.4 哈希表的查找及其分析",
+          "disposition": "kept",
+          "output_heading": "9.3.4 哈希表的查找及其分析",
+          "reason": "PDF 269-272 逐页核对后，保留算法9.17-9.18、成功/失败终止、删除三状态、装填因子定义、式(9-27)至式(9-34)的概率条件与随机探测推导。"
+        }
+      ]
+    },
+    {
+      "source_file": "index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "第 9 章 查找",
+        "基本概念与统一约定"
+      ],
+      "reason": "PDF 224-225 核对章首页、印刷页码、定义、分类、关键字和比较约定后重写；生活化铺垫压缩，纯目录导航省略。",
+      "items": [
+        {
+          "source_heading": "第 9 章 查找",
+          "disposition": "condensed",
+          "output_heading": "第 9 章 查找",
+          "reason": "保留查找表、静态/动态分类、关键字、成功/失败及教材类型约定。"
+        },
+        {
+          "source_heading": "目录",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "仅含三个已纳入同一产物的章节导航链接，不承载独有知识，且候选阶段不能链接 attempt 外目录。"
+        }
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "term": "查找表",
+      "aliases": ["Search Table"],
+      "definition": "由同一类型数据元素或记录构成、元素间仅有同属集合关系的集合。",
+      "source_file": "index.md",
+      "output_heading": "查找表、关键字与查找结果"
+    },
+    {
+      "term": "主关键字",
+      "aliases": ["Primary Key"],
+      "definition": "能够唯一标识一个记录的关键字。",
+      "source_file": "index.md",
+      "output_heading": "查找表、关键字与查找结果"
+    },
+    {
+      "term": "次关键字",
+      "aliases": ["Secondary Key"],
+      "definition": "只能识别若干记录、不能唯一标识单个记录的关键字。",
+      "source_file": "index.md",
+      "output_heading": "查找表、关键字与查找结果"
+    },
+    {
+      "term": "平均查找长度",
+      "aliases": ["ASL", "Average Search Length"],
+      "definition": "为确定记录位置而进行关键字比较次数的期望值。",
+      "source_file": "09-01-static-search/index.md",
+      "output_heading": "平均查找长度"
+    },
+    {
+      "term": "判定树",
+      "aliases": [],
+      "definition": "以结点和路径表示折半查找比较过程的二叉树。",
+      "source_file": "09-01-static-search/index.md",
+      "output_heading": "折半查找的判定树与复杂度"
+    },
+    {
+      "term": "静态最优查找树",
+      "aliases": ["Static Optimal Search Tree"],
+      "definition": "在保持关键字次序的候选二叉树中带权内路径长度 PH 最小的树。",
+      "source_file": "09-01-static-search/index.md",
+      "output_heading": "静态最优与次优查找树"
+    },
+    {
+      "term": "次优查找树",
+      "aliases": ["Nearly Optimal Search Tree"],
+      "definition": "递归选择左右权值和差最小的关键字作根而构造的近似最优静态查找树。",
+      "source_file": "09-01-static-search/index.md",
+      "output_heading": "静态最优与次优查找树"
+    },
+    {
+      "term": "分块有序",
+      "aliases": [],
+      "definition": "后一块全部关键字均大于前一块最大关键字，而块内可无序。",
+      "source_file": "09-01-static-search/index.md",
+      "output_heading": "9.1.4 索引顺序表的查找"
+    },
+    {
+      "term": "二叉排序树",
+      "aliases": ["二叉查找树", "Binary Sort Tree"],
+      "definition": "空树，或左子树关键字均小于根、右子树均大于根且两子树仍满足同样性质的二叉树。",
+      "source_file": "09-02-dynamic-search/index.md",
+      "output_heading": "二叉排序树的定义、表示与查找"
+    },
+    {
+      "term": "平衡二叉树",
+      "aliases": ["AVL 树", "Height-Balanced Tree"],
+      "definition": "空树，或左右子树均平衡且高度差绝对值不超过 1 的二叉排序树。",
+      "source_file": "09-02-dynamic-search/index.md",
+      "output_heading": "平衡二叉树（AVL 树）"
+    },
+    {
+      "term": "平衡因子",
+      "aliases": ["BF"],
+      "definition": "本章定义为结点左子树高度减右子树高度。",
+      "source_file": "09-02-dynamic-search/index.md",
+      "output_heading": "平衡二叉树（AVL 树）"
+    },
+    {
+      "term": "B-树",
+      "aliases": [],
+      "definition": "满足阶数上下界且所有失败外部叶在同一层的平衡多路查找树。",
+      "source_file": "09-02-dynamic-search/index.md",
+      "output_heading": "B-树定义、结点表示与查找"
+    },
+    {
+      "term": "B+ 树",
+      "aliases": [],
+      "definition": "全部关键字和记录指针位于有序叶层、内部结点仅作索引的 B-树变型。",
+      "source_file": "09-02-dynamic-search/index.md",
+      "output_heading": "B+ 树"
+    },
+    {
+      "term": "键树",
+      "aliases": ["数字查找树", "Digital Search Tree"],
+      "definition": "以路径上的字符或数位组成关键字的多路树。",
+      "source_file": "09-02-dynamic-search/index.md",
+      "output_heading": "9.2.3 键树"
+    },
+    {
+      "term": "Trie 树",
+      "aliases": ["多重链表"],
+      "definition": "分支结点含按字符基数排列的多个指针、叶结点保存关键字和记录指针的键树表示。",
+      "source_file": "09-02-dynamic-search/index.md",
+      "output_heading": "Trie 多重链表表示"
+    },
+    {
+      "term": "哈希函数",
+      "aliases": ["Hash 函数", "散列函数"],
+      "definition": "把关键字映射到有限地址集的函数。",
+      "source_file": "09-03-hash-table/index.md",
+      "output_heading": "9.3.1 什么是哈希表"
+    },
+    {
+      "term": "冲突",
+      "aliases": ["collision"],
+      "definition": "两个不同关键字经同一哈希函数得到相同地址的现象。",
+      "source_file": "09-03-hash-table/index.md",
+      "output_heading": "9.3.1 什么是哈希表"
+    },
+    {
+      "term": "同义词",
+      "aliases": ["synonym"],
+      "definition": "对某哈希函数得到相同地址的不同关键字。",
+      "source_file": "09-03-hash-table/index.md",
+      "output_heading": "9.3.1 什么是哈希表"
+    },
+    {
+      "term": "均匀哈希函数",
+      "aliases": ["Uniform Hash Function"],
+      "definition": "使任意关键字映射到地址集中各地址的概率相等的哈希函数。",
+      "source_file": "09-03-hash-table/index.md",
+      "output_heading": "9.3.1 什么是哈希表"
+    },
+    {
+      "term": "装填因子",
+      "aliases": ["load factor", "α"],
+      "definition": "哈希表中记录数与哈希表长度之比。",
+      "source_file": "09-03-hash-table/index.md",
+      "output_heading": "装填因子与平均查找长度"
+    }
+  ],
+  "visuals": [
+    {
+      "id": "ds-search-block-index",
+      "kind": "reused",
+      "source": "09-01-static-search/assets/py/fig-09-06-indexed-table.svg（教材图9.6）",
+      "target_heading": "9.1.4 索引顺序表的查找",
+      "fallback": "正文定义块间有序并列出先查索引、再顺序查块内的两阶段过程及 ASL 公式。",
+      "status": "complete"
+    },
+    {
+      "id": "ds-search-avl-rotations",
+      "kind": "reused",
+      "source": "09-02-dynamic-search/assets/py/fig-9-13.svg（教材图9.13）",
+      "target_heading": "平衡二叉树（AVL 树）",
+      "fallback": "正文表格逐项给出 LL、RR、LR、RL 的插入位置和旋转顺序，并说明中序不变量。",
+      "status": "complete"
+    },
+    {
+      "id": "ds-search-open-addressing",
+      "kind": "reused",
+      "source": "09-03-hash-table/assets/py/fig-9-25.svg（教材图9.25）",
+      "target_heading": "开放定址法",
+      "fallback": "正文给出式(9-25)、三种增量序列和关键字38的三个落址结果。",
+      "status": "complete"
+    }
+  ],
+  "checks": {
+    "ownership": true,
+    "source_coverage": true,
+    "headings": true,
+    "formulas": false,
+    "code": true,
+    "complexity": true,
+    "links": true,
+    "assets": true,
+    "rendering": true
+  },
+  "risks": [
+    {
+      "severity": "medium",
+      "category": "source-risk",
+      "source_file": "09-01-static-search/index.md",
+      "location": "PDF 232 / 印刷222，9.1.2 插值查找；对照 PDF 226、230 的 1 基表代码",
+      "detail": "视觉核验确认原书确实写成比例乘 (h-l+1)，没有基址项与取整规则；它与同章 elem[1..length]、low=1、high=length 的闭区间下标约定冲突。",
+      "action": "已处理：正文逐字保留原式并说明冲突，另给 l+floor(ratio*(h-l)) 的一致绝对下标公式，以及空区间、越界、分母为零、先乘后除和 0/1 基映射。"
+    },
+    {
+      "severity": "low",
+      "category": "source-risk",
+      "source_file": "09-02-dynamic-search/index.md",
+      "location": "PDF 237 / 印刷227，标题 9.2.1",
+      "detail": "有效输入标题写“平均二叉树”，但原书页面清楚印为“二叉排序树和平衡二叉树”。",
+      "action": "已处理：按原书标题与后续 AVL 定义统一采用“平衡二叉树”，确认这是输入转写笔误而非教材术语变体。"
+    },
+    {
+      "severity": "medium",
+      "category": "source-risk",
+      "source_file": "09-02-dynamic-search/index.md",
+      "location": "PDF 250 / 印刷240，算法9.13 的 Result.i 注释与 ptr[i] 使用",
+      "detail": "原书注释确写 i 为 1..m，但代码初始化 i=0，失败路径既可能下降 ptr[0]，也会把 i=0 作为插入间隙返回。",
+      "action": "已处理：正文明确含 k 个关键字时，成功下标为 1..k，失败时区间/孩子/插入间隙为 0..k，并解释 i=0 的实际语义。"
+    },
+    {
+      "severity": "low",
+      "category": "rendering",
+      "source_file": "09-02-dynamic-search/index.md",
+      "location": "PDF 252-253 / 印刷242-243，教材图9.16；输入 assets/py/fig-9-16.svg",
+      "detail": "原 PDF 的 B-树插入序列清楚，但输入快照 SVG 存在结点重叠和连线缺失，不能作为可靠交付图。",
+      "action": "已处理：逐图核对原 PDF 后不复用坏 SVG；正文用式(9-22)、式(9-23)、关键字上移和向根传播完整表达同一结构关系。"
+    },
+    {
+      "severity": "low",
+      "category": "source-risk",
+      "source_file": "09-02-dynamic-search/index.md",
+      "location": "PDF 243 / 印刷233，二叉排序树查找分析",
+      "detail": "原书确称“某些情况下”发生概率约为46.5%，但页面及相邻推导均未定义该事件或随机模型。",
+      "action": "已处理：正文保留原书数值与措辞，同时明确它不能代入概率计算；可计算结论只采用式(9-17)至式(9-20)已定义的随机模型。"
+    },
+    {
+      "severity": "low",
+      "category": "source-risk",
+      "source_file": "09-03-hash-table/index.md",
+      "location": "PDF 261 / 印刷251，9.3.1 地区人口表示例",
+      "detail": "原书同页先写全国34个地区，随后写数组 C(1..30)，数量确实互相冲突。",
+      "action": "已处理：该规模数字不承载独有哈希条件，正文保留关键字到地址的确定映射定义，不采用矛盾数量。"
+    },
+    {
+      "severity": "low",
+      "category": "source-risk",
+      "source_file": "09-03-hash-table/index.md",
+      "location": "PDF 271-272 / 印刷261-262，随机探测 ASL 推导",
+      "detail": "原书先用 p_i 表示前 i 次地址均冲突的概率，随后又用 p_i 表示第 i 个记录的查找概率，符号复用会混淆两个样本空间。",
+      "action": "已处理：正文把冲突前缀概率记为 P_i、首次遇空概率记为 Q_i，并把成功查找的记录等概率 1/n 作为另一条独立假设。"
+    },
+    {
+      "severity": "low",
+      "category": "source-risk",
+      "source_file": "09-03-hash-table/index.md",
+      "location": "PDF 267 / 印刷257，9.3.3 地址集与式(9-25)",
+      "detail": "原书先把地址集写为 0..n-1，紧接着又在式(9-25)用 m 表示哈希表表长，符号发生切换。",
+      "action": "已处理：正文显式指出原页符号切换，并按式(9-25)、后文装填因子和表长语义统一使用 m，地址集写为 0..m-1。"
+    }
+  ],
+  "stats": {
+    "source_files": 4,
+    "kept": 0,
+    "condensed": 4,
+    "omitted": 0,
+    "needs_review": 0,
+    "static_visuals": 3,
+    "interactive_proposals": 0
+  }
+}
+

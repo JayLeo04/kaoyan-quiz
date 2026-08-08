@@ -1,0 +1,324 @@
+{
+  "schema_version": "1.0",
+  "run_id": "ds-20260808-ch02-ch12",
+  "chapter_id": "11-external-sorting",
+  "attempt": 2,
+  "status": "distilled",
+  "renderer": "portable",
+  "source": {
+    "input_root": "C:/Users/Administrator/Documents/kaoyanQuiz/work/408-knowledge/ds-20260808-ch02-ch12/inputs/11-external-sorting",
+    "source_map": "C:/Users/Administrator/Documents/kaoyanQuiz/work/408-knowledge/ds-20260808-ch02-ch12/inputs/11-external-sorting/source-map.json",
+    "source_lock_sha256": "ff42d521d8137ccc902915b60e56764d22b4ff235545e1717405d22c0ee1b87f",
+    "expected_files": [
+      "11-1-external-storage-access/index.md",
+      "11-2-external-sorting-methods/index.md",
+      "11-3-multiway-balanced-merge/index.md",
+      "11-4-replacement-selection/index.md",
+      "11-5-optimal-merge-tree/index.md",
+      "index.md"
+    ]
+  },
+  "output": {
+    "root": "C:/Users/Administrator/Documents/kaoyanQuiz/work/408-knowledge/ds-20260808-ch02-ch12/candidates/11-external-sorting/attempt-02",
+    "markdown": "index.md",
+    "assets": [],
+    "visualization_fragment": null
+  },
+  "coverage": [
+    {
+      "source_file": "11-1-external-storage-access/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "11.1 外存信息的存取",
+        "磁带：顺序存取、成块与 I/O 时间",
+        "磁盘：直接存取地址与 I/O 时间"
+      ],
+      "reason": "逐页视觉核验原书 PDF 第 303–305 页（印刷书页 293–295）：确认磁带顺序存取、IRG/IBG 与成块利用率，磁盘三维地址、寻道—等待—传输步骤及两类 I/O 时间公式。设备结构图的有效关系均改为等价文字，未保留装饰性图示。",
+      "items": [
+        {
+          "source_heading": "11.1 外存信息的存取",
+          "disposition": "condensed",
+          "output_heading": "11.1 外存信息的存取",
+          "reason": "PDF 第 303 页上半部确认本节按磁带和磁盘两类外存展开；保留存取方式边界，压缩设备外形叙述。"
+        },
+        {
+          "source_heading": "1. 磁带信息的存取",
+          "disposition": "condensed",
+          "output_heading": "磁带：顺序存取、成块与 I/O 时间",
+          "reason": "PDF 第 303–304 页确认 9 道带、数据位与校验位、字符组、IRG/IBG、成块机制、利用率算例、读写时间公式和顺序查找边界；省略无知识增量的机械外观说明。"
+        },
+        {
+          "source_heading": "2. 磁盘信息的存取",
+          "disposition": "condensed",
+          "output_heading": "磁盘：直接存取地址与 I/O 时间",
+          "reason": "PDF 第 304–305 页确认固定头/活动头、磁道/柱面、三维地址、寻道—等待—传输步骤、公式及给定参数下的布局结论；图示关系已由正文完整承接。"
+        }
+      ]
+    },
+    {
+      "source_file": "11-2-external-sorting-methods/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "11.2 外部排序的方法",
+        "两阶段框架",
+        "总时间模型",
+        "平衡归并：趟数决定主要 I/O",
+        "最小典型例：两路与五路归并"
+      ],
+      "reason": "逐页视觉核验原书 PDF 第 305–307 页（印刷书页 295–297）：确认外部排序两阶段、式（11-1）、式（11-2）、变量含义，以及 10000 个记录时两路 500 次和五路 300 次读写的教材算例；原流程图用步骤和对照表等价表达。",
+      "items": [
+        {
+          "source_heading": "11.2 外部排序的方法",
+          "disposition": "condensed",
+          "output_heading": "11.2 外部排序的方法",
+          "reason": "PDF 第 305 页确认定义与两阶段主线；按对象、阶段和主要代价重组，删除过渡叙述。"
+        },
+        {
+          "source_heading": "外部排序的两个阶段",
+          "disposition": "condensed",
+          "output_heading": "两阶段框架",
+          "reason": "PDF 第 305–306 页确认初始归并段生成、逐趟归并、物理块 I/O 和总时间模型；公式、条件与变量均保留。"
+        },
+        {
+          "source_heading": "多路平衡归并",
+          "disposition": "condensed",
+          "output_heading": "平衡归并：趟数决定主要 I/O",
+          "reason": "PDF 第 306–307 页确认趟数公式、增大 k 或减小 m 的结论，以及两路/五路归并的 I/O 对照；图示数据转为可复核表格。"
+        }
+      ]
+    },
+    {
+      "source_file": "11-3-multiway-balanced-merge/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "11.3 多路平衡归并与败者树",
+        "朴素 $k$ 路归并的比较上界",
+        "败者树的表示与不变量",
+        "算法 11.1–11.3：归并、调整与初始化",
+        "败者树比较次数的取整与上下界"
+      ],
+      "reason": "逐页视觉核验原书 PDF 第 307–309 页（印刷书页 297–299），并对第 307 页公式区做高分辨率复核。式（11-3）按教材的均匀/满 k 路最坏情形模型保留为上界，不再把含取整乘积无条件化成精确等式；另给一般败者树上界、严格取整范围、成立特例和反例。PDF 第 308–309 页确认败者树语义及算法 11.1–11.3。",
+      "items": [
+        {
+          "source_heading": "11.3 多路平衡归并的实现",
+          "disposition": "condensed",
+          "output_heading": "11.3 多路平衡归并与败者树",
+          "reason": "PDF 第 307–309 页确认本节从比较代价引出败者树并给出归并、调整、初始化算法；完整保留实现主线并补明取整条件。"
+        },
+        {
+          "source_heading": "多路归并的比较次数",
+          "disposition": "condensed",
+          "output_heading": "败者树比较次数的取整与上下界",
+          "reason": "PDF 第 307 页公式区确认原书写出 s=⌈log_k m⌉ 与式（11-3）。修订将其限定为教材统一趟数/满 k 路最坏情形的比较上界：⌈log_k m⌉⌈log_2 k⌉(n−1)；连续主项为 log_2 m，不能将取整乘积对任意 m、k 写成精确等式。"
+        },
+        {
+          "source_heading": "败者树",
+          "disposition": "kept",
+          "output_heading": "败者树的表示与不变量",
+          "reason": "PDF 第 307–309 页确认内部结点存败者、胜者向上、ls[0] 存全局冠军、单路径调整、MINKEY/MAXKEY 哨兵及五路示例；这些独有结构知识全部保留。"
+        },
+        {
+          "source_heading": "算法 11.1",
+          "disposition": "condensed",
+          "output_heading": "算法 11.1–11.3：归并、调整与初始化",
+          "reason": "PDF 第 309 页确认 k 路归并依次读首记录、选冠军、输出、补入、调整并以 MAXKEY 终止；接口性叙述压缩，控制条件保留。"
+        },
+        {
+          "source_heading": "算法 11.2",
+          "disposition": "condensed",
+          "output_heading": "算法 11.1–11.3：归并、调整与初始化",
+          "reason": "PDF 第 309 页确认双亲下标、沿根循环、胜败交换和冠军写回；改写为保留同一不变量的可移植伪代码。"
+        },
+        {
+          "source_heading": "算法 11.3",
+          "disposition": "condensed",
+          "output_heading": "算法 11.1–11.3：归并、调整与初始化",
+          "reason": "PDF 第 309 页确认 MINKEY 虚叶、ls 初值和逆序逐叶调整，完整保留初始化条件。"
+        }
+      ]
+    },
+    {
+      "source_file": "11-4-replacement-selection/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "11.4 置换—选择排序",
+        "目的、对象与选择次序",
+        "生成一个归并段的不变量与步骤",
+        "算法 11.4–11.7 的控制关系",
+        "算法 11.6：沿途写回败者",
+        "图 11.6 的六槽状态文字替代",
+        "最小典型例",
+        "平均段长与时间复杂度"
+      ],
+      "reason": "逐页视觉核验原书 PDF 第 309–314 页（印刷书页 299–304）。第 312 页算法 11.6 代码区经高分辨率复核，核心更新确认为 q 与 ls[t] 交换，已恢复沿途写回败者；第 313 页图 11.6 确认 wa[0] 至 wa[5] 共六个工作区槽位，原图不保留，改用完整装入次序与六槽状态表。第 314 页确认随机模型下平均段长 2w 与不计 I/O 的 O(n log w)。",
+      "items": [
+        {
+          "source_heading": "11.4 置换-选择排序",
+          "disposition": "condensed",
+          "output_heading": "11.4 置换—选择排序",
+          "reason": "PDF 第 309–314 页确认 m 与固定段长关系、FI/FO/WA、(rnum,key) 次序、算法 11.4–11.7、24 记录示例、平均段长条件及复杂度；算法和图示旧风险均已由原页消除。"
+        }
+      ]
+    },
+    {
+      "source_file": "11-5-optimal-merge-tree/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "11.5 最佳归并树",
+        "I/O 次数与带权路径长度",
+        "九个归并段的三路归并",
+        "$k$ 路归并的虚段数与首次归并",
+        "八个归并段的正确 Huffman 合并链"
+      ],
+      "reason": "逐页视觉核验原书 PDF 第 314–315 页（印刷书页 304–305），并对第 315 页公式与图 11.10 区做高分辨率复核。确认 WPL 与 I/O 的对应、三路 Huffman 合并、满 k 叉树关系及虚段公式；八段示例按 0+2+3=5、5+6+9=20、12+17+18=47、20+24+47=91 校正，WPL=163、I/O=326。对 r=(m−1) mod (k−1) 明确分支：r=0 时无虚段且首次正常 k 路归并；r>0 时补 k−r−1 个虚段，等价首次归并 r+1 个实段。",
+      "items": [
+        {
+          "source_heading": "11.5 最佳归并树",
+          "disposition": "condensed",
+          "output_heading": "11.5 最佳归并树",
+          "reason": "PDF 第 314–315 页确认定义、推导、公式、九段与八段算例及磁盘索引要求；图 11.10 的结构关系用可逐步验算的 Huffman 合并表替代，r=0 边界已显式消歧。"
+        }
+      ]
+    },
+    {
+      "source_file": "index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "第 11 章 外部排序",
+        "本章知识地图"
+      ],
+      "reason": "视觉核验唯一原书 PDF《数据结构(C语言)》第 303 页：页首标题为“第 11 章 外部排序”，页脚印刷页码为 293，确认映射锚点；PDF 第 303–315 页与印刷书页 293–305 对应。原书 SHA256 已核对为 516680374414EAD5F463F8BE88FBF9907E806D7EAD3C6CF780CB9C8E0915F794。章首定义和五节主线进入标题与知识地图，纯导航目录不保留。",
+      "items": [
+        {
+          "source_heading": "第 11 章　外部排序",
+          "disposition": "condensed",
+          "output_heading": "第 11 章 外部排序",
+          "reason": "PDF 第 303 页标题区和页脚确认章名及印刷页 293；保留大文件位于外存、排序需多次交换内外存信息的核心定义。"
+        },
+        {
+          "source_heading": "目录",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "仅承担导航功能；五个正式小节及全部源标题已在 coverage 中逐项映射，没有独有知识。"
+        }
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "term": "外部排序",
+      "aliases": [],
+      "definition": "对存放在外存、不能一次全部装入内存的大文件进行的排序；过程中需要多次进行内外存块交换。",
+      "source_file": "index.md",
+      "output_heading": "第 11 章 外部排序"
+    },
+    {
+      "term": "记录间隙",
+      "aliases": [
+        "IRG",
+        "Inter Record Gap"
+      ],
+      "definition": "磁带相邻逻辑记录之间为启停过程保留的空白区。",
+      "source_file": "11-1-external-storage-access/index.md",
+      "output_heading": "磁带：顺序存取、成块与 I/O 时间"
+    },
+    {
+      "term": "块间隙",
+      "aliases": [
+        "IBG",
+        "Inter Block Gap"
+      ],
+      "definition": "磁带成块存放后相邻物理块之间的空白区；块内逻辑记录不再各留 IRG。",
+      "source_file": "11-1-external-storage-access/index.md",
+      "output_heading": "磁带：顺序存取、成块与 I/O 时间"
+    },
+    {
+      "term": "柱面",
+      "aliases": [],
+      "definition": "盘组各盘面上半径相同的磁道组成的集合；活动头盘各面磁头可同步定位到同一柱面。",
+      "source_file": "11-1-external-storage-access/index.md",
+      "output_heading": "磁盘：直接存取地址与 I/O 时间"
+    },
+    {
+      "term": "初始归并段",
+      "aliases": [
+        "顺串",
+        "run"
+      ],
+      "definition": "外部排序第一阶段生成并写回外存的有序子文件。",
+      "source_file": "11-2-external-sorting-methods/index.md",
+      "output_heading": "两阶段框架"
+    },
+    {
+      "term": "k 路平衡归并",
+      "aliases": [],
+      "definition": "每一趟把每组至多 k 个有序归并段合成一个新归并段的逐趟归并方法。",
+      "source_file": "11-2-external-sorting-methods/index.md",
+      "output_heading": "平衡归并：趟数决定主要 I/O"
+    },
+    {
+      "term": "败者树",
+      "aliases": [
+        "Tree of Loser"
+      ],
+      "definition": "内部结点保存最近一次比较的败者、胜者继续向上，且 ls[0] 保存全局冠军的树形选择结构。",
+      "source_file": "11-3-multiway-balanced-merge/index.md",
+      "output_heading": "败者树的表示与不变量"
+    },
+    {
+      "term": "置换—选择排序",
+      "aliases": [
+        "Replacement-Selection Sorting"
+      ],
+      "definition": "把选择、输出和补充输入交叉进行，以生成长度不固定的初始归并段的方法。",
+      "source_file": "11-4-replacement-selection/index.md",
+      "output_heading": "目的、对象与选择次序"
+    },
+    {
+      "term": "MINIMAX 记录",
+      "aliases": [],
+      "definition": "置换—选择中按段号优先、关键字次优先规则选出的当前可输出记录。",
+      "source_file": "11-4-replacement-selection/index.md",
+      "output_heading": "目的、对象与选择次序"
+    },
+    {
+      "term": "最佳归并树",
+      "aliases": [
+        "k 叉 Huffman 归并树"
+      ],
+      "definition": "以初始归并段长度为叶权、带权路径长度最小，从而使教材模型下外存读写次数最少的 k 叉归并树。",
+      "source_file": "11-5-optimal-merge-tree/index.md",
+      "output_heading": "I/O 次数与带权路径长度"
+    },
+    {
+      "term": "虚段",
+      "aliases": [],
+      "definition": "为使叶子数满足满 k 叉树条件而补入、长度和权值均为 0 的归并段。",
+      "source_file": "11-5-optimal-merge-tree/index.md",
+      "output_heading": "$k$ 路归并的虚段数与首次归并"
+    }
+  ],
+  "visuals": [],
+  "checks": {
+    "ownership": true,
+    "source_coverage": true,
+    "headings": true,
+    "formulas": true,
+    "code": true,
+    "complexity": true,
+    "links": true,
+    "assets": true,
+    "rendering": true
+  },
+  "risks": [],
+  "stats": {
+    "source_files": 6,
+    "kept": 0,
+    "condensed": 6,
+    "omitted": 0,
+    "needs_review": 0,
+    "static_visuals": 0,
+    "interactive_proposals": 0
+  }
+}
+

@@ -1,0 +1,517 @@
+{
+  "schema_version": "1.0",
+  "run_id": "ds-20260808-ch02-ch12",
+  "chapter_id": "06-tree-and-binary-tree",
+  "attempt": 2,
+  "status": "distilled",
+  "renderer": "portable",
+  "source": {
+    "input_root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\06-tree-and-binary-tree",
+    "source_map": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\06-tree-and-binary-tree\\source-map.json",
+    "source_lock_sha256": "ff42d521d8137ccc902915b60e56764d22b4ff235545e1717405d22c0ee1b87f",
+    "expected_files": [
+      "6-1-tree-definition-basic-terms/index.md",
+      "6-2-binary-tree/index.md",
+      "6-3-traversal-and-threaded-binary-tree/index.md",
+      "6-4-tree-and-forest/index.md",
+      "6-5-equivalence-problem/index.md",
+      "6-6-huffman-tree-and-applications/index.md",
+      "6-7-backtracking-and-tree-traversal/index.md",
+      "6-8-tree-counting/index.md",
+      "index.md"
+    ]
+  },
+  "output": {
+    "root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\candidates\\06-tree-and-binary-tree\\attempt-02",
+    "markdown": "index.md",
+    "assets": [],
+    "visualization_fragment": null
+  },
+  "coverage": [
+    {
+      "source_file": "index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "第 6 章 树和二叉树",
+        "本章知识地图"
+      ],
+      "reason": "目视核验 PDF 第 128 页（书页 118）：章名为“第 6 章 树和二叉树”，正文从 6.1 开始；章首页主线压缩保留，输入目录仅作导航且 8 个目标小节均分别进入覆盖表。",
+      "items": [
+        {
+          "source_heading": "第 6 章　树和二叉树",
+          "disposition": "condensed",
+          "output_heading": "第 6 章 树和二叉树",
+          "reason": "PDF 第 128 页（书页 118）视觉核验：删除背景铺垫，保留本章对象、核心操作和应用范围。"
+        },
+        {
+          "source_heading": "目录",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入目录页；对应正文视觉范围为 PDF 第 128—165 页（书页 118—155）视觉核验：纯导航列表无独立知识贡献；8 个小节页已逐页覆盖并重组到同名章节。"
+        }
+      ]
+    },
+    {
+      "source_file": "6-1-tree-definition-basic-terms/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "6.1 树的定义和基本术语",
+        "递归定义与逻辑表示",
+        "基本术语",
+        "ADT Tree 的操作边界"
+      ],
+      "reason": "逐页浏览 PDF 第 128—131 页（书页 118—121）：采用原书的递归定义、逻辑关系、全部基本术语和 ADT 操作前置条件；图 6.1、6.2 的独有关系已由集合式、术语表和操作表等价表达。",
+      "items": [
+        {
+          "source_heading": "6.1 树的定义和基本术语",
+          "disposition": "condensed",
+          "output_heading": "6.1 树的定义和基本术语",
+          "reason": "PDF 第 128—131 页（书页 118—121）视觉核验：定义、森林关系、术语和操作边界分别重组；图 6.1、图 6.2 的关系由公式、示例和术语表等价替代。"
+        }
+      ]
+    },
+    {
+      "source_file": "6-2-binary-tree/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "6.2 二叉树",
+        "二叉树的定义与操作",
+        "五条基本性质",
+        "满二叉树与完全二叉树",
+        "顺序存储与链式存储"
+      ],
+      "reason": "逐页浏览 PDF 第 131—137 页（书页 121—127）：采用左右有序定义、性质 1—5 及证明骨架、满/完全二叉树边界、1-based 编号公式和顺序/链式存储结论；图中关系均已转为公式与文字。",
+      "items": [
+        {
+          "source_heading": "6.2　二叉树",
+          "disposition": "condensed",
+          "output_heading": "6.2 二叉树",
+          "reason": "PDF 第 131—137 页（书页 121—127）视觉核验：总述并入定义、性质和存储三块。"
+        },
+        {
+          "source_heading": "6.2.1　二叉树的定义",
+          "disposition": "condensed",
+          "output_heading": "二叉树的定义与操作",
+          "reason": "PDF 第 131—133 页（书页 121—123）视觉核验：保留空树、左右子树、有序性、五种形态和 InsertChild 的特殊前置条件。"
+        },
+        {
+          "source_heading": "6.2.2　二叉树的性质",
+          "disposition": "condensed",
+          "output_heading": "五条基本性质",
+          "reason": "PDF 第 133—135 页（书页 123—125）视觉核验：五条性质、式 (6-1)、式 (6-2)、深度推导和完全二叉树编号条件完整保留。"
+        },
+        {
+          "source_heading": "6.2.3　二叉树的存储结构",
+          "disposition": "condensed",
+          "output_heading": "顺序存储与链式存储",
+          "reason": "PDF 第 136—137 页（书页 126—127）视觉核验：两类存储的字段、下标、适用形态和操作差异合并对照。"
+        },
+        {
+          "source_heading": "1．顺序存储结构",
+          "disposition": "condensed",
+          "output_heading": "顺序存储与链式存储",
+          "reason": "PDF 第 136 页（书页 126）视觉核验：保留 1-based 编号到 0-based 数组的换算及单支树最坏空间。"
+        },
+        {
+          "source_heading": "2．链式存储结构",
+          "disposition": "condensed",
+          "output_heading": "顺序存储与链式存储",
+          "reason": "PDF 第 136—137 页（书页 126—127）视觉核验：保留二叉/三叉链表字段、n+1 个空链域以及找双亲的差异。"
+        }
+      ]
+    },
+    {
+      "source_file": "6-3-traversal-and-threaded-binary-tree/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "6.3 遍历二叉树和线索二叉树",
+        "遍历次序与递归定义",
+        "表达式树与遍历序列",
+        "中序非递归遍历",
+        "先序序列建树",
+        "线索、标志域与中序前驱/后继",
+        "带头结点的中序线索链表",
+        "中序线索化不变量"
+      ],
+      "reason": "逐页浏览 PDF 第 138—145 页（书页 128—135），并以 300 dpi 复核第 141 页：算法 6.1—6.7 的接口、状态、不变量、复杂度和线索边界均保留；确认算法 6.4 原书确印 `scanf(&ch)` 与空格判空，正文将其标为教材旧式非标准写法并给出一致的应试字符读取格式。",
+      "items": [
+        {
+          "source_heading": "6.3　遍历二叉树和线索二叉树",
+          "disposition": "condensed",
+          "output_heading": "6.3 遍历二叉树和线索二叉树",
+          "reason": "PDF 第 138—145 页（书页 128—135）视觉核验：总述重组为遍历、建树和线索化三条知识链。"
+        },
+        {
+          "source_heading": "6.3.1　遍历二叉树",
+          "disposition": "condensed",
+          "output_heading": "遍历次序与递归定义",
+          "reason": "PDF 第 138—142 页（书页 128—132；第 141 页重点复核算法 6.4）视觉核验：保留三种递归定义、表达式例、算法 6.1 至 6.4、非递归栈状态及 O(n)/O(h) 条件。"
+        },
+        {
+          "source_heading": "6.3.2　线索二叉树",
+          "disposition": "condensed",
+          "output_heading": "线索、标志域与中序前驱/后继",
+          "reason": "PDF 第 142—145 页（书页 132—135）视觉核验：保留标志含义、中序前驱后继、后序三种后继情况、头结点约定以及算法 6.5 至 6.7 的不变量。"
+        }
+      ]
+    },
+    {
+      "source_file": "6-4-tree-and-forest/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "6.4 树和森林",
+        "三类存储表示",
+        "树、森林与二叉树的转换",
+        "树与森林的遍历对应"
+      ],
+      "reason": "逐页浏览 PDF 第 145—149 页（书页 135—139）：采用双亲、孩子、孩子—兄弟三种表示的字段与代价，保留定长多重链表空域公式、森林/二叉树互逆转换和遍历对应；图 6.13—6.17 的结构语义由表格和递归规则完整替代。",
+      "items": [
+        {
+          "source_heading": "6.4　树和森林",
+          "disposition": "condensed",
+          "output_heading": "6.4 树和森林",
+          "reason": "PDF 第 145—149 页（书页 135—139）视觉核验：总述并入存储、转换和遍历三块。"
+        },
+        {
+          "source_heading": "6.4.1　树的存储结构",
+          "disposition": "condensed",
+          "output_heading": "三类存储表示",
+          "reason": "PDF 第 145—147 页（书页 135—137）视觉核验：按字段、擅长操作与代价统一比较。"
+        },
+        {
+          "source_heading": "1. 双亲表示法",
+          "disposition": "condensed",
+          "output_heading": "三类存储表示",
+          "reason": "PDF 第 145 页（书页 135）视觉核验：保留 parent=-1、找双亲和找孩子的代价差异。"
+        },
+        {
+          "source_heading": "2. 孩子表示法",
+          "disposition": "condensed",
+          "output_heading": "三类存储表示",
+          "reason": "PDF 第 145—147 页（书页 135—137）视觉核验：保留定长/变长多重链表、孩子链表和双亲域组合。"
+        },
+        {
+          "source_heading": "3. 孩子-兄弟表示法",
+          "disposition": "condensed",
+          "output_heading": "三类存储表示",
+          "reason": "PDF 第 146—147 页（书页 136—137）视觉核验：保留 firstchild/nextsibling 字段和第 i 个孩子的查找过程。"
+        },
+        {
+          "source_heading": "6.4.2　森林与二叉树的转换",
+          "disposition": "condensed",
+          "output_heading": "树、森林与二叉树的转换",
+          "reason": "PDF 第 147—148 页（书页 137—138）视觉核验：保留二叉链表同构解释与互逆递归。"
+        },
+        {
+          "source_heading": "森林转换为二叉树",
+          "disposition": "condensed",
+          "output_heading": "树、森林与二叉树的转换",
+          "reason": "PDF 第 147—148 页（书页 137—138）视觉核验：四步递归转换完整保留。"
+        },
+        {
+          "source_heading": "2．二叉树转换成森林",
+          "disposition": "condensed",
+          "output_heading": "树、森林与二叉树的转换",
+          "reason": "PDF 第 147—148 页（书页 137—138）视觉核验：逆转换按根、左子树和右子树三部分保留。"
+        },
+        {
+          "source_heading": "6.4.3　树和森林的遍历",
+          "disposition": "condensed",
+          "output_heading": "树与森林的遍历对应",
+          "reason": "PDF 第 148—149 页（书页 138—139）视觉核验：保留树的先根/后根和森林的两种递归次序。"
+        },
+        {
+          "source_heading": "先序遍历森林",
+          "disposition": "condensed",
+          "output_heading": "树与森林的遍历对应",
+          "reason": "PDF 第 149 页（书页 139）视觉核验：保留第一棵树、子树森林、剩余森林三步及其二叉树先序对应。"
+        },
+        {
+          "source_heading": "中序遍历森林",
+          "disposition": "condensed",
+          "output_heading": "树与森林的遍历对应",
+          "reason": "PDF 第 149 页（书页 139）视觉核验：保留子树森林、根、剩余森林三步及其二叉树中序对应。"
+        }
+      ]
+    },
+    {
+      "source_file": "6-5-equivalence-problem/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "6.5 树与等价问题",
+        "等价关系、等价类与集合森林",
+        "基本 Find 与 Merge",
+        "按大小合并",
+        "路径压缩"
+      ],
+      "reason": "逐页浏览 PDF 第 149—153 页（书页 139—143），并以 300 dpi 复核第 152 页：采用等价关系、MFSet 森林、算法 6.8—6.11、深度界和复杂度；确认算法 6.10 原书为 `void mix_mfset` 却返回 `ERROR/OK`，正文明确教材冲突及两种一致的应试接口约定。",
+      "items": [
+        {
+          "source_heading": "6.5　树与等价问题",
+          "disposition": "condensed",
+          "output_heading": "6.5 树与等价问题",
+          "reason": "PDF 第 149—153 页（书页 139—143）视觉核验：删除 FORTRAN 背景细节，保留等价关系、唯一划分和树形实现。"
+        },
+        {
+          "source_heading": "6.5.1　等价类的划分",
+          "disposition": "condensed",
+          "output_heading": "等价关系、等价类与集合森林",
+          "reason": "PDF 第 149—151 页（书页 139—141）视觉核验：保留初始化、查找、合并流程以及算法 6.8、6.9 的前置条件和复杂度。"
+        },
+        {
+          "source_heading": "6.5.2　改进的“并”操作",
+          "disposition": "condensed",
+          "output_heading": "按大小合并",
+          "reason": "PDF 第 151—152 页（书页 141—142；第 152 页重点复核算法 6.10）视觉核验：保留根的负大小约定、算法 6.10、深度界证明骨架和教材复杂度结论；原书签名/返回冲突已在正文明确区分教材写法与应试接口。"
+        },
+        {
+          "source_heading": "6.5.3　压缩路径",
+          "disposition": "condensed",
+          "output_heading": "路径压缩",
+          "reason": "PDF 第 152—153 页（书页 142—143）视觉核验：保留算法 6.11 两趟改链、更新顺序、不变量和 O(nα(n)) 结论。"
+        }
+      ]
+    },
+    {
+      "source_file": "6-6-huffman-tree-and-applications/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "6.6 哈夫曼树及其应用",
+        "路径长度、WPL 与哈夫曼树",
+        "哈夫曼构造",
+        "前缀编码与译码",
+        "存储结构与算法 6.12",
+        "算法 6.13：利用双亲域无栈求码",
+        "例 6-2：图 6.26、图 6.27 的完整构造"
+      ],
+      "reason": "逐页浏览 PDF 第 154—159 页（书页 144—149），并以 300 dpi 复核第 156、158、159 页：定长 14 位串、非前缀 9 位反例、图 6.25 前缀码已分开；例 6-2 的图 6.26/6.27 合并、HT、HC 和 WPL=271 已完整恢复，并注明同权值时树形与具体码字不唯一。",
+      "items": [
+        {
+          "source_heading": "6.6 哈夫曼树及其应用",
+          "disposition": "condensed",
+          "output_heading": "6.6 哈夫曼树及其应用",
+          "reason": "PDF 第 154—159 页（书页 144—149）视觉核验：总述并入 WPL、构造和编码三块。"
+        },
+        {
+          "source_heading": "6.6.1 最优二叉树（哈夫曼树）",
+          "disposition": "condensed",
+          "output_heading": "路径长度、WPL 与哈夫曼树",
+          "reason": "PDF 第 154—156 页（书页 144—146）视觉核验：定义、三棵树 WPL 对照、判定树例和四步构造完整保留。"
+        },
+        {
+          "source_heading": "6.6.2 哈夫曼编码",
+          "disposition": "condensed",
+          "output_heading": "前缀编码与译码",
+          "reason": "PDF 第 156—159 页（书页 146—149；第 156、158、159 页重点复核）视觉核验：编码原理和算法完整保留；原书三组码表已分离为定长 14 位、非前缀 9 位反例和图 6.25 前缀码，例 6-2 的完整合并、HT、HC、WPL=271 与同权值不唯一边界均已恢复。"
+        },
+        {
+          "source_heading": "哈夫曼树的存储结构",
+          "disposition": "condensed",
+          "output_heading": "存储结构与算法 6.12",
+          "reason": "PDF 第 157 页（书页 147）视觉核验：保留 2n-1 个结点、1-based 数组分区和 parent/lchild/rchild 字段。"
+        },
+        {
+          "source_heading": "算法 6.12　构造哈夫曼树并求编码",
+          "disposition": "condensed",
+          "output_heading": "存储结构与算法 6.12",
+          "reason": "PDF 第 157 页（书页 147）视觉核验：保留 Select 前置、建树更新、逆向求码、动态码长和 n≤1 边界。"
+        },
+        {
+          "source_heading": "算法 6.13　非递归遍历求编码",
+          "disposition": "condensed",
+          "output_heading": "算法 6.13：利用双亲域无栈求码",
+          "reason": "PDF 第 158 页（书页 148）视觉核验：保留 0/1/2 状态、叶子记录、沿双亲回退和复用 weight 会覆盖原权值的边界。"
+        }
+      ]
+    },
+    {
+      "source_file": "6-7-backtracking-and-tree-traversal/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "6.7 回溯法与树的遍历",
+        "状态树与回溯不变量",
+        "幂集：算法 6.14 与 6.15",
+        "$n$ 皇后：约束剪枝"
+      ],
+      "reason": "逐页浏览 PDF 第 159—162 页（书页 149—152）：采用隐含状态树的先序搜索、剪枝与恢复现场不变量，保留幂集算法 6.14/6.15 和皇后算法 6.16 的输入、终止、分支与回退语义。",
+      "items": [
+        {
+          "source_heading": "6.7 回溯法与树的遍历",
+          "disposition": "condensed",
+          "output_heading": "6.7 回溯法与树的遍历",
+          "reason": "PDF 第 159—162 页（书页 149—152）视觉核验：删除泛化举例，保留回溯与状态树先序遍历的关系。"
+        },
+        {
+          "source_heading": "6.7.1 子集生成",
+          "disposition": "condensed",
+          "output_heading": "幂集：算法 6.14 与 6.15",
+          "reason": "PDF 第 159—160 页（书页 149—150）视觉核验：保留式 (6-6)、取/舍两分支、叶子含义和恢复现场。"
+        },
+        {
+          "source_heading": "算法 6.14　用状态树求幂集",
+          "disposition": "condensed",
+          "output_heading": "幂集：算法 6.14 与 6.15",
+          "reason": "PDF 第 160 页（书页 150）视觉核验：抽象 Take/Reject 版本合并进状态不变量说明。"
+        },
+        {
+          "source_heading": "算法 6.15　`GetPowerSet`",
+          "disposition": "condensed",
+          "output_heading": "幂集：算法 6.14 与 6.15",
+          "reason": "PDF 第 160 页（书页 150）视觉核验：保留线性表 B 的插入、递归、删除和舍分支。"
+        },
+        {
+          "source_heading": "6.7.2 四皇后问题",
+          "disposition": "condensed",
+          "output_heading": "$n$ 皇后：约束剪枝",
+          "reason": "PDF 第 160—162 页（书页 150—152）视觉核验：保留行/列/对角线约束、失败叶子与解叶子的区别。"
+        },
+        {
+          "source_heading": "算法 6.16　四皇后（(n) 皇后）回溯算法",
+          "disposition": "condensed",
+          "output_heading": "$n$ 皇后：约束剪枝",
+          "reason": "PDF 第 161—162 页（书页 151—152）视觉核验：保留逐列尝试、合法性检查、递归与无条件撤销。"
+        }
+      ]
+    },
+    {
+      "source_file": "6-8-tree-counting/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "6.8 树的计数",
+        "相似、等价与形态递推",
+        "生成函数与 Catalan 数",
+        "前序与中序序列重建",
+        "合法出栈序列与计数",
+        "有序树的计数"
+      ],
+      "reason": "逐页浏览 PDF 第 162—165 页（书页 152—155）：采用相似/等价边界、式 (6-7)—(6-13) 的递推与生成函数推导、前序+中序重建、合法出栈对应和有序树计数条件。",
+      "items": [
+        {
+          "source_heading": "6.8 树的计数",
+          "disposition": "condensed",
+          "output_heading": "6.8 树的计数",
+          "reason": "PDF 第 162—165 页（书页 152—155）视觉核验：总述和初值并入形态递推。"
+        },
+        {
+          "source_heading": "6.8.1 生成函数与 Catalan 数",
+          "disposition": "condensed",
+          "output_heading": "生成函数与 Catalan 数",
+          "reason": "PDF 第 162—164 页（书页 152—154）视觉核验：从递推、生成函数方程、分支选择、二项展开到系数比较的链条完整保留。"
+        },
+        {
+          "source_heading": "6.8.2 由遍历序列计数",
+          "disposition": "condensed",
+          "output_heading": "前序与中序序列重建",
+          "reason": "PDF 第 164 页（书页 154）视觉核验：保留唯一重建步骤、例 6-5 和固定前序时的计数关系，并补明根位置须可唯一确定。"
+        },
+        {
+          "source_heading": "6.8.3 中序遍历的栈过程与树的计数",
+          "disposition": "condensed",
+          "output_heading": "合法出栈序列与计数",
+          "reason": "PDF 第 165 页（书页 155）视觉核验：保留合法出栈对应、式 (6-13) 和 t_n=b_(n-1) 的有序树条件。"
+        }
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "term": "树",
+      "aliases": [
+        "Tree"
+      ],
+      "definition": "n≥0 个结点的有限集；非空时有唯一根，其余结点划分为互不相交的根子树。",
+      "source_file": "6-1-tree-definition-basic-terms/index.md",
+      "output_heading": "递归定义与逻辑表示"
+    },
+    {
+      "term": "二叉树",
+      "aliases": [
+        "Binary Tree"
+      ],
+      "definition": "空树，或由根及互不相交、左右有序的两棵二叉子树组成的结构。",
+      "source_file": "6-2-binary-tree/index.md",
+      "output_heading": "二叉树的定义与操作"
+    },
+    {
+      "term": "完全二叉树",
+      "aliases": [],
+      "definition": "按层序编号后，与同深度满二叉树编号 1 至 n 的结点逐一对应的二叉树。",
+      "source_file": "6-2-binary-tree/index.md",
+      "output_heading": "满二叉树与完全二叉树"
+    },
+    {
+      "term": "线索二叉树",
+      "aliases": [
+        "Threaded Binary Tree"
+      ],
+      "definition": "利用原空孩子链保存指定遍历序列前驱或后继，并以标志域区分线索和真实孩子的二叉树。",
+      "source_file": "6-3-traversal-and-threaded-binary-tree/index.md",
+      "output_heading": "线索、标志域与中序前驱/后继"
+    },
+    {
+      "term": "等价关系",
+      "aliases": [],
+      "definition": "集合上同时具有自反性、对称性和传递性的关系。",
+      "source_file": "6-5-equivalence-problem/index.md",
+      "output_heading": "等价关系、等价类与集合森林"
+    },
+    {
+      "term": "带权路径长度",
+      "aliases": [
+        "WPL"
+      ],
+      "definition": "所有带权叶子权值与其根路径长度乘积之和。",
+      "source_file": "6-6-huffman-tree-and-applications/index.md",
+      "output_heading": "路径长度、WPL 与哈夫曼树"
+    },
+    {
+      "term": "哈夫曼树",
+      "aliases": [
+        "最优二叉树",
+        "Huffman Tree"
+      ],
+      "definition": "给定叶子权值时带权路径长度最小的二叉树。",
+      "source_file": "6-6-huffman-tree-and-applications/index.md",
+      "output_heading": "路径长度、WPL 与哈夫曼树"
+    },
+    {
+      "term": "回溯法",
+      "aliases": [
+        "backtracking"
+      ],
+      "definition": "先序搜索隐含状态树，在约束冲突时剪枝，并在子分支返回后撤销选择恢复现场。",
+      "source_file": "6-7-backtracking-and-tree-traversal/index.md",
+      "output_heading": "状态树与回溯不变量"
+    },
+    {
+      "term": "Catalan 数",
+      "aliases": [],
+      "definition": "本章二叉树形态计数 b_n=(1/(n+1))·C(2n,n)。",
+      "source_file": "6-8-tree-counting/index.md",
+      "output_heading": "生成函数与 Catalan 数"
+    }
+  ],
+  "visuals": [],
+  "checks": {
+    "ownership": true,
+    "source_coverage": true,
+    "headings": true,
+    "formulas": true,
+    "code": true,
+    "complexity": true,
+    "links": true,
+    "assets": true,
+    "rendering": true
+  },
+  "risks": [],
+  "stats": {
+    "source_files": 9,
+    "kept": 0,
+    "condensed": 9,
+    "omitted": 0,
+    "needs_review": 0,
+    "static_visuals": 0,
+    "interactive_proposals": 0
+  }
+}
+

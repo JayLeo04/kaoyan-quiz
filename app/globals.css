@@ -1587,6 +1587,7 @@ button.knowledge-comparison-row:hover, button.knowledge-comparison-row.is-select
 .textbook-shelf-card footer a { color: #385f86; font-size: 9px; font-weight: 800; }
 .textbook-shelf-card footer a:first-child { display: flex; align-items: center; gap: 8px; }
 .textbook-shelf-card footer a:first-child b { font-size: 13px; }
+.textbook-shelf-card footer .textbook-shelf-condensed { padding: 5px 8px; border: 1px solid #a7c6ae; background: #f1fbf3; color: #366c43; }
 .textbook-shelf-no-practice { color: #777972; font-size: 8px; font-weight: 700; }
 .textbook-shelf-footnote { max-width: 620px; margin: 28px 0 0; color: #777972; font-size: 9px; line-height: 1.6; }
 .textbook-main { height: calc(100svh - 66px); min-height: 0; display: grid; grid-template-columns: 286px minmax(0, 1fr); padding-block: 18px 22px; }

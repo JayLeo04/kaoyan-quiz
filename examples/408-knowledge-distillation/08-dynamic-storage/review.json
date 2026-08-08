@@ -1,0 +1,348 @@
+{
+  "schema_version": "1.0",
+  "run_id": "ds-20260808-ch02-ch12",
+  "chapter_id": "08-dynamic-storage",
+  "attempt": 2,
+  "status": "distilled",
+  "renderer": "portable",
+  "source": {
+    "input_root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\08-dynamic-storage",
+    "source_map": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\08-dynamic-storage\\source-map.json",
+    "source_lock_sha256": "ff42d521d8137ccc902915b60e56764d22b4ff235545e1717405d22c0ee1b87f",
+    "expected_files": [
+      "8-1-overview/index.md",
+      "8-2-available-space-table-and-allocation/index.md",
+      "8-3-boundary-tag-method/index.md",
+      "8-4-buddy-system/index.md",
+      "8-5-garbage-collection/index.md",
+      "8-6-storage-compaction/index.md",
+      "index.md"
+    ]
+  },
+  "output": {
+    "root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\candidates\\08-dynamic-storage\\attempt-02",
+    "markdown": "index.md",
+    "assets": [],
+    "visualization_fragment": null
+  },
+  "coverage": [
+    {
+      "source_file": "index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "第 8 章 动态存储管理",
+        "本章知识地图"
+      ],
+      "reason": "视觉核验 PDF 第203页：章题为“第8章 动态存储管理”，印刷页码为193，且8.1从该页开始；再核至PDF第223页、印刷页213确认本章终点。保留章题与8.1—8.6主线，源目录仅为已覆盖内容的导航，故省去重复链接。",
+      "items": [
+        {
+          "source_heading": "第 8 章　动态存储管理",
+          "disposition": "kept",
+          "output_heading": "第 8 章 动态存储管理",
+          "reason": "PDF第203页已亲眼确认章题与起始印刷页码，章题作为唯一一级标题保留。"
+        },
+        {
+          "source_heading": "目录",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "目录只承载对8.1—8.6源页的导航；六节知识已按原顺序完整覆盖，无知识增量的重复链接省略。"
+        }
+      ]
+    },
+    {
+      "source_file": "8-1-overview/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "8.1 动态存储管理的对象与策略",
+        "基本对象",
+        "两类管理策略"
+      ],
+      "reason": "逐页视觉核验PDF第203—204页（印刷页193—194）：保留占用块、空闲块、可利用空间表、堆、目录表字段及延迟/立即回收两类策略；图8.1、8.2的结构变化已由定义与对照表等价表达。",
+      "items": [
+        {
+          "source_heading": "8.1　概述",
+          "disposition": "condensed",
+          "output_heading": "8.1 动态存储管理的对象与策略",
+          "reason": "PDF第203—204页的定义、初始状态、分配/回收变化和两类策略均保留，历史叙述与章节预告压缩。"
+        }
+      ]
+    },
+    {
+      "source_file": "8-2-available-space-table-and-allocation/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "8.2 可利用空间表与拟合分配",
+        "三种可利用空间表",
+        "任意大小空闲块与三种拟合策略",
+        "回收时的地址相邻合并"
+      ],
+      "reason": "逐页视觉核验PDF第205—208页（印刷页195—198）：保留三类空闲表、结点字段、首次/最佳/最差拟合的规则与维护代价。对照PDF第207页图8.5补回请求7000时的分配起址18000、32000、93000及各剩余块，图8.3、8.4的关系由结构串和表格覆盖。",
+      "items": [
+        {
+          "source_heading": "8.2　可利用空间表及分配方法",
+          "disposition": "condensed",
+          "output_heading": "8.2 可利用空间表与拟合分配",
+          "reason": "PDF第205—208页全部独有定义、条件、策略比较、复杂度与数值例均已纳入；重复图解文字压缩。"
+        }
+      ]
+    },
+    {
+      "source_file": "8-3-boundary-tag-method/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "8.3 边界标识法",
+        "结点结构与不变量",
+        "边界标识分配",
+        "回收算法：四种邻接状态"
+      ],
+      "reason": "逐页视觉核验PDF第208—213页（印刷页198—203），并直读算法8.1及四种回收分支：头/尾字段、FootLoc、阈值e、高地址切分、旋转pav、四类合并和O(1)回收均保留。原书确实未展开管理区两端约定，也未在右邻被替换或删除时另列pav==t改指；正文据此限定公式适用前提并明确完整实现必须维持游标存活不变量，不再把教材片段误作无边界的完整程序。",
+      "items": [
+        {
+          "source_heading": "8.3　边界标识法",
+          "disposition": "condensed",
+          "output_heading": "8.3 边界标识法",
+          "reason": "PDF第208页确认方法定义、用途和底部标识代价，均已保留。"
+        },
+        {
+          "source_heading": "8.3.1 可利用空间表的结构",
+          "disposition": "condensed",
+          "output_heading": "结点结构与不变量",
+          "reason": "PDF第208—209页核对无表头双向循环表、llink/rlink/tag/size/uplink、pav及FootLoc关系，字段口径完整。"
+        },
+        {
+          "source_heading": "8.3.2 分配算法",
+          "disposition": "condensed",
+          "output_heading": "边界标识分配",
+          "reason": "PDF第210—211页逐行核对算法8.1：环形首次拟合、失败条件、pav轮转、m-n与e的两分支、高地址切分及字段更新顺序已恢复。"
+        },
+        {
+          "source_heading": "8.3.3 回收算法",
+          "disposition": "condensed",
+          "output_heading": "回收算法：四种邻接状态",
+          "reason": "PDF第211—213页逐分支核对左右邻占用/空闲四态、size/uplink及链指针变化；两端边界与pav省略项按原书实际范围显式标注。"
+        }
+      ]
+    },
+    {
+      "source_file": "8-4-buddy-system/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "8.4 伙伴系统",
+        "空间表与记号口径",
+        "逐级分裂分配",
+        "回收算法：只合并伙伴",
+        "复杂度与限制"
+      ],
+      "reason": "逐页视觉核验PDF第213—216页（印刷页203—206）：确认总区大小2^m、m+1个子表、块总长2^k与一个字块头、算法8.2按n+1选择nodesize、分裂地址序列、伙伴定义与分段公式。正文将概念段的n和实现段的n+1分列说明，并补明合法块起址的2^k对齐条件；两个地址例均与PDF第216页一致。",
+      "items": [
+        {
+          "source_heading": "8.4　伙伴系统",
+          "disposition": "condensed",
+          "output_heading": "8.4 伙伴系统",
+          "reason": "PDF第213页核对定义、幂次容量模型和总体规则，全部保留。"
+        },
+        {
+          "source_heading": "8.4.1 可利用空间表的结构",
+          "disposition": "condensed",
+          "output_heading": "空间表与记号口径",
+          "reason": "PDF第213—214页核对m+1个规格表、nodesize/first与块头字段，并明确2^k总长和2^k-1载荷。"
+        },
+        {
+          "source_heading": "8.4.2 分配算法",
+          "disposition": "condensed",
+          "output_heading": "逐级分裂分配",
+          "reason": "PDF第214—215页核对算法8.2的nodesize>=n+1条件、向上找表、低端继续分裂、高端余块地址和终止规格。"
+        },
+        {
+          "source_heading": "8.4.3 回收算法",
+          "disposition": "condensed",
+          "output_heading": "回收算法：只合并伙伴",
+          "reason": "PDF第215—216页核对同源伙伴条件、模地址公式、512/768与384/256两例及逐级合并终止条件；教材未列完整释放代码，未补造API。"
+        }
+      ]
+    },
+    {
+      "source_file": "8-5-garbage-collection/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "8.5 无用单元收集",
+        "无用单元、悬挂访问与共享",
+        "两条处理途径",
+        "标记—扫描收集",
+        "三种标志算法",
+        "利用结点指针域记录路径（算法 8.3）",
+        "收集效率"
+      ],
+      "reason": "逐页视觉核验PDF第216—222页（印刷页206—212）；重点以360dpi直读PDF第220—221页。确认算法8.3的内层while在表头处理后闭合，表尾下降与BackTrack属于外层循环；正文已按真实花括号重写并将原书mrak排印笔误规范为mark。PDF第220页图8.11的(a)—(i)九态也已逐项查看，输入中的简化SVG不足以表达这些指针状态，故不复用该图，改用完整状态不变量和精确分支作等价文字兜底。定义、共享反例、两种处理途径、三种标记法、复杂度公式和阈值k均保留。",
+      "items": [
+        {
+          "source_heading": "8.5　无用单元收集",
+          "disposition": "condensed",
+          "output_heading": "8.5 无用单元收集",
+          "reason": "PDF第216—218及221—222页核对无用单元、悬挂访问、共享结构、访问计数、标记—扫描、根表和定量估计，均已覆盖。"
+        },
+        {
+          "source_heading": "（1）递归算法",
+          "disposition": "condensed",
+          "output_heading": "三种标志算法",
+          "reason": "PDF第218页确认递归定义、辅助栈随不定层次增长及溢出风险，以比较表保留。"
+        },
+        {
+          "source_heading": "（2）非递归算法",
+          "disposition": "condensed",
+          "output_heading": "三种标志算法",
+          "reason": "PDF第218页确认DFS栈、按层队列、容量不确定及与指针反转的时间/空间权衡，以比较表保留。"
+        },
+        {
+          "source_heading": "（3）利用表结点本身的指针域标记遍历路径的算法",
+          "disposition": "condensed",
+          "output_heading": "利用结点指针域记录路径（算法 8.3）",
+          "reason": "PDF第218—221页核对p/q/t角色、hp/tp路径记录、tag方向判别、原链接恢复和中断风险；九态关系改用等价文字表达。"
+        },
+        {
+          "source_heading": "算法 8.3",
+          "disposition": "condensed",
+          "output_heading": "利用结点指针域记录路径（算法 8.3）",
+          "reason": "以PDF第220—221页高分辨率原图逐行确认真实花括号：表头while先闭合，再执行表尾if/else和回溯；已消除旧OCR层级冲突，并记录mrak到mark的已判定排印校正。"
+        }
+      ]
+    },
+    {
+      "source_file": "8-6-storage-compaction/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "8.6 存储紧缩",
+        "连续堆分配与紧缩时机",
+        "紧缩的四步操作",
+        "最小地址例",
+        "紧缩代价"
+      ],
+      "reason": "逐页视觉核验PDF第222—223页（印刷页212—213）：保留连续堆不变量、free移动方向、立即/延迟紧缩时机、新旧地址表、根和块内指针修正、数据迁移、A/B/C/D地址例及复杂性结论；图8.12、8.13由地址表和目标状态文字等价表达。",
+      "items": [
+        {
+          "source_heading": "8.6　存储紧缩",
+          "disposition": "condensed",
+          "output_heading": "8.6 存储紧缩",
+          "reason": "PDF第222—223页全部定义、触发条件、四步操作、地址例和代价结论均已覆盖，重复图解说明压缩。"
+        }
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "term": "占用块",
+      "aliases": [],
+      "definition": "已分配给用户使用的一段地址连续内存区。",
+      "source_file": "8-1-overview/index.md",
+      "output_heading": "基本对象"
+    },
+    {
+      "term": "可利用空间块",
+      "aliases": [
+        "空闲块"
+      ],
+      "definition": "尚未分配、可响应后续请求的一段地址连续内存区。",
+      "source_file": "8-1-overview/index.md",
+      "output_heading": "基本对象"
+    },
+    {
+      "term": "可利用空间表",
+      "aliases": [
+        "存储池"
+      ],
+      "definition": "登记全部空闲块以支持分配和回收的目录表或链表结构。",
+      "source_file": "8-2-available-space-table-and-allocation/index.md",
+      "output_heading": "三种可利用空间表"
+    },
+    {
+      "term": "首次拟合",
+      "aliases": [],
+      "definition": "从指定查找起点选择第一个大小不小于请求量的空闲块。",
+      "source_file": "8-2-available-space-table-and-allocation/index.md",
+      "output_heading": "任意大小空闲块与三种拟合策略"
+    },
+    {
+      "term": "最佳拟合",
+      "aliases": [],
+      "definition": "选择大小不小于请求量且与请求量最接近的空闲块。",
+      "source_file": "8-2-available-space-table-and-allocation/index.md",
+      "output_heading": "任意大小空闲块与三种拟合策略"
+    },
+    {
+      "term": "最差拟合",
+      "aliases": [],
+      "definition": "选择所有可用候选中最大的空闲块。",
+      "source_file": "8-2-available-space-table-and-allocation/index.md",
+      "output_heading": "任意大小空闲块与三种拟合策略"
+    },
+    {
+      "term": "边界标识法",
+      "aliases": [
+        "boundary tag method"
+      ],
+      "definition": "在块头和块尾设置占用标志，使释放时可由相邻地址直接判定并合并物理邻块的方法。",
+      "source_file": "8-3-boundary-tag-method/index.md",
+      "output_heading": "8.3 边界标识法"
+    },
+    {
+      "term": "伙伴",
+      "aliases": [],
+      "definition": "由同一个较大幂次块二分所得的两个等大子块。",
+      "source_file": "8-4-buddy-system/index.md",
+      "output_heading": "回收算法：只合并伙伴"
+    },
+    {
+      "term": "无用单元",
+      "aliases": [],
+      "definition": "用户已不再使用但系统尚未回收、因而不能重新分配的结点或变量。",
+      "source_file": "8-5-garbage-collection/index.md",
+      "output_heading": "无用单元、悬挂访问与共享"
+    },
+    {
+      "term": "悬挂访问",
+      "aliases": [],
+      "definition": "通过仍保留的指针访问已经释放、可能已重新分配的存储区域。",
+      "source_file": "8-5-garbage-collection/index.md",
+      "output_heading": "无用单元、悬挂访问与共享"
+    },
+    {
+      "term": "无用单元收集",
+      "aliases": [
+        "标记—扫描"
+      ],
+      "definition": "从根指针标记全部可达结点，再扫描整个存储区并把未标记结点重建为空闲表的过程。",
+      "source_file": "8-5-garbage-collection/index.md",
+      "output_heading": "标记—扫描收集"
+    },
+    {
+      "term": "存储紧缩",
+      "aliases": [],
+      "definition": "迁移占用块并修改相关指针，使占用块集中到一侧、剩余空间成为单一连续空闲区的系统操作。",
+      "source_file": "8-6-storage-compaction/index.md",
+      "output_heading": "8.6 存储紧缩"
+    }
+  ],
+  "visuals": [],
+  "checks": {
+    "ownership": true,
+    "source_coverage": true,
+    "headings": true,
+    "formulas": true,
+    "code": true,
+    "complexity": true,
+    "links": true,
+    "assets": true,
+    "rendering": true
+  },
+  "risks": [],
+  "stats": {
+    "source_files": 7,
+    "kept": 0,
+    "condensed": 7,
+    "omitted": 0,
+    "needs_review": 0,
+    "static_visuals": 0,
+    "interactive_proposals": 0
+  }
+}
+

@@ -1,7 +1,7 @@
 import Link from "@/app/components/SiteLink";
 import { AppHeader } from "@/app/components/AppHeader";
 import { textbookCatalog } from "@/app/data/textbook-registry";
-import { textbookHref, textbookPracticeHref } from "@/app/data/textbook-routes";
+import { textbookCondensedHref, textbookHref, textbookPracticeHref } from "@/app/data/textbook-routes";
 
 export function TextbookShelf({ unavailableBookSlug }: { unavailableBookSlug?: string }) {
   return (
@@ -20,6 +20,7 @@ export function TextbookShelf({ unavailableBookSlug }: { unavailableBookSlug?: s
         <section className="textbook-shelf-grid" aria-label="已收录教材">
           {textbookCatalog.map((textbook, index) => {
             const hasPractice = textbook.dataset.stats.exerciseQuestions > 0;
+            const firstCondensedPage = textbook.dataset.pages.find((page) => page.condensed);
             return <article className="textbook-shelf-card" key={textbook.slug}>
               <div className="textbook-shelf-card-top">
                 <span>{String(index + 1).padStart(2, "0")}</span>
@@ -32,9 +33,11 @@ export function TextbookShelf({ unavailableBookSlug }: { unavailableBookSlug?: s
               <div className="textbook-shelf-stats">
                 <span>{textbook.dataset.stats.knowledgePages} 篇正文</span>
                 <span>{textbook.dataset.stats.exerciseQuestions} 道习题</span>
+                {firstCondensedPage ? <span>{textbook.dataset.stats.condensedPages} 章精简版</span> : null}
               </div>
               <footer>
                 <Link href={textbookHref(textbook)}>阅读教材 <b>→</b></Link>
+                {firstCondensedPage ? <Link className="textbook-shelf-condensed" href={textbookCondensedHref(textbook, firstCondensedPage.slug)}>精简版</Link> : null}
                 {hasPractice ? <Link href={textbookPracticeHref(textbook)}>刷题</Link> : <span className="textbook-shelf-no-practice">正文已导入</span>}
               </footer>
             </article>

@@ -1,0 +1,652 @@
+{
+  "schema_version": "1.0",
+  "run_id": "ds-20260808-ch02-ch12",
+  "chapter_id": "12-file",
+  "attempt": 2,
+  "status": "distilled",
+  "renderer": "portable",
+  "source": {
+    "input_root": "C:/Users/Administrator/Documents/kaoyanQuiz/work/408-knowledge/ds-20260808-ch02-ch12/inputs/12-file",
+    "source_map": "C:/Users/Administrator/Documents/kaoyanQuiz/work/408-knowledge/ds-20260808-ch02-ch12/inputs/12-file/source-map.json",
+    "source_lock_sha256": "ff42d521d8137ccc902915b60e56764d22b4ff235545e1717405d22c0ee1b87f",
+    "expected_files": [
+      "12-1-basic-concepts/index.md",
+      "12-2-sequential-file/index.md",
+      "12-3-index-file/index.md",
+      "12-4-isam-and-vsam-files/index.md",
+      "12-5-direct-access-hash-files/index.md",
+      "12-6-multikey-files/index.md",
+      "appendix-a-glossary/index.md",
+      "appendix-b-function-index/index.md",
+      "bibliography/index.md",
+      "index.md"
+    ]
+  },
+  "output": {
+    "root": "C:/Users/Administrator/Documents/kaoyanQuiz/work/408-knowledge/ds-20260808-ch02-ch12/candidates/12-file/attempt-02",
+    "markdown": "index.md",
+    "assets": [],
+    "visualization_fragment": null
+  },
+  "coverage": [
+    {
+      "source_file": "index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "第 12 章 文件",
+        "本章知识地图"
+      ],
+      "reason": "已视觉核验 PDF 316（印刷 306）：章名为“第 12 章 文件”，并确认印刷页 b 对应 PDF b+10；原书 SHA256 为 516680374414ead5f463f8be88fbf9907e806d7ead3c6cf780cb9c8e0915f794。PDF 316–331 全章逐页核验后，将目录压成知识地图。",
+      "items": [
+        {
+          "source_heading": "第 12 章　文件",
+          "disposition": "condensed",
+          "output_heading": "第 12 章 文件",
+          "reason": "页证据：PDF 316。 保留表与文件的主存/外存边界和本章研究对象，省去重复目录链接。"
+        }
+      ]
+    },
+    {
+      "source_file": "12-1-basic-concepts/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "12.1 文件、记录与操作模型",
+        "文件与记录层次",
+        "逻辑记录与物理记录",
+        "存取、询问与修改",
+        "物理组织的选择"
+      ],
+      "reason": "已视觉核验 PDF 316–318（印刷 306–308）。PDF 317 显示原书先列顺序、直接两种位置型存取，接“以上两种”，再列按关键字存取；采用该原始次序，消除有效输入重排造成的指代错位。",
+      "items": [
+        {
+          "source_heading": "12.1 有关文件的基本概念",
+          "disposition": "condensed",
+          "output_heading": "12.1 文件、记录与操作模型",
+          "reason": "页证据：PDF 316–318。 按概念、映射、操作和组织选择重建知识骨架。"
+        },
+        {
+          "source_heading": "文件及其类别",
+          "disposition": "condensed",
+          "output_heading": "文件与记录层次",
+          "reason": "页证据：PDF 316–318。 保留文件、记录、数据项和三组分类条件，删除仅承载样例数据的多行成绩表。"
+        },
+        {
+          "source_heading": "记录的逻辑结构和物理结构",
+          "disposition": "kept",
+          "output_heading": "逻辑记录与物理记录",
+          "reason": "页证据：PDF 316–318。 完整保留两类记录定义、I/O 单位含义和三种映射关系；图示信息已由有序列表等价表达。"
+        },
+        {
+          "source_heading": "文件的操作（运算）",
+          "disposition": "condensed",
+          "output_heading": "存取、询问与修改",
+          "reason": "页证据：PDF 317。原页先列顺序存取、直接存取，随后“以上两种”指向这两项，再列按关键字存取；输出恢复原始顺序并完整保留四类询问和修改方式。"
+        },
+        {
+          "source_heading": "文件的物理结构",
+          "disposition": "condensed",
+          "output_heading": "物理组织的选择",
+          "reason": "页证据：PDF 316–318。 保留顺序、随机、链三种基本组织及介质、记录和操作选择因素。"
+        }
+      ]
+    },
+    {
+      "source_file": "12-2-sequential-file/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "12.2 顺序文件",
+        "定义、表示与适用条件",
+        "批量更新算法 12.1",
+        "时间与 I/O 代价",
+        "查找、磁盘更新与附加文件"
+      ],
+      "reason": "已视觉核验 PDF 318–321（印刷 308–311）。PDF 320 逐分支核对 MergeFile：四个合法分支、default 错误分支、最大关键字哨兵、g 哨兵为插入、while/feof 边界及 P/Q 作用均按原页保留；条件式 case 明示为非标准 C 教材伪代码。",
+      "items": [
+        {
+          "source_heading": "12.2 顺序文件",
+          "disposition": "condensed",
+          "output_heading": "12.2 顺序文件",
+          "reason": "页证据：PDF 318–321；MergeFile 在 PDF 320。完整保留顺序文件定义、批更新四分支、哨兵与 while/feof 边界、P/Q、错误组合、复杂度和 I/O 上界；历史条件式 case 仅按伪代码解释。"
+        }
+      ]
+    },
+    {
+      "source_file": "12-3-index-file/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "12.3 索引文件",
+        "定义与索引项",
+        "检索与修改",
+        "多级静态索引与动态索引",
+        "稠密索引与非稠密索引"
+      ],
+      "reason": "已视觉核验 PDF 321–323（印刷 311–313）。采用原书的数据区/索引表、两次访问的前提、多级索引 3 次与最高四级 5 次访问、静态/动态及稠密/非稠密边界。",
+      "items": [
+        {
+          "source_heading": "12.3 索引文件",
+          "disposition": "condensed",
+          "output_heading": "12.3 索引文件",
+          "reason": "页证据：PDF 321–323。 源节全部知识按表示、操作、层级和密度重组；数据样例值省略但索引维度和 I/O 结论保留。"
+        }
+      ]
+    },
+    {
+      "source_file": "12-4-isam-and-vsam-files/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "12.4 ISAM 与 VSAM 文件",
+        "ISAM：静态多级索引顺序文件",
+        "ISAM 的检索、插入与整理",
+        "柱面索引的最优位置",
+        "VSAM：B$^+$ 树索引与动态空间",
+        "ISAM 与 VSAM 对照"
+      ],
+      "reason": "已视觉核验 PDF 323–327（印刷 313–317）。采用 ISAM 三级定位、溢出链和周期重组，核对 PDF 325 的 R65/R95/R83 状态；采用 PDF 326 的柱面索引公式及 VSAM 的 B+ 树、控制区间/区域、两级留空和分裂规则。图示关系均已转为等价文字，无需交付图片。",
+      "items": [
+        {
+          "source_heading": "12.4　ISAM 文件和 VSAM 文件",
+          "disposition": "condensed",
+          "output_heading": "12.4 ISAM 与 VSAM 文件",
+          "reason": "页证据：PDF 323–327。 合并为同一知识块并增加条件维度对照，不删两种组织的独有机制。"
+        },
+        {
+          "source_heading": "12.4.1　ISAM 文件",
+          "disposition": "condensed",
+          "output_heading": "ISAM：静态多级索引顺序文件",
+          "reason": "页证据：PDF 323–327。 完整保留结构、检索、溢出、增删重组及平均磁头移动距离推导；复用图 12.10，其他图转为正文。"
+        },
+        {
+          "source_heading": "12.4.2　VSAM 文件",
+          "disposition": "condensed",
+          "output_heading": "VSAM：B$^+$ 树索引与动态空间",
+          "reason": "页证据：PDF 323–327。 完整保留三集层次、控制区间/区域、相向布局、两级分裂、删除和空间权衡；图 12.11 改为更清晰的纯文本层次 fallback。"
+        }
+      ]
+    },
+    {
+      "source_file": "12-5-direct-access-hash-files/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "12.5 直接存取文件（散列文件）",
+        "桶、冲突与溢出链",
+        "查找与终止条件",
+        "查找代价、符号与适用条件",
+        "修改、优势与边界"
+      ],
+      "reason": "已视觉核验 PDF 327–328（印刷 317–318）。PDF 328 明确原式为 T=a(t_e+t_i)、a=1+α/2、α=n/(bm)：a 是期望存取桶数，α 是装载因子，适用于链地址处理溢出；原页没有 λ。采用原书符号并删除有效输入的 OCR 歧义。",
+      "items": [
+        {
+          "source_heading": "12.5　直接存取文件（散列文件）",
+          "disposition": "condensed",
+          "output_heading": "12.5 直接存取文件（散列文件）",
+          "reason": "页证据：PDF 327–328。保留桶、基桶/溢出桶链、查找终止、示例分桶、删除与重组；PDF 328 直读采用 T=a(t_e+t_i)、a=1+α/2、α=n/(bm)，并明确链地址适用条件与原页无 λ。"
+        }
+      ]
+    },
+    {
+      "source_file": "12-6-multikey-files/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "12.6 多关键字文件",
+        "次关键字索引的共同结构",
+        "多重表文件",
+        "倒排文件",
+        "多重表与倒排表对照"
+      ],
+      "reason": "已视觉核验 PDF 329–331（印刷 319–321）。采用次关键字索引、多重表短链查询与维护、倒排表有序记录号集合运算；PDF 330–331 的专业/学分/课程倒排数据与边界均有等价文字表，倒排文件未遗漏。",
+      "items": [
+        {
+          "source_heading": "12.6　多关键字文件",
+          "disposition": "condensed",
+          "output_heading": "12.6 多关键字文件",
+          "reason": "页证据：PDF 329–331。 保留多关键字检索需求与次索引共同结构，删除重复铺垫。"
+        },
+        {
+          "source_heading": "12.6.1　多重表文件",
+          "disposition": "condensed",
+          "output_heading": "多重表文件",
+          "reason": "页证据：PDF 329–331。 保留主/次索引密度、链表示、短链查询策略和插删差异；图 12.15 的长记录表压为字段与机制说明。"
+        },
+        {
+          "source_heading": "12.6.2　倒排文件",
+          "disposition": "condensed",
+          "output_heading": "倒排文件",
+          "reason": "页证据：PDF 329–331。 保留有序记录号表、集合运算、更新移动、ISAM 时改存主关键字及变长维护困难；图 12.16 的数据由文字完整覆盖。"
+        }
+      ]
+    },
+    {
+      "source_file": "appendix-a-glossary/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "本章术语索引（附录 A 压缩）"
+      ],
+      "reason": "已对有效输入的二至十四画全部条目做覆盖审计，并视觉核验风险页 PDF 334、337（印刷 324、327）。结论：PDF 334 原书确印 directed acycline graph；PDF 337 的基数排序页码实际为 284、286而非输入的284、280；同页“桶”原索引写315但正文定义实际在317。仅保留本章术语，其他章导航按笔画说明省略。",
+      "items": [
+        {
+          "source_heading": "附录 A　名词索引",
+          "disposition": "condensed",
+          "output_heading": "本章术语索引（附录 A 压缩）",
+          "reason": "输入全表逐项审计；排印风险视觉页为 PDF 334、337。 全书索引压缩为本章术语回索表，保留原书页码。"
+        },
+        {
+          "source_heading": "二画",
+          "disposition": "condensed",
+          "output_heading": "本章术语索引（附录 A 压缩）",
+          "reason": "输入全表逐项审计；排印风险视觉页为 PDF 334、337。 保留本章动态索引引用的 B-树、B+树和 Trie 树；其余二画术语属于前章。"
+        },
+        {
+          "source_heading": "三画",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入全表逐项审计；排印风险视觉页为 PDF 334、337。 本标题下均为第 3、5、6、7 章术语，仅承担全书导航，未向第 12 章增加定义、条件或例子。"
+        },
+        {
+          "source_heading": "四画",
+          "disposition": "condensed",
+          "output_heading": "本章术语索引（附录 A 压缩）",
+          "reason": "输入全表逐项审计；排印风险视觉页为 PDF 334、337。 保留文件、定长/不定长和单/多关键字文件条目；其余术语属于前章导航。"
+        },
+        {
+          "source_heading": "五画",
+          "disposition": "condensed",
+          "output_heading": "查找、磁盘更新与附加文件",
+          "reason": "输入全表逐项审计；排印风险视觉页为 PDF 334、337。 分块查找与平均查找长度已在顺序文件查找段保留；其余五画条目属于前章导航。"
+        },
+        {
+          "source_heading": "六画",
+          "disposition": "condensed",
+          "output_heading": "本章术语索引（附录 A 压缩）",
+          "reason": "输入全表逐项审计；排印风险视觉页为 PDF 334、337。 保留关键字、主/次关键字、同义词、冲突和多重表文件；其他术语属于前章。"
+        },
+        {
+          "source_heading": "七画",
+          "disposition": "condensed",
+          "output_heading": "查找、磁盘更新与附加文件",
+          "reason": "输入全表逐项审计；PDF 334 视觉确认“有向无环图”英文原印 directed acycline graph。该条属于第7章导航，本章不传播其排印；本章涉及的折半查找已在顺序文件条件中保留。"
+        },
+        {
+          "source_heading": "八画",
+          "disposition": "condensed",
+          "output_heading": "本章术语索引（附录 A 压缩）",
+          "reason": "输入全表逐项审计；排印风险视觉页为 PDF 334、337。 保留询问与查找表；其余条目未向本章增加知识。"
+        },
+        {
+          "source_heading": "九画",
+          "disposition": "condensed",
+          "output_heading": "本章术语索引（附录 A 压缩）",
+          "reason": "输入全表逐项审计；排印风险视觉页为 PDF 334、337。 保留顺序查找、顺序文件；除留余数法的机制已由 MOD 7 公式覆盖，其余条目属于前章。"
+        },
+        {
+          "source_heading": "十画",
+          "disposition": "condensed",
+          "output_heading": "本章术语索引（附录 A 压缩）",
+          "reason": "输入全表逐项审计；排印风险视觉页为 PDF 334、337。 保留索引顺序查找/文件、ISAM、VSAM、索引文件和倒排文件，均直接用于本章。"
+        },
+        {
+          "source_heading": "十一画",
+          "disposition": "condensed",
+          "output_heading": "本章术语索引（附录 A 压缩）",
+          "reason": "输入全表逐项审计；PDF 337 视觉确认基数排序页码为284、286，输入的284、280是转写误差；保留本章控制区间、控制区域、桶，并注记原索引桶页315而正文定义见317。"
+        },
+        {
+          "source_heading": "十二画",
+          "disposition": "condensed",
+          "output_heading": "本章术语索引（附录 A 压缩）",
+          "reason": "输入全表逐项审计；排印风险视觉页为 PDF 334、337。 保留链地址法、装填因子和散列文件；其他条目属于前章。"
+        },
+        {
+          "source_heading": "十三画",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入全表逐项审计；排印风险视觉页为 PDF 334、337。 本标题下均为全书基础概念或第 5、7、10、11 章导航，本章正文已有所需前置概念且无新增条件。"
+        },
+        {
+          "source_heading": "十四画",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入全表逐项审计；排印风险视觉页为 PDF 334、337。 本标题下均为第 1、2、4、9、10 章导航，不包含第 12 章独有知识。"
+        }
+      ]
+    },
+    {
+      "source_file": "appendix-b-function-index/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "本章函数索引（附录 B 压缩）"
+      ],
+      "reason": "已对有效输入第 1–12 章全部函数条目做覆盖审计，并视觉核验 PDF 342–343（印刷 332–333）。PDF 343 的第 12 章条目确为 MergeFile(*f,*g,*h)，页310；作为历史索引写法保留并明确不是现代标准 C 原型，第1–11章导航压缩省略。",
+      "items": [
+        {
+          "source_heading": "附录 B　函数索引",
+          "disposition": "condensed",
+          "output_heading": "本章函数索引（附录 B 压缩）",
+          "reason": "输入全表逐项审计；函数风险视觉页为 PDF 342–343。 全书函数目录压缩为本章函数定位，并保留历史签名提醒。"
+        },
+        {
+          "source_heading": "第 1 章",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入全表逐项审计；函数风险视觉页为 PDF 342–343。 仅导航第 1 章算法，无第 12 章知识增量。"
+        },
+        {
+          "source_heading": "第 2 章",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入全表逐项审计；函数风险视觉页为 PDF 342–343。 仅导航第 2 章线性表与多项式函数，无第 12 章知识增量。"
+        },
+        {
+          "source_heading": "第 3 章",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入全表逐项审计；函数风险视觉页为 PDF 342–343。 仅导航第 3 章栈、队列和模拟函数，无第 12 章知识增量。"
+        },
+        {
+          "source_heading": "第 4 章",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入全表逐项审计；函数风险视觉页为 PDF 342–343。 仅导航第 4 章串函数，无第 12 章知识增量。"
+        },
+        {
+          "source_heading": "第 5 章",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入全表逐项审计；函数风险视觉页为 PDF 342–343。 仅导航第 5 章数组、矩阵和广义表函数，无第 12 章知识增量。"
+        },
+        {
+          "source_heading": "第 6 章",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入全表逐项审计；函数风险视觉页为 PDF 342–343。 仅导航第 6 章树与集合函数，无第 12 章知识增量。"
+        },
+        {
+          "source_heading": "第 7 章",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入全表逐项审计；函数风险视觉页为 PDF 342–343。 仅导航第 7 章图算法函数，无第 12 章知识增量。"
+        },
+        {
+          "source_heading": "第 8 章",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入全表逐项审计；函数风险视觉页为 PDF 342–343。 仅导航第 8 章动态存储函数，无第 12 章知识增量。"
+        },
+        {
+          "source_heading": "第 9 章",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入全表逐项审计；函数风险视觉页为 PDF 342–343。 仅导航第 9 章查找函数；本章只引用其结构结论，不重复函数目录。"
+        },
+        {
+          "source_heading": "第 10 章",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入全表逐项审计；函数风险视觉页为 PDF 342–343。 仅导航第 10 章内部排序函数，无第 12 章知识增量。"
+        },
+        {
+          "source_heading": "第 11 章",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "输入全表逐项审计；函数风险视觉页为 PDF 342–343。 仅导航第 11 章外部排序函数；本章不重复其实现。"
+        },
+        {
+          "source_heading": "第 12 章",
+          "disposition": "kept",
+          "output_heading": "本章函数索引（附录 B 压缩）",
+          "reason": "输入全表逐项审计；PDF 343 视觉确认 MergeFile(*f,*g,*h)、功能与页310。完整保留历史条目并回链 PDF 320 的算法正文，明确其不等于现代标准 C 原型。"
+        }
+      ]
+    },
+    {
+      "source_file": "bibliography/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "参考书目回链"
+      ],
+      "reason": "已对有效输入 14 条书目做覆盖审计，并视觉核验 PDF 344（印刷 334）。原书第9条确为 Algorithms+Data Structures= Programs，“Dada”是有效输入转写误差；本章正文仅直接回链[13]，故保留[13]并压缩其余全书出版参考。",
+      "items": [
+        {
+          "source_heading": "参考书目",
+          "disposition": "condensed",
+          "output_heading": "参考书目回链",
+          "reason": "输入14条逐项审计；PDF 344 视觉确认第9条为 Data Structures 而非输入的 Dada Structures。本章仅直接引用[13]，故保留[13]并说明其余13条为全书出版参考而压缩。"
+        }
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "term": "文件",
+      "aliases": [
+        "file"
+      ],
+      "definition": "存放在外存中的大量性质相同记录的集合。",
+      "source_file": "12-1-basic-concepts/index.md",
+      "output_heading": "文件与记录层次"
+    },
+    {
+      "term": "逻辑记录",
+      "aliases": [],
+      "definition": "用户或应用程序看到并作为读写对象的记录。",
+      "source_file": "12-1-basic-concepts/index.md",
+      "output_heading": "逻辑记录与物理记录"
+    },
+    {
+      "term": "物理记录",
+      "aliases": [],
+      "definition": "设备通过一条 I/O 命令读写的基本数据单位。",
+      "source_file": "12-1-basic-concepts/index.md",
+      "output_heading": "逻辑记录与物理记录"
+    },
+    {
+      "term": "顺序文件",
+      "aliases": [
+        "Sequential File"
+      ],
+      "definition": "物理记录次序与逻辑记录次序一致的文件组织。",
+      "source_file": "12-2-sequential-file/index.md",
+      "output_heading": "定义、表示与适用条件"
+    },
+    {
+      "term": "连续文件",
+      "aliases": [],
+      "definition": "相继物理记录存储在相邻位置的顺序文件。",
+      "source_file": "12-2-sequential-file/index.md",
+      "output_heading": "定义、表示与适用条件"
+    },
+    {
+      "term": "串联文件",
+      "aliases": [],
+      "definition": "相继物理记录的次序由指针链接表示的顺序文件。",
+      "source_file": "12-2-sequential-file/index.md",
+      "output_heading": "定义、表示与适用条件"
+    },
+    {
+      "term": "主文件",
+      "aliases": [],
+      "definition": "批处理中保存当前有效记录、等待事务归并更新的原始文件。",
+      "source_file": "12-2-sequential-file/index.md",
+      "output_heading": "批量更新算法 12.1"
+    },
+    {
+      "term": "事务文件",
+      "aliases": [],
+      "definition": "集中保存插入、删除和更新请求并在批处理中与主文件归并的文件。",
+      "source_file": "12-2-sequential-file/index.md",
+      "output_heading": "批量更新算法 12.1"
+    },
+    {
+      "term": "索引文件",
+      "aliases": [
+        "indexed file"
+      ],
+      "definition": "由数据区和记录逻辑标识到物理位置的有序索引表共同组成的文件。",
+      "source_file": "12-3-index-file/index.md",
+      "output_heading": "定义与索引项"
+    },
+    {
+      "term": "索引项",
+      "aliases": [],
+      "definition": "索引表中的一项，保存关键字或逻辑记录号及其对应物理位置等信息。",
+      "source_file": "12-3-index-file/index.md",
+      "output_heading": "定义与索引项"
+    },
+    {
+      "term": "索引顺序文件",
+      "aliases": [
+        "indexed sequential file"
+      ],
+      "definition": "数据区记录也按关键字顺序排列的索引文件。",
+      "source_file": "12-3-index-file/index.md",
+      "output_heading": "定义与索引项"
+    },
+    {
+      "term": "索引非顺序文件",
+      "aliases": [],
+      "definition": "数据区记录不按关键字排列、但索引项仍有序的索引文件。",
+      "source_file": "12-3-index-file/index.md",
+      "output_heading": "定义与索引项"
+    },
+    {
+      "term": "稠密索引",
+      "aliases": [],
+      "definition": "为每条数据记录建立一个索引项的索引。",
+      "source_file": "12-3-index-file/index.md",
+      "output_heading": "稠密索引与非稠密索引"
+    },
+    {
+      "term": "非稠密索引",
+      "aliases": [],
+      "definition": "在有序数据区中为一组记录建立一个索引项的索引。",
+      "source_file": "12-3-index-file/index.md",
+      "output_heading": "稠密索引与非稠密索引"
+    },
+    {
+      "term": "ISAM",
+      "aliases": [
+        "Indexed Sequential Access Method"
+      ],
+      "definition": "按磁盘物理层次建立静态多级索引并用溢出区处理插入的索引顺序组织。",
+      "source_file": "12-4-isam-and-vsam-files/index.md",
+      "output_heading": "ISAM：静态多级索引顺序文件"
+    },
+    {
+      "term": "VSAM",
+      "aliases": [
+        "Virtual Storage Access Method"
+      ],
+      "definition": "以控制区间和控制区域为逻辑单位、由索引集与顺序集形成 B+ 树的文件组织。",
+      "source_file": "12-4-isam-and-vsam-files/index.md",
+      "output_heading": "VSAM：B$^+$ 树索引与动态空间"
+    },
+    {
+      "term": "控制区间",
+      "aliases": [
+        "Control Interval"
+      ],
+      "definition": "VSAM 数据集中一次 I/O 的基本单位，同一文件的区间大小相同。",
+      "source_file": "12-4-isam-and-vsam-files/index.md",
+      "output_heading": "VSAM：B$^+$ 树索引与动态空间"
+    },
+    {
+      "term": "控制区域",
+      "aliases": [
+        "Control Range"
+      ],
+      "definition": "顺序集一个结点及其对应的全部控制区间所形成的整体。",
+      "source_file": "12-4-isam-and-vsam-files/index.md",
+      "output_heading": "VSAM：B$^+$ 树索引与动态空间"
+    },
+    {
+      "term": "直接存取文件",
+      "aliases": [
+        "散列文件",
+        "hashed file"
+      ],
+      "definition": "用哈希函数把记录关键字映射到桶地址的文件组织。",
+      "source_file": "12-5-direct-access-hash-files/index.md",
+      "output_heading": "桶、冲突与溢出链"
+    },
+    {
+      "term": "桶",
+      "aliases": [
+        "Bucket"
+      ],
+      "definition": "散列文件中成组存放若干记录的磁盘存储单位。",
+      "source_file": "12-5-direct-access-hash-files/index.md",
+      "output_heading": "桶、冲突与溢出链"
+    },
+    {
+      "term": "基桶",
+      "aliases": [],
+      "definition": "哈希地址直接对应、首先容纳同义词记录的桶。",
+      "source_file": "12-5-direct-access-hash-files/index.md",
+      "output_heading": "桶、冲突与溢出链"
+    },
+    {
+      "term": "溢出桶",
+      "aliases": [],
+      "definition": "基桶装满后继续容纳同一散列地址记录并由指针链接的桶。",
+      "source_file": "12-5-direct-access-hash-files/index.md",
+      "output_heading": "桶、冲突与溢出链"
+    },
+    {
+      "term": "装填因子",
+      "aliases": [
+        "装载因子",
+        "load factor"
+      ],
+      "definition": "散列文件中记录数与全部基桶容量之比 n/(bm)。",
+      "source_file": "12-5-direct-access-hash-files/index.md",
+      "output_heading": "查找代价、符号与适用条件"
+    },
+    {
+      "term": "多关键字文件",
+      "aliases": [],
+      "definition": "除唯一主关键字外还含若干次关键字并需支持次关键字询问的文件。",
+      "source_file": "12-6-multikey-files/index.md",
+      "output_heading": "次关键字索引的共同结构"
+    },
+    {
+      "term": "多重表文件",
+      "aliases": [
+        "Multilist File"
+      ],
+      "definition": "为每个次关键字建立索引，并把具有同一次关键字的主记录链接成链的组织。",
+      "source_file": "12-6-multikey-files/index.md",
+      "output_heading": "多重表文件"
+    },
+    {
+      "term": "倒排文件",
+      "aliases": [
+        "inverted file"
+      ],
+      "definition": "在次关键字索引项中集中保存对应记录号或主关键字序列的组织。",
+      "source_file": "12-6-multikey-files/index.md",
+      "output_heading": "倒排文件"
+    }
+  ],
+  "visuals": [],
+  "checks": {
+    "ownership": true,
+    "source_coverage": true,
+    "headings": true,
+    "formulas": true,
+    "code": true,
+    "complexity": true,
+    "links": true,
+    "assets": true,
+    "rendering": true
+  },
+  "risks": [],
+  "stats": {
+    "source_files": 10,
+    "kept": 0,
+    "condensed": 10,
+    "omitted": 0,
+    "needs_review": 0,
+    "static_visuals": 0,
+    "interactive_proposals": 0
+  }
+}
+

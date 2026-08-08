@@ -199,7 +199,9 @@ export type TextbookPresentation = {
 
 export type TextbookChapterSummary = Pick<TextbookChapter, "id" | "title" | "questionCount" | "order" | "kind" | "parentChapterId" | "part">;
 
-export type TextbookPageSummary = Pick<TextbookPage, "id" | "slug" | "chapterId" | "title" | "summary" | "depth" | "headings">;
+export type TextbookPageSummary = Pick<TextbookPage, "id" | "slug" | "chapterId" | "title" | "summary" | "depth" | "headings"> & {
+  hasCondensed: boolean;
+};
 
 export type TextbookCondensedPageContent = Pick<TextbookCondensedPage, "title" | "headings" | "sourceLatex" | "visualizations" | "source" | "html" | "audit">;
 
@@ -258,7 +260,7 @@ export type TextbookReaderPayload = {
   currentSlug: string;
   presentation: TextbookPresentation;
   book: Pick<TextbookDataset["book"], "id" | "title" | "author">;
-  stats: Pick<TextbookDataset["stats"], "exerciseQuestions">;
+  stats: Pick<TextbookDataset["stats"], "exerciseQuestions" | "condensedPages">;
   parts?: TextbookPart[];
   chapters: TextbookChapterSummary[];
   pages: TextbookPageSummary[];

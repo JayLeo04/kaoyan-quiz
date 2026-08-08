@@ -1,0 +1,502 @@
+{
+  "schema_version": "1.0",
+  "run_id": "ds-20260808-ch02-ch12",
+  "chapter_id": "05-array-and-generalized-list",
+  "attempt": 1,
+  "status": "distilled",
+  "renderer": "portable",
+  "source": {
+    "input_root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\05-array-and-generalized-list",
+    "source_map": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\05-array-and-generalized-list\\source-map.json",
+    "source_lock_sha256": "ff42d521d8137ccc902915b60e56764d22b4ff235545e1717405d22c0ee1b87f",
+    "expected_files": [
+      "5-1-array-definition/index.md",
+      "5-2-array-sequential-representation/index.md",
+      "5-3-matrix-compressed-storage/index.md",
+      "5-4-generalized-list-definition/index.md",
+      "5-5-generalized-list-storage-structure/index.md",
+      "5-6-m-polynomial-representation/index.md",
+      "5-7-generalized-list-recursive-algorithms/index.md",
+      "index.md"
+    ]
+  },
+  "output": {
+    "root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\candidates\\05-array-and-generalized-list\\attempt-01",
+    "markdown": "index.md",
+    "assets": [
+      "assets/fig-5-2-storage-orders.png",
+      "assets/fig-5-6-cross-linked-list.png",
+      "assets/fig-5-9-head-tail-examples.png"
+    ],
+    "visualization_fragment": null
+  },
+  "coverage": [
+    {
+      "source_file": "5-1-array-definition/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "5.1 数组的定义"
+      ],
+      "reason": "保留数组 ADT 的对象范围、各维关系、同型约束、元素总数、固定维界、基本操作及二维数组的递归类型视角；省去重复铺垫并用公式、表格重组。",
+      "items": [
+        {
+          "source_heading": "5.1　数组的定义",
+          "disposition": "condensed",
+          "output_heading": "5.1 数组的定义",
+          "reason": "定义、限定、操作与二维数组类型等价关系全部保留，长篇 ADT 排版压缩为公式和操作表；图 5.1 的行/列向量关系由二维数组递归类型说明等价覆盖。"
+        }
+      ]
+    },
+    {
+      "source_file": "5-2-array-sequential-representation/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "5.2 数组的顺序表示和实现"
+      ],
+      "reason": "保留两种主序、式 (5-1)、式 (5-2)、映像常量递推、随机存取条件、核心字段、定位边界和循环不变量；内存管理样板合并为实现步骤。",
+      "items": [
+        {
+          "source_heading": "5.2　数组的顺序表示和实现",
+          "disposition": "condensed",
+          "output_heading": "5.2 数组的顺序表示和实现",
+          "reason": "地址公式、符号含义、存储次序及 Locate 核心分支均保留，完整旧式实现压缩为字段、初始化关系和定位代码。"
+        }
+      ]
+    },
+    {
+      "source_file": "5-3-matrix-compressed-storage/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "5.3 矩阵的压缩存储",
+        "特殊矩阵",
+        "稀疏矩阵与三元组顺序表",
+        "算法 5.1 与算法 5.2：转置",
+        "行逻辑链接顺序表与稀疏矩阵乘法",
+        "十字链表",
+        "三种稀疏矩阵表示对照"
+      ],
+      "reason": "完整覆盖特殊矩阵映射、稀疏因子、三种存储结构、转置、乘法、建十字链表和十字链表相加的条件、状态、不变量与源文复杂度；重复叙述和大段旧式代码改为核心伪代码、步骤和对照。",
+      "items": [
+        {
+          "source_heading": "5.3 矩阵的压缩存储",
+          "disposition": "condensed",
+          "output_heading": "5.3 矩阵的压缩存储",
+          "reason": "保留压缩存储定义以及特殊矩阵、稀疏矩阵的分界，删除应用背景铺垫。"
+        },
+        {
+          "source_heading": "5.3.1 特殊矩阵",
+          "disposition": "condensed",
+          "output_heading": "特殊矩阵",
+          "reason": "保留对称矩阵定义与式 (5-3)、三角矩阵额外常量位、带状矩阵的压缩原则；源图关系由公式和文字等价覆盖。"
+        },
+        {
+          "source_heading": "5.3.2 稀疏矩阵",
+          "disposition": "condensed",
+          "output_heading": "稀疏矩阵与三元组顺序表",
+          "reason": "保留稀疏因子及经验阈值的非严格性、稀疏矩阵 ADT 操作条件和三元组唯一表示。"
+        },
+        {
+          "source_heading": "1．三元组顺序表",
+          "disposition": "condensed",
+          "output_heading": "算法 5.1 与算法 5.2：转置",
+          "reason": "保留 TSMatrix 字段、图 5.5 对应的式 (5-5) 最小矩阵例、普通转置与快速转置、num/cpot 关系、表 5.1、算法不变量、适用条件和复杂度，省去重复问答式叙述。"
+        },
+        {
+          "source_heading": "2．行逻辑链接的顺序表",
+          "disposition": "condensed",
+          "output_heading": "行逻辑链接顺序表与稀疏矩阵乘法",
+          "reason": "保留 rpos 区间语义、式 (5-5) 至式 (5-6) 的乘法机制、逐行累加与判零边界，以及教材给出的条件化复杂度估计。"
+        },
+        {
+          "source_heading": "3．十字链表",
+          "disposition": "condensed",
+          "output_heading": "十字链表",
+          "reason": "保留五域结点、行列双链不变量、任意次序/行主序建表复杂度、相加四种分支、辅助指针与 O(t_a+t_b) 结论。"
+        }
+      ]
+    },
+    {
+      "source_file": "5-4-generalized-list-definition/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "5.4 广义表的定义"
+      ],
+      "reason": "保留递归定义、全部操作类别、长度/表头/表尾、A 至 E 五个承担不同边界的例子、共享与递归性质及空表辨析；删除 LISP 背景叙述。",
+      "items": [
+        {
+          "source_heading": "5.4 广义表的定义",
+          "disposition": "condensed",
+          "output_heading": "5.4 广义表的定义",
+          "reason": "定义限定和独有例子均保留，ADT 长块与连续分解过程改为表格和最小公式；图 5.7 的层次、原子/子表关系由 A 至 E 例表及三条结构性质等价覆盖。"
+        }
+      ]
+    },
+    {
+      "source_file": "5-5-generalized-list-storage-structure/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "5.5 广义表的存储结构",
+        "头尾链表",
+        "扩展线性链表",
+        "两种表示的结构差异"
+      ],
+      "reason": "保留两类结点的字段解释、空表和表尾边界、层次与长度不变量、共享/回指表达能力及两种链表的结构差异；四张源图择一保留，其余由代码和对照表替代。",
+      "items": [
+        {
+          "source_heading": "5.5 广义表的存储结构",
+          "disposition": "condensed",
+          "output_heading": "5.5 广义表的存储结构",
+          "reason": "两种存储表示及其全部关键字段和不变量进入正文，重复示例图用一张综合图与结构表覆盖。"
+        }
+      ]
+    },
+    {
+      "source_file": "5-6-m-polynomial-representation/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "5.6 $m$ 元多项式的表示"
+      ],
+      "reason": "保留线性表表示的两类空间/结点问题、完整三元多项式例、分层因式分解、式 (5-7)、深度结论及 MPNode 字段的双重 exp 语义；复杂源图由公式、代码和字段表替代。",
+      "items": [
+        {
+          "source_heading": "5.6 $m$ 元多项式的表示",
+          "disposition": "condensed",
+          "output_heading": "5.6 $m$ 元多项式的表示",
+          "reason": "多项式从 z 到 y、x 的递归分层和完整结点解释保留，叙事性比较压缩。"
+        }
+      ]
+    },
+    {
+      "source_file": "5-7-generalized-list-recursive-algorithms/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "5.7 广义表的递归算法",
+        "递归设计的统一框架",
+        "算法 5.5：求广义表深度",
+        "算法 5.6：复制广义表",
+        "算法 5.7、5.8：由书写串建立广义表"
+      ],
+      "reason": "保留基本项/归纳项方法、本节非递归且无共享的前提、深度递归式及例子、复制接口、建表分解和 sever 括号计数不变量；Hanoi 叙事例压缩为通用递归框架。",
+      "items": [
+        {
+          "source_heading": "5.7 广义表的递归算法",
+          "disposition": "condensed",
+          "output_heading": "递归设计的统一框架",
+          "reason": "递归设计方法和本节适用前提保留，阶乘与 Hanoi 的长背景例压缩为基本项/归纳项框架。"
+        },
+        {
+          "source_heading": "5.7.1 求广义表的深度",
+          "disposition": "condensed",
+          "output_heading": "算法 5.5：求广义表深度",
+          "reason": "深度定义、两个基本项、归纳项、代码不变量和 D 的手算结论完整保留，图 5.13 由公式推演替代。"
+        },
+        {
+          "source_heading": "5.7.2 复制广义表",
+          "disposition": "condensed",
+          "output_heading": "算法 5.6：复制广义表",
+          "reason": "表头/表尾递归分解、深复制代码和后置关系保留；源文“变参”矛盾单独标注。"
+        },
+        {
+          "source_heading": "5.7.3 建立广义表的存储结构",
+          "disposition": "condensed",
+          "output_heading": "算法 5.7、5.8：由书写串建立广义表",
+          "reason": "合法输入、单字符原子、三种子串情况、顶层表结点链和 sever 的括号层数判定完整保留，旧式字符串 API 压缩为等价伪代码。"
+        }
+      ]
+    },
+    {
+      "source_file": "index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "第 5 章 数组和广义表",
+        "本章知识地图"
+      ],
+      "reason": "章首页关于数组和广义表作为线性表扩展的知识主线进入导语和知识地图；重复目录仅承担导航，目标单页已按教材顺序完整覆盖各节。",
+      "items": [
+        {
+          "source_heading": "第 5 章　数组和广义表",
+          "disposition": "condensed",
+          "output_heading": "第 5 章 数组和广义表",
+          "reason": "保留两类结构对线性表的扩展关系，并改写为本章主线。"
+        },
+        {
+          "source_heading": "目录",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "纯章节导航列表；七个目标小节已在同一 index.md 中按教材顺序覆盖，不含额外知识。"
+        }
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "term": "数组",
+      "aliases": [
+        "n 维数组"
+      ],
+      "definition": "由同类型元素构成、以 n 个下标唯一定位元素且维数与维界建立后固定的数据结构。",
+      "source_file": "5-1-array-definition/index.md",
+      "output_heading": "5.1 数组的定义"
+    },
+    {
+      "term": "维数",
+      "aliases": [
+        "数组维数"
+      ],
+      "definition": "定位一个数组元素所需的下标个数 n。",
+      "source_file": "5-1-array-definition/index.md",
+      "output_heading": "5.1 数组的定义"
+    },
+    {
+      "term": "维界",
+      "aliases": [
+        "维长",
+        "各维长度"
+      ],
+      "definition": "第 i 维允许下标范围 0 到 b_i-1 所对应的长度 b_i。",
+      "source_file": "5-1-array-definition/index.md",
+      "output_heading": "5.1 数组的定义"
+    },
+    {
+      "term": "映像函数",
+      "aliases": [
+        "数组地址映射"
+      ],
+      "definition": "把多维下标组线性映射为连续存储地址的函数，行主序下系数由各后续维长度与元素长度确定。",
+      "source_file": "5-2-array-sequential-representation/index.md",
+      "output_heading": "5.2 数组的顺序表示和实现"
+    },
+    {
+      "term": "随机存储结构",
+      "aliases": [
+        "随机存取结构"
+      ],
+      "definition": "确定维界后，任一合法元素都可用同样的下标映射过程得到存储位置的结构。",
+      "source_file": "5-2-array-sequential-representation/index.md",
+      "output_heading": "5.2 数组的顺序表示和实现"
+    },
+    {
+      "term": "压缩存储",
+      "aliases": [],
+      "definition": "对多个相同值只分配一个位置、对零元不分配位置，以减少矩阵存储量的方法。",
+      "source_file": "5-3-matrix-compressed-storage/index.md",
+      "output_heading": "5.3 矩阵的压缩存储"
+    },
+    {
+      "term": "特殊矩阵",
+      "aliases": [],
+      "definition": "相同值或零元的分布具有规律、可以建立规则压缩映射的矩阵。",
+      "source_file": "5-3-matrix-compressed-storage/index.md",
+      "output_heading": "特殊矩阵"
+    },
+    {
+      "term": "对称矩阵",
+      "aliases": [],
+      "definition": "满足 a_ij=a_ji 的 n 阶矩阵，只保存一个含对角线的三角区域即可恢复全部元素。",
+      "source_file": "5-3-matrix-compressed-storage/index.md",
+      "output_heading": "特殊矩阵"
+    },
+    {
+      "term": "稀疏因子",
+      "aliases": [],
+      "definition": "矩阵非零元数 t 与全部 mn 个位置之比 δ=t/(mn)。",
+      "source_file": "5-3-matrix-compressed-storage/index.md",
+      "output_heading": "稀疏矩阵与三元组顺序表"
+    },
+    {
+      "term": "稀疏矩阵",
+      "aliases": [],
+      "definition": "非零元较少且分布没有规则的矩阵；稀疏性没有严格统一阈值。",
+      "source_file": "5-3-matrix-compressed-storage/index.md",
+      "output_heading": "稀疏矩阵与三元组顺序表"
+    },
+    {
+      "term": "三元组顺序表",
+      "aliases": [
+        "有序的双下标法"
+      ],
+      "definition": "按行主序保存每个非零元的行号、列号和值，并附矩阵行数、列数与非零元数的顺序结构。",
+      "source_file": "5-3-matrix-compressed-storage/index.md",
+      "output_heading": "稀疏矩阵与三元组顺序表"
+    },
+    {
+      "term": "快速转置",
+      "aliases": [
+        "算法 5.2"
+      ],
+      "definition": "先统计原矩阵各列非零元数并计算目标起始位置，再一次扫描三元组直接写入转置表的方法。",
+      "source_file": "5-3-matrix-compressed-storage/index.md",
+      "output_heading": "算法 5.1 与算法 5.2：转置"
+    },
+    {
+      "term": "行逻辑链接的顺序表",
+      "aliases": [
+        "RLSMatrix"
+      ],
+      "definition": "在按行有序三元组表上增加 rpos，使每行第一个非零元可直接定位的稀疏矩阵表示。",
+      "source_file": "5-3-matrix-compressed-storage/index.md",
+      "output_heading": "行逻辑链接顺序表与稀疏矩阵乘法"
+    },
+    {
+      "term": "十字链表",
+      "aliases": [
+        "CrossList"
+      ],
+      "definition": "每个非零元结点同时用 right 参加行链、用 down 参加列链的稀疏矩阵链式表示。",
+      "source_file": "5-3-matrix-compressed-storage/index.md",
+      "output_heading": "十字链表"
+    },
+    {
+      "term": "广义表",
+      "aliases": [
+        "列表"
+      ],
+      "definition": "元素既可以是原子也可以是广义表的递归线性结构。",
+      "source_file": "5-4-generalized-list-definition/index.md",
+      "output_heading": "5.4 广义表的定义"
+    },
+    {
+      "term": "原子",
+      "aliases": [],
+      "definition": "广义表中不再作为子表分解的单个元素。",
+      "source_file": "5-4-generalized-list-definition/index.md",
+      "output_heading": "5.4 广义表的定义"
+    },
+    {
+      "term": "子表",
+      "aliases": [],
+      "definition": "作为另一个广义表元素出现的广义表。",
+      "source_file": "5-4-generalized-list-definition/index.md",
+      "output_heading": "5.4 广义表的定义"
+    },
+    {
+      "term": "表头",
+      "aliases": [
+        "Head"
+      ],
+      "definition": "非空广义表的第一个元素，可能是原子或子表。",
+      "source_file": "5-4-generalized-list-definition/index.md",
+      "output_heading": "5.4 广义表的定义"
+    },
+    {
+      "term": "表尾",
+      "aliases": [
+        "Tail"
+      ],
+      "definition": "非空广义表去掉第一个元素后由其余元素组成的表，结果必定仍为广义表。",
+      "source_file": "5-4-generalized-list-definition/index.md",
+      "output_heading": "5.4 广义表的定义"
+    },
+    {
+      "term": "广义表长度",
+      "aliases": [],
+      "definition": "广义表最外层的元素个数。",
+      "source_file": "5-4-generalized-list-definition/index.md",
+      "output_heading": "5.4 广义表的定义"
+    },
+    {
+      "term": "头尾链表",
+      "aliases": [],
+      "definition": "用 LIST 表结点的 hp 指向表头、tp 指向表尾，并用 ATOM 原子结点保存值的广义表表示。",
+      "source_file": "5-5-generalized-list-storage-structure/index.md",
+      "output_heading": "头尾链表"
+    },
+    {
+      "term": "扩展线性链表",
+      "aliases": [],
+      "definition": "原子结点与表结点都带 tp 同层后继指针，表结点另以 hp 指向子表的广义表表示。",
+      "source_file": "5-5-generalized-list-storage-structure/index.md",
+      "output_heading": "扩展线性链表"
+    },
+    {
+      "term": "m 元多项式广义表",
+      "aliases": [],
+      "definition": "逐层选取主变元，并以系数—指数偶对递归表示各层系数多项式的广义表。",
+      "source_file": "5-6-m-polynomial-representation/index.md",
+      "output_heading": "5.6 $m$ 元多项式的表示"
+    },
+    {
+      "term": "广义表深度",
+      "aliases": [
+        "括号重数"
+      ],
+      "definition": "广义表书写形式的括号重数；空表深度为 1，原子深度为 0，非空表深度为最深元素深度加 1。",
+      "source_file": "5-7-generalized-list-recursive-algorithms/index.md",
+      "output_heading": "算法 5.5：求广义表深度"
+    },
+    {
+      "term": "递归定义",
+      "aliases": [
+        "基本项与归纳项"
+      ],
+      "definition": "用终结状态给出直接解，并用性质相同、规模更小的子问题描述一般状态的定义方式。",
+      "source_file": "5-7-generalized-list-recursive-algorithms/index.md",
+      "output_heading": "递归设计的统一框架"
+    }
+  ],
+  "visuals": [
+    {
+      "id": "ds-array-storage-orders",
+      "kind": "reused",
+      "source": "5-2-array-sequential-representation/assets/py/fig-5-2-storage-orders.svg；为 portable 交付等内容栅格化为 PNG",
+      "target_heading": "连续存储与两种主序",
+      "fallback": "正文对照表与地址映射公式完整说明列主序、行主序及其下标变化次序。",
+      "status": "complete"
+    },
+    {
+      "id": "ds-sparse-cross-list",
+      "kind": "reused",
+      "source": "5-3-matrix-compressed-storage/assets/py/fig-5-6-cross-linked-list.svg；为 portable 交付等内容栅格化为 PNG",
+      "target_heading": "十字链表",
+      "fallback": "正文结构体、字段说明和四分支相加表完整表达行链、列链与更新规则。",
+      "status": "complete"
+    },
+    {
+      "id": "ds-glist-head-tail-storage",
+      "kind": "reused",
+      "source": "5-5-generalized-list-storage-structure/assets/py/fig-5-9-head-tail-examples.svg；为 portable 交付等内容栅格化为 PNG",
+      "target_heading": "头尾链表",
+      "fallback": "正文结构体和五条存储不变量完整说明空表、同层 tp、向下 hp、共享及回指。",
+      "status": "complete"
+    }
+  ],
+  "checks": {
+    "ownership": true,
+    "source_coverage": true,
+    "headings": true,
+    "formulas": true,
+    "code": true,
+    "complexity": true,
+    "links": true,
+    "assets": true,
+    "rendering": true
+  },
+  "risks": [
+    {
+      "severity": "low",
+      "category": "source-risk",
+      "source_file": "5-7-generalized-list-recursive-algorithms/index.md",
+      "location": "算法 5.6 后的说明段",
+      "detail": "源文称 CopyGList“使用了变参”，但展示的函数签名只有两个固定参数，文字与代码接口不一致。",
+      "action": "正文明确标注疑点；深复制语义可由函数签名和递归体唯一恢复，该错句不参与任何保留结论。"
+    },
+    {
+      "severity": "low",
+      "category": "source-risk",
+      "source_file": "5-7-generalized-list-recursive-algorithms/index.md",
+      "location": "图 5.13 后的 DEPTH(D) 推导",
+      "detail": "源文展开子表 (b,c,d) 时第一项误写为 DEPTH(a)，但三者均为原子且定义、列表内容和结果能够唯一恢复。",
+      "action": "正文仅保留由递归定义可直接复算的 DEPTH(A)=1、DEPTH(B)=1、DEPTH(C)=2、DEPTH(D)=3，不沿用错写符号。"
+    }
+  ],
+  "stats": {
+    "source_files": 8,
+    "kept": 0,
+    "condensed": 8,
+    "omitted": 0,
+    "needs_review": 0,
+    "static_visuals": 3,
+    "interactive_proposals": 0
+  }
+}
+

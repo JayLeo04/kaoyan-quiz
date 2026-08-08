@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { AppHeader } from "@/app/components/AppHeader";
 import { KnowledgeVisual } from "@/app/components/knowledge-visuals/KnowledgeVisual";
 import { StudyAnnotationSurface, StudyResourceTools } from "@/app/components/StudyTools";
-import { textbookHref, textbookPracticeHref } from "@/app/data/textbook-routes";
+import { textbookCondensedHref, textbookHref, textbookPracticeHref } from "@/app/data/textbook-routes";
 import type { TextbookChapterSummary, TextbookPageSummary, TextbookReaderPayload, TextbookReadingContent } from "@/app/data/textbook-types";
 import {
   readTextbookReaderPreferences,
@@ -202,13 +202,18 @@ export function TextbookKnowledgeWorkspace({ reader }: { reader: TextbookReaderP
     // Browser-only progress belongs to this textbook, not the 408 real-question bank.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setCompletedCount(progress.mastered.length);
-  }, [textbook.slug]);
+  }, [reader.currentSlug, textbook.slug]);
 
   useEffect(() => {
     const preferences = readTextbookReaderPreferences(textbook.slug);
+    const requestedMode = new URLSearchParams(window.location.search).get("mode");
+    const readingMode = requestedMode === "condensed" ? "condensed" : preferences.readingMode;
     // Browser-only preferences are loaded after hydration to keep server and client markup stable.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setReadingModePreference(preferences.readingMode);
+    setReadingModePreference(readingMode);
+    if (readingMode !== preferences.readingMode) {
+      writeTextbookReaderPreferences(textbook.slug, { readingMode });
+    }
   }, [textbook.slug]);
 
   function chooseReadingMode(readingMode: TextbookReadingMode) {
@@ -222,6 +227,7 @@ export function TextbookKnowledgeWorkspace({ reader }: { reader: TextbookReaderP
   const navigation = buildTextbookNavigation(dataset.chapters, pages);
   const visibleNavigationCount = visiblePages.filter((page) => page.slug).length;
   const condensedPage = currentPage?.condensed;
+  const firstCondensedPage = pages.find((page) => page.hasCondensed);
   const readingMode: TextbookReadingMode = readingModePreference === "condensed" && condensedPage ? "condensed" : "original";
   const chapter = currentPage ? dataset.chapters.find((item) => item.id === currentPage.chapterId) : undefined;
   const practiceHref = hasPractice ? textbookPracticeHref(textbook.slug, chapter?.id) : null;
@@ -379,6 +385,11 @@ export function TextbookKnowledgeWorkspace({ reader }: { reader: TextbookReaderP
                 </span>
               </div>
               <div className="textbook-article-actions">
+                {!condensedPage && firstCondensedPage && dataset.stats.condensedPages ? (
+                  <Link className="textbook-inline-practice" href={textbookCondensedHref(textbook.slug, firstCondensedPage.slug)}>
+                    进入精简版 <b>{dataset.stats.condensedPages} 章</b>
+                  </Link>
+                ) : null}
                 {condensedPage ? (
                   <div className="textbook-version-control">
                     <fieldset className="textbook-version-switch">

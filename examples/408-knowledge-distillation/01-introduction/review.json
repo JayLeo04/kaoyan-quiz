@@ -1,0 +1,346 @@
+{
+  "schema_version": "1.0",
+  "run_id": "quality-sample-run",
+  "chapter_id": "01-introduction",
+  "attempt": 1,
+  "status": "distilled",
+  "renderer": "portable",
+  "source": {
+    "input_root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\source-materials\\data-structures-yan-weimin\\01-introduction",
+    "source_map": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\examples\\408-knowledge-distillation\\audits\\01-introduction-source-map.json",
+    "source_lock_sha256": "5afeceefbaaed673d7f36c58748c39110124ff6cd3ec3ef4b7ac5c114e0a2653",
+    "expected_files": [
+      "1-1-what-is-data-structure/index.md",
+      "1-2-basic-concepts-and-terminology/index.md",
+      "1-3-abstract-data-type-representation-and-implementation/index.md",
+      "1-4-algorithms-and-analysis/index.md",
+      "index.md"
+    ]
+  },
+  "output": {
+    "root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\examples\\408-knowledge-distillation\\01-introduction",
+    "markdown": "index.md",
+    "assets": [
+      "assets/fig-1-6-complex-storage-structures.png",
+      "assets/fig-1-7-common-growth-rates.png"
+    ],
+    "visualization_fragment": null
+  },
+  "coverage": [
+    {
+      "source_file": "1-1-what-is-data-structure/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "1.1 从问题到数据结构"
+      ],
+      "reason": "把课程历史和三段长叙事压缩为问题抽象流程及三例对照表；保留书目线性关系、对弈树、交通冲突图着色，以及结构选择影响算法实现的独有结论。图1.1至图1.4的关系由表格或正文等价表达。",
+      "items": [
+        {
+          "source_heading": "1.1　什么是数据结构",
+          "disposition": "condensed",
+          "output_heading": "1.1 从问题到数据结构",
+          "reason": "三类模型、操作对象、元素关系和数据结构研究对象完整保留；发展史与课程地位叙述压成边界说明。"
+        }
+      ]
+    },
+    {
+      "source_file": "1-2-basic-concepts-and-terminology/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "1.2 基本概念与结构层次",
+        "数据、数据元素、数据项与数据对象",
+        "数据结构的形式定义",
+        "逻辑结构与存储结构",
+        "数据类型与抽象数据类型",
+        "ADT 操作契约"
+      ],
+      "reason": "按概念边界、形式定义、逻辑/存储层次、数据类型与ADT契约重组；保留式(1-1)至式(1-4)、例1-4至例1-6、两种映像、ADT分类和多形约束。图1.6复用，图1.5改为等价对照表。",
+      "items": [
+        {
+          "source_heading": "1.2 基本概念和术语",
+          "disposition": "condensed",
+          "output_heading": "1.2 基本概念与结构层次",
+          "reason": "源节全部核心术语、四个形式定义及限定条件分流到五个目标小节，重复解释压成表格。"
+        }
+      ]
+    },
+    {
+      "source_file": "1-3-abstract-data-type-representation-and-implementation/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "1.3 ADT 的类 C 表示与实现",
+        "状态、类型与参数约定",
+        "扩展语句与求值规则",
+        "例 1-7：Triplet 实现中的边界"
+      ],
+      "reason": "把十一组类C约定合并为状态/类型和扩展语句两张高密度清单；例1-7保留动态分配、销毁、位序检查、下标换算、升降序与最值语义，删去重复函数原型和样板注释。",
+      "items": [
+        {
+          "source_heading": "1.3 抽象数据类型的表示与实现",
+          "disposition": "condensed",
+          "output_heading": "1.3 ADT 的类 C 表示与实现",
+          "reason": "保留以固有类型和已实现操作构造ADT、类C并非标准C的边界。"
+        },
+        {
+          "source_heading": "（1）预定义常量和类型",
+          "disposition": "kept",
+          "output_heading": "状态、类型与参数约定",
+          "reason": "TRUE、FALSE、OK、ERROR、INFEASIBLE、OVERFLOW与Status完整保留。"
+        },
+        {
+          "source_heading": "（2）数据结构的表示（存储结构）",
+          "disposition": "kept",
+          "output_heading": "状态、类型与参数约定",
+          "reason": "保留typedef描述存储结构及ElemType由使用者定义的约定。"
+        },
+        {
+          "source_heading": "（3）基本操作的算法描述",
+          "disposition": "condensed",
+          "output_heading": "状态、类型与参数约定",
+          "reason": "保留Status返回、变量命名习惯、辅助变量省略声明和引用参数语义。"
+        },
+        {
+          "source_heading": "（4）赋值语句",
+          "disposition": "condensed",
+          "output_heading": "扩展语句与求值规则",
+          "reason": "标准赋值不重复展开，保留成组、区间与交换赋值等非标准算法记号。"
+        },
+        {
+          "source_heading": "（5）选择语句",
+          "disposition": "condensed",
+          "output_heading": "扩展语句与求值规则",
+          "reason": "保留条件switch属于伪码扩展的关键边界，普通if与标准switch仅概括。"
+        },
+        {
+          "source_heading": "（6）循环语句",
+          "disposition": "condensed",
+          "output_heading": "扩展语句与求值规则",
+          "reason": "for、while、do-while与C风格一致，合并为阅读约定。"
+        },
+        {
+          "source_heading": "（7）结束语句",
+          "disposition": "condensed",
+          "output_heading": "扩展语句与求值规则",
+          "reason": "return、break、exit的控制语义保留在统一说明中。"
+        },
+        {
+          "source_heading": "（8）输入和输出语句",
+          "disposition": "condensed",
+          "output_heading": "扩展语句与求值规则",
+          "reason": "保留采用C风格且常省略格式串的教材约定。"
+        },
+        {
+          "source_heading": "（9）注释",
+          "disposition": "condensed",
+          "output_heading": "扩展语句与求值规则",
+          "reason": "保留使用双斜线单行注释的约定，不重复展示样板。"
+        },
+        {
+          "source_heading": "（10）基本函数",
+          "disposition": "condensed",
+          "output_heading": "扩展语句与求值规则",
+          "reason": "max、min、abs、floor、ceil、eof、eoln函数族均在表格中保留。"
+        },
+        {
+          "source_heading": "（11）逻辑运算约定",
+          "disposition": "kept",
+          "output_heading": "扩展语句与求值规则",
+          "reason": "&&与||的短路条件完整保留，并补充其边界检查用途。"
+        },
+        {
+          "source_heading": "例 1-7 抽象数据类型 Triplet 的表示和实现",
+          "disposition": "condensed",
+          "output_heading": "例 1-7：Triplet 实现中的边界",
+          "reason": "保留构造、销毁、Get、Put的关键代码，以及其余操作的比较与返回语义；重复原型和样板注释被合并。"
+        }
+      ]
+    },
+    {
+      "source_file": "1-4-algorithms-and-analysis/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "1.4 算法与算法分析",
+        "算法的定义与五个特性",
+        "好算法的基本要求",
+        "时间复杂度：从基本操作频度到渐近阶",
+        "频度计算的最小例",
+        "最好、平均与最坏情况",
+        "空间复杂度与原地工作"
+      ],
+      "reason": "保留算法五特性、正确性层次、健壮性、事前/事后度量、式(1-5)和式(1-6)、矩阵乘法与嵌套循环计数、起泡排序提前终止及原地工作边界；重复铺叙压成定义、表格和最小算例。",
+      "items": [
+        {
+          "source_heading": "1.4 算法和算法分析",
+          "disposition": "condensed",
+          "output_heading": "1.4 算法与算法分析",
+          "reason": "源节内容按定义、要求、时间和空间四条分析链重组。"
+        },
+        {
+          "source_heading": "1.4.1 算法",
+          "disposition": "kept",
+          "output_heading": "算法的定义与五个特性",
+          "reason": "算法定义与有穷性、确定性、可行性、输入、输出五特性及合法输入限定完整保留。"
+        },
+        {
+          "source_heading": "1.4.2 算法设计的要求",
+          "disposition": "condensed",
+          "output_heading": "好算法的基本要求",
+          "reason": "正确性四层、可读性、健壮性、效率和存储需求全部保留，叙事例压成判断标准。"
+        },
+        {
+          "source_heading": "1.4.3 算法效率的度量",
+          "disposition": "condensed",
+          "output_heading": "时间复杂度：从基本操作频度到渐近阶",
+          "reason": "保留环境因素、基本操作选择、频度计数、大O形式上界、常见增长阶及最好/平均/最坏条件；起泡排序的提前终止与循环不变量独立说明。"
+        },
+        {
+          "source_heading": "1.4.4 算法的存储空间需求",
+          "disposition": "kept",
+          "output_heading": "空间复杂度与原地工作",
+          "reason": "式(1-6)、输入空间是否计入、额外空间、原地工作与默认最坏情况的限定完整保留。"
+        }
+      ]
+    },
+    {
+      "source_file": "index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "第 1 章 绪论",
+        "本章知识地图"
+      ],
+      "reason": "章首页的课程形成背景压缩为本章主线与问题抽象边界；目录导航不作为正文重复保留，四节顺序由目标章节标题完整承接。",
+      "items": [
+        {
+          "source_heading": "第 1 章　绪论",
+          "disposition": "condensed",
+          "output_heading": "第 1 章 绪论",
+          "reason": "保留处理对象从纯数值扩展到结构化数据、必须分析对象及关系的核心背景，删除年代和产量等叙事铺垫。"
+        },
+        {
+          "source_heading": "目录",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "该标题仅承担到四个已纳入覆盖源页的导航作用，不含独有知识；目标页按教材顺序设置1.1至1.4标题。"
+        }
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "term": "数据元素",
+      "aliases": ["data element"],
+      "definition": "数据的基本单位，程序通常将其作为整体处理。",
+      "source_file": "1-2-basic-concepts-and-terminology/index.md",
+      "output_heading": "数据、数据元素、数据项与数据对象"
+    },
+    {
+      "term": "数据项",
+      "aliases": ["data item"],
+      "definition": "构成数据元素的不可分割的最小单位。",
+      "source_file": "1-2-basic-concepts-and-terminology/index.md",
+      "output_heading": "数据、数据元素、数据项与数据对象"
+    },
+    {
+      "term": "数据结构",
+      "aliases": ["data structure"],
+      "definition": "相互之间存在一种或多种特定关系的数据元素的集合。",
+      "source_file": "1-2-basic-concepts-and-terminology/index.md",
+      "output_heading": "数据结构的形式定义"
+    },
+    {
+      "term": "逻辑结构",
+      "aliases": [],
+      "definition": "数据元素之间逻辑关系的整体。",
+      "source_file": "1-2-basic-concepts-and-terminology/index.md",
+      "output_heading": "逻辑结构与存储结构"
+    },
+    {
+      "term": "存储结构",
+      "aliases": ["物理结构"],
+      "definition": "数据元素及其逻辑关系在计算机中的表示。",
+      "source_file": "1-2-basic-concepts-and-terminology/index.md",
+      "output_heading": "逻辑结构与存储结构"
+    },
+    {
+      "term": "数据类型",
+      "aliases": ["data type"],
+      "definition": "一个值的集合以及定义在该值集上的一组操作。",
+      "source_file": "1-2-basic-concepts-and-terminology/index.md",
+      "output_heading": "数据类型与抽象数据类型"
+    },
+    {
+      "term": "抽象数据类型",
+      "aliases": ["ADT", "Abstract Data Type"],
+      "definition": "一个数学模型以及定义在该模型上的一组操作，其逻辑定义独立于内部表示和实现。",
+      "source_file": "1-2-basic-concepts-and-terminology/index.md",
+      "output_heading": "数据类型与抽象数据类型"
+    },
+    {
+      "term": "算法",
+      "aliases": ["algorithm"],
+      "definition": "对特定问题求解步骤的描述，是由操作指令构成的有限序列。",
+      "source_file": "1-4-algorithms-and-analysis/index.md",
+      "output_heading": "算法的定义与五个特性"
+    },
+    {
+      "term": "时间复杂度",
+      "aliases": ["渐近时间复杂度"],
+      "definition": "在选定问题规模和基本操作后，基本操作频度随规模增长的渐近量级。",
+      "source_file": "1-4-algorithms-and-analysis/index.md",
+      "output_heading": "时间复杂度：从基本操作频度到渐近阶"
+    },
+    {
+      "term": "空间复杂度",
+      "aliases": ["space complexity"],
+      "definition": "算法所需存储空间随问题规模增长的量级，比较算法时通常关注额外空间。",
+      "source_file": "1-4-algorithms-and-analysis/index.md",
+      "output_heading": "空间复杂度与原地工作"
+    },
+    {
+      "term": "原地工作",
+      "aliases": ["原地算法"],
+      "definition": "额外空间相对输入规模为常量，即辅助空间为O(1)。",
+      "source_file": "1-4-algorithms-and-analysis/index.md",
+      "output_heading": "空间复杂度与原地工作"
+    }
+  ],
+  "visuals": [
+    {
+      "id": "ds-introduction-storage-mapping",
+      "kind": "reused",
+      "source": "1-2-basic-concepts-and-terminology/assets/py/fig-1-6-complex-storage-structures.svg",
+      "target_heading": "逻辑结构与存储结构",
+      "fallback": "正文对照表完整说明顺序映像依赖相对位置、链式映像依赖指针；图注解释地址0415的含义。",
+      "status": "complete"
+    },
+    {
+      "id": "ds-introduction-growth-rates",
+      "kind": "reused",
+      "source": "1-4-algorithms-and-analysis/assets/py/fig-1-7-common-growth-rates.svg",
+      "target_heading": "时间复杂度：从基本操作频度到渐近阶",
+      "fallback": "正文公式列出从O(1)到O(2^n)的常见量级顺序，并说明有限区间交叉不改变渐近比较。",
+      "status": "complete"
+    }
+  ],
+  "checks": {
+    "ownership": true,
+    "source_coverage": true,
+    "headings": true,
+    "formulas": true,
+    "code": true,
+    "complexity": true,
+    "links": true,
+    "assets": true,
+    "rendering": true
+  },
+  "risks": [],
+  "stats": {
+    "source_files": 5,
+    "kept": 0,
+    "condensed": 5,
+    "omitted": 0,
+    "needs_review": 0,
+    "static_visuals": 2,
+    "interactive_proposals": 0
+  }
+}

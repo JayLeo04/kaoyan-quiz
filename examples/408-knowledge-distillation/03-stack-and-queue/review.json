@@ -1,0 +1,361 @@
+{
+  "schema_version": "1.0",
+  "run_id": "ds-20260808-ch02-ch12",
+  "chapter_id": "03-stack-and-queue",
+  "attempt": 2,
+  "status": "distilled",
+  "renderer": "portable",
+  "source": {
+    "input_root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\03-stack-and-queue",
+    "source_map": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\03-stack-and-queue\\source-map.json",
+    "source_lock_sha256": "ff42d521d8137ccc902915b60e56764d22b4ff235545e1717405d22c0ee1b87f",
+    "expected_files": [
+      "3-1-stack/index.md",
+      "3-2-stack-applications/index.md",
+      "3-3-stack-and-recursion/index.md",
+      "3-4-queue/index.md",
+      "3-5-discrete-event-simulation/index.md",
+      "index.md"
+    ]
+  },
+  "output": {
+    "root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\candidates\\03-stack-and-queue\\attempt-02",
+    "markdown": "index.md",
+    "assets": [
+      "assets/py/event/fig-3-15-event-simulation.png",
+      "assets/py/event/fig-3-15-event-simulation.svg",
+      "assets/py/event/redraw_figures.py",
+      "assets/py/queue/fig-3-11-linked-queue-ops.png",
+      "assets/py/queue/fig-3-11-linked-queue-ops.svg",
+      "assets/py/queue/fig-3-14-circular-queue-states.png",
+      "assets/py/queue/fig-3-14-circular-queue-states.svg",
+      "assets/py/queue/redraw_figures.py"
+    ],
+    "visualization_fragment": null
+  },
+  "coverage": [
+    {
+      "source_file": "3-1-stack/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "3.1 栈：LIFO 与受限线性表",
+        "定义、边界与 ADT",
+        "顺序栈：表示、不变量与核心操作",
+        "链栈",
+        "栈操作的复杂度与边界"
+      ],
+      "reason": "已目视核验原书 PDF 第 54-57 页（印刷书第 44-47 页）：栈定义、完整 ADT 语义、顺序栈指针约定、扩容修复、关键代码、链栈边界均与原页一致；图 3.1 至图 3.3 的必要关系已由定义、不变量、代码和对照表等价表达，省去铁路比喻与重复图解叙述。",
+      "items": [
+        {
+          "source_heading": "3.1　栈",
+          "disposition": "condensed",
+          "output_heading": "3.1 栈：LIFO 与受限线性表",
+          "reason": "目视核验 PDF 第 54 页（书第 44 页）章标题及起始正文；章节总述压缩为 LIFO 逻辑约束和表示主线。"
+        },
+        {
+          "source_heading": "3.1.1　抽象数据类型栈的定义",
+          "disposition": "condensed",
+          "output_heading": "定义、边界与 ADT",
+          "reason": "目视核验 PDF 第 54-55 页（书第 44-45 页）；保留栈顶、栈底、空栈、LIFO、全部基本操作及前置条件，删除铁路调度的叙事性类比。"
+        },
+        {
+          "source_heading": "3.1.2　栈的表示和实现",
+          "disposition": "condensed",
+          "output_heading": "顺序栈：表示、不变量与核心操作",
+          "reason": "目视核验 PDF 第 55-57 页（书第 45-47 页）；保留字段语义、空栈和不存在判定、扩容后指针重建、入栈出栈更新顺序及链栈结论；图示关系已由文字和代码覆盖。"
+        }
+      ]
+    },
+    {
+      "source_file": "3-2-stack-applications/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "3.2 栈的典型应用",
+        "数制转换：逆序输出余数",
+        "括号匹配：未消解期待栈",
+        "行编辑：撤销最近输入",
+        "迷宫求解：显式回溯栈",
+        "表达式求值：双栈算符优先法"
+      ],
+      "reason": "已目视核验原书 PDF 第 58-64 页（书第 48-54 页）。五类应用均保留算法对象、栈内含义、不变量、边界、核心步骤和最小例；PDF 第 58 页确认算法 3.1 的 while(N) 未覆盖 N=0，成稿显式补零值分支；PDF 第 63-64 页确认正式算法名为 EvaluateExpression，并删除例题行中不属于算法名的 reduced。",
+      "items": [
+        {
+          "source_heading": "3.2 栈的应用举例",
+          "disposition": "condensed",
+          "output_heading": "3.2 栈的典型应用",
+          "reason": "目视核验 PDF 第 58 页（书第 48 页）；应用导语压缩为逆序使用与显式回退两类统一机制。"
+        },
+        {
+          "source_heading": "3.2.1 数制转换",
+          "disposition": "condensed",
+          "output_heading": "数制转换：逆序输出余数",
+          "reason": "目视核验 PDF 第 58 页（书第 48 页）算法 3.1 代码区：说明写任意非负整数，而 while(N) 在 N=0 时不入栈。成稿保留原算法对 N>0 的过程，并明确补入 N=0 输出 0 的必要边界分支。"
+        },
+        {
+          "source_heading": "3.2.2 括号匹配的检验",
+          "disposition": "condensed",
+          "output_heading": "括号匹配：未消解期待栈",
+          "reason": "目视核验 PDF 第 59 页（书第 49 页）；将期待急迫性的长叙述压缩为未匹配左括号栈、不变量和三类失败边界。"
+        },
+        {
+          "source_heading": "3.2.3 行编辑程序",
+          "disposition": "condensed",
+          "output_heading": "行编辑：撤销最近输入",
+          "reason": "目视核验 PDF 第 59-60 页（书第 49-50 页）；保留 #、@ 的精确语义、两个输入输出例、空栈边界和逐行处理机制，省略终端输入背景铺垫。"
+        },
+        {
+          "source_heading": "3.2.4 迷宫求解",
+          "disposition": "condensed",
+          "output_heading": "迷宫求解：显式回溯栈",
+          "reason": "目视核验 PDF 第 60-62 页（书第 50-52 页）；保留简单路径条件、访问标记、栈元素 ord/seat/di、东南西北方向推进和退栈回溯；具体 10×10 迷宫布局不承载额外算法条件，未复制图 3.4。"
+        },
+        {
+          "source_heading": "3.2.5 表达式求值",
+          "disposition": "condensed",
+          "output_heading": "表达式求值：双栈算符优先法",
+          "reason": "目视核验 PDF 第 62-64 页（书第 52-54 页），并在第 63 页代码签名和第 64 页例题、表题间交叉核对：正式算法名为 EvaluateExpression；例题行多出的 reduced 不属于算法名。完整保留表 3.1、双栈职责、三种优先关系、操作数弹出次序、例 3-1 结果和语法错误边界。"
+        }
+      ]
+    },
+    {
+      "source_file": "3-3-stack-and-recursion/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "3.3 栈与递归实现",
+        "递归的定义与三类来源",
+        "Hanoi 塔：递归分解",
+        "算法 3.5：Hanoi 递归实现",
+        "运行栈、工作记录与活动记录"
+      ],
+      "reason": "已目视核验原书 PDF 第 64-68 页（书第 54-58 页）：式 (3-1) 至式 (3-4)、递归来源、Hanoi 规则与算法 3.5、调用和返回动作、工作记录、活动记录及层次关系全部保留；图 3.5 至图 3.7 的长状态序列压缩为关键状态表和完整文字机制。",
+      "items": [
+        {
+          "source_heading": "3.3 栈与递归的实现",
+          "disposition": "condensed",
+          "output_heading": "3.3 栈与递归实现",
+          "reason": "目视核验 PDF 第 64-68 页（书第 54-58 页）；保留直接与间接递归定义、三类递归来源、三个递归公式和运行栈机制。"
+        },
+        {
+          "source_heading": "例 3-2（n 阶 Hanoi 塔问题）",
+          "disposition": "condensed",
+          "output_heading": "Hanoi 塔：递归分解",
+          "reason": "目视核验 PDF 第 65 页（书第 55 页）；保留三个塔座、三条移动规则、基例与三步递归分解，省略重复叙述。"
+        },
+        {
+          "source_heading": "算法 3.5",
+          "disposition": "kept",
+          "output_heading": "算法 3.5：Hanoi 递归实现",
+          "reason": "目视核验 PDF 第 65 页（书第 55 页）算法 3.5；核心函数完整保留，并补出由代码直接推出的递推式、移动次数、递归不变量与栈深。"
+        }
+      ]
+    },
+    {
+      "source_file": "3-4-queue/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "3.4 队列：FIFO 与双端变体",
+        "队列的定义、边界与 ADT",
+        "双端队列",
+        "链队列：头结点与首尾指针不变量",
+        "循环队列：回绕、判空判满与长度",
+        "队列实现复杂度与适用条件"
+      ],
+      "reason": "已目视核验原书 PDF 第 68-75 页（书第 58-65 页）。FIFO、完整 ADT、双端队列变体、链队列与循环队列的字段、不变量、关键代码、空满公式和容量均保留。PDF 第 73 页原文为“设有循环队列”而非输入转写的“没有循环队列”；第 74-75 页确认 malloc 只分配 MAXQSIZE 固定容量，故将“动态分配”澄清为不能按顺序栈方式在运行中直接扩容，而非禁止堆分配。",
+      "items": [
+        {
+          "source_heading": "3.4 队列",
+          "disposition": "condensed",
+          "output_heading": "3.4 队列：FIFO 与双端变体",
+          "reason": "目视核验 PDF 第 68-70 页（书第 58-60 页）；总述压缩为 FIFO 逻辑约束、存储表示和双端变体主线。"
+        },
+        {
+          "source_heading": "3.4.1 抽象数据类型队列的定义",
+          "disposition": "condensed",
+          "output_heading": "队列的定义、边界与 ADT",
+          "reason": "目视核验 PDF 第 68-70 页（书第 58-60 页）；保留队头队尾、FIFO、全部操作前置条件和双端队列三种限制；操作系统排队背景例压缩为用途。"
+        },
+        {
+          "source_heading": "3.4.2 链队列——队列的链式表示和实现",
+          "disposition": "kept",
+          "output_heading": "链队列：头结点与首尾指针不变量",
+          "reason": "目视核验 PDF 第 70-73 页（书第 60-63 页），并对照第 71 页图 3.11 检查重绘；保留头结点、空队列判定、类型定义、初始化、入队、出队、销毁语义和删除唯一结点的尾指针修复。"
+        },
+        {
+          "source_heading": "3.4.3 循环队列——队列的顺序表示和实现",
+          "disposition": "condensed",
+          "output_heading": "循环队列：回绕、判空判满与长度",
+          "reason": "目视核验 PDF 第 73-75 页（书第 63-65 页）：第 73 页确写“设有循环队列”并要求设定最大长度，第 74 页同时以 malloc 一次性分配 MAXQSIZE 个单元，第 75 页给出判满、入队和出队。成稿据此区分固定容量的动态分配与运行中动态扩容，并保留空、满、长度和最大可用 M-1 的全部条件。"
+        }
+      ]
+    },
+    {
+      "source_file": "3-5-discrete-event-simulation/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "3.5 离散事件模拟：银行业务",
+        "事件驱动模型与数据结构",
+        "算法 3.6：按事件推进",
+        "算法 3.7：事件处理循环",
+        "正确性不变量",
+        "银行模拟的复杂度与边界"
+      ],
+      "reason": "已目视核验原书 PDF 第 75-79 页（书第 65-69 页）。四窗口假设、事件与客户记录、有序事件表、到达和离开处理、平均逗留时间、例 3-3 状态和正确性不变量均保留。PDF 第 77 页确认 cmp 只比较 OccurTime，第 77-78 页的 OrderInsert 与主循环没有 NType 二级键，第 78-79 页例 3-3 又无同刻冲突；结论是原算法只定义时间非降序，实现必须另定等时规则，并说明该规则会影响最短队列选择和后续轨迹。",
+      "items": [
+        {
+          "source_heading": "3.5 离散事件模拟",
+          "disposition": "condensed",
+          "output_heading": "3.5 离散事件模拟：银行业务",
+          "reason": "目视核验 PDF 第 75-76 页（书第 65-66 页）；删除排队生活背景，保留四窗口规则、平均逗留时间目标和事件驱动定义。"
+        },
+        {
+          "source_heading": "算法 3.6",
+          "disposition": "condensed",
+          "output_heading": "算法 3.6：按事件推进",
+          "reason": "目视核验 PDF 第 75-76 页（书第 65-66 页）算法 3.6；保留初始化、取最早事件、按类型分派和事件表清空终止的控制骨架。"
+        },
+        {
+          "source_heading": "算法 3.7",
+          "disposition": "condensed",
+          "output_heading": "算法 3.7：事件处理循环",
+          "reason": "目视核验 PDF 第 77-79 页（书第 67-69 页）：cmp 对同一 OccurTime 返回 0，OrderInsert 和主循环未规定到达/离开二级顺序，例 3-3 轨迹无同刻冲突但在最短队列并列时依次采用较小编号空队列。成稿不虚构原书规则，而把确定性等时规则和最短队列并列规则列为实现条件，并说明顺序对队列选择、后续离开事件和统计轨迹的影响。"
+        }
+      ]
+    },
+    {
+      "source_file": "index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "第 3 章 栈和队列",
+        "本章知识地图"
+      ],
+      "reason": "目视核验 PDF 第 54 页（书第 44 页）章标题、印刷页码与起始正文，确认书页 b 对应 PDF 第 b+10 页；章首页关于受限线性表、抽象数据类型和应用范围的知识已压缩进主线与知识地图，目录仅承担导航。",
+      "items": [
+        {
+          "source_heading": "第 3 章　栈和队列",
+          "disposition": "condensed",
+          "output_heading": "第 3 章 栈和队列",
+          "reason": "目视核验 PDF 第 54 页（书第 44 页）标题和首段；保留栈和队列是操作受限线性表、同时构成独立 ADT 的核心边界，压缩应用背景。"
+        },
+        {
+          "source_heading": "目录",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "该块只重复列出 3.1 至 3.5 的导航链接；全部目标页内容已按顺序合并并逐标题覆盖，不含独有知识。"
+        }
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "term": "栈",
+      "aliases": ["stack", "LIFO 结构"],
+      "definition": "只允许在线性表表尾进行插入和删除、因而后进先出的线性结构。",
+      "source_file": "3-1-stack/index.md",
+      "output_heading": "定义、边界与 ADT"
+    },
+    {
+      "term": "顺序栈",
+      "aliases": ["sequential stack"],
+      "definition": "以连续存储区保存自栈底到栈顶元素，并用 base、top 和 stacksize 描述状态的栈表示。",
+      "source_file": "3-1-stack/index.md",
+      "output_heading": "顺序栈：表示、不变量与核心操作"
+    },
+    {
+      "term": "递归工作栈",
+      "aliases": ["recursion stack"],
+      "definition": "递归运行期间按调用层次保存各层工作记录的数据区。",
+      "source_file": "3-3-stack-and-recursion/index.md",
+      "output_heading": "运行栈、工作记录与活动记录"
+    },
+    {
+      "term": "活动记录",
+      "aliases": ["activation record"],
+      "definition": "当前正在执行的递归层对应的栈顶工作记录。",
+      "source_file": "3-3-stack-and-recursion/index.md",
+      "output_heading": "运行栈、工作记录与活动记录"
+    },
+    {
+      "term": "队列",
+      "aliases": ["queue", "FIFO 结构"],
+      "definition": "只允许在队尾插入、在队头删除、因而先进先出的线性结构。",
+      "source_file": "3-4-queue/index.md",
+      "output_heading": "队列的定义、边界与 ADT"
+    },
+    {
+      "term": "双端队列",
+      "aliases": ["deque"],
+      "definition": "把插入和删除限制在表的两个端点进行的线性结构。",
+      "source_file": "3-4-queue/index.md",
+      "output_heading": "双端队列"
+    },
+    {
+      "term": "链队列",
+      "aliases": ["linked queue"],
+      "definition": "用带头结点的单链表及 front、rear 两个指针唯一确定的队列表示。",
+      "source_file": "3-4-queue/index.md",
+      "output_heading": "链队列：头结点与首尾指针不变量"
+    },
+    {
+      "term": "循环队列",
+      "aliases": ["circular queue"],
+      "definition": "把有限顺序存储区按模运算逻辑连接成环、从而复用队头之前空位的队列表示。",
+      "source_file": "3-4-queue/index.md",
+      "output_heading": "循环队列：回绕、判空判满与长度"
+    },
+    {
+      "term": "事件驱动模拟",
+      "aliases": ["event-driven simulation", "离散事件模拟"],
+      "definition": "每次按发生时刻取出最早事件并据此改变系统状态的模拟方式。",
+      "source_file": "3-5-discrete-event-simulation/index.md",
+      "output_heading": "事件驱动模型与数据结构"
+    }
+  ],
+  "visuals": [
+    {
+      "id": "ds-linked-queue-pointer-updates",
+      "kind": "redrawn",
+      "source": "目视对照原书 PDF 第 71 页（书第 61 页）图 3.11；由 assets/py/queue/redraw_figures.py 确定性重绘为 PNG/SVG，并复核空队列、x/y 入队和 x 出队四态的 front/rear 指向。",
+      "target_heading": "链队列：头结点与首尾指针不变量",
+      "fallback": "正文、关键代码和易错提醒完整说明 front、rear、头结点及删除唯一元素后的重置关系。",
+      "status": "complete"
+    },
+    {
+      "id": "ds-circular-queue-empty-full",
+      "kind": "redrawn",
+      "source": "目视对照原书 PDF 第 74 页（书第 64 页）图 3.14；由 assets/py/queue/redraw_figures.py 确定性重绘为 PNG/SVG，并以正文公式补足少用一格后的判空判满语义。",
+      "target_heading": "循环队列：回绕、判空判满与长度",
+      "fallback": "正文给出 front、rear 指针约定、空满冲突、两种消歧方案及少用一格时的全部公式。",
+      "status": "complete"
+    },
+    {
+      "id": "ds-bank-event-queue-trace",
+      "kind": "redrawn",
+      "source": "目视对照原书 PDF 第 79 页（书第 69 页）图 3.15；由 assets/py/event/redraw_figures.py 确定性重绘为 PNG/SVG，核对随机数、事件表和四队列的关键连续状态。",
+      "target_heading": "算法 3.7：事件处理循环",
+      "fallback": "正文逐步说明到达和离开分支，并列出事件表与各窗口队列必须保持的四条不变量。",
+      "status": "complete"
+    }
+  ],
+  "checks": {
+    "ownership": true,
+    "source_coverage": true,
+    "headings": true,
+    "formulas": true,
+    "code": true,
+    "complexity": true,
+    "links": true,
+    "assets": true,
+    "rendering": true
+  },
+  "risks": [],
+  "stats": {
+    "source_files": 6,
+    "kept": 0,
+    "condensed": 6,
+    "omitted": 0,
+    "needs_review": 0,
+    "static_visuals": 3,
+    "interactive_proposals": 0
+  }
+}
+

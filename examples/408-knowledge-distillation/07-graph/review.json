@@ -1,0 +1,562 @@
+{
+  "schema_version": "1.0",
+  "run_id": "ds-20260808-ch02-ch12",
+  "chapter_id": "07-graph",
+  "attempt": 1,
+  "status": "distilled",
+  "renderer": "portable",
+  "source": {
+    "input_root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\07-graph",
+    "source_map": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\07-graph\\source-map.json",
+    "source_lock_sha256": "ff42d521d8137ccc902915b60e56764d22b4ff235545e1717405d22c0ee1b87f",
+    "expected_files": [
+      "07-01-graph-definition-and-terms/index.md",
+      "07-02-graph-storage/index.md",
+      "07-03-graph-traversal/index.md",
+      "07-04-connectivity/index.md",
+      "07-05-directed-acyclic-graph/index.md",
+      "07-06-shortest-path/index.md",
+      "index.md"
+    ]
+  },
+  "output": {
+    "root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\candidates\\07-graph\\attempt-01",
+    "markdown": "index.md",
+    "assets": [
+      "assets/fig-7-13-traversal-process.png",
+      "assets/fig-7-16-prim-process.png",
+      "assets/fig-7-20-articulation-dfs-tree.png"
+    ],
+    "visualization_fragment": null
+  },
+  "coverage": [
+    {
+      "source_file": "07-01-graph-definition-and-terms/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "7.1 图的定义和术语",
+        "基本模型与操作",
+        "边数、权与子图",
+        "邻接、度与握手关系",
+        "路径、环与连通性",
+        "生成树、生成森林及边数判定"
+      ],
+      "reason": "将连续叙述重组为模型、操作、计数关系、路径连通性和生成结构；保留 ADT 操作的前置条件、全部术语限定、公式、边数判定及人工序号会影响遍历次序的边界。",
+      "items": [
+        {
+          "source_heading": "7.1 图的定义和术语",
+          "disposition": "condensed",
+          "output_heading": "7.1 图的定义和术语",
+          "reason": "源页只有一个总标题，正文中的定义、ADT、公式、图例结论和边界已分别进入该节六个标题；应用领域和课程铺垫被压缩。"
+        }
+      ]
+    },
+    {
+      "source_file": "07-02-graph-storage/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "7.2 图的存储结构",
+        "四类表示总览",
+        "邻接矩阵",
+        "邻接表与逆邻接表",
+        "十字链表",
+        "邻接多重表"
+      ],
+      "reason": "以比较表和字段不变量替代重复图文，保留四种结构的适用图类型、记录数量、关键字段、构造更新顺序、操作代价和算法 7.1—7.3 的复杂度来源。",
+      "items": [
+        {
+          "source_heading": "7.2 图的存储结构",
+          "disposition": "condensed",
+          "output_heading": "7.2 图的存储结构",
+          "reason": "保留图不能仅靠物理位置表达任意关系以及按操作选择结构的结论，概念性多重链表图由四类表示总览等价替代。"
+        },
+        {
+          "source_heading": "7.2.1 数组表示法",
+          "disposition": "condensed",
+          "output_heading": "邻接矩阵",
+          "reason": "保留矩阵定义、无向对称性、度的行列关系、网的无边哨兵、算法 7.1/7.2 构造步骤及定位成本。"
+        },
+        {
+          "source_heading": "7.2.2 邻接表",
+          "disposition": "condensed",
+          "output_heading": "邻接表与逆邻接表",
+          "reason": "保留表头/弧结点字段、无向边双记录、有向出入度差异、逆邻接表、建表和判边复杂度。"
+        },
+        {
+          "source_heading": "7.2.3 十字链表",
+          "disposition": "condensed",
+          "output_heading": "十字链表",
+          "reason": "保留弧结点五字段、顶点双表头、同头/同尾双链和算法 7.3 的双向头插不变量。"
+        },
+        {
+          "source_heading": "7.2.4 邻接多重表",
+          "disposition": "condensed",
+          "output_heading": "邻接多重表",
+          "reason": "保留无向边单记录、六字段、双端点链选择规则，以及相对邻接表在标记和删除边时的差异。"
+        }
+      ]
+    },
+    {
+      "source_file": "07-03-graph-traversal/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "7.3 图的遍历",
+        "深度优先搜索",
+        "广度优先搜索",
+        "遍历复杂度与边界"
+      ],
+      "reason": "保留 visited、不连通图外层循环、DFS 递归与 BFS 队列的不变量、算法 7.4—7.6、源例访问序列和两种存储下的复杂度。",
+      "items": [
+        {
+          "source_heading": "7.3 图的遍历",
+          "disposition": "condensed",
+          "output_heading": "7.3 图的遍历",
+          "reason": "保留遍历定义、环导致重复访问的风险及访问标记要求，删除重复过渡说明。"
+        },
+        {
+          "source_heading": "7.3.1 深度优先搜索",
+          "disposition": "condensed",
+          "output_heading": "深度优先搜索",
+          "reason": "算法 7.4/7.5 压成等价伪代码，保留标记时机、递归生成树、源例序列与复杂度。"
+        },
+        {
+          "source_heading": "7.3.2 广度优先搜索",
+          "disposition": "condensed",
+          "output_heading": "广度优先搜索",
+          "reason": "算法 7.6 压成等价伪代码，保留队列、入队标记、逐层语义、源例序列和与 DFS 相同的时间量级。"
+        }
+      ]
+    },
+    {
+      "source_file": "07-04-connectivity/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "7.4 图的连通性问题",
+        "连通分量、生成树与生成森林",
+        "有向图的强连通分量",
+        "最小生成树与 MST 性质",
+        "Prim 算法（算法 7.9）",
+        "Kruskal 算法",
+        "关节点与重连通"
+      ],
+      "reason": "按连通分量、SCC、MST 和关节点重组，保留算法 7.7—7.11 的结构不变量、MST 交换证明、Prim/Kruskal 条件与复杂度，以及 disc/low 判定。",
+      "items": [
+        {
+          "source_heading": "7.4 图的连通性问题",
+          "disposition": "condensed",
+          "output_heading": "7.4 图的连通性问题",
+          "reason": "总述压缩为后续四类连通性问题的组织标题。"
+        },
+        {
+          "source_heading": "7.4.1 无向图的连通分量和生成树",
+          "disposition": "condensed",
+          "output_heading": "连通分量、生成树与生成森林",
+          "reason": "保留一次搜索对应一个分量、遍历边构成生成树、非连通图生成森林，以及孩子—兄弟存储算法 7.7/7.8 的链接规则。"
+        },
+        {
+          "source_heading": "7.4.2 有向图的强连通分量",
+          "disposition": "condensed",
+          "output_heading": "有向图的强连通分量",
+          "reason": "保留原图完成次序、转置图逆序 DFS、每棵树对应一个 SCC 和遍历复杂度。"
+        },
+        {
+          "source_heading": "7.4.3 最小生成树",
+          "disposition": "condensed",
+          "output_heading": "最小生成树与 MST 性质",
+          "reason": "保留连通无向网前提、MST 性质及交换证明，并在两个子标题中完整保留 Prim 与 Kruskal 的状态、步骤、复杂度和稠密/稀疏适用性。"
+        },
+        {
+          "source_heading": "7.4.4 关节点和重连通分量",
+          "disposition": "condensed",
+          "output_heading": "关节点与重连通",
+          "reason": "保留关节点、重连通和连通度定义，DFS 根/非根两类判定、low 公式、算法 7.10/7.11 的双亲边口径、源例结论与 $O(n+e)$ 复杂度。"
+        }
+      ]
+    },
+    {
+      "source_file": "07-05-directed-acyclic-graph/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "7.5 有向无环图及其应用",
+        "偏序、全序与 AOV 网",
+        "拓扑排序（算法 7.12）",
+        "AOE 网与关键路径"
+      ],
+      "reason": "保留 DAG 与公共子式共享、DFS 判有向环条件、偏序/全序、AOV 拓扑排序、AOE 关键路径公式 7-1—7-3、算法 7.12—7.14 和多关键路径边界。",
+      "items": [
+        {
+          "source_heading": "7.5 有向无环图及其应用",
+          "disposition": "condensed",
+          "output_heading": "7.5 有向无环图及其应用",
+          "reason": "保留 DAG 定义、表达式公共子式示例及有向 DFS 当前递归路径上的回边判环条件，删除工程背景铺垫。"
+        },
+        {
+          "source_heading": "7.5.1 拓扑排序",
+          "disposition": "condensed",
+          "output_heading": "拓扑排序（算法 7.12）",
+          "reason": "偏序/全序和 AOV 定义另列前置标题；算法 7.12 保留入度、零入度栈、计数判环、复杂度与 DFS 逆完成序变体，课程清单压成一般约束。"
+        },
+        {
+          "source_heading": "7.5.2 关键路径",
+          "disposition": "condensed",
+          "output_heading": "AOE 网与关键路径",
+          "reason": "保留 AOE 各对象语义、最长路径工期、事件/活动早晚时间、式 7-1—7-3、拓扑与逆拓扑推进、关键活动判据、源例双关键路径和复杂度。"
+        }
+      ]
+    },
+    {
+      "source_file": "07-06-shortest-path/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "7.6 最短路径",
+        "Dijkstra 单源最短路径（算法 7.15）",
+        "Floyd 各对顶点最短路径（算法 7.16）"
+      ],
+      "reason": "保留无权 BFS 与带权路径区别、Dijkstra 定型集合和松弛、Floyd 中间点动态规划不变量、算法 7.15/7.16、源例矩阵、复杂度及不可达哨兵风险。",
+      "items": [
+        {
+          "source_heading": "7.6 最短路径",
+          "disposition": "condensed",
+          "output_heading": "7.6 最短路径",
+          "reason": "交通背景压为无权边数最短与带权权和最短两种模型，保留有向性和源点/终点语义。"
+        },
+        {
+          "source_heading": "7.6.1 从某个源点到其余各顶点的最短路径",
+          "disposition": "condensed",
+          "output_heading": "Dijkstra 单源最短路径（算法 7.15）",
+          "reason": "保留 D、S 的定义和不变量、初始化/选择/松弛、源例最终结果、路径记录、$O(n^2)$ 复杂度，并显式处理源代码未保护的不可达与溢出边界。"
+        },
+        {
+          "source_heading": "7.6.2 每一对顶点之间的最短路径",
+          "disposition": "condensed",
+          "output_heading": "Floyd 各对顶点最短路径（算法 7.16）",
+          "reason": "保留矩阵序列、递推式、中间点不变量、路径矩阵、三重循环顺序、图 7.36/7.37 的最终距离结论及 $O(n^3)$ 复杂度。"
+        }
+      ]
+    },
+    {
+      "source_file": "index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "第 7 章 图",
+        "本章知识地图"
+      ],
+      "reason": "章首页的线性表/树/图比较与学习范围压入本章主线；目录导航重组为带问题、状态和复杂度的知识地图，六个目标知识块均已进入正文。",
+      "items": [
+        {
+          "source_heading": "第 7 章　图",
+          "disposition": "condensed",
+          "output_heading": "第 7 章 图",
+          "reason": "保留图可表示任意顶点关系及本章聚焦存储和操作实现的定位，删除应用领域罗列和课程寒暄。"
+        },
+        {
+          "source_heading": "目录",
+          "disposition": "condensed",
+          "output_heading": "本章知识地图",
+          "reason": "纯导航列表改为同样覆盖 7.1—7.6 且增加对象、状态和代价的知识地图。"
+        }
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "term": "图",
+      "aliases": [
+        "Graph"
+      ],
+      "definition": "由有穷非空顶点集 V 与顶点间关系集 VR 构成的数据结构。",
+      "source_file": "07-01-graph-definition-and-terms/index.md",
+      "output_heading": "基本模型与操作"
+    },
+    {
+      "term": "有向图",
+      "aliases": [
+        "Digraph"
+      ],
+      "definition": "用有序对表示弧，并区分弧尾与弧头的图。",
+      "source_file": "07-01-graph-definition-and-terms/index.md",
+      "output_heading": "基本模型与操作"
+    },
+    {
+      "term": "无向图",
+      "aliases": [
+        "Undigraph"
+      ],
+      "definition": "顶点关系对称、可用无序对表示边的图。",
+      "source_file": "07-01-graph-definition-and-terms/index.md",
+      "output_heading": "基本模型与操作"
+    },
+    {
+      "term": "网",
+      "aliases": [
+        "Network"
+      ],
+      "definition": "边或弧带有权值的图。",
+      "source_file": "07-01-graph-definition-and-terms/index.md",
+      "output_heading": "边数、权与子图"
+    },
+    {
+      "term": "度",
+      "aliases": [
+        "Degree",
+        "TD"
+      ],
+      "definition": "无向图中依附于顶点的边数；有向图中为入度与出度之和。",
+      "source_file": "07-01-graph-definition-and-terms/index.md",
+      "output_heading": "邻接、度与握手关系"
+    },
+    {
+      "term": "连通分量",
+      "aliases": [
+        "Connected Component"
+      ],
+      "definition": "无向图的极大连通子图。",
+      "source_file": "07-01-graph-definition-and-terms/index.md",
+      "output_heading": "路径、环与连通性"
+    },
+    {
+      "term": "强连通分量",
+      "aliases": [
+        "SCC"
+      ],
+      "definition": "有向图的极大强连通子图。",
+      "source_file": "07-01-graph-definition-and-terms/index.md",
+      "output_heading": "路径、环与连通性"
+    },
+    {
+      "term": "生成树",
+      "aliases": [
+        "Spanning Tree"
+      ],
+      "definition": "覆盖连通图全部顶点且只保留维持连通所需边的极小连通子图。",
+      "source_file": "07-01-graph-definition-and-terms/index.md",
+      "output_heading": "生成树、生成森林及边数判定"
+    },
+    {
+      "term": "邻接矩阵",
+      "aliases": [
+        "Adjacency Matrix"
+      ],
+      "definition": "用二维数组单元显式记录顶点对之间边、弧或权值的表示。",
+      "source_file": "07-02-graph-storage/index.md",
+      "output_heading": "邻接矩阵"
+    },
+    {
+      "term": "邻接表",
+      "aliases": [
+        "Adjacency List"
+      ],
+      "definition": "为每个顶点建立链表、链接其邻接边或出弧结点的表示。",
+      "source_file": "07-02-graph-storage/index.md",
+      "output_heading": "邻接表与逆邻接表"
+    },
+    {
+      "term": "十字链表",
+      "aliases": [
+        "Orthogonal List"
+      ],
+      "definition": "让每个有向弧结点同时进入同尾链和同头链的链式表示。",
+      "source_file": "07-02-graph-storage/index.md",
+      "output_heading": "十字链表"
+    },
+    {
+      "term": "邻接多重表",
+      "aliases": [
+        "Adjacency Multilist"
+      ],
+      "definition": "让每个无向边结点同时进入两个端点链、整条边只存一份的表示。",
+      "source_file": "07-02-graph-storage/index.md",
+      "output_heading": "邻接多重表"
+    },
+    {
+      "term": "深度优先搜索",
+      "aliases": [
+        "DFS"
+      ],
+      "definition": "从未访问邻接点持续深入、无可扩展邻接点时回溯的遍历。",
+      "source_file": "07-03-graph-traversal/index.md",
+      "output_heading": "深度优先搜索"
+    },
+    {
+      "term": "广度优先搜索",
+      "aliases": [
+        "BFS"
+      ],
+      "definition": "借助队列按发现先后逐层扩展邻接点的遍历。",
+      "source_file": "07-03-graph-traversal/index.md",
+      "output_heading": "广度优先搜索"
+    },
+    {
+      "term": "最小生成树",
+      "aliases": [
+        "MST",
+        "Minimum Cost Spanning Tree"
+      ],
+      "definition": "连通无向网中边权总和最小的生成树。",
+      "source_file": "07-04-connectivity/index.md",
+      "output_heading": "最小生成树与 MST 性质"
+    },
+    {
+      "term": "关节点",
+      "aliases": [
+        "割点",
+        "Articulation Point"
+      ],
+      "definition": "删去该顶点及其关联边后会使原连通分量分裂的顶点。",
+      "source_file": "07-04-connectivity/index.md",
+      "output_heading": "关节点与重连通"
+    },
+    {
+      "term": "有向无环图",
+      "aliases": [
+        "DAG"
+      ],
+      "definition": "不含有向环的有向图。",
+      "source_file": "07-05-directed-acyclic-graph/index.md",
+      "output_heading": "7.5 有向无环图及其应用"
+    },
+    {
+      "term": "拓扑排序",
+      "aliases": [
+        "Topological Sort"
+      ],
+      "definition": "把有向无环约束表示的偏序扩展成一个线性拓扑序的操作。",
+      "source_file": "07-05-directed-acyclic-graph/index.md",
+      "output_heading": "拓扑排序（算法 7.12）"
+    },
+    {
+      "term": "AOV 网",
+      "aliases": [
+        "Activity On Vertex Network"
+      ],
+      "definition": "以顶点表示活动、以弧表示活动间优先关系的有向图。",
+      "source_file": "07-05-directed-acyclic-graph/index.md",
+      "output_heading": "偏序、全序与 AOV 网"
+    },
+    {
+      "term": "AOE 网",
+      "aliases": [
+        "Activity On Edge"
+      ],
+      "definition": "以顶点表示事件、以带持续时间的弧表示活动的有向无环网。",
+      "source_file": "07-05-directed-acyclic-graph/index.md",
+      "output_heading": "AOE 网与关键路径"
+    },
+    {
+      "term": "关键路径",
+      "aliases": [
+        "Critical Path"
+      ],
+      "definition": "AOE 网中从源点到汇点的最长带权路径。",
+      "source_file": "07-05-directed-acyclic-graph/index.md",
+      "output_heading": "AOE 网与关键路径"
+    },
+    {
+      "term": "Dijkstra 算法",
+      "aliases": [
+        "迪杰斯特拉算法"
+      ],
+      "definition": "按暂定距离递增次序定型顶点并松弛其出边的单源最短路径算法。",
+      "source_file": "07-06-shortest-path/index.md",
+      "output_heading": "Dijkstra 单源最短路径（算法 7.15）"
+    },
+    {
+      "term": "Floyd 算法",
+      "aliases": [
+        "弗洛伊德算法"
+      ],
+      "definition": "按允许中间顶点集合逐轮扩展的各对顶点最短路径动态规划。",
+      "source_file": "07-06-shortest-path/index.md",
+      "output_heading": "Floyd 各对顶点最短路径（算法 7.16）"
+    }
+  ],
+  "visuals": [
+    {
+      "id": "ds-graph-traversal-orders",
+      "kind": "reused",
+      "source": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\07-graph\\07-03-graph-traversal\\assets\\py\\fig-7-13-traversal-process.svg",
+      "target_heading": "广度优先搜索",
+      "fallback": "正文伪代码、层次说明及 DFS/BFS 两条完整访问序列提供纯文本 fallback。",
+      "status": "complete"
+    },
+    {
+      "id": "ds-prim-growth-process",
+      "kind": "reused",
+      "source": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\07-graph\\07-04-connectivity\\assets\\py\\fig-7-16-prim-process.svg",
+      "target_heading": "Prim 算法（算法 7.9）",
+      "fallback": "正文给出 closedge 定义、四步过程、不变量和 Prim/Kruskal 对照。",
+      "status": "complete"
+    },
+    {
+      "id": "ds-articulation-dfs-low",
+      "kind": "reused",
+      "source": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\07-graph\\07-04-connectivity\\assets\\py\\fig-7-20-g5-dfs-tree.svg",
+      "target_heading": "关节点与重连通",
+      "fallback": "正文给出根与非根两类判据、low 公式及 A/B/D/G 的源例结论。",
+      "status": "complete"
+    }
+  ],
+  "checks": {
+    "ownership": true,
+    "source_coverage": true,
+    "headings": true,
+    "formulas": true,
+    "code": true,
+    "complexity": true,
+    "links": true,
+    "assets": true,
+    "rendering": true
+  },
+  "risks": [
+    {
+      "severity": "medium",
+      "category": "source-risk",
+      "source_file": "07-02-graph-storage/index.md",
+      "location": "7.2.1 邻接矩阵度公式后的 n=MAX_VERTEX_NUM",
+      "detail": "源文把求度公式的扫描范围旁注为容量常量 MAX_VERTEX_NUM，但同节定义 n 为当前顶点数；若未初始化容量余项，按容量求和会把非图顶点计入。",
+      "action": "正文明确按当前 vexnum 扫描；后续审校可对照原 PDF 确认该旁注是否为转写或教材实现口径。"
+    },
+    {
+      "severity": "low",
+      "category": "source-risk",
+      "source_file": "07-02-graph-storage/index.md",
+      "location": "网的邻接矩阵定义与 07-06 图 7.36 Floyd 初始矩阵",
+      "detail": "一般网矩阵以无弧为无穷大，而 Floyd 示例对角线为 0；两处若不区分无边和零长度自身路径，会造成初始化歧义。",
+      "action": "正文分别说明不可达哨兵与 D[i][i]=0 的用途，未改动其他权值约定。"
+    },
+    {
+      "severity": "medium",
+      "category": "source-risk",
+      "source_file": "07-05-directed-acyclic-graph/index.md",
+      "location": "7.5.2 求关键路径步骤 (3)",
+      "detail": "叙述步骤写 n-2≥i≥2，与式 (7-3) 的 i=n-2,...,0 及算法 7.14 遍历全部拓扑逆序顶点不一致。",
+      "action": "正文显式记录冲突并采用公式和代码共同支持的 n-2 到 0 范围。"
+    },
+    {
+      "severity": "medium",
+      "category": "lost-condition",
+      "source_file": "07-06-shortest-path/index.md",
+      "location": "7.6.1 Dijkstra 的递增定型论证与算法 7.15",
+      "detail": "源文以距离、时间、费用为权，但没有单列负权边条件；递增定型论证依赖后续扩展不会把已定型距离再次降低。",
+      "action": "正文把算法限定在教材的非负代价语境，并提示负权时不能直接沿用该定型结论。"
+    },
+    {
+      "severity": "medium",
+      "category": "incorrect",
+      "source_file": "07-06-shortest-path/index.md",
+      "location": "算法 7.15 选择最小暂定距离及无穷大加法",
+      "detail": "当剩余顶点全部不可达时，源代码仍执行 final[v]=TRUE，但本轮变量 v 没有获得有限候选；以 INT_MAX 表示无穷大时直接相加还可能溢出。",
+      "action": "正文加入无有限候选即终止以及加法前检查有限性的边界说明，不照抄有风险的分支。"
+    }
+  ],
+  "stats": {
+    "source_files": 7,
+    "kept": 0,
+    "condensed": 7,
+    "omitted": 0,
+    "needs_review": 0,
+    "static_visuals": 3,
+    "interactive_proposals": 0
+  }
+}
+

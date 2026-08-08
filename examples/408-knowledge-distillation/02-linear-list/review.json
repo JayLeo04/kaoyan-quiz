@@ -1,0 +1,358 @@
+{
+  "schema_version": "1.0",
+  "run_id": "ds-20260808-ch02-ch12",
+  "chapter_id": "02-linear-list",
+  "attempt": 1,
+  "status": "distilled",
+  "renderer": "portable",
+  "source": {
+    "input_root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\02-linear-list",
+    "source_map": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\02-linear-list\\source-map.json",
+    "source_lock_sha256": "ff42d521d8137ccc902915b60e56764d22b4ff235545e1717405d22c0ee1b87f",
+    "expected_files": [
+      "2-1-linear-list-type-definition/index.md",
+      "2-2-sequential-representation-and-implementation/index.md",
+      "2-3-linear-list-linked-representation/index.md",
+      "2-4-polynomial-representation-and-addition/index.md",
+      "index.md"
+    ]
+  },
+  "output": {
+    "root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\candidates\\02-linear-list\\attempt-01",
+    "markdown": "index.md",
+    "assets": [],
+    "visualization_fragment": null
+  },
+  "coverage": [
+    {
+      "source_file": "2-1-linear-list-type-definition/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "2.1 线性表与抽象数据类型",
+        "线性表的定义与边界",
+        "ADT List 的操作契约",
+        "例 2-1：集合并集",
+        "例 2-2：两个有序表归并"
+      ],
+      "reason": "保留线性表的定义、位序与空表边界、完整 ADT 操作契约、集合并与有序归并的不变量和复杂度条件；三个同质数据示例压成术语边界，图 2.1 的记录字段关系由正文定义替代。",
+      "items": [
+        {
+          "source_heading": "2.1 线性表的类型定义",
+          "disposition": "condensed",
+          "output_heading": "2.1 线性表与抽象数据类型",
+          "reason": "定义、式（2-1）、前驱后继限制、表长、空表、位序以及 ADT 基本操作均被重组保留。"
+        },
+        {
+          "source_heading": "例 2-1",
+          "disposition": "condensed",
+          "output_heading": "例 2-1：集合并集",
+          "reason": "保留集合语义、算法 2.1 的查找后追加过程、循环不变量和依赖基本操作成本的复杂度。"
+        },
+        {
+          "source_heading": "例 2-2",
+          "disposition": "condensed",
+          "output_heading": "例 2-2：两个有序表归并",
+          "reason": "保留非递减前提、重复值语义、算法 2.2 的双指针过程、不变量和线性复杂度条件。"
+        }
+      ]
+    },
+    {
+      "source_file": "2-2-sequential-representation-and-implementation/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "2.2 顺序表",
+        "顺序存储与随机存取",
+        "顺序表插入：算法 2.4",
+        "顺序表删除：算法 2.5",
+        "顺序表查找与归并"
+      ],
+      "reason": "保留地址公式（2-2）、SqList 字段、算法 2.3 至 2.7 的关键边界和控制逻辑、移动方向与次数、式（2-3）至（2-6）及其等概率前提；图 2.2 至图 2.4 的全部关系由公式、映射表、代码和精确移动数替代。",
+      "items": [
+        {
+          "source_heading": "2.2 线性表的顺序表示和实现",
+          "disposition": "condensed",
+          "output_heading": "2.2 顺序表",
+          "reason": "整页知识按表示、插入、删除、查找与归并重排，公式、算法号、复杂度和边界均保留。"
+        }
+      ]
+    },
+    {
+      "source_file": "2-3-linear-list-linked-representation/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "2.3 链式表示",
+        "链式存储的基本边界",
+        "2.3.1 单链表",
+        "按位访问：算法 2.8",
+        "单链插入与删除：算法 2.9、算法 2.10",
+        "动态建表与有序链表归并",
+        "静态链表与游标",
+        "例 2-3：静态链表求对称差",
+        "2.3.2 循环链表",
+        "2.3.3 双向链表",
+        "带头尾指针和长度的链表接口"
+      ],
+      "reason": "保留单链、静态、循环和双向链表的表示、不变量、空表状态、算法 2.8 至 2.21 的关键操作与复杂度，以及例 2-3；图 2.5 至图 2.16 的地址、游标、环和改链关系均用状态文本、表格与赋值序列完整替代。",
+      "items": [
+        {
+          "source_heading": "2.3 线性表的链式表示和实现",
+          "disposition": "condensed",
+          "output_heading": "2.3 链式表示",
+          "reason": "保留链式映像相对顺序映像的边界，并作为四种链式结构的总入口。"
+        },
+        {
+          "source_heading": "2.3.1 线性链表",
+          "disposition": "condensed",
+          "output_heading": "2.3.1 单链表",
+          "reason": "保留结点结构、头结点约定、按位访问、插删、建表、归并、静态链表、工程化接口和全部复杂度条件。"
+        },
+        {
+          "source_heading": "例 2-3",
+          "disposition": "condensed",
+          "output_heading": "例 2-3：静态链表求对称差",
+          "reason": "保留备用链表分配回收机制、对称差处理规则、尾游标边界、教材输入输出状态和 O(mn) 结论。"
+        },
+        {
+          "source_heading": "2.3.2 循环链表",
+          "disposition": "condensed",
+          "output_heading": "2.3.2 循环链表",
+          "reason": "保留成环定义、空表与遍历终止条件、尾指针访问表头以及两环 O(1) 合并。"
+        },
+        {
+          "source_heading": "2.3.3 双向链表",
+          "disposition": "condensed",
+          "output_heading": "2.3.3 双向链表",
+          "reason": "保留双向结点结构、双向一致性、空循环表、插入四次改链、删除两次改链以及定位成本。"
+        }
+      ]
+    },
+    {
+      "source_file": "2-4-polynomial-representation-and-addition/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "2.4 一元多项式的表示与相加",
+        "稠密表示与稀疏表示",
+        "Polynomial 的操作契约",
+        "例 2-4：Polynomial 的有序链表实现",
+        "多项式乘法的分解"
+      ],
+      "reason": "保留稠密与稀疏表示的适用条件、式（2-7）（2-8）、Polynomial 操作契约、算法 2.22 和 2.23 的有序不变量与四分支、破坏性语义、完整数值例和乘法分解；图 2.17、2.18 的项链和结点去向由结构定义、分支表和手算结果替代。",
+      "items": [
+        {
+          "source_heading": "2.4 一元多项式的表示及相加",
+          "disposition": "condensed",
+          "output_heading": "2.4 一元多项式的表示与相加",
+          "reason": "保留两种表示、空间取舍、ADT 契约、加法规则及乘法分解，删除提问式过渡。"
+        },
+        {
+          "source_heading": "例 2-4　抽象数据类型 Polynomial 的实现",
+          "disposition": "condensed",
+          "output_heading": "例 2-4：Polynomial 的有序链表实现",
+          "reason": "保留项类型、建表不变量、加法全部指数比较分支、结点复用/释放语义和教材示例结论。"
+        }
+      ]
+    },
+    {
+      "source_file": "index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "第 2 章 线性表",
+        "本章知识地图"
+      ],
+      "reason": "保留章首页对线性结构唯一首尾、唯一直接前驱/后继的定义；目录链接仅承担导航且四个正式小节均已整合，故目录标题省略。",
+      "items": [
+        {
+          "source_heading": "第 2 章　线性表",
+          "disposition": "condensed",
+          "output_heading": "第 2 章 线性表",
+          "reason": "章首页的线性结构四条性质被压缩到本章主线、知识地图和 2.1 定义。"
+        },
+        {
+          "source_heading": "目录",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "该标题及其列表只提供对四个已完整纳入本页的小节的导航，不含新增定义、条件、算法或例子。"
+        }
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "term": "线性表",
+      "aliases": [
+        "linear list"
+      ],
+      "definition": "n 个具有相同特性的数据元素构成的有限序列。",
+      "source_file": "2-1-linear-list-type-definition/index.md",
+      "output_heading": "线性表的定义与边界"
+    },
+    {
+      "term": "位序",
+      "aliases": [],
+      "definition": "数据元素在线性表中的逻辑位置，教材从 1 开始编号。",
+      "source_file": "2-1-linear-list-type-definition/index.md",
+      "output_heading": "线性表的定义与边界"
+    },
+    {
+      "term": "记录",
+      "aliases": [
+        "record"
+      ],
+      "definition": "由若干数据项组成的数据元素。",
+      "source_file": "2-1-linear-list-type-definition/index.md",
+      "output_heading": "线性表的定义与边界"
+    },
+    {
+      "term": "顺序表",
+      "aliases": [
+        "顺序映像"
+      ],
+      "definition": "用地址连续的存储单元依次保存线性表元素的存储表示。",
+      "source_file": "2-2-sequential-representation-and-implementation/index.md",
+      "output_heading": "顺序存储与随机存取"
+    },
+    {
+      "term": "随机存取",
+      "aliases": [],
+      "definition": "由基地址和位序可直接计算任一元素地址的访问特性。",
+      "source_file": "2-2-sequential-representation-and-implementation/index.md",
+      "output_heading": "顺序存储与随机存取"
+    },
+    {
+      "term": "结点",
+      "aliases": [
+        "node"
+      ],
+      "definition": "链式表示中由数据域和指示逻辑关系的指针域组成的存储映像。",
+      "source_file": "2-3-linear-list-linked-representation/index.md",
+      "output_heading": "链式存储的基本边界"
+    },
+    {
+      "term": "头指针",
+      "aliases": [],
+      "definition": "保存链表起始结点地址并唯一确定单链表的指针变量。",
+      "source_file": "2-3-linear-list-linked-representation/index.md",
+      "output_heading": "链式存储的基本边界"
+    },
+    {
+      "term": "头结点",
+      "aliases": [],
+      "definition": "附设在首元结点之前的结点，其指针域指向首元结点，可保存附加信息。",
+      "source_file": "2-3-linear-list-linked-representation/index.md",
+      "output_heading": "链式存储的基本边界"
+    },
+    {
+      "term": "单链表",
+      "aliases": [
+        "线性链表"
+      ],
+      "definition": "每个数据结点只含一个后继指针域的链式存储结构。",
+      "source_file": "2-3-linear-list-linked-representation/index.md",
+      "output_heading": "2.3.1 单链表"
+    },
+    {
+      "term": "静态链表",
+      "aliases": [],
+      "definition": "以一维数组保存结点并用整型游标代替指针的链式表示。",
+      "source_file": "2-3-linear-list-linked-representation/index.md",
+      "output_heading": "静态链表与游标"
+    },
+    {
+      "term": "循环链表",
+      "aliases": [
+        "circular linked list"
+      ],
+      "definition": "尾结点指针回到头结点、整条链构成一个环的链式结构。",
+      "source_file": "2-3-linear-list-linked-representation/index.md",
+      "output_heading": "2.3.2 循环链表"
+    },
+    {
+      "term": "双向链表",
+      "aliases": [
+        "double linked list"
+      ],
+      "definition": "结点同时保存直接前驱和直接后继指针的链式结构。",
+      "source_file": "2-3-linear-list-linked-representation/index.md",
+      "output_heading": "2.3.3 双向链表"
+    },
+    {
+      "term": "稀疏多项式表示",
+      "aliases": [],
+      "definition": "只保存非零系数项的系数—指数二元组，并按指数严格递增排列。",
+      "source_file": "2-4-polynomial-representation-and-addition/index.md",
+      "output_heading": "稠密表示与稀疏表示"
+    }
+  ],
+  "visuals": [],
+  "checks": {
+    "ownership": true,
+    "source_coverage": true,
+    "headings": true,
+    "formulas": true,
+    "code": true,
+    "complexity": true,
+    "links": true,
+    "assets": true,
+    "rendering": true
+  },
+  "risks": [
+    {
+      "severity": "low",
+      "category": "source-risk",
+      "source_file": "2-2-sequential-representation-and-implementation/index.md",
+      "location": "算法 2.3 至算法 2.7 的代码体例",
+      "detail": "源代码混用 C 风格结构与 C++ 引用参数，并省略部分临时变量声明和标准输入格式，不能直接作为现代 C 程序编译。",
+      "action": "正文已明确代码阅读约定并只保留接口语义、边界和关键控制逻辑；若用于编程练习，应另行补齐类型、声明和错误处理。"
+    },
+    {
+      "severity": "medium",
+      "category": "source-risk",
+      "source_file": "2-2-sequential-representation-and-implementation/index.md",
+      "location": "算法 2.4 空表插入时的指针循环初值",
+      "detail": "源算法在 length 为 0 时把移动指针初始化为 elem + length - 1，即基址之前的位置；算法语义清楚，但该指针表达式不宜直接移植。",
+      "action": "正文将同一后移逻辑改写为从 length - 1 开始的整数下标循环，保留由后向前移动的不变量并正确覆盖空表边界。"
+    },
+    {
+      "severity": "medium",
+      "category": "source-risk",
+      "source_file": "2-2-sequential-representation-and-implementation/index.md",
+      "location": "算法 2.7 的 pa_last、pb_last 初始化",
+      "detail": "源算法对长度为 0 的输入仍形成 elem + length - 1，直接移植时会得到基址之前的指针；正文算法语义允许空表，但该指针表达式有边界风险。",
+      "action": "正文已添加空输入分支提示；实现时先判断长度是否为 0，再计算尾指针。"
+    },
+    {
+      "severity": "low",
+      "category": "source-risk",
+      "source_file": "2-3-linear-list-linked-representation/index.md",
+      "location": "算法 2.13 LocateElem_SL 的返回值注释",
+      "detail": "源注释称返回元素位序，代码实际返回静态数组结点下标/游标；二者在线性链表中不是同一概念。",
+      "action": "正文按代码行为明确为结点数组下标，并保留失败时返回 0 的语义。"
+    },
+    {
+      "severity": "medium",
+      "category": "source-risk",
+      "source_file": "2-4-polynomial-representation-and-addition/index.md",
+      "location": "Polynomial ADT 数据关系与算法 2.23 的 SetCurElem 调用",
+      "detail": "源 ADT 以 m 表示项数但关系索引上界写 n；算法 2.23 又把标量 sum 传给期望 ElemType 项的接口。相邻定义与注释足以恢复指数递增和只更新系数的语义。",
+      "action": "正文以最小语义改写保留正确关系，并用源文疑点块公开冲突；若移植代码，应构造完整 term 后再调用 SetCurElem。"
+    },
+    {
+      "severity": "low",
+      "category": "source-risk",
+      "source_file": "2-4-polynomial-representation-and-addition/index.md",
+      "location": "图 2.17 重绘资源与算法 2.22 的头结点数据",
+      "detail": "引用的重绘脚本把每条链的首框绘成数值对 (-1,1)，而算法 2.22 明确把头结点设为系数 0、指数 -1；该首框不是多项式实际项，但视觉值与代码不一致。",
+      "action": "未复用该图；正文只列真实非零项，并以算法 2.22 的文字和代码定义说明头结点。后续若要恢复图，应先对照原教材图版复核首框。"
+    }
+  ],
+  "stats": {
+    "source_files": 5,
+    "kept": 0,
+    "condensed": 5,
+    "omitted": 0,
+    "needs_review": 0,
+    "static_visuals": 0,
+    "interactive_proposals": 0
+  }
+}
+

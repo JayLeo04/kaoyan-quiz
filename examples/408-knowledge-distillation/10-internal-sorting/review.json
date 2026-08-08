@@ -1,0 +1,420 @@
+{
+  "schema_version": "1.0",
+  "run_id": "ds-20260808-ch02-ch12",
+  "chapter_id": "10-internal-sorting",
+  "attempt": 2,
+  "status": "distilled",
+  "renderer": "portable",
+  "source": {
+    "input_root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\10-internal-sorting",
+    "source_map": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\inputs\\10-internal-sorting\\source-map.json",
+    "source_lock_sha256": "ff42d521d8137ccc902915b60e56764d22b4ff235545e1717405d22c0ee1b87f",
+    "expected_files": [
+      "10-1-overview/index.md",
+      "10-2-insertion-sorting/index.md",
+      "10-3-quick-sort/index.md",
+      "10-4-selection-sorting/index.md",
+      "10-5-merge-sort/index.md",
+      "10-6-radix-sort/index.md",
+      "10-7-comparison/index.md",
+      "index.md"
+    ]
+  },
+  "output": {
+    "root": "C:\\Users\\Administrator\\Documents\\kaoyanQuiz\\work\\408-knowledge\\ds-20260808-ch02-ch12\\candidates\\10-internal-sorting\\attempt-02",
+    "markdown": "index.md",
+    "assets": [],
+    "visualization_fragment": null
+  },
+  "coverage": [
+    {
+      "source_file": "10-1-overview/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "10.1 排序的对象、评价维度与存储",
+        "排序、关键字与稳定性",
+        "内部排序与外部排序",
+        "两类基本操作与三种存储方式",
+        "本章顺序表约定"
+      ],
+      "reason": "视觉核验 PDF 第 273—274 页（书页 263—264）：采用式(10-1)～式(10-3)、稳定性定义、内外排序边界、两类基本操作、三种存储和 1 起始顺序表约定；查找应用背景与参考书叙述压缩。",
+      "items": [
+        {
+          "source_heading": "10.1 概述",
+          "disposition": "condensed",
+          "output_heading": "10.1 排序的对象、评价维度与存储",
+          "reason": "核验 PDF 第 273—274 页；采用排序、关键字、稳定性、分类、存储方案和类型定义，删除无知识增量的铺垫。"
+        }
+      ]
+    },
+    {
+      "source_file": "10-2-insertion-sorting/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "10.2 插入类排序",
+        "直接插入排序（算法 10.1）",
+        "折半插入排序（算法 10.2）",
+        "2-路插入排序",
+        "表插入排序与记录重排（算法 10.3）",
+        "希尔排序（算法 10.4、10.5）"
+      ],
+      "reason": "视觉核验 PDF 第 275—282 页（书页 265—272）：采用五种插入类方法的机制、不变量、比较/移动统计、复杂度、空间和边界；直接插入与 Shell 的旧风险均按原页和算法条件消除。",
+      "items": [
+        {
+          "source_heading": "10.2 插入排序",
+          "disposition": "condensed",
+          "output_heading": "10.2 插入类排序",
+          "reason": "核验 PDF 第 275—282 页；采用有序前缀不变量统领各变体，删除重复引入。"
+        },
+        {
+          "source_heading": "10.2.1 直接插入排序",
+          "disposition": "kept",
+          "output_heading": "直接插入排序（算法 10.1）",
+          "reason": "核验 PDF 第 275—276 页。原书算法 10.1 在暂存后还有 r[i]=r[i-1]，内层从 j=i-2 开始；据此严格逆序时第 i 趟比较 i 次、移动 i+1 次，采用总数 Σi 与 Σ(i+1)，并注明随机排列的 n²/4 是教材近似口径。"
+        },
+        {
+          "source_heading": "10.2.2 其他插入排序",
+          "disposition": "condensed",
+          "output_heading": "10.2 插入类排序",
+          "reason": "核验 PDF 第 276—280 页；采用减少比较、减少移动或改变存储的改进主线，各方法分别落入对应小节。"
+        },
+        {
+          "source_heading": "1. 折半插入排序",
+          "disposition": "kept",
+          "output_heading": "折半插入排序（算法 10.2）",
+          "reason": "核验 PDF 第 277 页；采用相等时进入右半区、比较降为 O(n log n) 但移动使总体仍为 O(n²) 的结论。"
+        },
+        {
+          "source_heading": "2. 2-路插入排序",
+          "disposition": "kept",
+          "output_heading": "2-路插入排序",
+          "reason": "核验 PDF 第 277 页；采用循环向量、first/final、约 n²/8 移动、O(n) 记录空间及首记录为极值时退化的条件。"
+        },
+        {
+          "source_heading": "3. 表插入排序",
+          "disposition": "kept",
+          "output_heading": "表插入排序与记录重排（算法 10.3）",
+          "reason": "核验 PDF 第 278—280 页；采用静态链表插入、MAXINT 头结点、约 2n 次指针修改、Arrange 不变量和至多 3(n-1) 次移动。"
+        },
+        {
+          "source_heading": "10.2.3 希尔排序",
+          "disposition": "kept",
+          "output_heading": "希尔排序（算法 10.4、10.5）",
+          "reason": "核验 PDF 第 281—282 页。采用正文公式 dlta[k]=2^(t-k+1)-1、1≤k≤t≤floor(log2(n+1)) 与 O(n^(3/2))；最后增量必须为 1。页脚第一公式只生成到 2，明确追加 1；第二公式按正增量取 k≤t-1，排除原印刷范围产生的 0。"
+        }
+      ]
+    },
+    {
+      "source_file": "10-3-quick-sort/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "10.3 交换类排序：起泡与快速排序",
+        "起泡排序",
+        "快速排序的划分不变量",
+        "快速排序递归、复杂度与改进"
+      ],
+      "reason": "视觉核验 PDF 第 283—287 页（书页 273—277）：采用起泡提前结束、算法 10.6～10.8、式(10-8)～式(10-9)、最坏退化和枢轴改进；图 10.7 按空位移动逐步转成文字表，未沿用错误旧重绘；O(log n) 栈只在短侧递归、长侧循环条件下保留。",
+      "items": [
+        {
+          "source_heading": "10.3 快速排序",
+          "disposition": "condensed",
+          "output_heading": "10.3 交换类排序：起泡与快速排序",
+          "reason": "核验 PDF 第 283—287 页；采用划分不变量、平均/最坏统计模型和三类改进。原页第 287 页只写先处理短侧，修订版补足长侧必须迭代的实现条件，普通双递归最坏栈仍为 O(n)。"
+        }
+      ]
+    },
+    {
+      "source_file": "10-4-selection-sorting/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "10.4 选择类排序",
+        "简单选择排序（算法 10.9）",
+        "树形选择排序",
+        "堆、筛选与建堆",
+        "堆排序（算法 10.10、10.11）"
+      ],
+      "reason": "视觉核验 PDF 第 287—293 页（书页 277—283），并交叉核验 PDF 第 299 页的稳定性概括：采用标准简单选择的不稳定反例、补齐选择树模型、堆定义、筛选、建堆与比较上界。",
+      "items": [
+        {
+          "source_heading": "10.4 选择排序",
+          "disposition": "condensed",
+          "output_heading": "10.4 选择类排序",
+          "reason": "核验 PDF 第 287—288 页；采用每趟选极值和复用比较信息的主线，压缩体育比赛叙事。"
+        },
+        {
+          "source_heading": "10.4.1 简单选择排序",
+          "disposition": "kept",
+          "output_heading": "简单选择排序（算法 10.9）",
+          "reason": "核验 PDF 第 287 页及第 299 页。算法 10.9 的远距交换由 2a,2b,1 直接证明不稳定，因此不采用第 299 页‘所有 O(n²) 简单排序均稳定’的笼统概括；比较恒为 n(n-1)/2。"
+        },
+        {
+          "source_heading": "10.4.2 树形选择排序",
+          "disposition": "condensed",
+          "output_heading": "树形选择排序",
+          "reason": "核验 PDF 第 288—289 页。精确式采用把叶子补到 m=2^ceil(log2 n) 的模型：深度 ceil(log2 n)+1、单次更新 ceil(log2 n) 层、空间 O(n)、总时间 O(n log n)；n 为 2 的幂时与原书 floor 式一致。"
+        },
+        {
+          "source_heading": "10.4.3 堆排序",
+          "disposition": "kept",
+          "output_heading": "堆排序（算法 10.10、10.11）",
+          "reason": "核验 PDF 第 289—293 页；采用堆的两组不等式、HeapAdjust 前置条件、最后非叶结点 floor(n/2)、建堆不超 4n、后续比较小于 2n floor(log2 n) 及 O(1) 交换空间。"
+        }
+      ]
+    },
+    {
+      "source_file": "10-5-merge-sort/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "10.5 2-路归并排序",
+        "归并操作（算法 10.12）",
+        "递归归并排序（算法 10.13、10.14）"
+      ],
+      "reason": "视觉核验 PDF 第 293—294 页（书页 283—284）：采用相邻有序段归并、相等时先取左段的稳定条件、ceil(log2 n) 趟、O(n log n) 时间和 O(n) 辅助记录空间。",
+      "items": [
+        {
+          "source_heading": "10.5 归并排序",
+          "disposition": "condensed",
+          "output_heading": "10.5 2-路归并排序",
+          "reason": "核验 PDF 第 293—294 页；算法 10.12～10.14 的核心条件与复杂度完整保留，图例改为等价文字过程。"
+        }
+      ]
+    },
+    {
+      "source_file": "10-6-radix-sort/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "10.6 多关键字与链式基数排序",
+        "多关键字的字典序",
+        "MSD 与 LSD",
+        "链式基数排序（算法 10.15—10.17）"
+      ],
+      "reason": "视觉核验 PDF 第 294—298 页（书页 284—288）：采用字典序、MSD/LSD 条件、FIFO 分配收集、三趟结果、复杂度与空间；高优先核清 K^0、keys[0] 和图 10.14 的方向。",
+      "items": [
+        {
+          "source_heading": "10.6 基数排序",
+          "disposition": "condensed",
+          "output_heading": "10.6 多关键字与链式基数排序",
+          "reason": "核验 PDF 第 294—298 页；采用非比较排序定位及复合关键字到分配收集的知识链，删除历史叙事。"
+        },
+        {
+          "source_heading": "10.6.1 多关键字的排序",
+          "disposition": "kept",
+          "output_heading": "多关键字的字典序",
+          "reason": "核验 PDF 第 294—295 页；数学记号明确 K^0 为最高位、K^(d-1) 为最低位，MSD 从 K^0 开始，LSD 反向且前面各趟必须稳定。"
+        },
+        {
+          "source_heading": "10.6.2 链式基数排序",
+          "disposition": "kept",
+          "output_heading": "链式基数排序（算法 10.15—10.17）",
+          "reason": "核验 PDF 第 296—298 页。算法 10.17 从 i=0 做 LSD，故代码数组采用 keys[pos]=K^(d-1-pos)，keys[0] 是最低位；参数规范为数组、常量统一为 RADIX、收集扫描 0..RADIX-1。图 10.14 的旧 SVG 多处反转桶内 FIFO 次序，弃用；采用原页三趟收集序列表。"
+        }
+      ]
+    },
+    {
+      "source_file": "10-7-comparison/index.md",
+      "disposition": "condensed",
+      "output_headings": [
+        "10.7 综合比较、地址排序与比较下界",
+        "方法对照",
+        "大记录的地址排序（算法 10.18）",
+        "比较排序的判定树下界",
+        "教材扩展：归并插入的比较次数"
+      ],
+      "reason": "视觉核验 PDF 第 298—302 页（书页 288—292）：采用条件化方法对照、地址向量与置换环、算法 10.18、判定树下界和比较次数表；稳定性、Ω/Θ 与 n≤11 三处冲突均以可验证模型消除。",
+      "items": [
+        {
+          "source_heading": "10.7 各种内部排序方法的比较讨论",
+          "disposition": "condensed",
+          "output_heading": "10.7 综合比较、地址排序与比较下界",
+          "reason": "核验 PDF 第 298—302 页。第 299 页稳定性改按具体算法判断；第 301—302 页在互异关键字、二元比较、最坏情况模型下写下界 Ω(n log n)、可达紧界 Θ(n log n)；第 302 页表中 F(11)=26 与下界相等，采用 1≤n≤11，而非正文 n<11。"
+        }
+      ]
+    },
+    {
+      "source_file": "index.md",
+      "disposition": "omitted",
+      "output_headings": [],
+      "reason": "视觉核验 PDF 第 273 页（书页 263）：章节标题与印刷页码锚点正确；原书 PDF SHA256 为 516680374414EAD5F463F8BE88FBF9907E806D7EAD3C6CF780CB9C8E0915F794。输入根文件仅为导航，七个小节均已直接进入单页正文。",
+      "items": [
+        {
+          "source_heading": "第 10 章 内部排序",
+          "disposition": "omitted",
+          "output_heading": null,
+          "reason": "核验 PDF 第 273 页标题‘第 10 章 内部排序’及印刷页 263；目标页保留同名章标题，目录链接不重复。"
+        }
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "term": "排序",
+      "aliases": ["Sorting"],
+      "definition": "确定记录原下标的一种排列，使重排后的关键字满足非递减或非递增关系。",
+      "source_file": "10-1-overview/index.md",
+      "output_heading": "排序、关键字与稳定性"
+    },
+    {
+      "term": "稳定性",
+      "aliases": ["稳定排序"],
+      "definition": "排序后仍保持所有等关键字记录在排序前的相对先后次序。",
+      "source_file": "10-1-overview/index.md",
+      "output_heading": "排序、关键字与稳定性"
+    },
+    {
+      "term": "内部排序",
+      "aliases": [],
+      "definition": "全部待排记录可同时置于随机存储器中完成的排序过程。",
+      "source_file": "10-1-overview/index.md",
+      "output_heading": "内部排序与外部排序"
+    },
+    {
+      "term": "直接插入排序",
+      "aliases": ["Straight Insertion Sort"],
+      "definition": "逐个把待插记录插入已有序前缀，并把严格更大的记录向右移动。",
+      "source_file": "10-2-insertion-sorting/index.md",
+      "output_heading": "直接插入排序（算法 10.1）"
+    },
+    {
+      "term": "折半插入排序",
+      "aliases": ["Binary Insertion Sort"],
+      "definition": "用折半查找确定有序前缀中的插入点，再顺序移动记录完成插入。",
+      "source_file": "10-2-insertion-sorting/index.md",
+      "output_heading": "折半插入排序（算法 10.2）"
+    },
+    {
+      "term": "2-路插入排序",
+      "aliases": [],
+      "definition": "在循环辅助向量中从有序序列两端选择方向插入，以减少记录移动。",
+      "source_file": "10-2-insertion-sorting/index.md",
+      "output_heading": "2-路插入排序"
+    },
+    {
+      "term": "表插入排序",
+      "aliases": [],
+      "definition": "在静态链表上按关键字插入结点，以修改指针代替移动记录本体。",
+      "source_file": "10-2-insertion-sorting/index.md",
+      "output_heading": "表插入排序与记录重排（算法 10.3）"
+    },
+    {
+      "term": "希尔排序",
+      "aliases": ["缩小增量排序", "Shell's Sort"],
+      "definition": "按递减增量对相隔记录做插入排序，最后以增量 1 完成全序列排序。",
+      "source_file": "10-2-insertion-sorting/index.md",
+      "output_heading": "希尔排序（算法 10.4、10.5）"
+    },
+    {
+      "term": "起泡排序",
+      "aliases": ["Bubble Sort"],
+      "definition": "逐趟交换相邻逆序记录，使未排序区最大关键字到达末端。",
+      "source_file": "10-3-quick-sort/index.md",
+      "output_heading": "起泡排序"
+    },
+    {
+      "term": "快速排序",
+      "aliases": ["Quick Sort"],
+      "definition": "用一次划分使枢轴左侧不大于枢轴、右侧不小于枢轴，再分别处理两侧。",
+      "source_file": "10-3-quick-sort/index.md",
+      "output_heading": "快速排序的划分不变量"
+    },
+    {
+      "term": "枢轴",
+      "aliases": ["支点", "pivot"],
+      "definition": "快速划分中用于把其他记录分到两侧并最终落到分界位置的基准记录。",
+      "source_file": "10-3-quick-sort/index.md",
+      "output_heading": "快速排序的划分不变量"
+    },
+    {
+      "term": "简单选择排序",
+      "aliases": ["Simple Selection Sort"],
+      "definition": "每趟从未排序区选最小记录并与该趟首位置交换；标准交换实现不稳定。",
+      "source_file": "10-4-selection-sorting/index.md",
+      "output_heading": "简单选择排序（算法 10.9）"
+    },
+    {
+      "term": "树形选择排序",
+      "aliases": ["锦标赛排序", "Tournament Sort"],
+      "definition": "用选择树保存两两比较胜者，输出极值后只更新对应叶到根路径。",
+      "source_file": "10-4-selection-sorting/index.md",
+      "output_heading": "树形选择排序"
+    },
+    {
+      "term": "堆",
+      "aliases": [],
+      "definition": "顺序存储的完全二叉树中，每个非叶结点均不大于或均不小于其现存孩子的序列。",
+      "source_file": "10-4-selection-sorting/index.md",
+      "output_heading": "堆、筛选与建堆"
+    },
+    {
+      "term": "堆排序",
+      "aliases": ["Heap Sort"],
+      "definition": "反复交换堆顶与堆尾并筛选剩余堆区，使极值逐个到达最终位置。",
+      "source_file": "10-4-selection-sorting/index.md",
+      "output_heading": "堆排序（算法 10.10、10.11）"
+    },
+    {
+      "term": "归并",
+      "aliases": ["Merging"],
+      "definition": "把两个或多个有序表组合为一个新的有序表。",
+      "source_file": "10-5-merge-sort/index.md",
+      "output_heading": "归并操作（算法 10.12）"
+    },
+    {
+      "term": "MSD",
+      "aliases": ["最高位优先"],
+      "definition": "从最主位关键字起分组，并在高位相同的各子序列中继续处理低位。",
+      "source_file": "10-6-radix-sort/index.md",
+      "output_heading": "MSD 与 LSD"
+    },
+    {
+      "term": "LSD",
+      "aliases": ["最低位优先"],
+      "definition": "从最次位到最主位依次稳定排序整个序列；本章代码约定 keys[0] 为最低位。",
+      "source_file": "10-6-radix-sort/index.md",
+      "output_heading": "MSD 与 LSD"
+    },
+    {
+      "term": "链式基数排序",
+      "aliases": ["Radix Sorting"],
+      "definition": "按关键字位把静态链表稳定分配到多个链队列，再按桶序收集，重复至最高位。",
+      "source_file": "10-6-radix-sort/index.md",
+      "output_heading": "链式基数排序（算法 10.15—10.17）"
+    },
+    {
+      "term": "地址排序",
+      "aliases": [],
+      "definition": "排序地址向量而不移动大记录本体，必要时再按向量表示的置换环重排记录。",
+      "source_file": "10-7-comparison/index.md",
+      "output_heading": "大记录的地址排序（算法 10.18）"
+    },
+    {
+      "term": "判定树",
+      "aliases": [],
+      "definition": "以关键字比较为内部结点、比较结果为分支、最终排列为叶子的二叉树模型。",
+      "source_file": "10-7-comparison/index.md",
+      "output_heading": "比较排序的判定树下界"
+    }
+  ],
+  "visuals": [],
+  "checks": {
+    "ownership": true,
+    "source_coverage": true,
+    "headings": true,
+    "formulas": true,
+    "code": true,
+    "complexity": true,
+    "links": true,
+    "assets": true,
+    "rendering": true
+  },
+  "risks": [],
+  "stats": {
+    "source_files": 8,
+    "kept": 0,
+    "condensed": 7,
+    "omitted": 1,
+    "needs_review": 0,
+    "static_visuals": 0,
+    "interactive_proposals": 0
+  }
+}
+

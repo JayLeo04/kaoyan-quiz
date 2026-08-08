@@ -272,8 +272,8 @@ test("renders textbook practice and preserves answer provenance", async () => {
 test("keeps generated textbook data and local images publishable", () => {
   const textbook = JSON.parse(fs.readFileSync(new URL("../app/data/textbook-data-structures.json", import.meta.url), "utf8"));
   assert.equal(textbook.stats.knowledgePages, 81);
-  assert.equal(textbook.stats.condensedPages, 1);
-  assert.equal(textbook.stats.condensedImages, 2);
+  assert.equal(textbook.stats.condensedPages, 12);
+  assert.equal(textbook.stats.condensedImages, 14);
   assert.equal(textbook.stats.exerciseRecords, 457);
   assert.equal(textbook.stats.exerciseQuestions, 457);
   assert.equal(textbook.stats.exerciseImages, 49);
@@ -302,6 +302,26 @@ test("keeps generated textbook data and local images publishable", () => {
   assert.equal(condensedIntroduction.audit.risks, 0);
   assert.match(condensedIntroduction.html, /本章主线/);
   assert.match(condensedIntroduction.html, /textbooks\/data-structures\/condensed\/01-introduction\/assets\/fig-1-7-common-growth-rates\.png/);
+  const condensedChapterSlugs = textbook.pages
+    .filter((page) => page.condensed)
+    .map((page) => page.slug);
+  assert.deepEqual(condensedChapterSlugs, [
+    "01-introduction",
+    "02-linear-list",
+    "03-stack-and-queue",
+    "04-string",
+    "05-array-and-generalized-list",
+    "06-tree-and-binary-tree",
+    "07-graph",
+    "08-dynamic-storage",
+    "09-search",
+    "10-internal-sorting",
+    "11-external-sorting",
+    "12-file",
+  ]);
+  assert.ok(textbook.pages
+    .filter((page) => page.condensed)
+    .every((page) => page.condensed.audit.status === "distilled" && page.condensed.markdown && page.condensed.html));
   assert.ok(textbook.questions.every((question) => question.prompt.html && question.answer.html !== undefined));
   const assetReferences = [
     ...textbook.pages.flatMap((page) => [page.html, page.condensed?.html || ""]

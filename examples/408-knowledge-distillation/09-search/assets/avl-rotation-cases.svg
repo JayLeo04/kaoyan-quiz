@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="225" viewBox="0 0 1000 225">
+<style>text{font-family:Arial,"Microsoft YaHei",sans-serif;fill:#111}.title{font-size:22px;font-weight:bold}.n,.b{fill:#fff;stroke:#111;stroke-width:1.7}.e{stroke:#111;stroke-width:1.5;fill:none}.lab{font-size:13px;font-weight:bold}.cap{font-size:12px}</style>
+<text class="title" x="24" y="28">图 9.13  二叉排序树的平衡旋转图例</text>
+<path class="e" d="M125 65 L85 110"/>
+<path class="e" d="M125 65 L170 110"/>
+<path class="e" d="M85 110 L50 155"/>
+<path class="e" d="M85 110 L105 155"/>
+<path class="e" d="M375 65 L335 110"/>
+<path class="e" d="M375 65 L420 110"/>
+<path class="e" d="M335 110 L295 155"/>
+<path class="e" d="M335 110 L370 155"/>
+<path class="e" d="M370 155 L335 200"/>
+<path class="e" d="M370 155 L405 200"/>
+<path class="e" d="M625 65 L580 110"/>
+<path class="e" d="M625 65 L665 110"/>
+<path class="e" d="M665 110 L640 155"/>
+<path class="e" d="M665 110 L705 155"/>
+<path class="e" d="M875 65 L830 110"/>
+<path class="e" d="M875 65 L915 110"/>
+<path class="e" d="M915 110 L880 155"/>
+<path class="e" d="M915 110 L955 155"/>
+<path class="e" d="M880 155 L845 200"/>
+<path class="e" d="M880 155 L915 200"/>
+<circle class="n" cx="125" cy="65" r="17"/><text class="lab" x="125" y="70" text-anchor="middle">A</text>
+<circle class="n" cx="85" cy="110" r="17"/><text class="lab" x="85" y="115" text-anchor="middle">B</text>
+<circle class="n" cx="50" cy="155" r="17"/><text class="lab" x="50" y="160" text-anchor="middle">BL</text>
+<circle class="n" cx="105" cy="155" r="17"/><text class="lab" x="105" y="160" text-anchor="middle">BR</text>
+<circle class="n" cx="170" cy="110" r="17"/><text class="lab" x="170" y="115" text-anchor="middle">AR</text>
+<circle class="n" cx="375" cy="65" r="17"/><text class="lab" x="375" y="70" text-anchor="middle">A</text>
+<circle class="n" cx="335" cy="110" r="17"/><text class="lab" x="335" y="115" text-anchor="middle">B</text>
+<circle class="n" cx="370" cy="155" r="17"/><text class="lab" x="370" y="160" text-anchor="middle">C</text>
+<circle class="n" cx="295" cy="155" r="17"/><text class="lab" x="295" y="160" text-anchor="middle">BL</text>
+<circle class="n" cx="335" cy="200" r="17"/><text class="lab" x="335" y="205" text-anchor="middle">CL</text>
+<circle class="n" cx="405" cy="200" r="17"/><text class="lab" x="405" y="205" text-anchor="middle">CR</text>
+<circle class="n" cx="420" cy="110" r="17"/><text class="lab" x="420" y="115" text-anchor="middle">AR</text>
+<circle class="n" cx="625" cy="65" r="17"/><text class="lab" x="625" y="70" text-anchor="middle">A</text>
+<circle class="n" cx="665" cy="110" r="17"/><text class="lab" x="665" y="115" text-anchor="middle">B</text>
+<circle class="n" cx="580" cy="110" r="17"/><text class="lab" x="580" y="115" text-anchor="middle">AL</text>
+<circle class="n" cx="640" cy="155" r="17"/><text class="lab" x="640" y="160" text-anchor="middle">BL</text>
+<circle class="n" cx="705" cy="155" r="17"/><text class="lab" x="705" y="160" text-anchor="middle">BR</text>
+<circle class="n" cx="875" cy="65" r="17"/><text class="lab" x="875" y="70" text-anchor="middle">A</text>
+<circle class="n" cx="915" cy="110" r="17"/><text class="lab" x="915" y="115" text-anchor="middle">B</text>
+<circle class="n" cx="880" cy="155" r="17"/><text class="lab" x="880" y="160" text-anchor="middle">C</text>
+<circle class="n" cx="830" cy="110" r="17"/><text class="lab" x="830" y="115" text-anchor="middle">AL</text>
+<circle class="n" cx="845" cy="200" r="17"/><text class="lab" x="845" y="205" text-anchor="middle">CL</text>
+<circle class="n" cx="915" cy="200" r="17"/><text class="lab" x="915" y="205" text-anchor="middle">CR</text>
+<circle class="n" cx="955" cy="155" r="17"/><text class="lab" x="955" y="160" text-anchor="middle">BR</text>
+<rect class="b" x="97.5" y="29.0" width="55" height="18"/><text class="cap" x="125" y="42" text-anchor="middle">LL</text>
+<rect class="b" x="347.5" y="29.0" width="55" height="18"/><text class="cap" x="375" y="42" text-anchor="middle">LR</text>
+<rect class="b" x="597.5" y="29.0" width="55" height="18"/><text class="cap" x="625" y="42" text-anchor="middle">RR</text>
+<rect class="b" x="847.5" y="29.0" width="55" height="18"/><text class="cap" x="875" y="42" text-anchor="middle">RL</text>
+</svg>

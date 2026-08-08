@@ -1,7 +1,11 @@
 import knowledgeData from "@/app/data/knowledge.json";
 import textbookKnowledgeLinks from "@/app/data/textbook-knowledge-links.json";
 import Link from "@/app/components/SiteLink";
-import { KnowledgeWorkspace, type LocalKnowledgeSubject } from "@/app/components/KnowledgeWorkspace";
+import {
+  KnowledgeWorkspace,
+  type LocalKnowledgeNavigation,
+  type LocalKnowledgeSubject,
+} from "@/app/components/KnowledgeWorkspace";
 import { subjectById, type SubjectId } from "@/app/data/catalog";
 
 type KnowledgeDataset = { subjects: Record<SubjectId, LocalKnowledgeSubject> };
@@ -24,5 +28,21 @@ export function renderKnowledge(subjectValue: string, slug: string[]) {
     href: `/textbook/data-structures/practice?knowledge=${encodeURIComponent(currentPage.id)}`,
     count: textbookCount,
   } : null;
-  return <KnowledgeWorkspace subjectId={subjectId} data={data} currentSlug={currentSlug} textbookPractice={textbookPractice} />;
+  const navigation: LocalKnowledgeNavigation = {
+    sourceName: data.sourceName,
+    pageCount: data.pageCount,
+    mappedTagCount: data.mappedTagCount,
+    pages: data.pages.map(({ id, slug: pageSlug, route, title, summary, depth, parentSlug, headings, tags }) => ({
+      id,
+      slug: pageSlug,
+      route,
+      title,
+      summary,
+      depth,
+      parentSlug,
+      headings,
+      tags,
+    })),
+  };
+  return <KnowledgeWorkspace subjectId={subjectId} data={navigation} currentPage={currentPage} textbookPractice={textbookPractice} />;
 }

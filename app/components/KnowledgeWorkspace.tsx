@@ -37,6 +37,15 @@ export type LocalKnowledgeSubject = {
   pages: LocalKnowledgePage[];
 };
 
+export type LocalKnowledgeNavigationPage = Pick<
+  LocalKnowledgePage,
+  "id" | "slug" | "route" | "title" | "summary" | "depth" | "parentSlug" | "headings" | "tags"
+>;
+
+export type LocalKnowledgeNavigation = Omit<LocalKnowledgeSubject, "pages"> & {
+  pages: LocalKnowledgeNavigationPage[];
+};
+
 const priorityLabel = { high: "高优先级", medium: "中优先级", low: "低优先级" } as const;
 const knowledgeVisualMarker = /<!--\s*knowledge-visual:([a-z0-9]+(?:-[a-z0-9]+)*)\s*-->/g;
 
@@ -58,7 +67,7 @@ function KnowledgeArticle({ page, articleRef, resource }: { page: LocalKnowledge
         {pieces.map((piece, index) => piece.kind === "visual"
           ? <KnowledgeVisual key={piece.spec.id} spec={piece.spec} />
           : <div key={`knowledge-html-${index}`} className="local-markdown-segment" data-study-annotatable="true" dangerouslySetInnerHTML={{ __html: withSiteAssetPaths(piece.html) }} />)}
-        <MermaidCodeBlocks rootRef={articleRef} contentKey={`${page.id}:${page.html}`} />
+        <MermaidCodeBlocks rootRef={articleRef} contentKey={`${page.id}:${page.html.length}`} />
       </article>
     </StudyAnnotationSurface>
   );
@@ -67,12 +76,12 @@ function KnowledgeArticle({ page, articleRef, resource }: { page: LocalKnowledge
 export function KnowledgeWorkspace({
   subjectId,
   data,
-  currentSlug,
+  currentPage,
   textbookPractice,
 }: {
   subjectId: SubjectId;
-  data: LocalKnowledgeSubject;
-  currentSlug: string;
+  data: LocalKnowledgeNavigation;
+  currentPage: LocalKnowledgePage;
   textbookPractice?: { href: string; count: number } | null;
 }) {
   const [completedCount, setCompletedCount] = useState(0);
@@ -80,8 +89,7 @@ export function KnowledgeWorkspace({
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const articleRef = useRef<HTMLElement>(null);
   const subject = subjectById.get(subjectId)!;
-  const currentIndex = Math.max(0, data.pages.findIndex((page) => page.slug === currentSlug));
-  const currentPage = data.pages[currentIndex];
+  const currentIndex = Math.max(0, data.pages.findIndex((page) => page.id === currentPage.id));
   const previousPage = currentIndex > 0 ? data.pages[currentIndex - 1] : null;
   const nextPage = currentIndex < data.pages.length - 1 ? data.pages[currentIndex + 1] : null;
   const practiceHref = currentPage.slug && currentPage.questionIds.length

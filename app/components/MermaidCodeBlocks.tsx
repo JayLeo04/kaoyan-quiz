@@ -71,8 +71,9 @@ export function MermaidCodeBlocks({
     if (!root) return;
 
     async function renderAll() {
-      const mermaid = await loadMermaid();
       const codeBlocks = Array.from(root.querySelectorAll<HTMLElement>("pre > code.language-mermaid"));
+      if (!codeBlocks.length) return;
+      const mermaid = await loadMermaid();
 
       for (const code of codeBlocks) {
         if (code.dataset.mermaidState) continue;

@@ -222,7 +222,7 @@ function HomePage({ progress }: { progress: PracticeProgress }) {
             <Link className="home-primary-action" href="/question/real-2026-1">从 2026 真题开始 <b>↗</b></Link>
           </div>
           <div className="home-visual">
-            <img src={siteAssetPath("/hero-408-minimal-v5.png")} alt="栈与二叉树、CPU、操作系统窗口和网络路由器组成的四个 Q 版 408 知识点形象" />
+            <img src={siteAssetPath("/hero-408-minimal-v5.webp")} width={1536} height={1024} alt="栈与二叉树、CPU、操作系统窗口和网络路由器组成的四个 Q 版 408 知识点形象" />
           </div>
         </section>
         <section className="home-subjects" aria-label="选择科目">

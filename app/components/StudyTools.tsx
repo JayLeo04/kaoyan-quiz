@@ -144,7 +144,7 @@ export function StudyResourceTools({
             onChange={(event) => updateNote(event.target.value)}
             placeholder="记录定义、易错点、解题线索或下次复习提醒……"
           />
-          <footer><span>{ready ? note.trim() ? "已自动保存到本机" : "输入后自动保存到本机" : "正在读取本地笔记"}</span>{note ? <button type="button" onClick={() => updateNote("")}>清空笔记</button> : null}</footer>
+          <footer><span>{ready ? note.trim() ? "已自动保存到本机" : "输入后自动保存到本机" : "正在读取本地笔记"}</span></footer>
         </div>
       ) : null}
       {storageError ? <p className="study-tools-error" role="alert">{storageError}</p> : null}
@@ -357,6 +357,7 @@ export function StudyAnnotationSurface({
 
   const clearSelectionAnnotations = () => {
     if (!selection) return;
+    if (!window.confirm("确定取消所选文本上的高亮或下划线吗？")) return;
     const result = removeTextAnnotations(resource.id, selection.start, selection.end);
     setLibrary(result.library);
     setStatus(result.saved ? "已取消所选文本的标注" : "标注更新失败，请检查浏览器存储空间");

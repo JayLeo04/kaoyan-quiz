@@ -47,7 +47,22 @@ export type TextbookChapter = {
   pdfPages?: number[];
   route: string | null;
   questionCount: number;
+  /** Stable source order, independent from the generated file name. */
+  order?: number;
+  /** Lets the reader distinguish book matter, part title pages, chapters, and appendices. */
+  kind?: "front_matter" | "part_opener" | "chapter" | "appendix" | "references";
+  /** The chapter an appendix belongs to, when the source book provides that relation. */
+  parentChapterId?: string;
   part?: string;
+};
+
+export type TextbookPart = {
+  id: string;
+  title: string;
+  /** Stable source order of the part within the book. */
+  order: number;
+  /** Optional because a part title page may be folded into front matter. */
+  openerChapterId?: string;
 };
 
 export type TextbookImage = {
@@ -160,6 +175,8 @@ export type TextbookDataset = {
     answersVerified: number;
     openReviewFlags: number;
   };
+  /** Optional so previously imported textbooks continue to work without migration. */
+  parts?: TextbookPart[];
   chapters: TextbookChapter[];
   pages: TextbookPage[];
   questions: TextbookQuestion[];
@@ -180,7 +197,7 @@ export type TextbookPresentation = {
   description: string;
 };
 
-export type TextbookChapterSummary = Pick<TextbookChapter, "id" | "title" | "questionCount">;
+export type TextbookChapterSummary = Pick<TextbookChapter, "id" | "title" | "questionCount" | "order" | "kind" | "parentChapterId" | "part">;
 
 export type TextbookPageSummary = Pick<TextbookPage, "id" | "slug" | "chapterId" | "title" | "summary" | "depth" | "headings">;
 
@@ -242,6 +259,7 @@ export type TextbookReaderPayload = {
   presentation: TextbookPresentation;
   book: Pick<TextbookDataset["book"], "id" | "title" | "author">;
   stats: Pick<TextbookDataset["stats"], "exerciseQuestions">;
+  parts?: TextbookPart[];
   chapters: TextbookChapterSummary[];
   pages: TextbookPageSummary[];
   currentPage: TextbookPageContent | null;

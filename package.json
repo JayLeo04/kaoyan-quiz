@@ -19,6 +19,7 @@
     "knowledge:408": "node scripts/import-408-knowledge.mjs",
     "textbook:ds:questions": "node scripts/build-data-structures-exercise-catalog.mjs",
     "textbook:ds": "npm run textbook:ds:questions && node scripts/import-data-structures-textbook.mjs",
+    "textbook:co": "node scripts/import-computer-organization-tang-shuofei-textbook.mjs",
     "textbook:answers:normalize-ids": "node scripts/normalize-data-structures-answer-audit-ids.mjs",
     "textbook:answers:audit": "node scripts/validate-textbook-answer-audits.mjs",
     "textbook:answers:complete": "node scripts/validate-textbook-answer-audits.mjs --require-complete"

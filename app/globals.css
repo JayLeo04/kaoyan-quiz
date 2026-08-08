@@ -1587,6 +1587,7 @@ button.knowledge-comparison-row:hover, button.knowledge-comparison-row.is-select
 .textbook-shelf-card footer a { color: #385f86; font-size: 9px; font-weight: 800; }
 .textbook-shelf-card footer a:first-child { display: flex; align-items: center; gap: 8px; }
 .textbook-shelf-card footer a:first-child b { font-size: 13px; }
+.textbook-shelf-no-practice { color: #777972; font-size: 8px; font-weight: 700; }
 .textbook-shelf-footnote { max-width: 620px; margin: 28px 0 0; color: #777972; font-size: 9px; line-height: 1.6; }
 .textbook-main { height: calc(100svh - 66px); min-height: 0; display: grid; grid-template-columns: 286px minmax(0, 1fr); padding-block: 18px 22px; }
 .textbook-sidebar { min-width: 0; min-height: 0; display: grid; grid-template-rows: auto auto auto minmax(0, 1fr); padding: 24px; overflow: hidden; border: 1px solid var(--line); border-right: 0; background: linear-gradient(150deg, #e4eefc 0%, #f0eee8 66%); }
@@ -1605,11 +1606,27 @@ button.knowledge-comparison-row:hover, button.knowledge-comparison-row.is-select
 .textbook-nav { min-height: 0; display: grid; align-content: start; gap: 2px; margin: 15px -8px 0; padding: 0 8px 4px; overflow-y: auto; scrollbar-width: thin; }
 .textbook-nav a { min-width: 0; color: rgba(23,24,21,.63); }
 .textbook-nav a:hover { color: var(--ink); background: rgba(255,255,255,.45); }
-.textbook-nav .root, .textbook-nav .chapter-link { display: flex; align-items: baseline; justify-content: space-between; gap: 9px; padding: 9px 8px; font-size: 9px; font-weight: 760; }
+.textbook-nav .root { display: flex; align-items: baseline; justify-content: space-between; gap: 9px; padding: 9px 8px; font-size: 9px; font-weight: 760; }
 .textbook-nav .root { margin-bottom: 4px; border-bottom: 1px solid rgba(23,24,21,.14); }
-.textbook-nav .root small, .textbook-nav .chapter-link small { color: #7591ad; font-size: 7px; }
-.textbook-nav .textbook-nav-chapter { display: grid; gap: 1px; padding-bottom: 3px; }
-.textbook-nav .chapter-link { color: #3c5a7c; }
+.textbook-nav .root small { color: #7591ad; font-size: 7px; }
+.textbook-nav-group { display: grid; gap: 1px; padding: 2px 0 5px; }
+.textbook-nav-group-label { display: block; padding: 7px 8px 4px; color: #7591ad; font-size: 7px; font-weight: 800; }
+.textbook-nav-chapter-group { min-width: 0; display: grid; gap: 1px; padding-bottom: 4px; border-top: 1px solid rgba(23,24,21,.11); }
+.textbook-nav-chapter-heading { min-width: 0; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: baseline; gap: 7px; padding: 8px; color: #355576 !important; font-size: 9px; font-weight: 800; line-height: 1.3; }
+.textbook-nav-chapter-heading.current { color: #1f456d !important; background: rgba(255,255,255,.38); }
+.textbook-nav-chapter-heading > small { color: #7591ad; font-size: 7px; white-space: nowrap; }
+.textbook-nav-chapter-heading > span { min-width: 0; }
+.textbook-nav-chapter-heading > b { color: #7c8179; font-size: 7px; font-weight: 750; white-space: nowrap; }
+.textbook-nav-chapter-contents, .textbook-nav-appendix-contents { display: grid; gap: 1px; padding: 0 0 4px 9px; }
+.textbook-nav-appendix-group { border-top: 1px solid rgba(23,24,21,.11); }
+.textbook-nav-entry { display: grid; gap: 1px; }
+.textbook-nav-entry-link { min-width: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: 7px; padding: 7px 8px; color: #3c5a7c !important; font-size: 8px; font-weight: 760; line-height: 1.35; }
+.textbook-nav-entry-link small { color: #7591ad; font-size: 7px; white-space: nowrap; }
+.textbook-nav-entry-link span { min-width: 0; }
+.textbook-nav-entry.kind-part_opener .textbook-nav-entry-link { color: #667d93 !important; font-size: 7px; font-weight: 700; }
+.textbook-nav-entry.kind-part_opener .textbook-nav-entry-link small { color: #8799aa; }
+.textbook-nav-entry.appendix { margin-left: 0; padding-left: 0; border-left: 0; }
+.textbook-nav-entry.appendix .textbook-nav-entry-link { color: #596d7f !important; font-size: 7px; font-weight: 700; }
 .textbook-nav .section-link { display: block; overflow: hidden; padding: 5px 8px; font-size: 8px; line-height: 1.4; text-overflow: ellipsis; white-space: nowrap; }
 .textbook-nav .section-link.depth-2 { padding-left: 17px; }
 .textbook-nav .section-link.depth-3 { padding-left: 27px; color: #76776f; }

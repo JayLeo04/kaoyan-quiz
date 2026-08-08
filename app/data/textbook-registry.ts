@@ -1,4 +1,5 @@
 import dataStructuresTextbookData from "@/app/data/textbook-data-structures.json";
+import computerOrganizationTangShuofeiTextbookData from "@/app/data/textbook-computer-organization-tang-shuofei.json";
 import { applyTextbookAnswerAudits } from "@/app/data/textbook-answer-audit";
 import { dataStructuresAnswerAudits } from "@/app/data/textbook-answer-audits";
 import type {
@@ -34,19 +35,38 @@ const dataStructuresTextbook: TextbookRegistration = {
   },
 };
 
+const computerOrganizationTangShuofeiTextbook: TextbookRegistration = {
+  slug: "computer-organization-tang-shuofei",
+  dataset: computerOrganizationTangShuofeiTextbookData as unknown as TextbookDataset,
+  presentation: {
+    eyebrow: "TEXTBOOK / COMPUTER ORGANIZATION",
+    displayName: "计算机组成原理 教材",
+    edition: "唐朔飞 · 第3版",
+    description: "保留原书正文、页码来源与原始插图裁剪的完整教材阅读版。",
+  },
+};
+
 /**
  * The only place a textbook needs to be registered for the frontend.
  * A new book supplies its generated TextbookDataset, its own public asset namespace,
  * and one entry here; routes, reading, practice, and progress all follow this slug.
  */
-export const textbookCatalog: readonly TextbookRegistration[] = [dataStructuresTextbook];
+export const textbookCatalog: readonly TextbookRegistration[] = [dataStructuresTextbook, computerOrganizationTangShuofeiTextbook];
 
 export function getTextbook(bookSlug: string | undefined) {
   return textbookCatalog.find((textbook) => textbook.slug === bookSlug) || null;
 }
 
 function chapterSummaries(textbook: TextbookRegistration): TextbookChapterSummary[] {
-  return textbook.dataset.chapters.map(({ id, title, questionCount }) => ({ id, title, questionCount }));
+  return textbook.dataset.chapters.map(({ id, title, questionCount, order, kind, parentChapterId, part }) => ({
+    id,
+    title,
+    questionCount,
+    order,
+    kind,
+    parentChapterId,
+    part,
+  }));
 }
 
 function pageSummaries(textbook: TextbookRegistration): TextbookPageSummary[] {
@@ -176,6 +196,7 @@ export function createTextbookReaderPayload(textbook: TextbookRegistration, curr
     ...payloadBase(textbook),
     currentSlug,
     stats: { exerciseQuestions: textbook.dataset.stats.exerciseQuestions },
+    parts: textbook.dataset.parts?.map((part) => ({ ...part })),
     chapters: chapterSummaries(textbook),
     pages: pageSummaries(textbook),
     currentPage: currentPage ? pageContent(currentPage) : null,
@@ -259,4 +280,4 @@ export function createTextbookQuestionPayload(textbook: TextbookRegistration, qu
   };
 }
 
-export { dataStructuresTextbook };
+export { computerOrganizationTangShuofeiTextbook, dataStructuresTextbook };

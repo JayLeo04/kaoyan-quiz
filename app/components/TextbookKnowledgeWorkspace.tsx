@@ -6,7 +6,7 @@ import { AppHeader } from "@/app/components/AppHeader";
 import { KnowledgeVisual } from "@/app/components/knowledge-visuals/KnowledgeVisual";
 import { StudyAnnotationSurface, StudyResourceTools } from "@/app/components/StudyTools";
 import { textbookHref, textbookPracticeHref } from "@/app/data/textbook-routes";
-import type { TextbookPageSummary, TextbookReaderPayload, TextbookReadingContent } from "@/app/data/textbook-types";
+import type { TextbookChapterSummary, TextbookPageSummary, TextbookReaderPayload, TextbookReadingContent } from "@/app/data/textbook-types";
 import {
   readTextbookReaderPreferences,
   writeTextbookReaderPreferences,
@@ -20,9 +20,13 @@ const pageBreakMarker = /<!--\s*textbook-page-break\s*-->/g;
 const sectionHeadingMarker = /<h[23]\b/gi;
 
 function sourceLabel(page: TextbookReadingContent) {
+  const attributes = page.source.attributes;
+  const firstAttribute = (...keys: string[]) => keys.map((key) => attributes[key]).find(Boolean);
   const parts = [];
-  if (page.source.attributes.book_pages) parts.push(`书内页 ${page.source.attributes.book_pages}`);
-  if (page.source.attributes.pdf_pages) parts.push(`PDF ${page.source.attributes.pdf_pages}`);
+  const bookPages = firstAttribute("book_pages", "book_page");
+  const pdfPages = firstAttribute("pdf_pages", "source_pdf_pages", "original_pdf_pages", "physical_pdf_pages", "source_pdf_page", "original_pdf_page", "physical_pdf_page");
+  if (bookPages) parts.push(`书内页 ${bookPages}`);
+  if (pdfPages) parts.push(`PDF ${pdfPages}`);
   return parts.join(" · ") || "保留 OCR 来源标记";
 }
 
@@ -30,6 +34,102 @@ function matchesPage(page: TextbookPageSummary, query: string) {
   const value = query.trim().toLocaleLowerCase();
   if (!value) return true;
   return `${page.title} ${page.summary} ${page.headings.join(" ")}`.toLocaleLowerCase().includes(value);
+}
+
+type NavigationChapter = TextbookChapterSummary & {
+  pages: TextbookPageSummary[];
+};
+
+type TextbookNavigation = {
+  prelude: NavigationChapter[];
+  chapters: NavigationChapter[];
+  appendices: NavigationChapter[];
+  references: NavigationChapter[];
+};
+
+function compareSourceOrder(left: Pick<TextbookChapterSummary, "id" | "order">, right: Pick<TextbookChapterSummary, "id" | "order">) {
+  const orderDifference = (left.order ?? Number.MAX_SAFE_INTEGER) - (right.order ?? Number.MAX_SAFE_INTEGER);
+  return orderDifference || left.id.localeCompare(right.id);
+}
+
+function navigationTitleParts(title: string) {
+  const match = title.match(/^(第\s*\d+\s*(?:篇|章)|附录\s*\d+\s*[A-Za-z]?)(?:\s+|　*)(.*)$/);
+  if (!match) return { label: "", title };
+  return { label: match[1].replace(/\s+/g, ""), title: match[2] || title };
+}
+
+function buildTextbookNavigation(chapters: TextbookChapterSummary[], pages: TextbookPageSummary[]): TextbookNavigation {
+  const chapterEntries = [...chapters]
+    .filter((chapter) => pages.some((page) => page.slug === chapter.id))
+    .sort(compareSourceOrder)
+    .map((chapter) => ({
+      ...chapter,
+      pages: pages.filter((page) => page.slug === chapter.id || page.slug.startsWith(`${chapter.id}/`)),
+    }));
+  const prelude: NavigationChapter[] = [];
+  const orderedChapters: NavigationChapter[] = [];
+  const appendices: NavigationChapter[] = [];
+  const references: NavigationChapter[] = [];
+
+  for (const entry of chapterEntries) {
+    if (entry.kind === "front_matter") prelude.push(entry);
+    else if (entry.kind === "appendix") appendices.push(entry);
+    else if (entry.kind === "references") references.push(entry);
+    else orderedChapters.push(entry);
+  }
+
+  return {
+    prelude,
+    chapters: orderedChapters,
+    appendices,
+    references,
+  };
+}
+
+function navigationEntryMatches(entry: NavigationChapter, visibleIds: Set<string>) {
+  return entry.pages.some((page) => visibleIds.has(page.id));
+}
+
+function TextbookNavigationEntry({
+  entry,
+  textbookSlug,
+  currentSlug,
+  visibleIds,
+  onNavigate,
+}: {
+  entry: NavigationChapter;
+  textbookSlug: string;
+  currentSlug: string;
+  visibleIds: Set<string>;
+  onNavigate: () => void;
+}) {
+  const title = navigationTitleParts(entry.title);
+  const isCurrent = entry.id === currentSlug;
+  const visibleSections = entry.pages.filter((page) => page.slug !== entry.id && visibleIds.has(page.id));
+
+  return (
+    <div className={`textbook-nav-entry${entry.kind === "appendix" ? " appendix" : ""} kind-${entry.kind || "page"}`}>
+      <Link
+        className={isCurrent ? "textbook-nav-entry-link active" : "textbook-nav-entry-link"}
+        href={textbookHref(textbookSlug, entry.id)}
+        onClick={onNavigate}
+        aria-current={isCurrent ? "page" : undefined}
+      >
+        {title.label ? <small>{title.label}</small> : null}
+        <span>{title.title}</span>
+      </Link>
+      {visibleSections.map((page) => (
+        <Link
+          key={page.id}
+          className={`section-link depth-${Math.min(page.depth, 3)} ${page.slug === currentSlug ? "active" : ""}`}
+          href={textbookHref(textbookSlug, page.slug)}
+          onClick={onNavigate}
+        >
+          <span>{page.title}</span>
+        </Link>
+      ))}
+    </div>
+  );
 }
 
 function TextbookArticleContent({ page }: { page: TextbookReadingContent }) {
@@ -93,6 +193,7 @@ export function TextbookKnowledgeWorkspace({ reader }: { reader: TextbookReaderP
   const [preferenceError, setPreferenceError] = useState("");
   const currentIndex = dataset.pages.findIndex((page) => page.slug === currentSlug);
   const currentPage = reader.currentPage;
+  const hasPractice = dataset.stats.exerciseQuestions > 0;
   const previousPage = currentIndex > 0 ? dataset.pages[currentIndex - 1] : null;
   const nextPage = currentIndex >= 0 && currentIndex < dataset.pages.length - 1 ? dataset.pages[currentIndex + 1] : null;
 
@@ -118,11 +219,12 @@ export function TextbookKnowledgeWorkspace({ reader }: { reader: TextbookReaderP
 
   const visiblePages = useMemo(() => pages.filter((page) => matchesPage(page, query)), [pages, query]);
   const visibleIds = useMemo(() => new Set(visiblePages.map((page) => page.id)), [visiblePages]);
-  const knowledgeChapters = dataset.chapters.filter((chapter) => dataset.pages.some((page) => page.slug === chapter.id));
+  const navigation = buildTextbookNavigation(dataset.chapters, pages);
+  const visibleNavigationCount = visiblePages.filter((page) => page.slug).length;
   const condensedPage = currentPage?.condensed;
   const readingMode: TextbookReadingMode = readingModePreference === "condensed" && condensedPage ? "condensed" : "original";
   const chapter = currentPage ? dataset.chapters.find((item) => item.id === currentPage.chapterId) : undefined;
-  const practiceHref = textbookPracticeHref(textbook.slug, chapter?.id);
+  const practiceHref = hasPractice ? textbookPracticeHref(textbook.slug, chapter?.id) : null;
   const learningResource = useMemo<LearningResource>(() => ({
     id: `textbook-page:${textbook.slug}:${currentPage?.id || "missing"}`,
     kind: "textbook-page",
@@ -161,9 +263,9 @@ export function TextbookKnowledgeWorkspace({ reader }: { reader: TextbookReaderP
             <p>{textbook.presentation.eyebrow}</p>
             <h1>{textbook.presentation.displayName}</h1>
             <span>{textbook.presentation.edition}</span>
-            <Link className="textbook-practice-link" href={textbookPracticeHref(textbook)}>
+            {hasPractice ? <Link className="textbook-practice-link" href={textbookPracticeHref(textbook)}>
               <span>刷本书习题</span><b>{dataset.stats.exerciseQuestions}</b>
-            </Link>
+            </Link> : null}
           </div>
 
           <label className="textbook-search">
@@ -171,34 +273,92 @@ export function TextbookKnowledgeWorkspace({ reader }: { reader: TextbookReaderP
             <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索章节、小节或术语" />
           </label>
           <button className="textbook-nav-toggle" type="button" onClick={() => setMobileMenuOpen((open) => !open)}>
-            <span>教材目录 · {visiblePages.length} 篇</span><b>{mobileMenuOpen ? "收起" : "展开"}</b>
+            <span>教材目录 · {visibleNavigationCount} 项</span><b>{mobileMenuOpen ? "收起" : "展开"}</b>
           </button>
           <nav className={`textbook-nav ${mobileMenuOpen ? "mobile-open" : ""}`} aria-label={`${textbook.presentation.displayName}目录`}>
             <Link className={currentPage.slug === "" ? "active root" : "root"} href={textbookHref(textbook)} onClick={() => setMobileMenuOpen(false)}>
               <span>全书目录</span><small>00</small>
             </Link>
-            {knowledgeChapters.map((item, index) => {
-              const pages = dataset.pages.filter((page) => page.slug === item.id || page.slug.startsWith(`${item.id}/`));
-              const visible = !query.trim() || pages.some((page) => visibleIds.has(page.id));
-              if (!visible) return null;
+            {navigation.prelude.filter((entry) => navigationEntryMatches(entry, visibleIds)).length ? (
+              <section className="textbook-nav-group textbook-nav-standalone" aria-label="书前内容">
+                <span className="textbook-nav-group-label">书前内容</span>
+                {navigation.prelude.filter((entry) => navigationEntryMatches(entry, visibleIds)).map((entry) => (
+                  <TextbookNavigationEntry
+                    key={entry.id}
+                    entry={entry}
+                    textbookSlug={textbook.slug}
+                    currentSlug={currentPage.slug}
+                    visibleIds={visibleIds}
+                    onNavigate={() => setMobileMenuOpen(false)}
+                  />
+                ))}
+              </section>
+            ) : null}
+            {navigation.chapters.filter((entry) => navigationEntryMatches(entry, visibleIds)).map((entry) => {
+              const title = navigationTitleParts(entry.title);
+              const sectionCount = entry.pages.filter((page) => page.slug !== entry.id && !page.slug.endsWith("/99-exercises")).length;
+              const visibleSections = entry.pages.filter((page) => page.slug !== entry.id && visibleIds.has(page.id));
+              const chapterIsCurrent = currentPage.chapterId === entry.id;
               return (
-                <section className="textbook-nav-chapter" key={item.id}>
-                  <Link className={currentPage.slug === item.id ? "chapter-link active" : "chapter-link"} href={textbookHref(textbook, item.id)} onClick={() => setMobileMenuOpen(false)}>
-                    <small>{String(index + 1).padStart(2, "0")}</small><span>{item.title}</span>
+                <section className="textbook-nav-chapter-group" key={entry.id}>
+                  <Link
+                    className={`textbook-nav-chapter-heading${currentPage.slug === entry.id ? " active" : chapterIsCurrent ? " current" : ""}`}
+                    href={textbookHref(textbook.slug, entry.id)}
+                    onClick={() => setMobileMenuOpen(false)}
+                    aria-current={currentPage.slug === entry.id ? "page" : undefined}
+                  >
+                    {title.label ? <small>{title.label}</small> : null}
+                    <span>{title.title}</span>
+                    {sectionCount ? <b>{sectionCount} 节</b> : null}
                   </Link>
-                  {pages.filter((page) => page.slug !== item.id && visibleIds.has(page.id)).map((page) => (
-                    <Link
-                      key={page.id}
-                      className={`section-link depth-${Math.min(page.depth, 3)} ${page.id === currentPage.id ? "active" : ""}`}
-                      href={textbookHref(textbook, page.slug)}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <span>{page.title}</span>
-                    </Link>
-                  ))}
+                  <div className="textbook-nav-chapter-contents">
+                    {visibleSections.map((page) => (
+                      <Link
+                        key={page.id}
+                        className={`section-link depth-${Math.min(page.depth, 3)} ${page.slug === currentPage.slug ? "active" : ""}`}
+                        href={textbookHref(textbook.slug, page.slug)}
+                        onClick={() => setMobileMenuOpen(false)}
+                        aria-current={page.slug === currentPage.slug ? "page" : undefined}
+                      >
+                        <span>{page.title}</span>
+                      </Link>
+                    ))}
+                  </div>
                 </section>
               );
             })}
+            {navigation.appendices.filter((entry) => navigationEntryMatches(entry, visibleIds)).length ? (
+              <section className="textbook-nav-group textbook-nav-appendix-group" aria-label="附录">
+                <span className="textbook-nav-group-label">附录 · {navigation.appendices.length} 项</span>
+                <div className="textbook-nav-appendix-contents">
+                  {navigation.appendices.filter((entry) => navigationEntryMatches(entry, visibleIds)).map((entry) => (
+                    <TextbookNavigationEntry
+                      key={entry.id}
+                      entry={entry}
+                      textbookSlug={textbook.slug}
+                      currentSlug={currentPage.slug}
+                      visibleIds={visibleIds}
+                      onNavigate={() => setMobileMenuOpen(false)}
+                    />
+                  ))}
+                </div>
+              </section>
+            ) : null}
+            {navigation.references.filter((entry) => navigationEntryMatches(entry, visibleIds)).length ? (
+              <section className="textbook-nav-group textbook-nav-standalone" aria-label="参考资料">
+                <span className="textbook-nav-group-label">参考资料</span>
+                {navigation.references.filter((entry) => navigationEntryMatches(entry, visibleIds)).map((entry) => (
+                  <TextbookNavigationEntry
+                    key={entry.id}
+                    entry={entry}
+                    textbookSlug={textbook.slug}
+                    currentSlug={currentPage.slug}
+                    visibleIds={visibleIds}
+                    onNavigate={() => setMobileMenuOpen(false)}
+                  />
+                ))}
+              </section>
+            ) : null}
           </nav>
         </aside>
 
@@ -249,10 +409,10 @@ export function TextbookKnowledgeWorkspace({ reader }: { reader: TextbookReaderP
                     {preferenceError ? <span className="textbook-version-error" role="alert">{preferenceError}</span> : null}
                   </div>
                 ) : null}
-                {chapter ? <Link className="textbook-inline-practice" href={practiceHref}>本章练习 <b>{chapter.questionCount}</b> →</Link> : null}
+                {hasPractice && chapter && practiceHref ? <Link className="textbook-inline-practice" href={practiceHref}>本章练习 <b>{chapter.questionCount}</b> →</Link> : null}
               </div>
             </header>
-            <StudyResourceTools resource={learningResource} practiceHref={chapter ? practiceHref : null} practiceLabel={chapter ? `做本章题目 · ${chapter.questionCount} 道` : "去做教材习题"} />
+            <StudyResourceTools resource={learningResource} practiceHref={chapter ? practiceHref : null} practiceLabel={hasPractice ? (chapter ? `做本章题目 · ${chapter.questionCount} 道` : "去做教材习题") : undefined} />
             <StudyAnnotationSurface resource={annotationResource} contentKey={`${currentPage.id}:${readingMode}:${displayPage.html.length}`} className="textbook-annotation-surface">
               <TextbookArticleContent page={displayPage} />
             </StudyAnnotationSurface>
@@ -272,7 +432,7 @@ export function TextbookKnowledgeWorkspace({ reader }: { reader: TextbookReaderP
                   : "按章节与小节保留原始 Markdown 结构。"}
               </p>
             </section>
-            {chapter ? <Link href={practiceHref} className="textbook-context-practice">去做本章题目 <b>→</b></Link> : null}
+            {hasPractice && chapter && practiceHref ? <Link href={practiceHref} className="textbook-context-practice">去做本章题目 <b>→</b></Link> : null}
             <section>
               <span>PAGE OUTLINE</span>
               <strong>本页小节</strong>

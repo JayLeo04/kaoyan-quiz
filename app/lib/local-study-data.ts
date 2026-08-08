@@ -35,6 +35,7 @@ export type LocalStudyBackup = {
 export const PROGRESS_STORAGE_KEY = "yanshua-408-progress-v1";
 export const QUESTION_NOTES_STORAGE_KEY = "yanshua-408-question-notes-v1";
 export const MAX_QUESTION_NOTE_LENGTH = 50_000;
+const RETIRED_WORD_PROGRESS_STORAGE_KEY = "yanshua-kaoyan-word-progress-v1";
 
 const MAX_TRACKED_QUESTIONS = 10_000;
 const MAX_NOTES = 2_000;
@@ -110,6 +111,11 @@ function parseStoredValue(key: string) {
 
 export function readLocalStudySnapshot(): LocalStudySnapshot {
   if (typeof window === "undefined") return EMPTY_LOCAL_STUDY_SNAPSHOT;
+  try {
+    window.localStorage.removeItem(RETIRED_WORD_PROGRESS_STORAGE_KEY);
+  } catch {
+    // Storage may be unavailable; the retired feature remains inaccessible either way.
+  }
   return {
     progress: normalizeProgress(parseStoredValue(PROGRESS_STORAGE_KEY)),
     notes: normalizeQuestionNotes(parseStoredValue(QUESTION_NOTES_STORAGE_KEY)),
@@ -124,6 +130,7 @@ export function writeLocalStudySnapshot(value: LocalStudySnapshot) {
     learning: normalizeLocalLearningLibrary(value.learning),
   };
   try {
+    window.localStorage.removeItem(RETIRED_WORD_PROGRESS_STORAGE_KEY);
     window.localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(snapshot.progress));
     if (Object.keys(snapshot.notes).length) window.localStorage.setItem(QUESTION_NOTES_STORAGE_KEY, JSON.stringify(snapshot.notes));
     else window.localStorage.removeItem(QUESTION_NOTES_STORAGE_KEY);
@@ -149,11 +156,11 @@ export function createLocalStudyBackup(value: LocalStudySnapshot): LocalStudyBac
 }
 
 export function parseLocalStudyBackup(value: unknown): LocalStudySnapshot | null {
-  if (!isRecord(value) || value.format !== "yanshua-408-local-backup" || (value.version !== 1 && value.version !== 2) || !isRecord(value.data)) return null;
+  if (!isRecord(value) || value.format !== "yanshua-408-local-backup" || (value.version !== 1 && value.version !== 2 && value.version !== 3) || !isRecord(value.data)) return null;
   if (!("progress" in value.data) || !("notes" in value.data)) return null;
   return {
     progress: normalizeProgress(value.data.progress),
     notes: normalizeQuestionNotes(value.data.notes),
-    learning: normalizeLocalLearningLibrary(value.version === 2 ? value.data.learning : null),
+    learning: normalizeLocalLearningLibrary(value.version === 2 || value.version === 3 ? value.data.learning : null),
   };
 }

@@ -18,8 +18,9 @@ export function TextbookShelf({ unavailableBookSlug }: { unavailableBookSlug?: s
         {unavailableBookSlug ? <p className="textbook-shelf-notice">未找到“{unavailableBookSlug}”；可从已收录教材继续学习。</p> : null}
 
         <section className="textbook-shelf-grid" aria-label="已收录教材">
-          {textbookCatalog.map((textbook, index) => (
-            <article className="textbook-shelf-card" key={textbook.slug}>
+          {textbookCatalog.map((textbook, index) => {
+            const hasPractice = textbook.dataset.stats.exerciseQuestions > 0;
+            return <article className="textbook-shelf-card" key={textbook.slug}>
               <div className="textbook-shelf-card-top">
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <b>已收录</b>
@@ -34,10 +35,10 @@ export function TextbookShelf({ unavailableBookSlug }: { unavailableBookSlug?: s
               </div>
               <footer>
                 <Link href={textbookHref(textbook)}>阅读教材 <b>→</b></Link>
-                <Link href={textbookPracticeHref(textbook)}>刷题</Link>
+                {hasPractice ? <Link href={textbookPracticeHref(textbook)}>刷题</Link> : <span className="textbook-shelf-no-practice">正文已导入</span>}
               </footer>
             </article>
-          ))}
+          })}
         </section>
 
         <p className="textbook-shelf-footnote">后续教材只需注册独立数据集与素材命名空间，即可自动使用同一套阅读与刷题页面。</p>
